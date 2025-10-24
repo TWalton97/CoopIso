@@ -10,17 +10,29 @@ public class PlayerController : MonoBehaviour
     Rigidbody _rigidbody;
     private HealthController HealthController;
 
+    [SerializeField] private LayerMask groundLayer;
+
+    [SerializeField] private Hitbox _basicAttackHitbox;
+    private WeaponController weaponController;
+    private AbilityController abilityController;
+    private Vector3 mousePosOnGround;
+
     private void Awake()
     {
         _playerInputController = GetComponent<PlayerInputController>();
         _rigidbody = GetComponent<Rigidbody>();
         HealthController = GetComponent<HealthController>();
+        weaponController = GetComponent<WeaponController>();
+        abilityController = GetComponent<AbilityController>();
     }
 
     private void OnEnable()
     {
         _playerInputController.OnMovePerformed += Move;
         _playerInputController.OnJumpPerformed += Jump;
+        _playerInputController.OnBasicAttackPerformed += BasicAttack;
+        _playerInputController.OnMouseMoved += RotateTowardsMouse;
+        _playerInputController.OnAbility1Performed += Ability1;
 
         HealthController.OnDie += Die;
     }
@@ -29,6 +41,9 @@ public class PlayerController : MonoBehaviour
     {
         _playerInputController.OnMovePerformed -= Move;
         _playerInputController.OnJumpPerformed -= Jump;
+        _playerInputController.OnBasicAttackPerformed -= BasicAttack;
+        _playerInputController.OnMouseMoved -= RotateTowardsMouse;
+        _playerInputController.OnAbility1Performed -= Ability1;
 
         HealthController.OnDie -= Die;
     }
@@ -54,7 +69,33 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log(gameObject.name + " has died");
+
+    }
+
+    private void BasicAttack()
+    {
+        weaponController.CallAttack(transform, transform.forward);
+        //_basicAttackHitbox.ActivateHitbox(0.2f);
+    }
+
+    private void RotateTowardsMouse(Vector2 mousePos)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        {
+            Vector3 hitPoint = hit.point;
+            Vector3 updatedHitPoint = new Vector3(hitPoint.x, transform.position.y, hitPoint.z);
+            mousePosOnGround = updatedHitPoint;
+            Vector3 dirToPoint = (updatedHitPoint - transform.position).normalized;
+            transform.LookAt(transform.position + dirToPoint);
+        }
+    }
+
+    private void Ability1()
+    {
+        abilityController.CallAbility(mousePosOnGround);
     }
 
     #region Debug

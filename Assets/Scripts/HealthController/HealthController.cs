@@ -17,7 +17,7 @@ public class HealthController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damageAmount)
     {
-        CurrentHealth -= damageAmount;
+        CurrentHealth = Mathf.Clamp(CurrentHealth - damageAmount, 0, MaximumHealth);
         OnTakeDamage?.Invoke(damageAmount);
 
         if (CurrentHealth <= 0)
@@ -42,11 +42,12 @@ public class HealthController : MonoBehaviour, IDamageable
 
     public void Die()
     {
+        Debug.Log(gameObject.name + " has died");
         OnDie?.Invoke();
     }
 
     public void Heal(int healAmount)
     {
-        throw new NotImplementedException();
+
     }
 }
