@@ -20,4 +20,19 @@ public class BasicEnemyController : MonoBehaviour
     {
         agent.SetDestination(target.transform.position);
     }
+
+    private void OnEnable()
+    {
+        HealthController.OnDie += Die;
+    }
+
+    private void OnDisable()
+    {
+        HealthController.OnDie -= Die;
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
 }

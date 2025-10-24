@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     private void Ability1()
     {
-        abilityController.CallAbility(mousePosOnGround);
+        abilityController.CallAbility(mousePosOnGround, transform);
     }
 
     #region Debug

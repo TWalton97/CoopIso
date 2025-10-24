@@ -12,7 +12,7 @@ public class BaseAbility : AbilitySO
 
     }
 
-    public override void ActivateAbility(Vector3 pos)
+    public override void ActivateAbility(Vector3 pos, Transform transform)
     {
 
     }

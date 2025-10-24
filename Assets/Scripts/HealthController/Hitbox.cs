@@ -41,6 +41,7 @@ public class Hitbox : MonoBehaviour
             damageables.Add(damageable);
             damageable.TakeDamage(_damage);
             OnTargetDamaged?.Invoke();
+            Destroy(gameObject);
         }
     }
 

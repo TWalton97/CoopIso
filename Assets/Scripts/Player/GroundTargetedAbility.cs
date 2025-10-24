@@ -5,7 +5,7 @@ public class GroundTargetedAbility : BaseAbility
 {
     public Hitbox hitbox;
 
-    public override void ActivateAbility(Vector3 pos)
+    public override void ActivateAbility(Vector3 pos, Transform transform)
     {
         Hitbox _hitbox = Instantiate(hitbox, pos, Quaternion.identity);
         _hitbox.ActivateHitbox(0.2f);

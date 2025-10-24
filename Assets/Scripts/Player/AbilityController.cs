@@ -4,9 +4,9 @@ public class AbilityController : MonoBehaviour
 {
     public AbilitySO ability;
 
-    public void CallAbility(Vector3 pos)
+    public void CallAbility(Vector3 pos, Transform transform)
     {
-        ability.ActivateAbility(pos);
+        ability.ActivateAbility(pos, transform);
     }
 
 }
