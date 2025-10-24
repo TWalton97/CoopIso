@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInputController), typeof(Rigidbody))]
+[RequireComponent(typeof(PlayerInputController), typeof(Rigidbody), typeof(HealthController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
@@ -8,23 +8,29 @@ public class PlayerController : MonoBehaviour
 
     PlayerInputController _playerInputController;
     Rigidbody _rigidbody;
+    private HealthController HealthController;
 
     private void Awake()
     {
         _playerInputController = GetComponent<PlayerInputController>();
         _rigidbody = GetComponent<Rigidbody>();
+        HealthController = GetComponent<HealthController>();
     }
 
     private void OnEnable()
     {
         _playerInputController.OnMovePerformed += Move;
         _playerInputController.OnJumpPerformed += Jump;
+
+        HealthController.OnDie += Die;
     }
 
     private void OnDisable()
     {
         _playerInputController.OnMovePerformed -= Move;
         _playerInputController.OnJumpPerformed -= Jump;
+
+        HealthController.OnDie -= Die;
     }
 
     public void Move(Vector2 moveDir)
@@ -45,6 +51,19 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
     }
+
+    private void Die()
+    {
+        Debug.Log(gameObject.name + " has died");
+    }
+
+    #region Debug
+    [ContextMenu("Take Damage")]
+    public void TakeDamageTest()
+    {
+        HealthController.TakeDamage(1);
+    }
+    #endregion
 
 
 }
