@@ -1,51 +1,67 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInputController), typeof(Rigidbody), typeof(HealthController))]
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(PlayerInputController), typeof(Rigidbody))]
+public class PlayerController : BaseUnitController
 {
-    [SerializeField] private float _movementSpeed;
-    [SerializeField] private float _jumpForce;
+    public float _movementSpeed;
+    public float _jumpForce;
 
-    PlayerInputController _playerInputController;
-    Rigidbody _rigidbody;
-    private HealthController HealthController;
+    PlayerInputController PlayerInputController;
+    public Rigidbody Rigidbody;
+    public LayerMask GroundLayer;
+    private Animator Animator;
 
-    [SerializeField] private LayerMask groundLayer;
+    private WeaponController _weaponController;
+    private AbilityController _abilityController;
+    private ResourceController _resourceController;
 
-    [SerializeField] private Hitbox _basicAttackHitbox;
-    private WeaponController weaponController;
-    private AbilityController abilityController;
-    private Vector3 mousePosOnGround;
+    private Vector3 _mousePosOnGround;
 
-    private void Awake()
+    public override void Awake()
     {
-        _playerInputController = GetComponent<PlayerInputController>();
-        _rigidbody = GetComponent<Rigidbody>();
-        HealthController = GetComponent<HealthController>();
-        weaponController = GetComponent<WeaponController>();
-        abilityController = GetComponent<AbilityController>();
+        base.Awake();
+
+        PlayerInputController = GetComponent<PlayerInputController>();
+        Rigidbody = GetComponent<Rigidbody>();
+        Animator = GetComponentInChildren<Animator>();
+        _weaponController = GetComponent<WeaponController>();
+        _abilityController = GetComponent<AbilityController>();
+        _resourceController = GetComponent<ResourceController>();
     }
 
-    private void OnEnable()
-    {
-        _playerInputController.OnMovePerformed += Move;
-        _playerInputController.OnJumpPerformed += Jump;
-        _playerInputController.OnBasicAttackPerformed += BasicAttack;
-        _playerInputController.OnMouseMoved += RotateTowardsMouse;
-        _playerInputController.OnAbility1Performed += Ability1;
+    public void At(StateMachine stateMachine, IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
+    public void Any(StateMachine stateMachine, IState to, IPredicate condition) => stateMachine.AddAnyTransition(to, condition);
 
-        HealthController.OnDie += Die;
+    public override void OnEnable()
+    {
+        base.OnEnable();
+
+        PlayerInputController.OnMovePerformed += Move;
+        PlayerInputController.OnJumpPerformed += Jump;
+        PlayerInputController.OnBasicAttackPerformed += BasicAttack;
+        PlayerInputController.OnMouseMoved += RotateTowardsMouse;
+        PlayerInputController.OnAbility1Performed += Ability1;
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
-        _playerInputController.OnMovePerformed -= Move;
-        _playerInputController.OnJumpPerformed -= Jump;
-        _playerInputController.OnBasicAttackPerformed -= BasicAttack;
-        _playerInputController.OnMouseMoved -= RotateTowardsMouse;
-        _playerInputController.OnAbility1Performed -= Ability1;
+        base.OnEnable();
 
-        HealthController.OnDie -= Die;
+        PlayerInputController.OnMovePerformed -= Move;
+        PlayerInputController.OnJumpPerformed -= Jump;
+        PlayerInputController.OnBasicAttackPerformed -= BasicAttack;
+        PlayerInputController.OnMouseMoved -= RotateTowardsMouse;
+        PlayerInputController.OnAbility1Performed -= Ability1;
+    }
+
+    private void Update()
+    {
+        //Animator.SetFloat("MovementSpeed", Rigidbody.velocity.magnitude * Mathf.Sign(Rigidbody.velocity.z) / _movementSpeed);
+        Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity);
+        Animator.SetFloat("VelocityX", Mathf.Clamp(localVelocity.x, -1, 1));
+        Animator.SetFloat("VelocityZ", Mathf.Clamp(localVelocity.z, -1, 1));
     }
 
     public void Move(Vector2 moveDir)
@@ -57,24 +73,26 @@ public class PlayerController : MonoBehaviour
         Vector3 rotatedInputDirection = rotation * inputDirection;
 
         Vector3 newVel = rotatedInputDirection * _movementSpeed;
-        newVel.y = _rigidbody.velocity.y;
+        newVel.y = Rigidbody.velocity.y;
 
-        _rigidbody.velocity = newVel;
+        Rigidbody.velocity = newVel;
     }
 
     public void Jump()
     {
-        _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
+        Rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
     }
 
-    private void Die()
+    public override void Die()
     {
-
+        base.Die();
     }
 
     private void BasicAttack()
     {
-        weaponController.CallAttack(transform, transform.forward);
+        Animator.SetInteger("AttackInputs", Animator.GetInteger("AttackInputs") + 1);
+        //Animator.SetTrigger("HorizontalAttack");
+        _weaponController.CallAttack(transform, transform.forward);
         //_basicAttackHitbox.ActivateHitbox(0.2f);
     }
 
@@ -83,11 +101,11 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, GroundLayer))
         {
             Vector3 hitPoint = hit.point;
             Vector3 updatedHitPoint = new Vector3(hitPoint.x, transform.position.y, hitPoint.z);
-            mousePosOnGround = updatedHitPoint;
+            _mousePosOnGround = updatedHitPoint;
             Vector3 dirToPoint = (updatedHitPoint - transform.position).normalized;
             transform.LookAt(transform.position + dirToPoint);
         }
@@ -95,7 +113,22 @@ public class PlayerController : MonoBehaviour
 
     private void Ability1()
     {
-        abilityController.CallAbility(mousePosOnGround, transform);
+        if (_resourceController.resource.RemoveResource(_abilityController.ability.AbilityCost))
+        {
+            _abilityController.CallAbility(_mousePosOnGround, transform);
+        }
     }
 
+    private IEnumerator RegenerateMana()
+    {
+        yield return new WaitForSeconds(1f);
+        _resourceController.resource.AddResource(1f);
+        StartCoroutine(RegenerateMana());
+        yield return null;
+    }
+
+    public void ReduceAttackCounter()
+    {
+        Animator.SetInteger("AttackInputs", Mathf.Clamp(Animator.GetInteger("AttackInputs") - 1, 0, 1));
+    }
 }

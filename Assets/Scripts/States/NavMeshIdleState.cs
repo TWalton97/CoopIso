@@ -33,5 +33,4 @@ public class NavMeshIdleState : BaseState
         Vector3 newPos = NavMeshUtils.RandomNavSphere(navMeshController.transform.position, WANDER_RADIUS, -1);
         navMeshController.Agent.SetDestination(newPos);
     }
-
 }

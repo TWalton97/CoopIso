@@ -16,4 +16,9 @@ public class BaseAbility : AbilitySO
     {
 
     }
+
+    public override bool CanActivate()
+    {
+        return true;
+    }
 }

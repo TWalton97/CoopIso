@@ -7,9 +7,13 @@ public class BaseNavMeshUnitController : BaseUnitController
     public NavMeshAgent Agent;
     protected StateMachine StateMachine;
     protected Targeter Targeter;
+    public AttackController AttackController;
+    [SerializeField] private Animator Animator;
 
     [ReadOnly] public BaseUnitController Target;
     [ReadOnly] public string StateName;
+
+    protected bool attackCompleted = false;
 
     public override void Awake()
     {
@@ -18,6 +22,8 @@ public class BaseNavMeshUnitController : BaseUnitController
         Agent = GetComponent<NavMeshAgent>();
         StateMachine = new StateMachine();
         Targeter = GetComponent<Targeter>();
+        AttackController = GetComponent<AttackController>();
+        Animator = GetComponentInChildren<Animator>();
     }
 
     public override void OnEnable()
@@ -41,6 +47,8 @@ public class BaseNavMeshUnitController : BaseUnitController
     public virtual void Update()
     {
         StateMachine.Update();
+
+        Animator.SetFloat("Velocity", Agent.velocity.magnitude / Agent.speed);
     }
 
     public virtual void FixedUpdate()
@@ -86,6 +94,20 @@ public class BaseNavMeshUnitController : BaseUnitController
     {
         Target = controller;
     }
+
+    public void CompleteAttack()
+    {
+        attackCompleted = true;
+        Invoke(nameof(ResetBool), 2f);
+    }
+
+    public void Attack()
+    {
+        Animator.SetTrigger("Attack");
+    }
+
+    private void ResetBool() => attackCompleted = false;
+
 }
 
 

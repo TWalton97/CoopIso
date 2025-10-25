@@ -11,6 +11,7 @@ public class Hitbox : MonoBehaviour
     public Action OnTargetDamaged;
     private Collider[] colls;
     private BaseUnitController _controller;
+    public bool DestroyHitboxOnHit = true;
 
     public void Init(int damage, LayerMask targetLayer, BaseUnitController controller)
     {
@@ -43,18 +44,19 @@ public class Hitbox : MonoBehaviour
             damageables.Add(damageable);
             damageable.TakeDamage(_damage, _controller);
             OnTargetDamaged?.Invoke();
-            Destroy(gameObject);
+            if (DestroyHitboxOnHit) Destroy(gameObject);
         }
     }
 
-    public void ActivateHitbox(float duration)
+    public void ActivateHitbox(int damage)
     {
+        _damage = damage;
         foreach (Collider coll in colls)
         {
             coll.enabled = true;
         }
 
-        Invoke(nameof(DeactivateHitbox), duration);
+        Invoke(nameof(DeactivateHitbox), 0.2f);
     }
 
     private void DeactivateHitbox()

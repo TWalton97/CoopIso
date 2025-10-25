@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c68ce3e4a50c849b047c11e54857f6, type: 3}
   m_Name: GroundTargetedAbility
   m_EditorClassIdentifier: 
+  AbilityCost: 20
   hitbox: {fileID: 7679281387949893350, guid: 0c333e6d1f8d29b4d9fa5d7010043bd9, type: 3}

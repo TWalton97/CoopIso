@@ -8,6 +8,7 @@ public class WalkerController : BaseNavMeshUnitController
 
     [SerializeField] private NavMeshIdleState idleState;
     [SerializeField] private NavMeshChaseState chaseState;
+    [SerializeField] private NavMeshAttackState attackState;
 
     public override void Awake()
     {
@@ -15,9 +16,12 @@ public class WalkerController : BaseNavMeshUnitController
 
         idleState = new NavMeshIdleState(this);
         chaseState = new NavMeshChaseState(this);
+        attackState = new NavMeshAttackState(this);
 
         At(idleState, chaseState, new FuncPredicate(() => HasTarget()));
         At(chaseState, idleState, new FuncPredicate(() => !HasTarget()));
+        At(chaseState, attackState, new FuncPredicate(() => Agent.remainingDistance < 2f && attackCompleted == false));
+        At(attackState, idleState, new FuncPredicate(() => attackCompleted = true));
 
         StateMachine.SetState(idleState);
         UpdateStateName();
