@@ -6,7 +6,7 @@ public class HealthController : MonoBehaviour, IDamageable
     public int MaximumHealth = 10;
     public int CurrentHealth;
 
-    public Action<int> OnTakeDamage;
+    public Action<int, BaseUnitController> OnTakeDamage;
     public Action<int> OnHeal;
     public Action OnDie;
 
@@ -15,10 +15,10 @@ public class HealthController : MonoBehaviour, IDamageable
         CurrentHealth = MaximumHealth;
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(int damageAmount, BaseUnitController controller)
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth - damageAmount, 0, MaximumHealth);
-        OnTakeDamage?.Invoke(damageAmount);
+        OnTakeDamage?.Invoke(damageAmount, controller);
 
         if (CurrentHealth <= 0)
         {
@@ -44,10 +44,5 @@ public class HealthController : MonoBehaviour, IDamageable
     {
         Debug.Log(gameObject.name + " has died");
         OnDie?.Invoke();
-    }
-
-    public void Heal(int healAmount)
-    {
-
     }
 }

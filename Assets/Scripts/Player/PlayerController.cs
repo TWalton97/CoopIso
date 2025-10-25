@@ -98,13 +98,4 @@ public class PlayerController : MonoBehaviour
         abilityController.CallAbility(mousePosOnGround, transform);
     }
 
-    #region Debug
-    [ContextMenu("Take Damage")]
-    public void TakeDamageTest()
-    {
-        HealthController.TakeDamage(1);
-    }
-    #endregion
-
-
 }

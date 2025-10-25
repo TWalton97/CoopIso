@@ -10,11 +10,13 @@ public class Hitbox : MonoBehaviour
     private LayerMask _targetLayer;
     public Action OnTargetDamaged;
     private Collider[] colls;
+    private BaseUnitController _controller;
 
-    public void Init(int damage, LayerMask targetLayer)
+    public void Init(int damage, LayerMask targetLayer, BaseUnitController controller)
     {
         _damage = damage;
         _targetLayer = targetLayer;
+        _controller = controller;
     }
 
     private void Awake()
@@ -39,7 +41,7 @@ public class Hitbox : MonoBehaviour
             if (damageables.Contains(damageable)) return;
 
             damageables.Add(damageable);
-            damageable.TakeDamage(_damage);
+            damageable.TakeDamage(_damage, _controller);
             OnTargetDamaged?.Invoke();
             Destroy(gameObject);
         }
