@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2546661760642592051, guid: b06d736dd31cb7f4a9c851ddb8ac65a4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4115870468328907784, guid: b06d736dd31cb7f4a9c851ddb8ac65a4, type: 3}
       propertyPath: m_Name
       value: Zombie2
@@ -56,6 +60,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: b67fd0deae4c57945bef8d0f2e52bc07, type: 2}
+    - target: {fileID: 7682214870457289303, guid: b06d736dd31cb7f4a9c851ddb8ac65a4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142376694814429637, guid: b06d736dd31cb7f4a9c851ddb8ac65a4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

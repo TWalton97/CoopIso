@@ -55,7 +55,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnExit()
     {
-        player._movementSpeed = startingSpeed;
+        player._movementSpeed = player._maximumMovementSpeed;
     }
 
     public bool CanAttack()

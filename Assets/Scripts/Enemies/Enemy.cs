@@ -7,9 +7,14 @@ public class Enemy : Entity
     [SerializeField] NavMeshAgent agent;
     [SerializeField] PlayerDetector playerDetector;
     [SerializeField] Animator animator;
+    public Collider coll;
+    public GameObject ragdoll;
+    public GameObject body;
 
     public float wanderSpeed;
     public float chaseSpeed;
+
+    public float rotationSpeed;
 
     [SerializeField] float wanderRadius = 10f;
     [SerializeField] float timeBetweenAttacks = 1f;
@@ -20,11 +25,18 @@ public class Enemy : Entity
     CountdownTimer attackTimer;
 
     private bool IsDead = false;
+    [HideInInspector] public bool IsStaggered = false;
+
+    [ReadOnly] public string StateName;
 
     public override void Awake()
     {
         base.Awake();
         hitbox = GetComponentInChildren<Hitbox>();
+        if (!agent.isOnNavMesh)
+        {
+            agent.enabled = false;
+        }
     }
 
     void Start()
@@ -37,25 +49,35 @@ public class Enemy : Entity
         var chaseState = new EnemyChaseState(this, animator, agent, playerDetector.Player);
         var attackState = new EnemyAttackState(this, animator, agent, playerDetector.Player);
         var deathState = new EnemyDieState(this, animator, agent, transform);
+        var staggerStage = new EnemyStaggerState(this, animator, agent, transform);
 
         At(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
         At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
         At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
-        At(attackState, chaseState, new FuncPredicate(() => !playerDetector.CanAttackPlayer()));
+        At(attackState, chaseState, new FuncPredicate(() => !playerDetector.CanAttackPlayer() && attackState.AttackCompleted));
+
+        //Any(staggerStage, new FuncPredicate(() => IsStaggered && !IsDead));
+        //At(staggerStage, chaseState, new FuncPredicate(() => !IsStaggered && !IsDead));
 
         Any(deathState, new FuncPredicate(() => IsDead));
 
         stateMachine.SetState(wanderState);
+
+        stateMachine.OnStateChanged += UpdateStateName;
     }
 
     private void OnEnable()
     {
+        healthController.OnTakeDamage += Stagger;
         healthController.OnDie += () => IsDead = true;
     }
 
     private void OnDisable()
     {
+        healthController.OnTakeDamage -= Stagger;
         healthController.OnDie -= () => IsDead = true;
+
+        stateMachine.OnStateChanged -= UpdateStateName;
     }
 
     void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
@@ -82,6 +104,17 @@ public class Enemy : Entity
 
     public override void Die()
     {
-        Destroy(gameObject);
+        Destroy(gameObject, 5);
+    }
+
+    private void Stagger(int damage, BaseUnitController controller)
+    {
+        IsStaggered = true;
+    }
+
+    private void UpdateStateName()
+    {
+        Debug.Log("Updating state name");
+        StateName = stateMachine.current.State.ToString();
     }
 }

@@ -12,7 +12,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
     public Action OnHealthChanged;
 
     [Header("Movement")]
-    public PlayerController PlayerController;
+    public NewPlayerController PlayerController;
     public float MovementSpeed;
     public float CurrentSpeed;
 
@@ -54,23 +54,27 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
     private void UpdateHealthStats(int amount, BaseUnitController controller)
     {
+        if (HealthController == null) return;
         MaximumHealth = HealthController.MaximumHealth;
         CurrentHealth = HealthController.CurrentHealth;
     }
 
     private void UpdateMovementSpeed()
     {
+        if (PlayerController == null) return;
         MovementSpeed = PlayerController._movementSpeed;
         CurrentSpeed = Mathf.Floor(PlayerController.Rigidbody.velocity.magnitude);
     }
 
     private void UpdateAttackStats()
     {
+        if (WeaponController == null) return;
         AttackCooldown = WeaponController.attack.attackCooldown;
     }
 
     private void UpdateResourceStats()
     {
+        if (ResourceController == null) return;
         ResourceType = ResourceController.resource.resourceType;
         ResourceMax = ResourceController.resource.resourceMax;
         ResourceCurrent = ResourceController.resource.resourceCurrent;

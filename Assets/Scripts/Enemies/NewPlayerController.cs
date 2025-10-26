@@ -9,6 +9,7 @@ public class NewPlayerController : Entity
     public NewWeaponController weaponController;
 
     public float _movementSpeed;
+    [ReadOnly] public float _maximumMovementSpeed;
     public float _jumpForce;
     public float attackCooldown;
     public float comboWindow;
@@ -26,6 +27,7 @@ public class NewPlayerController : Entity
     {
         base.Awake();
         attackCooldownTimer = new CountdownTimer(attackCooldown);
+        _maximumMovementSpeed = _movementSpeed;
     }
     void Start()
     {
