@@ -17,7 +17,6 @@ public class PlayerStatsBlackboard : MonoBehaviour
     public float CurrentSpeed;
 
     [Header("Attack")]
-    public WeaponController WeaponController;
     public float AttackCooldown;
 
     [Header("Resources")]
@@ -31,7 +30,6 @@ public class PlayerStatsBlackboard : MonoBehaviour
     {
         UpdateHealthStats(0, null);
         UpdateMovementSpeed();
-        UpdateAttackStats();
         UpdateResourceStats();
     }
 
@@ -52,7 +50,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         ResourceController.resource.OnResourceValueChanged -= UpdateResourceStats;
     }
 
-    private void UpdateHealthStats(int amount, BaseUnitController controller)
+    private void UpdateHealthStats(int amount, Entity controller)
     {
         if (HealthController == null) return;
         MaximumHealth = HealthController.MaximumHealth;
@@ -66,11 +64,6 @@ public class PlayerStatsBlackboard : MonoBehaviour
         CurrentSpeed = Mathf.Floor(PlayerController.Rigidbody.velocity.magnitude);
     }
 
-    private void UpdateAttackStats()
-    {
-        if (WeaponController == null) return;
-        AttackCooldown = WeaponController.attack.attackCooldown;
-    }
 
     private void UpdateResourceStats()
     {

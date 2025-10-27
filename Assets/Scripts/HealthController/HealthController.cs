@@ -6,7 +6,7 @@ public class HealthController : MonoBehaviour, IDamageable
     public int MaximumHealth = 10;
     public int CurrentHealth;
 
-    public Action<int, BaseUnitController> OnTakeDamage;
+    public Action<int, Entity> OnTakeDamage;
     public Action<int> OnHeal;
     public Action OnDie;
 
@@ -17,7 +17,7 @@ public class HealthController : MonoBehaviour, IDamageable
         CurrentHealth = MaximumHealth;
     }
 
-    public void TakeDamage(int damageAmount, BaseUnitController controller)
+    public void TakeDamage(int damageAmount, Entity controller)
     {
         if (IsDead) return;
 

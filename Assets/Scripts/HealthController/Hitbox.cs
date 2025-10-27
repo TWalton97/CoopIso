@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-[RequireComponent(typeof(Collider))]
 public class Hitbox : MonoBehaviour
 {
     [SerializeField] private int _damage;
@@ -10,10 +9,10 @@ public class Hitbox : MonoBehaviour
     private LayerMask _targetLayer;
     public Action OnTargetDamaged;
     private Collider[] colls;
-    private BaseUnitController _controller;
+    private Entity _controller;
     public bool DestroyHitboxOnHit = true;
 
-    public void Init(int damage, LayerMask targetLayer, BaseUnitController controller)
+    public void Init(int damage, LayerMask targetLayer, Entity controller)
     {
         _damage = damage;
         _targetLayer = targetLayer;

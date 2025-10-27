@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Utilities;
 
 public class Enemy : Entity
 {
+    public int ExpValue;
+    public float ExpRange;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] PlayerDetector playerDetector;
     [SerializeField] Animator animator;
@@ -70,12 +73,14 @@ public class Enemy : Entity
     {
         healthController.OnTakeDamage += Stagger;
         healthController.OnDie += () => IsDead = true;
+        healthController.OnDie += Die;
     }
 
     private void OnDisable()
     {
         healthController.OnTakeDamage -= Stagger;
         healthController.OnDie -= () => IsDead = true;
+        healthController.OnDie -= Die;
 
         stateMachine.OnStateChanged -= UpdateStateName;
     }
@@ -104,17 +109,27 @@ public class Enemy : Entity
 
     public override void Die()
     {
+        DistributeExperience();
         Destroy(gameObject, 5);
     }
 
-    private void Stagger(int damage, BaseUnitController controller)
+    private void Stagger(int damage, Entity controller)
     {
         IsStaggered = true;
     }
 
     private void UpdateStateName()
     {
-        Debug.Log("Updating state name");
         StateName = stateMachine.current.State.ToString();
+    }
+
+    private void DistributeExperience()
+    {
+        Debug.Log("Distributing experience");
+        NewPlayerController[] playerControllers = FindObjectsOfType<NewPlayerController>();
+        foreach (NewPlayerController playerController in playerControllers)
+        {
+            playerController._experienceController.AddExperience(ExpValue);
+        }
     }
 }

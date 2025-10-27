@@ -7,6 +7,7 @@ public class NewPlayerController : Entity
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerInputController PlayerInputController;
     public NewWeaponController weaponController;
+    public ExperienceController _experienceController;
 
     public float _movementSpeed;
     [ReadOnly] public float _maximumMovementSpeed;
