@@ -17,6 +17,7 @@ public class NewWeaponController : MonoBehaviour
     public bool primaryWeaponAttackCompleted = false;
     private CountdownTimer comboCounter;    //We use this to determine when to reset our current attack combo
     private float comboPeriod = 3;
+    public bool canAttack = true;
 
     private void Awake()
     {
@@ -41,18 +42,22 @@ public class NewWeaponController : MonoBehaviour
 
     public void Attack()
     {
+        if (!canAttack) return;
+
         if (primaryWeaponAttackCompleted)
         {
             if (currentWeaponAttackType == WeaponAttackTypes.DualWield)
             {
-                instantiatedSecondaryWeapon.Enter();
+                instantiatedSecondaryWeapon.Enter(() => canAttack = true);
+                canAttack = false;
                 comboCounter.Start();
                 primaryWeaponAttackCompleted = !primaryWeaponAttackCompleted;
                 return;
             }
         }
 
-        instantiatedPrimaryWeapon.Enter();
+        instantiatedPrimaryWeapon.Enter(() => canAttack = true);
+        canAttack = false;
         comboCounter.Start();
         primaryWeaponAttackCompleted = !primaryWeaponAttackCompleted;
     }

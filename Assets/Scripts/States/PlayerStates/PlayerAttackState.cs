@@ -13,7 +13,7 @@ public class PlayerAttackState : PlayerBaseState
     public override void OnEnter()
     {
         animator.CrossFade(weapon.attackHash, crossFadeDuration, (int)PlayerAnimatorLayers.UpperBody);
-        weapon.Enter();
+        //weapon.Enter();
         startingSpeed = player._movementSpeed;
         //animator.CrossFade(AttackHash, crossFadeDuration, (int)PlayerAnimatorLayers.UpperBody);
     }

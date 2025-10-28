@@ -49,10 +49,10 @@ public class Weapon : MonoBehaviour
         EventHandler = GetComponent<AnimationEventHandler>();
     }
 
-    public void Enter()
+    public void Enter(Action endAction)
     {
         newPlayerController.animator.CrossFade(attackHash, 0.2f, (int)PlayerAnimatorLayers.UpperBody);
-        StartCoroutine(ActivateHitbox());
+        StartCoroutine(ActivateHitbox(endAction));
 
         OnEnter?.Invoke();
     }
@@ -69,7 +69,7 @@ public class Weapon : MonoBehaviour
         newPlayerController = controller;
     }
 
-    private IEnumerator ActivateHitbox()
+    private IEnumerator ActivateHitbox(Action endAction)
     {
         float elapsedTime = 0f;
         elapsedTime += Time.deltaTime;
@@ -81,6 +81,7 @@ public class Weapon : MonoBehaviour
         }
         hitbox.ActivateHitbox(damage);
         yield return new WaitForSeconds(0.9f - hitboxActivationDelay);
+        endAction?.Invoke();
         Exit();
         yield return null;
     }

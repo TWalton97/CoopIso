@@ -25,13 +25,11 @@ public class NewPlayerController : Entity
     public StateMachine movementStateMachine;
     CountdownTimer attackCooldownTimer;
 
-    private Vector3 _mousePosOnGround;
     [SerializeField] private LayerMask GroundLayer = NavMeshUtils.GROUND_LAYER;
-    public bool AttackCompleted = false;
     private bool blocking = false;
     private Vector2 _moveInput;
-    [SerializeField] private Vector2 _lookInput;
-    int equippedWeapon = 0;
+    private Vector2 _lookInput;
+    private int equippedWeapon = 0;
     private const string KEYBOARD_SCHEME = "Keyboard&Mouse";
     private const string GAMEPAD_SCHEME = "Gamepad";
 
@@ -129,7 +127,6 @@ public class NewPlayerController : Entity
         {
             Vector3 hitPoint = hit.point;
             Vector3 updatedHitPoint = new Vector3(hitPoint.x, transform.position.y, hitPoint.z);
-            _mousePosOnGround = updatedHitPoint;
             Vector3 dirToPoint = (updatedHitPoint - transform.position).normalized;
             transform.LookAt(transform.position + dirToPoint);
         }
