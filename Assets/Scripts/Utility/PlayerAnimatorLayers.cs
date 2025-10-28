@@ -1,9 +1,10 @@
 public enum PlayerAnimatorLayers
 {
     Base = 0,
-    LowerBody = 1,
-    UpperBody = 2,
-    Head = 3,
-    Additive = 4,
-    AdditiveReaction = 5,
+    FullBody = 1,
+    LowerBody = 2,
+    UpperBody = 3,
+    Head = 4,
+    Additive = 5,
+    AdditiveReaction = 6,
 }

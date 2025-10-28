@@ -8,40 +8,60 @@ public class PlayerDetector : MonoBehaviour
     [SerializeField] float innerDetectionRadius = 5f; // Small circle around enemy
     [SerializeField] float detectionCooldown = 1f; // Time between detections
     [SerializeField] float attackRange = 2f; // Distance from enemy to player to attack
+    [SerializeField] float aggroRange;
+    [SerializeField] private LayerMask PlayerLayer;
 
-    public Transform Player { get; private set; }
+    public Transform Player;
 
     CountdownTimer detectionTimer;
+    CountdownTimer aggroTimer;
 
     IDetectionStrategy detectionStrategy;
 
     void Start()
     {
         detectionTimer = new CountdownTimer(detectionCooldown);
+        aggroTimer = new CountdownTimer(detectionCooldown);
         detectionStrategy = new ConeDetectionStrategy(detectionAngle, detectionRadius, innerDetectionRadius);
-        PlayerJoinManager.OnPlayerJoinedEvent += FindPlayer;
     }
 
-    void OnEnable()
+    private void FindPlayer()
     {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, aggroRange, PlayerLayer);
+        if (colliders.Length == 0)
+        {
+            Player = null;
+            return;
+        }
 
-    }
-
-    void OnDisable()
-    {
-        PlayerJoinManager.OnPlayerJoinedEvent -= FindPlayer;
-    }
-
-    private void FindPlayer(GameObject player)
-    {
-        if (Player == null)
-            Player = player.transform;
+        foreach (Collider coll in colliders)
+        {
+            if (coll.GetComponent<NewPlayerController>() != null)
+            {
+                Player = coll.transform;
+                return;
+            }
+        }
     }
 
     void Update()
     {
-        if (Player == null) return;
+        // if (Player == null)
+        // {
+        //     FindPlayer();
+        // }
+        TickPlayerDetection();
+        aggroTimer.Tick(Time.deltaTime);
         detectionTimer.Tick(Time.deltaTime);
+    }
+
+    private void TickPlayerDetection()
+    {
+        if (aggroTimer.IsRunning) return;
+
+        FindPlayer();
+
+        aggroTimer.Start();
     }
 
     public bool CanDetectPlayer()

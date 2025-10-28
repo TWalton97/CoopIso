@@ -89,6 +89,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwapWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""28dd76ff-38c0-4c08-8b6d-10395cea964f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -296,7 +305,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""663176d6-a383-4628-a6ee-60372336479f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -331,6 +351,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""LookStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6de3e2b-a9f2-463e-b40c-a920dfd30567"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SwapWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eac6d8e4-9417-4ee4-af24-01adb2d96738"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""SwapWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -925,6 +967,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
+        m_Player_SwapWeapon = m_Player.FindAction("SwapWeapon", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1011,6 +1054,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Ability1;
     private readonly InputAction m_Player_Block;
+    private readonly InputAction m_Player_SwapWeapon;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1022,6 +1066,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
         public InputAction @Block => m_Wrapper.m_Player_Block;
+        public InputAction @SwapWeapon => m_Wrapper.m_Player_SwapWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1052,6 +1097,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Block.started += instance.OnBlock;
             @Block.performed += instance.OnBlock;
             @Block.canceled += instance.OnBlock;
+            @SwapWeapon.started += instance.OnSwapWeapon;
+            @SwapWeapon.performed += instance.OnSwapWeapon;
+            @SwapWeapon.canceled += instance.OnSwapWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1077,6 +1125,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Block.started -= instance.OnBlock;
             @Block.performed -= instance.OnBlock;
             @Block.canceled -= instance.OnBlock;
+            @SwapWeapon.started -= instance.OnSwapWeapon;
+            @SwapWeapon.performed -= instance.OnSwapWeapon;
+            @SwapWeapon.canceled -= instance.OnSwapWeapon;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1266,6 +1317,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAbility1(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
+        void OnSwapWeapon(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

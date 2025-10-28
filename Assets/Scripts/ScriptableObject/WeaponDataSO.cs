@@ -15,7 +15,4 @@ public class WeaponDataSO : ScriptableObject
     {
         return ComponentData.OfType<T>().FirstOrDefault();
     }
-
-    [ContextMenu("Add Movement Data")]
-    private void AddMovementData() => ComponentData.Add(new MovementData());
 }

@@ -8,7 +8,7 @@ public class Enemy : Entity
     public int ExpValue;
     public float ExpRange;
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] PlayerDetector playerDetector;
+    public PlayerDetector playerDetector;
     [SerializeField] Animator animator;
     public Collider coll;
     public GameObject ragdoll;
@@ -31,6 +31,7 @@ public class Enemy : Entity
     [HideInInspector] public bool IsStaggered = false;
 
     [ReadOnly] public string StateName;
+    private EnemyWanderState wanderState;
 
     public override void Awake()
     {
@@ -48,7 +49,7 @@ public class Enemy : Entity
 
         stateMachine = new StateMachine();
 
-        var wanderState = new EnemyWanderState(this, animator, agent, wanderRadius);
+        wanderState = new EnemyWanderState(this, animator, agent, wanderRadius);
         var chaseState = new EnemyChaseState(this, animator, agent, playerDetector.Player);
         var attackState = new EnemyAttackState(this, animator, agent, playerDetector.Player);
         var deathState = new EnemyDieState(this, animator, agent, transform);
@@ -71,6 +72,7 @@ public class Enemy : Entity
 
     private void OnEnable()
     {
+        if (wanderState != null) stateMachine.SetState(wanderState);
         healthController.OnTakeDamage += Stagger;
         healthController.OnDie += () => IsDead = true;
         healthController.OnDie += Die;

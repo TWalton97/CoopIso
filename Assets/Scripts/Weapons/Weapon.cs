@@ -6,55 +6,62 @@ using System;
 public class Weapon : MonoBehaviour
 {
     [field: SerializeField] public WeaponDataSO Data { get; private set; }
-    public int CurrentAttackCounter
-    {
-        get => currentAttackCounter;
-        private set => currentAttackCounter = value >= Data.NumberOfAttacks ? 0 : value;
-    }
-
     public event Action OnEnter;
     public event Action OnExit;
     private int currentAttackCounter;
     private Animator animator;
     public RuntimeAnimatorController animatorOverrideController;
-    private GameObject baseGameObject;
     public AnimationEventHandler EventHandler { get; private set; }
     public NewPlayerController newPlayerController { get; private set; }
     private Hitbox hitbox;
     public float hitboxActivationDelay;
     public int damage;
+    public bool active = false;
 
-    private float startingMovementSpeed;
+    public int attackHash;
+
+    private readonly float startingMovementSpeed;
+
+    public AttackAnimationHash attackAnimationHash;
+    public enum AttackAnimationHash
+    {
+        Attack1H,
+        Block,
+        MainHandAttack2H
+    }
+
+    public WeaponHand weaponHand;
+    public enum WeaponHand
+    {
+        MainHand,
+        OffHand
+    }
+
+    public void Init(WeaponHand weaponHand)
+    {
+        this.weaponHand = weaponHand;
+        SetAttackAnimationHash();
+    }
+    void Awake()
+    {
+        animator = GetComponentInParent<Animator>();
+        hitbox = GetComponent<Hitbox>();
+        EventHandler = GetComponent<AnimationEventHandler>();
+    }
 
     public void Enter()
     {
-        Debug.Log($"{transform.name} enter");
+        newPlayerController.animator.CrossFade(attackHash, 0.2f, (int)PlayerAnimatorLayers.UpperBody);
         StartCoroutine(ActivateHitbox());
-
-        animator.SetBool("active", true);
-        animator.SetInteger("counter", currentAttackCounter);
-
 
         OnEnter?.Invoke();
     }
 
     private void Exit()
     {
-        animator.SetBool("active", false);
-        animator.SetInteger("counter", currentAttackCounter);
-
-        CurrentAttackCounter++;
-
         newPlayerController._movementSpeed = newPlayerController._maximumMovementSpeed;
 
         OnExit?.Invoke();
-    }
-
-    void Awake()
-    {
-        animator = GetComponentInParent<Animator>();
-        hitbox = GetComponent<Hitbox>();
-        EventHandler = GetComponent<AnimationEventHandler>();
     }
 
     public void SetPlayer(NewPlayerController controller)
@@ -73,9 +80,33 @@ public class Weapon : MonoBehaviour
             yield return null;
         }
         hitbox.ActivateHitbox(damage);
-        EventHandler.StartMovementTrigger();
-        yield return new WaitForSeconds(1 - hitboxActivationDelay);
+        yield return new WaitForSeconds(0.9f - hitboxActivationDelay);
         Exit();
         yield return null;
+    }
+
+    private void SetAttackAnimationHash()
+    {
+        switch (attackAnimationHash)
+        {
+            case AttackAnimationHash.Attack1H:
+                if (weaponHand == WeaponHand.MainHand)
+                {
+                    attackHash = PlayerBaseState.MainHandAttack1H_Hash;
+                }
+                else if (weaponHand == WeaponHand.OffHand)
+                {
+                    attackHash = PlayerBaseState.OffHandAttack1H_Hash;
+                }
+                break;
+
+            case AttackAnimationHash.Block:
+                attackHash = PlayerBaseState.Block_Hash;
+                break;
+
+            case AttackAnimationHash.MainHandAttack2H:
+                attackHash = PlayerBaseState.MainHandAttack2H_Hash;
+                break;
+        }
     }
 }

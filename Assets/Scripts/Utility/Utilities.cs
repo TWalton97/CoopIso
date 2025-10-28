@@ -88,4 +88,5 @@ namespace Utilities
 
         public float GetTime() => Time;
     }
+
 }

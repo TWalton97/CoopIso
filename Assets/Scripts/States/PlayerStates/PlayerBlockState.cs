@@ -10,7 +10,7 @@ public class PlayerBlockState : PlayerBaseState
 
     public override void OnEnter()
     {
-        animator.CrossFade(BlockHash, crossFadeDuration, (int)PlayerAnimatorLayers.UpperBody);
+
     }
 
     public override void OnExit()

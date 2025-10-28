@@ -41,7 +41,7 @@ public class EnemyAttackState : EnemyBaseState
 
     private Quaternion GetRotationTowardsTarget()
     {
-        Vector3 DirToTarget = player.transform.position - agent.transform.position;
+        Vector3 DirToTarget = enemy.playerDetector.Player.transform.position - agent.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(DirToTarget, Vector3.up);
         targetRotation.x = 0;
         targetRotation.z = 0;

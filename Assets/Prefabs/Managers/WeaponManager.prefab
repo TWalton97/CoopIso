@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1269655958621839793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8253095034714926770}
+  - component: {fileID: 8469355079578667003}
+  m_Layer: 0
+  m_Name: WeaponManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8253095034714926770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269655958621839793}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8469355079578667003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269655958621839793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7aeb28549273f44ac6a067a608c657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OneHandedAxe: {fileID: 378931725147050450, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+  TwoHandedAxe: {fileID: 5756229764697777066, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+  OneHandedSword: {fileID: 4253590159471125082, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
+  TwoHandedSword: {fileID: 1282823727059198941, guid: c50d94eeb1f3b7743805376943012e86, type: 3}
+  OneHandedMace: {fileID: 7426488675754726145, guid: 01a834e9756f6694a9d76f50abea4a2b, type: 3}
+  Shield: {fileID: 4681152429029747364, guid: d08a1202dc9c31847a92b2db41662425, type: 3}

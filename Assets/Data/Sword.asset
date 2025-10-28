@@ -14,16 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <NumberOfAttacks>k__BackingField: 2
   <MovementSpeedDuringAttack>k__BackingField: 2
-  ComponentData:
-  - rid: 7481357018990116864
+  ComponentData: []
   references:
     version: 2
-    RefIds:
-    - rid: 7481357018990116864
-      type: {class: MovementData, ns: , asm: Assembly-CSharp}
-      data:
-        <attackData>k__BackingField:
-        - <Direction>k__BackingField: {x: 0, y: 0, z: 0}
-          <Velocity>k__BackingField: 0
-        - <Direction>k__BackingField: {x: 0, y: 0, z: 0}
-          <Velocity>k__BackingField: 0
+    RefIds: []

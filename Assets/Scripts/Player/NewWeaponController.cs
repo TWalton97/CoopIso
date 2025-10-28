@@ -1,70 +1,133 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 public class NewWeaponController : MonoBehaviour
 {
+    private NewPlayerController newPlayerController;
     public Animator animator;
-    public Weapon weapon;
-    public Weapon equippedWeapon;
-    public List<Weapon> weapons;
 
-    public void Start()
+    public Transform mainHandTransform;
+    public Transform offHandTransform;
+
+    public Weapon instantiatedPrimaryWeapon;
+    public Weapon instantiatedSecondaryWeapon;
+    private WeaponAttackTypes currentWeaponAttackType;
+    public bool primaryWeaponAttackCompleted = false;
+    private CountdownTimer comboCounter;    //We use this to determine when to reset our current attack combo
+    private float comboPeriod = 3;
+
+    private void Awake()
     {
-        //EquipWeapon(weapons[0]);
+        comboCounter = new CountdownTimer(comboPeriod);
+        newPlayerController = GetComponent<NewPlayerController>();
     }
 
-    public void EquipWeapon(Weapon weapon)
+    void OnEnable()
     {
-        if (equippedWeapon != null)
+        comboCounter.OnTimerStop += () => primaryWeaponAttackCompleted = false;
+    }
+
+    void OnDisable()
+    {
+        comboCounter.OnTimerStop -= () => primaryWeaponAttackCompleted = false;
+    }
+
+    void Update()
+    {
+        comboCounter.Tick(Time.deltaTime);
+    }
+
+    public void Attack()
+    {
+        if (primaryWeaponAttackCompleted)
         {
-            UnequipWeapon();
+            if (currentWeaponAttackType == WeaponAttackTypes.DualWield)
+            {
+                instantiatedSecondaryWeapon.Enter();
+                comboCounter.Start();
+                primaryWeaponAttackCompleted = !primaryWeaponAttackCompleted;
+                return;
+            }
         }
 
-        foreach (GameObject obj in weapon.WeaponObjects)
+        instantiatedPrimaryWeapon.Enter();
+        comboCounter.Start();
+        primaryWeaponAttackCompleted = !primaryWeaponAttackCompleted;
+    }
+
+    public void EquipWeapon(WeaponAttackTypes weaponAttackType, Weapon primaryWeapon, Weapon secondaryWeapon = null)
+    {
+        UnequipOldWeapons();
+
+        switch (weaponAttackType)
         {
-            obj.SetActive(true);
+            case WeaponAttackTypes.OneHandedAndShield:
+                animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
+                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform);
+                instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
+                instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform);
+                instantiatedSecondaryWeapon.transform.localRotation = secondaryWeapon.transform.rotation;
+
+                instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
+                instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
+                break;
+
+            case WeaponAttackTypes.DualWield:
+                animator.runtimeAnimatorController = DualWieldAnimator;
+                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform);
+                instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
+                instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform);
+                instantiatedSecondaryWeapon.transform.localRotation = secondaryWeapon.transform.rotation;
+
+                instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
+                instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
+                break;
+
+            case WeaponAttackTypes.TwoHanded:
+                animator.runtimeAnimatorController = TwoHandedAnimator;
+                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, primaryWeapon.transform.rotation, mainHandTransform);
+                instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
+
+                instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
+                break;
         }
 
-        //animator.runtimeAnimatorController = weapon.AnimatorController;
+        instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand);
+        if (secondaryWeapon != null)
+        {
+            instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand);
+        }
 
-        equippedWeapon = weapon;
+        currentWeaponAttackType = weaponAttackType;
     }
 
-    public void UnequipWeapon()
+    private void UnequipOldWeapons()
     {
-        foreach (GameObject obj in equippedWeapon.WeaponObjects)
+        if (instantiatedPrimaryWeapon != null)
         {
-            obj.SetActive(false);
+            Destroy(instantiatedPrimaryWeapon.gameObject);
+            instantiatedPrimaryWeapon = null;
+        }
+
+        if (instantiatedSecondaryWeapon != null)
+        {
+            Destroy(instantiatedSecondaryWeapon.gameObject);
+            instantiatedSecondaryWeapon = null;
         }
     }
 
-    [ContextMenu("Equip Weapon One")]
-    public void EquipWeaponOne()
-    {
-        EquipWeapon(weapons[0]);
-    }
-
-    [ContextMenu("Equip Weapon Two")]
-    public void EquipWeaponTwo()
-    {
-        EquipWeapon(weapons[1]);
-    }
+    public AnimatorOverrideController OneHandedAndShieldAnimator;
+    public AnimatorOverrideController DualWieldAnimator;
+    public AnimatorOverrideController TwoHandedAnimator;
 
     [System.Serializable]
-    public class Weapon
+    public enum WeaponAttackTypes
     {
-        public string WeaponName;
-        public GameObject[] WeaponObjects;
-        public AnimatorOverrideController AnimatorController;
-
-        [System.Serializable]
-        public class AttackInfo
-        {
-            public float comboTime;
-            public float movementSpeedDuringAttack;
-        }
-        public AttackInfo[] AttackInfos;
+        OneHandedAndShield,
+        DualWield,
+        TwoHanded
     }
 }
 

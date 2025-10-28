@@ -1486,7 +1486,12 @@ MonoBehaviour:
   detectionRadius: 10
   innerDetectionRadius: 5
   detectionCooldown: 1
-  attackRange: 1.4
+  attackRange: 0.8
+  aggroRange: 10
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  Player: {fileID: 0}
 --- !u!95 &7378926450229234376
 Animator:
   serializedVersion: 5
