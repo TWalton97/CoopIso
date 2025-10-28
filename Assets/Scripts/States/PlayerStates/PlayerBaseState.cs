@@ -10,6 +10,7 @@ public class PlayerBaseState : IState
     protected static readonly int AttackHash = Animator.StringToHash("Attack");
     protected static readonly int AttackHash2 = Animator.StringToHash("Attack2");
     protected static readonly int AttackHash3 = Animator.StringToHash("Attack3");
+    protected static readonly int BlockHash = Animator.StringToHash("Block");
 
     protected const float crossFadeDuration = 0.1f;
 

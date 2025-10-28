@@ -11,7 +11,7 @@ public class NewWeaponController : MonoBehaviour
 
     public void Start()
     {
-        EquipWeapon(weapons[0]);
+        //EquipWeapon(weapons[0]);
     }
 
     public void EquipWeapon(Weapon weapon)
@@ -26,7 +26,7 @@ public class NewWeaponController : MonoBehaviour
             obj.SetActive(true);
         }
 
-        animator.runtimeAnimatorController = weapon.AnimatorController;
+        //animator.runtimeAnimatorController = weapon.AnimatorController;
 
         equippedWeapon = weapon;
     }

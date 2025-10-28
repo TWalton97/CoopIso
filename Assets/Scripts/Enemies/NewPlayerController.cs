@@ -13,17 +13,24 @@ public class NewPlayerController : Entity
     [ReadOnly] public float _maximumMovementSpeed;
     public float _jumpForce;
     public float attackCooldown;
-    public float comboWindow;
 
+    private PlayerIdleState idleState;
     private PlayerAttackState attackState;
-
+    private PlayerBlockState blockState;
     public StateMachine stateMachine;
     CountdownTimer attackCooldownTimer;
+
+    public Weapon currentWeapon;
+    public Weapon weapon1;
+    public Weapon weapon2;
+    public GameObject shield;
 
 
     private Vector3 _mousePosOnGround;
     [SerializeField] private LayerMask GroundLayer = NavMeshUtils.GROUND_LAYER;
     public bool AttackCompleted = false;
+    private bool blocking = false;
+    private Vector2 moveInput;
     public override void Awake()
     {
         base.Awake();
@@ -34,19 +41,26 @@ public class NewPlayerController : Entity
     {
         stateMachine = new StateMachine();
 
-        var idleState = new PlayerIdleState(this, animator);
+        idleState = new PlayerIdleState(this, animator);
         var moveState = new PlayerMoveState(this, animator);
-        attackState = new PlayerAttackState(this, animator);
+        attackState = new PlayerAttackState(this, animator, weapon1);
         var attackComboState = new PlayerComboAttackState(this, animator);
+        blockState = new PlayerBlockState(this, animator, weapon1);
 
         At(idleState, moveState, new FuncPredicate(() => Rigidbody.velocity.magnitude > 2));
         At(moveState, idleState, new FuncPredicate(() => Rigidbody.velocity.magnitude <= 0.5f));
+
+        At(idleState, blockState, new FuncPredicate(() => blocking));
+        At(blockState, idleState, new FuncPredicate(() => !blocking));
 
         At(attackState, idleState, new FuncPredicate(() => attackCooldownTimer.IsFinished));
 
         At(attackComboState, idleState, new FuncPredicate(() => attackCooldownTimer.IsFinished));
 
         stateMachine.SetState(idleState);
+
+        weapon1.SetPlayer(this);
+        weapon2.SetPlayer(this);
     }
 
     void OnEnable()
@@ -55,7 +69,9 @@ public class NewPlayerController : Entity
         PlayerInputController.OnJumpPerformed += Jump;
         PlayerInputController.OnBasicAttackPerformed += BasicAttack;
         PlayerInputController.OnMouseMoved += RotateTowardsMouse;
+        PlayerInputController.OnStickMoved += RotateTowardsStick;
         PlayerInputController.OnAbility1Performed += Ability1;
+        PlayerInputController.OnBlockPerformed += Block;
     }
 
     void OnDisable()
@@ -64,7 +80,9 @@ public class NewPlayerController : Entity
         PlayerInputController.OnJumpPerformed -= Jump;
         PlayerInputController.OnBasicAttackPerformed -= BasicAttack;
         PlayerInputController.OnMouseMoved -= RotateTowardsMouse;
+        PlayerInputController.OnStickMoved -= RotateTowardsStick;
         PlayerInputController.OnAbility1Performed -= Ability1;
+        PlayerInputController.OnBlockPerformed -= Block;
     }
 
     void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
@@ -74,15 +92,23 @@ public class NewPlayerController : Entity
     {
         stateMachine.Update();
         attackCooldownTimer.Tick(Time.deltaTime);
+        Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity);
+        animator.SetFloat("VelocityX", Mathf.Clamp(localVelocity.x, -1, 1));
+        animator.SetFloat("VelocityZ", Mathf.Clamp(localVelocity.z, -1, 1));
+        animator.SetFloat("SpeedMultiplier", Mathf.Clamp(_movementSpeed / _maximumMovementSpeed, 0.5f, 1));
     }
 
     void FixedUpdate()
     {
         stateMachine.FixedUpdate();
+
+        //Vector3 movement = new Vector3(moveInput.x, 0f, moveInput.y) * _movementSpeed;
+        //Rigidbody.velocity = new Vector3(movement.x, Rigidbody.velocity.y, movement.z);
     }
 
     public void Move(Vector2 moveDir)
     {
+        moveInput = moveDir;
         Vector3 inputDirection = new Vector3(moveDir.x, 0, moveDir.y);
 
         Quaternion rotation = Quaternion.AngleAxis(225f, Vector3.up);
@@ -95,6 +121,17 @@ public class NewPlayerController : Entity
         Rigidbody.velocity = newVel;
     }
 
+    public void SetVelocity(Vector3 direction, float velocity)
+    {
+        Rigidbody.velocity = ConvertGlobalDirectionToLocal(direction) * velocity;
+    }
+
+    public Vector3 ConvertGlobalDirectionToLocal(Vector3 direction)
+    {
+        var dir = transform.TransformDirection(direction);
+        return dir;
+    }
+
     public void Jump()
     {
         Rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
@@ -102,18 +139,20 @@ public class NewPlayerController : Entity
 
     private void BasicAttack()
     {
-        if (attackCooldownTimer.IsRunning)
-        {
-            if (stateMachine.current.State == attackState && attackState.CanAttack())
-            {
-                attackState.ProgressCombo();
-                attackCooldownTimer.Reset();
-            }
-            return;
-        }
+        currentWeapon.Enter();
+        // if (attackCooldownTimer.IsRunning)
+        // {
+        //     return;
+        // }
 
-        stateMachine.ChangeState(attackState);
-        attackCooldownTimer.Start();
+        // stateMachine.ChangeState(attackState);
+        // attackCooldownTimer.Start();
+    }
+
+    private void Block(bool performed)
+    {
+        blocking = performed;
+        animator.SetBool("Blocking", performed);
     }
 
     private void RotateTowardsMouse(Vector2 mousePos)
@@ -131,8 +170,35 @@ public class NewPlayerController : Entity
         }
     }
 
+    private void RotateTowardsStick(Vector2 dir)
+    {
+        print("Stick moving");
+    }
+
     private void Ability1()
     {
 
+    }
+
+    [ContextMenu("Equip Weapon One")]
+    public void EquipWeaponOne()
+    {
+        currentWeapon = weapon1;
+        animator.runtimeAnimatorController = weapon1.animatorOverrideController;
+        weapon1.gameObject.SetActive(true);
+
+        weapon2.gameObject.SetActive(false);
+        shield.SetActive(false);
+    }
+
+    [ContextMenu("Equip Weapon Two")]
+    public void EquipWeaponTwo()
+    {
+        currentWeapon = weapon2;
+        animator.runtimeAnimatorController = weapon2.animatorOverrideController;
+        weapon1.gameObject.SetActive(false);
+
+        weapon2.gameObject.SetActive(true);
+        shield.SetActive(true);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 using System.Linq;
 
-public class PlayerInputController : MonoBehaviour
+public class PlayerInputController : MonoBehaviour  //WE CAN USE PlayerInputActions.IPlayerActions <- the name of our input asset
 {
     public InputActionAsset playerControls;
     private InputAction jumpAction;
@@ -12,17 +12,21 @@ public class PlayerInputController : MonoBehaviour
     private InputAction lookAction;
     private InputAction basicAttackAction;
     private InputAction ability1Action;
+    private InputAction blockAction;
 
 
     //Subscribe to these events
     public Action OnJumpPerformed;
     public Action<Vector2> OnMovePerformed;
     public Action<Vector2> OnMouseMoved;
+    public Action<Vector2> OnStickMoved;
     public Action OnBasicAttackPerformed;
     public Action OnAbility1Performed;
+    public Action<bool> OnBlockPerformed;
 
     private void Awake()
     {
+
         var gameplayMap = playerControls.FindActionMap("Player");
 
         moveAction = gameplayMap.FindAction("Move");
@@ -31,12 +35,17 @@ public class PlayerInputController : MonoBehaviour
         jumpAction.performed += OnJump;
 
         lookAction = gameplayMap.FindAction("Look");
+        lookAction.performed += OnLook;
 
         basicAttackAction = gameplayMap.FindAction("Attack");
         basicAttackAction.performed += OnAttack;
 
         ability1Action = gameplayMap.FindAction("Ability1");
         ability1Action.performed += OnAbility1;
+
+        blockAction = gameplayMap.FindAction("Block");
+        blockAction.performed += OnBlock;
+        blockAction.canceled += OnBlockEnd;
     }
 
     void OnEnable()
@@ -54,6 +63,7 @@ public class PlayerInputController : MonoBehaviour
         jumpAction.performed -= OnJump;
         basicAttackAction.performed -= OnAttack;
         ability1Action.performed -= OnAbility1;
+        blockAction.started -= OnBlock;
     }
 
     private void Update()
@@ -63,7 +73,20 @@ public class PlayerInputController : MonoBehaviour
 
         Vector2 mousePos = lookAction.ReadValue<Vector2>();
         OnMouseMoved?.Invoke(mousePos);
+    }
 
+    public void OnLook(CallbackContext context)
+    {
+        InputDevice device = context.control.device;
+
+        if (device is Keyboard)
+        {
+            OnMouseMoved?.Invoke(context.ReadValue<Vector2>());
+        }
+        else if (device is Gamepad)
+        {
+            OnStickMoved?.Invoke(context.ReadValue<Vector2>());
+        }
     }
 
     public void OnJump(CallbackContext context)
@@ -81,5 +104,13 @@ public class PlayerInputController : MonoBehaviour
         if (context.performed) OnAbility1Performed?.Invoke();
     }
 
+    public void OnBlock(CallbackContext context)
+    {
+        OnBlockPerformed?.Invoke(true);
+    }
 
+    public void OnBlockEnd(CallbackContext context)
+    {
+        OnBlockPerformed?.Invoke(false);
+    }
 }

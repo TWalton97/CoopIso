@@ -8,6 +8,6 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void OnEnter()
     {
-        animator.CrossFade(IdleHash, crossFadeDuration);
+        //animator.CrossFade(IdleHash, crossFadeDuration);
     }
 }
