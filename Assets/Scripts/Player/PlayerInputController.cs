@@ -26,7 +26,6 @@ public class PlayerInputController : MonoBehaviour  //WE CAN USE PlayerInputActi
 
     private void Awake()
     {
-
         var gameplayMap = playerControls.FindActionMap("Player");
 
         moveAction = gameplayMap.FindAction("Move");

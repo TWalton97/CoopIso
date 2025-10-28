@@ -26,6 +26,11 @@ public class DynamicNavMeshUpdater : MonoBehaviour
         surface.BuildNavMesh();
     }
 
+    private void FindPlayer()
+    {
+        
+    }
+
     void Update()
     {
         var updatedCenter = GetQuantizedCenter();

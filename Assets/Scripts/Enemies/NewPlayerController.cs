@@ -1,11 +1,13 @@
 using UnityEngine;
 using Utilities;
+using UnityEngine.InputSystem;
 
 public class NewPlayerController : Entity
 {
     public Rigidbody Rigidbody;
     [SerializeField] private Animator animator;
-    [SerializeField] private PlayerInputController PlayerInputController;
+    [SerializeField] private NewPlayerInputController PlayerInputController;
+    [SerializeField] private PlayerInput playerInput;
     public NewWeaponController weaponController;
     public ExperienceController _experienceController;
 
@@ -30,16 +32,23 @@ public class NewPlayerController : Entity
     [SerializeField] private LayerMask GroundLayer = NavMeshUtils.GROUND_LAYER;
     public bool AttackCompleted = false;
     private bool blocking = false;
-    private Vector2 moveInput;
+    private Vector2 _moveInput;
+    [SerializeField] private Vector2 _lookInput;
+    private const string KEYBOARD_SCHEME = "Keyboard&Mouse";
+    private const string GAMEPAD_SCHEME = "Gamepad";
     public override void Awake()
     {
         base.Awake();
         attackCooldownTimer = new CountdownTimer(attackCooldown);
         _maximumMovementSpeed = _movementSpeed;
+        weapon1.SetPlayer(this);
+        weapon2.SetPlayer(this);
     }
+
     void Start()
     {
         stateMachine = new StateMachine();
+        playerInput = GetComponent<PlayerInput>();
 
         idleState = new PlayerIdleState(this, animator);
         var moveState = new PlayerMoveState(this, animator);
@@ -58,31 +67,28 @@ public class NewPlayerController : Entity
         At(attackComboState, idleState, new FuncPredicate(() => attackCooldownTimer.IsFinished));
 
         stateMachine.SetState(idleState);
-
-        weapon1.SetPlayer(this);
-        weapon2.SetPlayer(this);
     }
 
     void OnEnable()
     {
-        PlayerInputController.OnMovePerformed += Move;
-        PlayerInputController.OnJumpPerformed += Jump;
-        PlayerInputController.OnBasicAttackPerformed += BasicAttack;
-        PlayerInputController.OnMouseMoved += RotateTowardsMouse;
-        PlayerInputController.OnStickMoved += RotateTowardsStick;
-        PlayerInputController.OnAbility1Performed += Ability1;
-        PlayerInputController.OnBlockPerformed += Block;
+        // PlayerInputController.OnMovePerformed += Move;
+        // PlayerInputController.OnJumpPerformed += Jump;
+        // PlayerInputController.OnBasicAttackPerformed += BasicAttack;
+        // PlayerInputController.OnMouseMoved += RotateTowardsMouse;
+        // PlayerInputController.OnStickMoved += RotateTowardsStick;
+        // PlayerInputController.OnAbility1Performed += Ability1;
+        // PlayerInputController.OnBlockPerformed += Block;
     }
 
     void OnDisable()
     {
-        PlayerInputController.OnMovePerformed -= Move;
-        PlayerInputController.OnJumpPerformed -= Jump;
-        PlayerInputController.OnBasicAttackPerformed -= BasicAttack;
-        PlayerInputController.OnMouseMoved -= RotateTowardsMouse;
-        PlayerInputController.OnStickMoved -= RotateTowardsStick;
-        PlayerInputController.OnAbility1Performed -= Ability1;
-        PlayerInputController.OnBlockPerformed -= Block;
+        // PlayerInputController.OnMovePerformed -= Move;
+        // PlayerInputController.OnJumpPerformed -= Jump;
+        // PlayerInputController.OnBasicAttackPerformed -= BasicAttack;
+        // PlayerInputController.OnMouseMoved -= RotateTowardsMouse;
+        // PlayerInputController.OnStickMoved -= RotateTowardsStick;
+        // PlayerInputController.OnAbility1Performed -= Ability1;
+        // PlayerInputController.OnBlockPerformed -= Block;
     }
 
     void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
@@ -92,7 +98,7 @@ public class NewPlayerController : Entity
     {
         stateMachine.Update();
         attackCooldownTimer.Tick(Time.deltaTime);
-        Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity);
+        Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity).normalized;
         animator.SetFloat("VelocityX", Mathf.Clamp(localVelocity.x, -1, 1));
         animator.SetFloat("VelocityZ", Mathf.Clamp(localVelocity.z, -1, 1));
         animator.SetFloat("SpeedMultiplier", Mathf.Clamp(_movementSpeed / _maximumMovementSpeed, 0.5f, 1));
@@ -101,15 +107,19 @@ public class NewPlayerController : Entity
     void FixedUpdate()
     {
         stateMachine.FixedUpdate();
-
+        Move();
         //Vector3 movement = new Vector3(moveInput.x, 0f, moveInput.y) * _movementSpeed;
         //Rigidbody.velocity = new Vector3(movement.x, Rigidbody.velocity.y, movement.z);
     }
 
-    public void Move(Vector2 moveDir)
+    public void OnMove(InputValue value)
     {
-        moveInput = moveDir;
-        Vector3 inputDirection = new Vector3(moveDir.x, 0, moveDir.y);
+        _moveInput = value.Get<Vector2>();
+    }
+
+    private void Move()
+    {
+        Vector3 inputDirection = new Vector3(_moveInput.x, 0, _moveInput.y);
 
         Quaternion rotation = Quaternion.AngleAxis(225f, Vector3.up);
 
@@ -119,6 +129,11 @@ public class NewPlayerController : Entity
         newVel.y = Rigidbody.velocity.y;
 
         Rigidbody.velocity = newVel;
+
+        if (playerInput.currentControlScheme == GAMEPAD_SCHEME && _lookInput == Vector2.zero)
+        {
+            RotateTowardsStick(_moveInput);
+        }
     }
 
     public void SetVelocity(Vector3 direction, float velocity)
@@ -132,12 +147,12 @@ public class NewPlayerController : Entity
         return dir;
     }
 
-    public void Jump()
+    public void OnJump()
     {
         Rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
     }
 
-    private void BasicAttack()
+    private void OnAttack()
     {
         currentWeapon.Enter();
         // if (attackCooldownTimer.IsRunning)
@@ -149,10 +164,23 @@ public class NewPlayerController : Entity
         // attackCooldownTimer.Start();
     }
 
-    private void Block(bool performed)
+    private void OnBlock(bool performed)
     {
         blocking = performed;
         animator.SetBool("Blocking", performed);
+    }
+
+    public void OnLookMouse(InputValue value)
+    {
+        var dir = value.Get<Vector2>();
+        RotateTowardsMouse(dir);
+    }
+
+    public void OnLookStick(InputValue value)
+    {
+        var dir = value.Get<Vector2>();
+        _lookInput = dir;
+        RotateTowardsStick(dir);
     }
 
     private void RotateTowardsMouse(Vector2 mousePos)
@@ -172,10 +200,15 @@ public class NewPlayerController : Entity
 
     private void RotateTowardsStick(Vector2 dir)
     {
-        print("Stick moving");
+        Vector3 inputDirection = new Vector3(dir.x, 0, dir.y);
+        Quaternion rotation = Quaternion.AngleAxis(225f, Vector3.up);
+
+        Vector3 rotatedInputDirection = rotation * inputDirection;
+
+        transform.LookAt(transform.position + rotatedInputDirection);
     }
 
-    private void Ability1()
+    private void OnAbility1()
     {
 
     }

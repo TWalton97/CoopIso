@@ -15,26 +15,44 @@ public class PlayerDetector : MonoBehaviour
 
     IDetectionStrategy detectionStrategy;
 
-    void Awake()
-    {
-        Player = GameObject.FindGameObjectWithTag("Player").transform; // Make sure to TAG the player!
-    }
-
     void Start()
     {
         detectionTimer = new CountdownTimer(detectionCooldown);
         detectionStrategy = new ConeDetectionStrategy(detectionAngle, detectionRadius, innerDetectionRadius);
+        PlayerJoinManager.OnPlayerJoinedEvent += FindPlayer;
     }
 
-    void Update() => detectionTimer.Tick(Time.deltaTime);
+    void OnEnable()
+    {
+
+    }
+
+    void OnDisable()
+    {
+        PlayerJoinManager.OnPlayerJoinedEvent -= FindPlayer;
+    }
+
+    private void FindPlayer(GameObject player)
+    {
+        if (Player == null)
+            Player = player.transform;
+    }
+
+    void Update()
+    {
+        if (Player == null) return;
+        detectionTimer.Tick(Time.deltaTime);
+    }
 
     public bool CanDetectPlayer()
     {
+        if (Player == null) return false;
         return detectionTimer.IsRunning || detectionStrategy.Execute(Player, transform, detectionTimer);
     }
 
     public bool CanAttackPlayer()
     {
+        if (Player == null) return false;
         var directionToPlayer = Player.position - transform.position;
         return directionToPlayer.magnitude <= attackRange;
     }
