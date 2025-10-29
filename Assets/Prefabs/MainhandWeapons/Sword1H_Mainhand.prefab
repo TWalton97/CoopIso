@@ -104,6 +104,9 @@ MonoBehaviour:
   hitboxActivationDelay: 0.35
   damage: 5
   active: 0
+  attackHash: 0
+  attackAnimationHash: 0
+  weaponHand: 1
 --- !u!114 &6964019132189079008
 MonoBehaviour:
   m_ObjectHideFlags: 0

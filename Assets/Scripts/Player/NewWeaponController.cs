@@ -63,53 +63,95 @@ public class NewWeaponController : Singleton<NewWeaponController>
         primaryWeaponAttackCompleted = !primaryWeaponAttackCompleted;
     }
 
-    public void EquipWeapon(WeaponAttackTypes weaponAttackType, GameObject primaryWeapon, GameObject secondaryWeapon = null)
+    public void EquipMainHandWeapon(GameObject weaponPrefab)
     {
-        UnequipOldWeapons();
-
-        switch (weaponAttackType)
-        {
-            case WeaponAttackTypes.OneHandedAndShield:
-                animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
-                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
-                instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
-                instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-                if (secondaryWeapon != null)
-                {
-                    instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
-                    instantiatedSecondaryWeapon.transform.localRotation = secondaryWeapon.transform.rotation;
-                    instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
-                }
-                break;
-
-            case WeaponAttackTypes.DualWield:
-                animator.runtimeAnimatorController = DualWieldAnimator;
-                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
-                instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
-                instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
-                instantiatedSecondaryWeapon.transform.localRotation = secondaryWeapon.transform.rotation;
-
-                instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-                instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
-                break;
-
-            case WeaponAttackTypes.TwoHanded:
-                animator.runtimeAnimatorController = TwoHandedAnimator;
-                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, primaryWeapon.transform.rotation, mainHandTransform).GetComponent<Weapon>();
-                instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
-
-                instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-                break;
-        }
-
+        UnequipWeapon(Weapon.WeaponHand.MainHand);
+        instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
+        instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
+        instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
         instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand);
-        if (secondaryWeapon != null)
-        {
-            instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand);
-        }
-
-        currentWeaponAttackType = weaponAttackType;
+        UpdateAnimator();
     }
+
+    public void EquipOffHandWeapon(GameObject weaponPrefab)
+    {
+        UnequipWeapon(Weapon.WeaponHand.OffHand);
+        instantiatedSecondaryWeapon = Instantiate(weaponPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
+        instantiatedSecondaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
+        instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
+        instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand);
+        UpdateAnimator();
+    }
+
+    private void UpdateAnimator()
+    {
+        //If it's two-handed, use two-handed
+        //If it's not two-handed and you have a secondary weapon, use dual wield
+        //Otherwise use one-handed
+        if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
+        {
+            animator.runtimeAnimatorController = TwoHandedAnimator;
+            currentWeaponAttackType = WeaponAttackTypes.TwoHanded;
+        }
+        else if (instantiatedSecondaryWeapon != null)
+        {
+            animator.runtimeAnimatorController = DualWieldAnimator;
+            currentWeaponAttackType = WeaponAttackTypes.DualWield;
+        }
+        else
+        {
+            animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
+            currentWeaponAttackType = WeaponAttackTypes.OneHanded;
+        }
+    }
+
+    // public void EquipWeapon(WeaponAttackTypes weaponAttackType, GameObject primaryWeapon, GameObject secondaryWeapon = null)
+    // {
+    //     UnequipOldWeapons();
+
+    //     switch (weaponAttackType)
+    //     {
+    //         case WeaponAttackTypes.OneHandedAndShield:
+    //             animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
+    //             instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
+    //             instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
+    //             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
+    //             if (secondaryWeapon != null)
+    //             {
+    //                 instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
+    //                 instantiatedSecondaryWeapon.transform.localRotation = secondaryWeapon.transform.rotation;
+    //                 instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
+    //             }
+    //             break;
+
+    //         case WeaponAttackTypes.DualWield:
+    //             animator.runtimeAnimatorController = DualWieldAnimator;
+    //             instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
+    //             instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
+    //             instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
+    //             instantiatedSecondaryWeapon.transform.localRotation = secondaryWeapon.transform.rotation;
+
+    //             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
+    //             instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
+    //             break;
+
+    //         case WeaponAttackTypes.TwoHanded:
+    //             animator.runtimeAnimatorController = TwoHandedAnimator;
+    //             instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, primaryWeapon.transform.rotation, mainHandTransform).GetComponent<Weapon>();
+    //             instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
+
+    //             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
+    //             break;
+    //     }
+
+    //     instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand);
+    //     if (secondaryWeapon != null)
+    //     {
+    //         instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand);
+    //     }
+
+    //     currentWeaponAttackType = weaponAttackType;
+    // }
 
     private void UnequipOldWeapons()
     {
@@ -126,6 +168,27 @@ public class NewWeaponController : Singleton<NewWeaponController>
         }
     }
 
+    private void UnequipWeapon(Weapon.WeaponHand weaponHand)
+    {
+        switch (weaponHand)
+        {
+            case Weapon.WeaponHand.MainHand:
+                if (instantiatedPrimaryWeapon != null)
+                {
+                    Destroy(instantiatedPrimaryWeapon.gameObject);
+                    instantiatedPrimaryWeapon = null;
+                }
+                break;
+            case Weapon.WeaponHand.OffHand:
+                if (instantiatedSecondaryWeapon != null)
+                {
+                    Destroy(instantiatedSecondaryWeapon.gameObject);
+                    instantiatedSecondaryWeapon = null;
+                }
+                break;
+        }
+    }
+
     public AnimatorOverrideController OneHandedAndShieldAnimator;
     public AnimatorOverrideController DualWieldAnimator;
     public AnimatorOverrideController TwoHandedAnimator;
@@ -133,9 +196,9 @@ public class NewWeaponController : Singleton<NewWeaponController>
     [System.Serializable]
     public enum WeaponAttackTypes
     {
-        OneHandedAndShield,
-        DualWield,
-        TwoHanded
+        OneHanded,
+        TwoHanded,
+        DualWield
     }
 }
 

@@ -83,9 +83,9 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         if (itemType == ItemType.Legs)
             legSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab);
         if (itemType == ItemType.Mainhand)
-            mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab);
+            mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, ItemType.Mainhand);
         if (itemType == ItemType.OffHand)
-            offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab);
+            offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, ItemType.OffHand);
 
         EmptySlot();
     }

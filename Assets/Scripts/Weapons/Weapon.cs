@@ -37,6 +37,8 @@ public class Weapon : MonoBehaviour
         OffHand
     }
 
+    public NewWeaponController.WeaponAttackTypes weaponAttackType;
+
     public void Init(WeaponHand weaponHand)
     {
         this.weaponHand = weaponHand;

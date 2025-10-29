@@ -19,7 +19,7 @@ public class EquippedSlot : MonoBehaviour
     private bool slotInUse;
 
 
-    public void EquipGear(Sprite sprite, string itemName, string itemDescription, GameObject weapon)
+    public void EquipGear(Sprite sprite, string itemName, string itemDescription, GameObject weapon, ItemType itemType = ItemType.Head)
     {
         this.itemSprite = sprite;
         slotImage.sprite = this.itemSprite;
@@ -29,7 +29,13 @@ public class EquippedSlot : MonoBehaviour
         this.itemDescription = itemDescription;
 
         slotInUse = true;
-
-        NewWeaponController.Instance.EquipWeapon(NewWeaponController.WeaponAttackTypes.OneHandedAndShield, weapon);
+        if (itemType == ItemType.Mainhand)
+        {
+            NewWeaponController.Instance.EquipMainHandWeapon(weapon);
+        }
+        else if (itemType == ItemType.OffHand)
+        {
+            NewWeaponController.Instance.EquipOffHandWeapon(weapon);
+        }
     }
 }
