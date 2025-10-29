@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utilities;
 
-public class NewWeaponController : MonoBehaviour
+public class NewWeaponController : Singleton<NewWeaponController>
 {
     private NewPlayerController newPlayerController;
     public Animator animator;
@@ -19,8 +19,9 @@ public class NewWeaponController : MonoBehaviour
     private float comboPeriod = 3;
     public bool canAttack = true;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         comboCounter = new CountdownTimer(comboPeriod);
         newPlayerController = GetComponent<NewPlayerController>();
     }
@@ -62,7 +63,7 @@ public class NewWeaponController : MonoBehaviour
         primaryWeaponAttackCompleted = !primaryWeaponAttackCompleted;
     }
 
-    public void EquipWeapon(WeaponAttackTypes weaponAttackType, Weapon primaryWeapon, Weapon secondaryWeapon = null)
+    public void EquipWeapon(WeaponAttackTypes weaponAttackType, GameObject primaryWeapon, GameObject secondaryWeapon = null)
     {
         UnequipOldWeapons();
 
@@ -70,20 +71,22 @@ public class NewWeaponController : MonoBehaviour
         {
             case WeaponAttackTypes.OneHandedAndShield:
                 animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
-                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform);
+                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
                 instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
-                instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform);
-                instantiatedSecondaryWeapon.transform.localRotation = secondaryWeapon.transform.rotation;
-
                 instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-                instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
+                if (secondaryWeapon != null)
+                {
+                    instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
+                    instantiatedSecondaryWeapon.transform.localRotation = secondaryWeapon.transform.rotation;
+                    instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
+                }
                 break;
 
             case WeaponAttackTypes.DualWield:
                 animator.runtimeAnimatorController = DualWieldAnimator;
-                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform);
+                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
                 instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
-                instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform);
+                instantiatedSecondaryWeapon = Instantiate(secondaryWeapon, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
                 instantiatedSecondaryWeapon.transform.localRotation = secondaryWeapon.transform.rotation;
 
                 instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
@@ -92,7 +95,7 @@ public class NewWeaponController : MonoBehaviour
 
             case WeaponAttackTypes.TwoHanded:
                 animator.runtimeAnimatorController = TwoHandedAnimator;
-                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, primaryWeapon.transform.rotation, mainHandTransform);
+                instantiatedPrimaryWeapon = Instantiate(primaryWeapon, mainHandTransform.position, primaryWeapon.transform.rotation, mainHandTransform).GetComponent<Weapon>();
                 instantiatedPrimaryWeapon.transform.localRotation = primaryWeapon.transform.rotation;
 
                 instantiatedPrimaryWeapon.SetPlayer(newPlayerController);

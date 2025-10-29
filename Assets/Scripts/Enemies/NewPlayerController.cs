@@ -204,13 +204,13 @@ public class NewPlayerController : Entity
     [ContextMenu("Equip Weapon One")]
     public void EquipWeaponOne()
     {
-        weaponController.EquipWeapon(NewWeaponController.WeaponAttackTypes.DualWield, WeaponManager.Instance.OneHandedAxe, WeaponManager.Instance.OneHandedMace);
+        //weaponController.EquipWeapon(NewWeaponController.WeaponAttackTypes.DualWield, WeaponManager.Instance.OneHandedAxe, WeaponManager.Instance.OneHandedMace);
     }
 
     [ContextMenu("Equip Weapon Two")]
     public void EquipWeaponTwo()
     {
-        weaponController.EquipWeapon(NewWeaponController.WeaponAttackTypes.TwoHanded, WeaponManager.Instance.TwoHandedSword);
+        //weaponController.EquipWeapon(NewWeaponController.WeaponAttackTypes.TwoHanded, WeaponManager.Instance.TwoHandedSword);
     }
     #endregion
 }
