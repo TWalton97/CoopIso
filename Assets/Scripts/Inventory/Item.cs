@@ -12,7 +12,7 @@ public class Item : MonoBehaviour
 
     [TextArea] public string itemDescription;
 
-    private InventoryManager inventoryManager;
+    public InventoryManager inventoryManager;
 
     public ItemType itemType;
 
@@ -24,9 +24,9 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.TryGetComponent(out PlayerInputController controller))
         {
-            inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType, data);
+            inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType, data, controller.playerIndex);
             Destroy(gameObject);
         }
     }

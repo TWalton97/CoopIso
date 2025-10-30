@@ -6,14 +6,21 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.IPlayerActions
+public class InventoryManager : Singleton<InventoryManager>
 {
     public static Action OnMenuOpened;
     public static Action OnMenuClosed;
-    public GameObject InventoryMenu;
     public GameObject EquipmentMenu;
 
-    public ItemSlot[] itemSlot;
+    [Serializable]
+    public class EquipmentMenus
+    {
+        public InventoryController controller;
+        public GameObject EquipmentMenuObject;
+        public int playerIndex;
+    }
+    public EquipmentMenus[] EquipmentMenuObjects = new EquipmentMenus[2];
+
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;
     public ItemSO[] itemSOs;
@@ -27,67 +34,43 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
     public bool IsInventoryOpened;
     public bool IsEquipmentMenuOpened;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Inventory();
-        }
-    }
+    private bool player0MenuOpened;
+    private bool player1MenuOpened;
 
-    void Inventory()
+    public void Equipment(int playerIndex)
     {
-        if (IsInventoryOpened)
+        if (EquipmentMenuObjects[playerIndex].EquipmentMenuObject.activeSelf)   //If the corresponding menu is opened, close it
         {
-            InventoryMenu.SetActive(false);
-            EquipmentMenu.SetActive(false);
-            NewWeaponController.Instance.canAttack = true;
-            Time.timeScale = 1;
-            IsInventoryOpened = false;
-            OnMenuClosed?.Invoke();
-        }
-        else
-        {
-            InventoryMenu.SetActive(true);
-            EquipmentMenu.SetActive(false);
-            Time.timeScale = 0;
-            IsInventoryOpened = true;
-            OnMenuOpened?.Invoke();
-        }
-    }
+            EquipmentMenuObjects[playerIndex].EquipmentMenuObject.SetActive(false);
+            if (playerIndex == 0) player0MenuOpened = false;
+            if (playerIndex == 1) player1MenuOpened = false;
 
-    public void Equipment()
-    {
-        if (IsEquipmentMenuOpened)
-        {
-            InventoryMenu.SetActive(false);
-            EquipmentMenu.SetActive(false);
-            NewWeaponController.Instance.canAttack = true;
-            Time.timeScale = 1;
-            IsEquipmentMenuOpened = false;
-            OnMenuClosed?.Invoke();
-        }
-        else
-        {
-            InventoryMenu.SetActive(false);
-            EquipmentMenu.SetActive(true);
-            Time.timeScale = 0;
-            IsEquipmentMenuOpened = true;
-            OnMenuOpened?.Invoke();
-        }
-    }
-
-    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType, WeaponDataSO weaponDataSO)
-    {
-
-        for (int i = 0; i < equipmentSlot.Length; i++)
-        {
-            if (equipmentSlot[i].isFull == false)
+            if (!player0MenuOpened && !player1MenuOpened)
             {
-                equipmentSlot[i].AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType, weaponDataSO);
-                return;
+                Time.timeScale = 1;
+                //TODO: STILL FIX THIS
+                PlayerJoinManager.Instance.GetPlayerControllerByIndex(0).WeaponController.canAttack = true;
+                NewPlayerController controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(1);
+                if (controller != null)
+                {
+                    controller.WeaponController.canAttack = true;
+                }
+                OnMenuClosed?.Invoke();
             }
         }
+        else
+        {
+            EquipmentMenuObjects[playerIndex].EquipmentMenuObject.SetActive(true);
+            if (playerIndex == 0) player0MenuOpened = true;
+            if (playerIndex == 1) player1MenuOpened = true;
+            Time.timeScale = 0;
+            OnMenuOpened?.Invoke();
+        }
+    }
+
+    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType, WeaponDataSO weaponDataSO, int playerIndex)
+    {
+        EquipmentMenuObjects[playerIndex].controller.AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType, weaponDataSO);
     }
 
     public void UseItem(string itemName)
@@ -103,15 +86,6 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
 
     public void DeselectAllSlots()
     {
-        for (int i = 0; i < itemSlot.Length; i++)
-        {
-            if (itemSlot[i].isSelected)
-            {
-                //itemSlot[i].selectedShader.SetActive(false);
-                itemSlot[i].isSelected = false;
-            }
-        }
-
         for (int i = 0; i < equipmentSlot.Length; i++)
         {
             if (equipmentSlot[i].isSelected)
@@ -147,55 +121,6 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
         itemTypePreText.text = "";
         attackPreText.text = "";
         movementSpeedPreText.text = "";
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-
-    }
-
-    public void OnLookMouse(InputAction.CallbackContext context)
-    {
-
-    }
-
-    public void OnLookStick(InputAction.CallbackContext context)
-    {
-
-    }
-
-    public void OnAttack(InputAction.CallbackContext context)
-    {
-
-    }
-
-    public void OnJump(InputAction.CallbackContext context)
-    {
-
-    }
-
-    public void OnAbility1(InputAction.CallbackContext context)
-    {
-
-    }
-
-    public void OnBlock(InputAction.CallbackContext context)
-    {
-
-    }
-
-    public void OnSwapWeapon(InputAction.CallbackContext context)
-    {
-
-    }
-
-    public void OnOpenEquipmentMenu(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            Debug.Log("Equipment menu context performed");
-            Equipment();
-        }
     }
 }
 

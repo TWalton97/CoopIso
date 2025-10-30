@@ -21,6 +21,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     private WeaponDataSO data;
 
     private InventoryManager inventoryManager;
+    private InventoryController inventoryController;
     private EquipmentSOLibrary equipmentSOLibrary;
 
     //Other variables
@@ -33,6 +34,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         inventoryManager = InventoryManager.Instance;
+        inventoryController = GetComponentInParent<InventoryController>();
         equipmentSOLibrary = EquipmentSOLibrary.Instance;
     }
 
@@ -88,15 +90,18 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
         if (itemType == ItemType.OneHanded)
         {
-            NewWeaponController.Instance.EquipOneHandedWeapon(weapon);
+            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOneHandedWeapon(weapon);
+            //NewWeaponController.Instance.EquipOneHandedWeapon(weapon);
         }
         else if (itemType == ItemType.Offhand)
         {
-            NewWeaponController.Instance.EquipOffhand(weapon);
+            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOffhand(weapon);
+            //NewWeaponController.Instance.EquipOffhand(weapon);
         }
         else if (itemType == ItemType.TwoHanded)
         {
-            NewWeaponController.Instance.EquipTwoHandedWeapon(weapon);
+            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipTwoHandedWeapon(weapon);
+            //NewWeaponController.Instance.EquipTwoHandedWeapon(weapon);
         }
 
         slotInUse = true;
@@ -107,7 +112,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager.DeselectAllSlots();
         if (slotInUse)
         {
-            inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemPrefab, itemType, data);
+            inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemPrefab, itemType, data, inventoryController.playerIndex);
         }
 
 
@@ -121,10 +126,12 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         switch (slotType)
         {
             case Slot.MainHand:
-                NewWeaponController.Instance.UnequipWeapon(Weapon.WeaponHand.MainHand);
+                PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.UnequipWeapon(Weapon.WeaponHand.MainHand);
+                //NewWeaponController.Instance.UnequipWeapon(Weapon.WeaponHand.MainHand);
                 break;
             case Slot.OffHand:
-                NewWeaponController.Instance.UnequipWeapon(Weapon.WeaponHand.OffHand);
+                PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.UnequipWeapon(Weapon.WeaponHand.OffHand);
+                //NewWeaponController.Instance.UnequipWeapon(Weapon.WeaponHand.OffHand);
                 break;
         }
     }
@@ -133,9 +140,11 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
 public enum Slot
 {
+    Potion,
     Head,
     Body,
     Legs,
     MainHand,
-    OffHand
+    OffHand,
+    Trinket
 }

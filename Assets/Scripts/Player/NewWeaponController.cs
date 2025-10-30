@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utilities;
 
-public class NewWeaponController : Singleton<NewWeaponController>
+public class NewWeaponController : MonoBehaviour
 {
     private NewPlayerController newPlayerController;
     public Animator animator;
@@ -21,9 +21,8 @@ public class NewWeaponController : Singleton<NewWeaponController>
     public bool canAttack = true;
     public bool HasShieldEquipped;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         comboCounter = new CountdownTimer(comboPeriod);
         newPlayerController = GetComponent<NewPlayerController>();
     }

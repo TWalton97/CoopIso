@@ -121,8 +121,6 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
                 mainHandSlot.UnequipGear();
             }
         }
-
-
         EmptySlot();
     }
 
