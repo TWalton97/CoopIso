@@ -10,14 +10,12 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnEnter()
     {
-        Debug.Log("Enter attack state");
-
-        player.weaponController.Attack(AttackCompleted);
+        player.WeaponController.Attack(AttackCompleted);
     }
 
     private void AttackCompleted()
     {
-        player.weaponController.canAttack = true;
+        player.WeaponController.canAttack = true;
         player.attackStateMachine.ChangeState(player.idleState);
     }
 
@@ -29,6 +27,5 @@ public class PlayerAttackState : PlayerBaseState
     public override void OnExit()
     {
         player.attackButtonPressed = false;
-        Debug.Log("Exit attack state");
     }
 }

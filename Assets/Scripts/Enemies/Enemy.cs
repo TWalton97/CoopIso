@@ -131,7 +131,7 @@ public class Enemy : Entity
         NewPlayerController[] playerControllers = FindObjectsOfType<NewPlayerController>();
         foreach (NewPlayerController playerController in playerControllers)
         {
-            playerController._experienceController.AddExperience(ExpValue);
+            playerController.ExperienceController.AddExperience(ExpValue);
         }
     }
 }

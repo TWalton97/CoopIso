@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void Enter(Action endAction)
     {
-        newPlayerController.animator.CrossFade(attackHash, 0.2f, (int)PlayerAnimatorLayers.UpperBody);
+        newPlayerController.Animator.CrossFade(attackHash, 0.2f, (int)PlayerAnimatorLayers.UpperBody);
         StartCoroutine(ActivateHitbox(endAction));
         InvokeOnEnter();
     }
