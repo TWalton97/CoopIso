@@ -68,9 +68,9 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
-    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType, WeaponDataSO weaponDataSO, int playerIndex)
+    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, GameObject vfxPrefab, ItemType itemType, WeaponDataSO weaponDataSO, int playerIndex)
     {
-        EquipmentMenuObjects[playerIndex].controller.AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType, weaponDataSO);
+        EquipmentMenuObjects[playerIndex].controller.AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, vfxPrefab, itemType, weaponDataSO);
     }
 
     public void UseItem(string itemName)

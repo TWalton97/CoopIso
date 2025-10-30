@@ -18,6 +18,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     private string itemName;
     private string itemDescription;
     private GameObject itemPrefab;
+    private GameObject vfxPrefab;
     private WeaponDataSO data;
 
     private InventoryManager inventoryManager;
@@ -36,6 +37,8 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager = InventoryManager.Instance;
         inventoryController = GetComponentInParent<InventoryController>();
         equipmentSOLibrary = EquipmentSOLibrary.Instance;
+
+        //EquipGear(itemSprite, itemName, itemDescription, itemPrefab, vfxPrefab, data, itemType);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -71,7 +74,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         UnequipGear();
     }
 
-    public void EquipGear(Sprite sprite, string itemName, string itemDescription, GameObject weapon, WeaponDataSO weaponDataSO, ItemType itemType = ItemType.Head)
+    public void EquipGear(Sprite sprite, string itemName, string itemDescription, GameObject weapon, GameObject vfxPrefab, WeaponDataSO weaponDataSO, ItemType itemType = ItemType.Head)
     {
         if (slotInUse)
             UnequipGear();
@@ -81,6 +84,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         slotImage.enabled = true;
         slotName.enabled = false;
         itemPrefab = weapon.gameObject;
+        this.vfxPrefab = vfxPrefab;
         this.itemType = itemType;
         this.equippedWeaponType = itemType;
         this.data = weaponDataSO;
@@ -90,8 +94,6 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
         if (itemType == ItemType.OneHanded)
         {
-            Debug.Log("Player index is " + PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex));
-            Debug.Log("Equipping weapon to " + PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).gameObject.name);
             PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOneHandedWeapon(weapon);
             //NewWeaponController.Instance.EquipOneHandedWeapon(weapon);
         }
@@ -114,7 +116,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager.DeselectAllSlots();
         if (slotInUse)
         {
-            inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemPrefab, itemType, data, inventoryController.playerIndex);
+            inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemPrefab, vfxPrefab, itemType, data, inventoryController.playerIndex);
         }
 
 

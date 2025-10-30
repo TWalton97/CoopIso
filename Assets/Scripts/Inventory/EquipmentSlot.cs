@@ -15,6 +15,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public bool isFull;
     public string itemDescription;
     public GameObject objectPrefab;
+    public GameObject vfxPrefab;
     public Sprite emptySprite;
     public ItemType itemType;
     private WeaponDataSO data;
@@ -35,13 +36,14 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         inventoryController = GetComponentInParent<InventoryController>();
     }
 
-    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType, WeaponDataSO weaponDataSO)
+    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, GameObject vfxPrefab, ItemType itemType, WeaponDataSO weaponDataSO)
     {
         this.itemName = itemName;
         this.quantity = quantity;
         this.sprite = sprite;
         this.itemDescription = itemDescription;
         this.objectPrefab = objectPrefab;
+        this.vfxPrefab = vfxPrefab;
         this.itemType = itemType;
         this.data = weaponDataSO;
         isFull = true;
@@ -84,14 +86,14 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     private void EquipGear()
     {
         if (itemType == ItemType.Head)
-            headSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data);
+            headSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data);
         if (itemType == ItemType.Body)
-            bodySlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data);
+            bodySlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data);
         if (itemType == ItemType.Legs)
-            legSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data);
+            legSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data);
         if (itemType == ItemType.TwoHanded)
         {
-            mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.TwoHanded);
+            mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.TwoHanded);
             offHandSlot.UnequipGear();
         }
 
@@ -99,24 +101,24 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         {
             if (!mainHandSlot.slotInUse)
             {
-                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.OneHanded);
+                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.OneHanded);
             }
             else if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
             {
-                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.OneHanded);
+                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.OneHanded);
             }
             else if (!offHandSlot.slotInUse)
             {
-                offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.OneHanded);
+                offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.OneHanded);
             }
             else
             {
-                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.OneHanded);
+                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.OneHanded);
             }
         }
         if (itemType == ItemType.Offhand)
         {
-            offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.Offhand);
+            offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.Offhand);
             if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
             {
                 mainHandSlot.UnequipGear();
@@ -145,6 +147,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         newItem.sprite = sprite;
         newItem.itemDescription = itemDescription;
         newItem.objectPrefab = objectPrefab;
+        newItem.vfxPrefab = vfxPrefab;
 
         //Add collider
         itemToDrop.AddComponent<SphereCollider>().isTrigger = true;

@@ -30,7 +30,7 @@ public class Enemy : Entity
     private bool IsDead = false;
     [HideInInspector] public bool IsStaggered = false;
 
-    [ReadOnly] public string StateName;
+    public string StateName;
     private EnemyWanderState wanderState;
 
     public override void Awake()

@@ -19,13 +19,13 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private TMP_Text attackPreText;
     [SerializeField] private TMP_Text movementSpeedPreText;
 
-    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType, WeaponDataSO weaponDataSO)
+    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, GameObject vfxPrefab, ItemType itemType, WeaponDataSO weaponDataSO)
     {
         for (int i = 0; i < equipmentSlot.Length; i++)
         {
             if (equipmentSlot[i].isFull == false)
             {
-                equipmentSlot[i].AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType, weaponDataSO);
+                equipmentSlot[i].AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, vfxPrefab, itemType, weaponDataSO);
                 return;
             }
         }

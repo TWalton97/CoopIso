@@ -15,7 +15,7 @@ public class NewPlayerController : Entity
     public GroundCheck GroundCheck { get; private set; }
 
     public float _movementSpeed;
-    [ReadOnly] public float _maximumMovementSpeed;
+    public float _maximumMovementSpeed;
     public float _jumpForce;
 
     public StateMachine attackStateMachine;
@@ -28,8 +28,8 @@ public class NewPlayerController : Entity
 
     [SerializeField] private LayerMask GroundLayer = NavMeshUtils.GROUND_LAYER;
     private Vector2 _moveInput;
-    [ReadOnly] public bool blockButtonPressed;
-    [ReadOnly] public bool attackButtonPressed;
+    public bool blockButtonPressed;
+    public bool attackButtonPressed;
     private const string KEYBOARD_SCHEME = "Keyboard&Mouse";
     private const string GAMEPAD_SCHEME = "Gamepad";
 
