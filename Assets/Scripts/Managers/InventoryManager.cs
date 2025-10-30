@@ -49,7 +49,7 @@ public class InventoryManager : Singleton<InventoryManager>
             {
                 Time.timeScale = 1;
                 //TODO: STILL FIX THIS
-                PlayerJoinManager.Instance.GetPlayerControllerByIndex(0).WeaponController.canAttack = true;
+                //PlayerJoinManager.Instance.GetPlayerControllerByIndex(0).WeaponController.canAttack = true;
                 NewPlayerController controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(1);
                 if (controller != null)
                 {

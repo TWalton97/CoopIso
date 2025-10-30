@@ -90,6 +90,8 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
         if (itemType == ItemType.OneHanded)
         {
+            Debug.Log("Player index is " + PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex));
+            Debug.Log("Equipping weapon to " + PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).gameObject.name);
             PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOneHandedWeapon(weapon);
             //NewWeaponController.Instance.EquipOneHandedWeapon(weapon);
         }

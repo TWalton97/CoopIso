@@ -212,6 +212,7 @@ public class PlayerInputController : MonoBehaviour
     #region Shared Input Actions
     public void OnEquipmentMenu(CallbackContext context)
     {
+        Debug.Log("OnEquipmentMenuPressed");
         InventoryManager.Instance.Equipment(playerIndex);
     }
     #endregion

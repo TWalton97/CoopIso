@@ -47,20 +47,25 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     private void CreatePlayerCanvas(PlayerInput playerInput)
     {
         InputSystemUIInputModule inputModule;
+        InventoryController controller;
         switch (playerInput.playerIndex)
         {
             case 0:
-
                 inputModule = Instantiate(player1UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
                 playerInput.uiInputModule = inputModule;
                 inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].EquipmentMenuObject = inputModule.gameObject;
-                inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].controller = inputModule.GetComponent<InventoryController>();
+                controller = inputModule.GetComponent<InventoryController>();
+                inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].controller = controller;
+                controller.playerIndex = playerInput.playerIndex;
                 break;
             case 1:
                 inputModule = Instantiate(player2UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
                 playerInput.uiInputModule = inputModule;
                 inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].EquipmentMenuObject = inputModule.gameObject;
-                inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].controller = inputModule.GetComponent<InventoryController>();
+                controller = inputModule.GetComponent<InventoryController>();
+                inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].controller = controller;
+                controller.playerIndex = playerInput.playerIndex;
+
                 break;
         }
     }

@@ -8,7 +8,7 @@ public class InventoryController : MonoBehaviour
     //It stores references to all item slots
     //
 
-    public int playerIndex { get; private set; }
+    public int playerIndex;
 
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;

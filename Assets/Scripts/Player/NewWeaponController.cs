@@ -140,10 +140,16 @@ public class NewWeaponController : MonoBehaviour
     private void UpdateAnimator()
     {
         primaryWeaponAttackCompleted = false;
+        canAttack = true;
 
         if (instantiatedPrimaryWeapon == null) return;
-        //Need to check when we equip weapons if main hand is empty, and equip there if it is
-        if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
+
+        if (HasShieldEquipped)
+        {
+            animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
+            currentWeaponAttackType = WeaponAttackTypes.OneHanded;
+        }
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
         {
             animator.runtimeAnimatorController = TwoHandedAnimator;
             currentWeaponAttackType = WeaponAttackTypes.TwoHanded;

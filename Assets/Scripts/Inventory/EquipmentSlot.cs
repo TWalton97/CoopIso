@@ -28,11 +28,11 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public GameObject selectedShader;
     public bool isSelected;
 
-    private InventoryManager inventoryManager;
+    private InventoryController inventoryController;
 
     void Start()
     {
-        inventoryManager = InventoryManager.Instance;
+        inventoryController = GetComponentInParent<InventoryController>();
     }
 
     public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType, WeaponDataSO weaponDataSO)
@@ -69,14 +69,15 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         if (isSelected)
         {
             EquipGear();
-            inventoryManager.ClearPreviewWindow();
+            inventoryController.ClearPreviewWindow();
             isSelected = false;
         }
         else
         {
-            inventoryManager.DeselectAllSlots();
-            inventoryManager.UpdatePreviewWindow(sprite, itemName, itemType, data);
+            inventoryController.DeselectAllSlots();
             isSelected = true;
+            if (isFull)
+                inventoryController.UpdatePreviewWindow(sprite, itemName, itemType, data);
         }
     }
 
