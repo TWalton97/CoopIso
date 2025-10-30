@@ -365,6 +365,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""0f288fab-46ed-4bb8-a8b2-2712029d054d"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a8a5b48c-a1de-4d13-bf14-649ff08adfdc"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",

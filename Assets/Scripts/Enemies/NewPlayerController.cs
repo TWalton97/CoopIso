@@ -2,20 +2,21 @@ using UnityEngine;
 using Utilities;
 using UnityEngine.InputSystem;
 using System;
+using static UnityEngine.InputSystem.InputAction;
 
 public class NewPlayerController : Entity
 {
-    public Rigidbody Rigidbody;
-    public Animator animator;
-    [SerializeField] private PlayerInput playerInput;
-    public NewWeaponController weaponController;
-    public ExperienceController _experienceController;
-    private GroundCheck groundCheck;
+    //Object references
+    public Rigidbody Rigidbody { get; private set; }
+    public Animator Animator { get; private set; }
+    public NewWeaponController WeaponController { get; private set; }
+    public ExperienceController ExperienceController { get; private set; }
+    public PlayerInputController PlayerInputController { get; private set; }
+    public GroundCheck GroundCheck { get; private set; }
 
     public float _movementSpeed;
     [ReadOnly] public float _maximumMovementSpeed;
     public float _jumpForce;
-    public float attackCooldown;
 
     public StateMachine attackStateMachine;
     public PlayerIdleState idleState;
@@ -23,13 +24,12 @@ public class NewPlayerController : Entity
     public PlayerBlockState blockState;
 
     public StateMachine movementStateMachine;
-    CountdownTimer attackCooldownTimer;
+
 
     [SerializeField] private LayerMask GroundLayer = NavMeshUtils.GROUND_LAYER;
     private Vector2 _moveInput;
-    private Vector2 _lookInput;
-    private bool blockButtonPressed;
-    [HideInInspector] public bool attackButtonPressed;
+    [ReadOnly] public bool blockButtonPressed;
+    [ReadOnly] public bool attackButtonPressed;
     private const string KEYBOARD_SCHEME = "Keyboard&Mouse";
     private const string GAMEPAD_SCHEME = "Gamepad";
 
@@ -37,83 +37,131 @@ public class NewPlayerController : Entity
     public override void Awake()
     {
         base.Awake();
-        attackCooldownTimer = new CountdownTimer(attackCooldown);
-        _maximumMovementSpeed = _movementSpeed;
-        groundCheck = GetComponent<GroundCheck>();
+        Rigidbody = GetComponent<Rigidbody>();
+        Animator = GetComponentInChildren<Animator>();
+        WeaponController = GetComponent<NewWeaponController>();
+        ExperienceController = GetComponent<ExperienceController>();
+        PlayerInputController = GetComponent<PlayerInputController>();
+        GroundCheck = GetComponent<GroundCheck>();
     }
     void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
-
         SetupMovementStateMachine();
         SetupAttackStateMachine();
+        SubscribeToInputEvents();
 
-        InventoryManager.OnMenuOpened += () => playerInput.SwitchCurrentActionMap("UI");
-        InventoryManager.OnMenuClosed += () => playerInput.SwitchCurrentActionMap("Player");
-        InventoryManager.OnMenuClosed += () => attackStateMachine.ChangeState(idleState);
+        _maximumMovementSpeed = _movementSpeed;
     }
 
     void OnDisable()
     {
-        InventoryManager.OnMenuOpened -= () => playerInput.SwitchCurrentActionMap("UI");
-        InventoryManager.OnMenuClosed -= () => playerInput.SwitchCurrentActionMap("Player");
+        UnsubscribeFromInputEvents();
+    }
+
+    private void SubscribeToInputEvents()
+    {
+        InventoryManager.OnMenuOpened += () => PlayerInputController.EnableUIActionMap();
+        InventoryManager.OnMenuClosed += () => PlayerInputController.EnablePlayerActionMap();
+        InventoryManager.OnMenuClosed += () => attackStateMachine.ChangeState(idleState);
+
+        PlayerInputController.OnLookMousePerformed += RotateTowardsMouse;
+        PlayerInputController.OnLookStickPerformed += RotateTowardsStick;
+
+        PlayerInputController.OnAttackPerformed += Attack;
+        PlayerInputController.OnJumpPerformed += Jump;
+        PlayerInputController.OnBlockPerformed += Block;
+    }
+
+    private void UnsubscribeFromInputEvents()
+    {
+        InventoryManager.OnMenuOpened -= () => PlayerInputController.EnableUIActionMap();
+        InventoryManager.OnMenuClosed -= () => PlayerInputController.EnablePlayerActionMap();
         InventoryManager.OnMenuClosed -= () => attackStateMachine.ChangeState(idleState);
+
+        PlayerInputController.OnLookMousePerformed -= RotateTowardsMouse;
+        PlayerInputController.OnLookStickPerformed -= RotateTowardsStick;
+
+        PlayerInputController.OnAttackPerformed -= Attack;
+        PlayerInputController.OnJumpPerformed -= Jump;
+        PlayerInputController.OnBlockPerformed -= Block;
+    }
+
+    void Update()
+    {
+        StateMachineUpdate();
+        UpdateAnimatorParameters();
+    }
+    void FixedUpdate()
+    {
+        StateMachineFixedUpdate();
+        Move();
+    }
+    #endregion
+
+    #region State Machines
+
+    private void StateMachineUpdate()
+    {
+        attackStateMachine.Update();
+        movementStateMachine.Update();
+    }
+
+    private void StateMachineFixedUpdate()
+    {
+        movementStateMachine.FixedUpdate();
+        attackStateMachine.FixedUpdate();
+    }
+
+    //Transitions
+    void At(IState from, IState to, StateMachine machine, IPredicate condition) => machine.AddTransition(from, to, condition);
+    void Any(IState to, StateMachine machine, IPredicate condition) => machine.AddAnyTransition(to, condition);
+
+    private void SetupMovementStateMachine()
+    {
+        movementStateMachine = new StateMachine();
+
+        var groundedState = new PlayerGroundedState(this, Animator);
+        var airborneState = new PlayerAirborneState(this, Animator);
+
+        At(groundedState, airborneState, movementStateMachine, new FuncPredicate(() => !GroundCheck.Grounded));
+        At(airborneState, groundedState, movementStateMachine, new FuncPredicate(() => GroundCheck.Grounded));
+
+        movementStateMachine.SetState(groundedState);
     }
 
     private void SetupAttackStateMachine()
     {
         attackStateMachine = new StateMachine();
 
-        idleState = new PlayerIdleState(this, animator);
-        attackState = new PlayerAttackState(this, animator);
-        blockState = new PlayerBlockState(this, animator);
+        idleState = new PlayerIdleState(this, Animator);
+        attackState = new PlayerAttackState(this, Animator);
+        blockState = new PlayerBlockState(this, Animator);
 
-        At(idleState, blockState, attackStateMachine, new FuncPredicate(() => blockButtonPressed && weaponController.HasShieldEquipped));
-        At(blockState, idleState, attackStateMachine, new FuncPredicate(() => !blockButtonPressed && weaponController.HasShieldEquipped));
+        At(idleState, blockState, attackStateMachine, new FuncPredicate(() => blockButtonPressed && WeaponController.HasShieldEquipped));
+        At(blockState, idleState, attackStateMachine, new FuncPredicate(() => !blockButtonPressed && WeaponController.HasShieldEquipped));
 
         Any(attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
 
         attackStateMachine.SetState(idleState);
     }
 
-    private void SetupMovementStateMachine()
+    #endregion
+
+    #region Animator
+
+    private void UpdateAnimatorParameters()
     {
-        movementStateMachine = new StateMachine();
-
-        var groundedState = new PlayerGroundedState(this, animator);
-        var airborneState = new PlayerAirborneState(this, animator);
-
-        At(groundedState, airborneState, movementStateMachine, new FuncPredicate(() => !groundCheck.Grounded));
-        At(airborneState, groundedState, movementStateMachine, new FuncPredicate(() => groundCheck.Grounded));
-
-        movementStateMachine.SetState(groundedState);
-    }
-
-    void At(IState from, IState to, StateMachine machine, IPredicate condition) => machine.AddTransition(from, to, condition);
-    void Any(IState to, StateMachine machine, IPredicate condition) => machine.AddAnyTransition(to, condition);
-
-    void Update()
-    {
-        attackStateMachine.Update();
-        movementStateMachine.Update();
-        attackCooldownTimer.Tick(Time.deltaTime);
         Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity).normalized;
-        animator.SetFloat("VelocityX", Mathf.Clamp(localVelocity.x, -1, 1));
-        animator.SetFloat("VelocityZ", Mathf.Clamp(localVelocity.z, -1, 1));
-        animator.SetFloat("SpeedMultiplier", Mathf.Clamp(_movementSpeed / _maximumMovementSpeed, 0.5f, 1));
-
-    }
-    void FixedUpdate()
-    {
-        movementStateMachine.FixedUpdate();
-        attackStateMachine.FixedUpdate();
-        Move();
+        Animator.SetFloat("VelocityX", Mathf.Clamp(localVelocity.x, -1, 1));
+        Animator.SetFloat("VelocityZ", Mathf.Clamp(localVelocity.z, -1, 1));
+        Animator.SetFloat("SpeedMultiplier", Mathf.Clamp(_movementSpeed / _maximumMovementSpeed, 0.5f, 1));
     }
     #endregion
 
     #region Movement
     private void Move()
     {
+        _moveInput = PlayerInputController.MoveVal;
         Vector3 inputDirection = new Vector3(_moveInput.x, 0, _moveInput.y);
 
         Quaternion rotation = Quaternion.AngleAxis(225f, Vector3.up);
@@ -125,18 +173,27 @@ public class NewPlayerController : Entity
 
         Rigidbody.velocity = newVel;
 
-        if (playerInput.currentControlScheme == GAMEPAD_SCHEME && _lookInput == Vector2.zero)
+
+        //If we're moving with gamepad and not touching right stick, we rotate character to face movement direction
+        if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME && PlayerInputController.LookStickVal == Vector2.zero)
         {
-            RotateTowardsStick(_moveInput);
+            RotateToFaceDir(_moveInput);
         }
+    }
+
+    private void Jump(CallbackContext context)
+    {
+        if (!GroundCheck.Grounded) return;
+        Animator.CrossFade(Animator.StringToHash("Jump"), 0.2f, (int)PlayerAnimatorLayers.FullBody);
+        Rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
     }
 
     #endregion
 
     #region Looking
-    private void RotateTowardsMouse(Vector2 mousePos)
+    private void RotateTowardsMouse(CallbackContext context)
     {
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(context.ReadValue<Vector2>());
 
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, GroundLayer))
@@ -147,7 +204,14 @@ public class NewPlayerController : Entity
             transform.LookAt(transform.position + dirToPoint);
         }
     }
-    private void RotateTowardsStick(Vector2 dir)
+
+    private void RotateTowardsStick(CallbackContext context)
+    {
+        Vector2 dir = context.ReadValue<Vector2>();
+        RotateToFaceDir(dir);
+    }
+
+    private void RotateToFaceDir(Vector2 dir)
     {
         Vector3 inputDirection = new Vector3(dir.x, 0, dir.y);
         Quaternion rotation = Quaternion.AngleAxis(225f, Vector3.up);
@@ -158,58 +222,31 @@ public class NewPlayerController : Entity
     }
     #endregion
 
-    #region PlayerInputMessages
-    private void OnAbility1()
+    #region Combat
+
+    private void Attack(CallbackContext context)
     {
-
-    }
-
-    public void OnLookStick(InputValue value)
-    {
-        var dir = value.Get<Vector2>();
-        _lookInput = dir;
-        RotateTowardsStick(dir);
-    }
-
-    public void OnLookMouse(InputValue value)
-    {
-        var dir = value.Get<Vector2>();
-        RotateTowardsMouse(dir);
-    }
-
-    public void OnBlock(InputValue value)
-    {
-        if (!weaponController.HasShieldEquipped) return;
-
-        if (value.isPressed)
-        {
-            blockButtonPressed = true;
-        }
-        else
-        {
-            blockButtonPressed = false;
-        }
-    }
-
-    private void OnAttack()
-    {
-        if (weaponController.canAttack && weaponController.instantiatedPrimaryWeapon != null)
+        if (WeaponController.canAttack && WeaponController.instantiatedPrimaryWeapon != null)
         {
             attackButtonPressed = true;
         }
     }
 
-    public void OnJump()
+    private void Block(CallbackContext context)
     {
-        if (!groundCheck.Grounded) return;
-        animator.CrossFade(Animator.StringToHash("Jump"), 0.2f, (int)PlayerAnimatorLayers.FullBody);
-        Rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
+        if (!WeaponController.HasShieldEquipped) return;
+
+        if (context.started)
+        {
+            blockButtonPressed = true;
+        }
+
+        if (context.canceled)
+        {
+            blockButtonPressed = false;
+        }
     }
 
-    public void OnMove(InputValue value)
-    {
-        _moveInput = value.Get<Vector2>();
-    }
     #endregion
 
 }

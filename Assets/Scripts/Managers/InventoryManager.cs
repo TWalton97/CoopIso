@@ -24,54 +24,56 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
     [SerializeField] private TMP_Text attackPreText;
     [SerializeField] private TMP_Text movementSpeedPreText;
 
+    public bool IsInventoryOpened;
+    public bool IsEquipmentMenuOpened;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
             Inventory();
         }
-
-        // if (Input.GetKeyDown(KeyCode.Tab))
-        // {
-        //     Equipment();
-        // }
     }
 
     void Inventory()
     {
-        if (InventoryMenu.activeSelf)
+        if (IsInventoryOpened)
         {
             InventoryMenu.SetActive(false);
             EquipmentMenu.SetActive(false);
-            OnMenuClosed?.Invoke();
             NewWeaponController.Instance.canAttack = true;
             Time.timeScale = 1;
+            IsInventoryOpened = false;
+            OnMenuClosed?.Invoke();
         }
         else
         {
             InventoryMenu.SetActive(true);
             EquipmentMenu.SetActive(false);
-            OnMenuOpened?.Invoke();
             Time.timeScale = 0;
+            IsInventoryOpened = true;
+            OnMenuOpened?.Invoke();
         }
     }
 
     public void Equipment()
     {
-        if (EquipmentMenu.activeSelf)
+        if (IsEquipmentMenuOpened)
         {
             InventoryMenu.SetActive(false);
             EquipmentMenu.SetActive(false);
-            OnMenuClosed?.Invoke();
             NewWeaponController.Instance.canAttack = true;
             Time.timeScale = 1;
+            IsEquipmentMenuOpened = false;
+            OnMenuClosed?.Invoke();
         }
         else
         {
             InventoryMenu.SetActive(false);
             EquipmentMenu.SetActive(true);
-            OnMenuOpened?.Invoke();
             Time.timeScale = 0;
+            IsEquipmentMenuOpened = true;
+            OnMenuOpened?.Invoke();
         }
     }
 
@@ -105,7 +107,7 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
         {
             if (itemSlot[i].isSelected)
             {
-                itemSlot[i].selectedShader.SetActive(false);
+                //itemSlot[i].selectedShader.SetActive(false);
                 itemSlot[i].isSelected = false;
             }
         }
@@ -114,7 +116,7 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
         {
             if (equipmentSlot[i].isSelected)
             {
-                equipmentSlot[i].selectedShader.SetActive(false);
+                //equipmentSlot[i].selectedShader.SetActive(false);
                 equipmentSlot[i].isSelected = false;
             }
         }
@@ -123,7 +125,7 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
         {
             if (equippedSlot[i].isSelected)
             {
-                equippedSlot[i].selectedShader.SetActive(false);
+                //equippedSlot[i].selectedShader.SetActive(false);
                 equippedSlot[i].isSelected = false;
             }
         }
@@ -191,6 +193,7 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
     {
         if (context.performed)
         {
+            Debug.Log("Equipment menu context performed");
             Equipment();
         }
     }

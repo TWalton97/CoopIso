@@ -3,113 +3,216 @@ using System;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 using System.Linq;
+using System.Collections.Generic;
 
-public class PlayerInputController : MonoBehaviour  //WE CAN USE PlayerInputActions.IPlayerActions <- the name of our input asset
+public class PlayerInputController : MonoBehaviour
 {
-    public InputActionAsset playerControls;
-    private InputAction jumpAction;
-    private InputAction moveAction;
-    private InputAction lookAction;
-    private InputAction basicAttackAction;
-    private InputAction ability1Action;
-    private InputAction blockAction;
+    public PlayerInput playerInput { get; private set; }
+    private PlayerInputActions playerInputActions;
 
+    private const string gameplayMapName = "Player";
+    private const string UIMapName = "UI";
+    private InputActionMap gameplayMap;
+    private InputActionMap UIMap;
 
-    //Subscribe to these events
-    public Action OnJumpPerformed;
-    public Action<Vector2> OnMovePerformed;
-    public Action<Vector2> OnMouseMoved;
-    public Action<Vector2> OnStickMoved;
-    public Action OnBasicAttackPerformed;
-    public Action OnAbility1Performed;
-    public Action<bool> OnBlockPerformed;
+    //Input actions that need constant values
+    private InputAction Move;
+    private InputAction LookStick;
+
+    public Vector2 MoveVal { get; private set; }
+    public Vector2 LookStickVal { get; private set; }
+
+    //One shot actions
+    public Action<CallbackContext> OnLookMousePerformed;
+    public Action<CallbackContext> OnLookStickPerformed;
+
+    public Action<CallbackContext> OnAttackPerformed;
+    public Action<CallbackContext> OnJumpPerformed;
+    public Action<CallbackContext> OnAbility1Performed;
+    public Action<CallbackContext> OnBlockPerformed;
+
+    //Stored dictionary for unsubscribing from all events
+    private Dictionary<InputAction, Action<CallbackContext>> subscribedInputActions = new Dictionary<InputAction, Action<CallbackContext>>();
+
+    public int playerIndex { get; private set; }
 
     private void Awake()
     {
-        var gameplayMap = playerControls.FindActionMap("Player");
+        playerInputActions = new PlayerInputActions();
+        playerInput = GetComponent<PlayerInput>();
+        playerIndex = playerInput.playerIndex;
 
-        moveAction = gameplayMap.FindAction("Move");
-
-        jumpAction = gameplayMap.FindAction("Jump");
-        jumpAction.performed += OnJump;
-
-        lookAction = gameplayMap.FindAction("Look");
-        lookAction.performed += OnLook;
-
-        basicAttackAction = gameplayMap.FindAction("Attack");
-        basicAttackAction.performed += OnAttack;
-
-        ability1Action = gameplayMap.FindAction("Ability1");
-        ability1Action.performed += OnAbility1;
-
-        blockAction = gameplayMap.FindAction("Block");
-        blockAction.performed += OnBlock;
-        blockAction.canceled += OnBlockEnd;
+        gameplayMap = playerInput.actions.FindActionMap(gameplayMapName);
+        UIMap = playerInput.actions.FindActionMap(UIMapName);
     }
 
     void OnEnable()
     {
-        playerControls.Enable();
+        var equipmentMenu = playerInputActions.Player.OpenEquipmentMenu;
+        equipmentMenu.Enable();
+
+        equipmentMenu = playerInputActions.UI.OpenEquipmentMenu;
+        equipmentMenu.Enable();
+
+        Move = playerInput.currentActionMap.FindAction(playerInputActions.Player.Move.id);
+        Move.Enable();
+
+        //Need to always track stick position to determine rotation when walking using gamepad
+        LookStick = playerInput.currentActionMap.FindAction(playerInputActions.Player.LookStick.id);
+        LookStick.Enable();
+
+        //These are one shot events (buttons)
+        SubscribeToInputAction(playerInputActions.Player.Attack.id.ToString(), OnAttack, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.Jump.id.ToString(), OnJump, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.Ability1.id.ToString(), OnAbility1, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.LookMouse.id.ToString(), OnLookMouse, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.LookStick.id.ToString(), OnLookStick, gameplayMap);
+
+        SubscribeToInputAction(playerInputActions.UI.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, UIMap);
+
+        //Specific cases//
+
+        //Block needs to be called when started and canceled instead of performed
+        InputAction action = playerInput.currentActionMap.FindAction(playerInputActions.Player.Block.id);
+        action.started += OnBlock;
+        action.canceled += OnBlock;
     }
 
-    private void OnDisable()
+    void Update()
     {
-        playerControls.Disable();
+        MoveVal = Move.ReadValue<Vector2>();
+        LookStickVal = LookStick.ReadValue<Vector2>();
     }
 
-    private void OnDestroy()
+    private void SubscribeToInputAction(string id, Action<CallbackContext> function, InputActionMap map)
     {
-        jumpAction.performed -= OnJump;
-        basicAttackAction.performed -= OnAttack;
-        ability1Action.performed -= OnAbility1;
-        blockAction.started -= OnBlock;
+        InputAction action = map.FindAction(id);
+        action.performed += function;
+        subscribedInputActions.Add(action, function);
     }
 
-    private void Update()
+    void OnDestroy()
     {
-        Vector2 moveValue = moveAction.ReadValue<Vector2>();
-        OnMovePerformed?.Invoke(moveValue);
-
-        Vector2 mousePos = lookAction.ReadValue<Vector2>();
-        OnMouseMoved?.Invoke(mousePos);
-    }
-
-    public void OnLook(CallbackContext context)
-    {
-        InputDevice device = context.control.device;
-
-        if (device is Keyboard)
+        foreach (KeyValuePair<InputAction, Action<CallbackContext>> entry in subscribedInputActions)
         {
-            OnMouseMoved?.Invoke(context.ReadValue<Vector2>());
+            entry.Key.performed -= entry.Value;
         }
-        else if (device is Gamepad)
-        {
-            OnStickMoved?.Invoke(context.ReadValue<Vector2>());
-        }
+
+        subscribedInputActions.Clear();
+
+        InputAction action = UIMap.FindAction(playerInputActions.UI.OpenEquipmentMenu.id);
+        action.performed += OnEquipmentMenu;
     }
 
-    public void OnJump(CallbackContext context)
+    public void EnablePlayerActionMap()
     {
-        if (context.performed) OnJumpPerformed?.Invoke();
+        playerInput.SwitchCurrentActionMap("Player");
+    }
+
+    public void EnableUIActionMap()
+    {
+        playerInput.SwitchCurrentActionMap("UI");
+    }
+
+    #region Player Input Actions
+    public void OnAbility1(CallbackContext context)
+    {
+        OnAbility1Performed?.Invoke(context);
     }
 
     public void OnAttack(CallbackContext context)
     {
-        if (context.performed) OnBasicAttackPerformed?.Invoke();
-    }
-
-    public void OnAbility1(CallbackContext context)
-    {
-        if (context.performed) OnAbility1Performed?.Invoke();
+        OnAttackPerformed?.Invoke(context);
     }
 
     public void OnBlock(CallbackContext context)
     {
-        OnBlockPerformed?.Invoke(true);
+        OnBlockPerformed?.Invoke(context);
     }
 
-    public void OnBlockEnd(CallbackContext context)
+    public void OnJump(CallbackContext context)
     {
-        OnBlockPerformed?.Invoke(false);
+        OnJumpPerformed?.Invoke(context);
     }
+
+    public void OnLookMouse(CallbackContext context)
+    {
+        OnLookMousePerformed?.Invoke(context);
+    }
+
+    public void OnLookStick(CallbackContext context)
+    {
+        OnLookStickPerformed?.Invoke(context);
+    }
+
+    public void OnMove(CallbackContext context)
+    {
+
+    }
+
+    public void OnSwapWeapon(CallbackContext context)
+    {
+
+    }
+    #endregion
+
+    #region UI Input Actions
+    public void OnCancel(CallbackContext context)
+    {
+
+    }
+
+    public void OnClick(CallbackContext context)
+    {
+
+    }
+
+    public void OnMiddleClick(CallbackContext context)
+    {
+
+    }
+
+    public void OnNavigate(CallbackContext context)
+    {
+
+    }
+
+    public void OnPoint(CallbackContext context)
+    {
+
+    }
+
+    public void OnRightClick(CallbackContext context)
+    {
+
+    }
+
+    public void OnScrollWheel(CallbackContext context)
+    {
+
+    }
+
+    public void OnSubmit(CallbackContext context)
+    {
+
+    }
+
+    public void OnTrackedDeviceOrientation(CallbackContext context)
+    {
+
+    }
+
+    public void OnTrackedDevicePosition(CallbackContext context)
+    {
+
+    }
+    #endregion
+
+    #region Shared Input Actions
+    public void OnEquipmentMenu(CallbackContext context)
+    {
+        InventoryManager.Instance.Equipment();
+    }
+    #endregion
 }
