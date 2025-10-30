@@ -60,7 +60,6 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         {
             inventoryManager.DeselectAllSlots();
             inventoryManager.UpdatePreviewWindow(itemSprite, itemName, itemType, data);
-            selectedShader.SetActive(true);
             isSelected = true;
         }
     }

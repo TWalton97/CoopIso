@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,8 @@ using UnityEngine.UI;
 
 public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.IPlayerActions
 {
+    public static Action OnMenuOpened;
+    public static Action OnMenuClosed;
     public GameObject InventoryMenu;
     public GameObject EquipmentMenu;
 
@@ -40,6 +43,7 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
         {
             InventoryMenu.SetActive(false);
             EquipmentMenu.SetActive(false);
+            OnMenuClosed?.Invoke();
             NewWeaponController.Instance.canAttack = true;
             Time.timeScale = 1;
         }
@@ -47,6 +51,7 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
         {
             InventoryMenu.SetActive(true);
             EquipmentMenu.SetActive(false);
+            OnMenuOpened?.Invoke();
             Time.timeScale = 0;
         }
     }
@@ -57,6 +62,7 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
         {
             InventoryMenu.SetActive(false);
             EquipmentMenu.SetActive(false);
+            OnMenuClosed?.Invoke();
             NewWeaponController.Instance.canAttack = true;
             Time.timeScale = 1;
         }
@@ -64,6 +70,7 @@ public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.
         {
             InventoryMenu.SetActive(false);
             EquipmentMenu.SetActive(true);
+            OnMenuOpened?.Invoke();
             Time.timeScale = 0;
         }
     }

@@ -10,7 +10,7 @@
                     "type": "Value",
                     "id": "3b3bfd4f-d075-4042-99e0-5267e91782aa",
                     "expectedControlType": "Axis",
-                    "processors": "Normalize(max=1)",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -321,22 +321,22 @@
                 },
                 {
                     "name": "",
-                    "id": "570f40bf-bfb7-47ea-9d07-6f01b2f4e52a",
-                    "path": "<Mouse>/rightButton",
+                    "id": "2e37c5da-e092-4011-85a6-c0aeabf26311",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Gamepad",
                     "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "d89604e1-d8c0-4f1c-aa62-4587c0188242",
-                    "path": "<Gamepad>/rightTrigger",
+                    "id": "570f40bf-bfb7-47ea-9d07-6f01b2f4e52a",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -488,6 +488,15 @@
                     "type": "PassThrough",
                     "id": "82d03a1d-d98f-4ffc-953a-71d8d8ae483c",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenEquipmentMenu",
+                    "type": "Button",
+                    "id": "ec213c62-1d8a-4097-a0cf-169e2f6db101",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -909,6 +918,28 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83f6643b-40b9-42f5-ab4c-319177342d82",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "OpenEquipmentMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "76dd7b4d-e9de-48bf-9037-8f099bfec36e",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "OpenEquipmentMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

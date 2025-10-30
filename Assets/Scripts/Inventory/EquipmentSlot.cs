@@ -69,14 +69,12 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         if (isSelected)
         {
             EquipGear();
-            selectedShader.SetActive(false);
             inventoryManager.ClearPreviewWindow();
             isSelected = false;
         }
         else
         {
             inventoryManager.DeselectAllSlots();
-            selectedShader.SetActive(true);
             inventoryManager.UpdatePreviewWindow(sprite, itemName, itemType, data);
             isSelected = true;
         }

@@ -47,6 +47,17 @@ public class NewPlayerController : Entity
 
         SetupMovementStateMachine();
         SetupAttackStateMachine();
+
+        InventoryManager.OnMenuOpened += () => playerInput.SwitchCurrentActionMap("UI");
+        InventoryManager.OnMenuClosed += () => playerInput.SwitchCurrentActionMap("Player");
+        InventoryManager.OnMenuClosed += () => attackStateMachine.ChangeState(idleState);
+    }
+
+    void OnDisable()
+    {
+        InventoryManager.OnMenuOpened -= () => playerInput.SwitchCurrentActionMap("UI");
+        InventoryManager.OnMenuClosed -= () => playerInput.SwitchCurrentActionMap("Player");
+        InventoryManager.OnMenuClosed -= () => attackStateMachine.ChangeState(idleState);
     }
 
     private void SetupAttackStateMachine()
@@ -168,6 +179,8 @@ public class NewPlayerController : Entity
 
     public void OnBlock(InputValue value)
     {
+        if (!weaponController.HasShieldEquipped) return;
+
         if (value.isPressed)
         {
             blockButtonPressed = true;
