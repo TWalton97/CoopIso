@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class EquippedSlot : MonoBehaviour
+public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 {
     //Slot appearance
     [SerializeField] private Image slotImage;
@@ -10,32 +11,132 @@ public class EquippedSlot : MonoBehaviour
 
     //Slot data
     [SerializeField] private ItemType itemType = new ItemType();
+    [SerializeField] private Slot slotType;
+    public ItemType equippedWeaponType { get; private set; }
 
     private Sprite itemSprite;
     private string itemName;
     private string itemDescription;
+    private GameObject itemPrefab;
+    private WeaponDataSO data;
+
+    private InventoryManager inventoryManager;
+    private EquipmentSOLibrary equipmentSOLibrary;
 
     //Other variables
-    private bool slotInUse;
+    public bool slotInUse;
+    public GameObject selectedShader;
+    public bool isSelected;
 
+    [SerializeField] private Sprite emptySprite;
 
-    public void EquipGear(Sprite sprite, string itemName, string itemDescription, GameObject weapon, ItemType itemType = ItemType.Head)
+    void Start()
     {
+        inventoryManager = InventoryManager.Instance;
+        equipmentSOLibrary = EquipmentSOLibrary.Instance;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            OnLeftClick();
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            OnRightClick();
+        }
+    }
+
+    void OnLeftClick()
+    {
+        if (isSelected && slotInUse)
+        {
+            inventoryManager.ClearPreviewWindow();
+            UnequipGear();
+        }
+        else
+        {
+            inventoryManager.DeselectAllSlots();
+            inventoryManager.UpdatePreviewWindow(itemSprite, itemName, itemType, data);
+            selectedShader.SetActive(true);
+            isSelected = true;
+        }
+    }
+
+    void OnRightClick()
+    {
+        UnequipGear();
+    }
+
+    public void EquipGear(Sprite sprite, string itemName, string itemDescription, GameObject weapon, WeaponDataSO weaponDataSO, ItemType itemType = ItemType.Head)
+    {
+        if (slotInUse)
+            UnequipGear();
+
         this.itemSprite = sprite;
         slotImage.sprite = this.itemSprite;
+        slotImage.enabled = true;
         slotName.enabled = false;
+        itemPrefab = weapon.gameObject;
+        this.itemType = itemType;
+        this.equippedWeaponType = itemType;
+        this.data = weaponDataSO;
 
         this.itemName = itemName;
         this.itemDescription = itemDescription;
 
-        slotInUse = true;
-        if (itemType == ItemType.Mainhand)
+        if (itemType == ItemType.OneHanded)
         {
-            NewWeaponController.Instance.EquipMainHandWeapon(weapon);
+            NewWeaponController.Instance.EquipOneHandedWeapon(weapon);
         }
-        else if (itemType == ItemType.OffHand)
+        else if (itemType == ItemType.Offhand)
         {
-            NewWeaponController.Instance.EquipOffHandWeapon(weapon);
+            NewWeaponController.Instance.EquipOffhand(weapon);
+        }
+        else if (itemType == ItemType.TwoHanded)
+        {
+            NewWeaponController.Instance.EquipTwoHandedWeapon(weapon);
+        }
+
+        slotInUse = true;
+    }
+
+    public void UnequipGear()
+    {
+        inventoryManager.DeselectAllSlots();
+        if (slotInUse)
+        {
+            inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemPrefab, itemType, data);
+        }
+
+
+        this.itemSprite = emptySprite;
+        slotImage.sprite = emptySprite;
+        slotImage.enabled = false;
+        slotName.enabled = true;
+        selectedShader.SetActive(false);
+        slotInUse = false;
+
+        switch (slotType)
+        {
+            case Slot.MainHand:
+                NewWeaponController.Instance.UnequipWeapon(Weapon.WeaponHand.MainHand);
+                break;
+            case Slot.OffHand:
+                NewWeaponController.Instance.UnequipWeapon(Weapon.WeaponHand.OffHand);
+                break;
         }
     }
+
+}
+
+public enum Slot
+{
+    Head,
+    Body,
+    Legs,
+    MainHand,
+    OffHand
 }

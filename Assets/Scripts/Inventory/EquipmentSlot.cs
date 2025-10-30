@@ -17,6 +17,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public GameObject objectPrefab;
     public Sprite emptySprite;
     public ItemType itemType;
+    private WeaponDataSO data;
 
     //Item Slot
     [SerializeField] private Image itemImage;
@@ -34,7 +35,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager = InventoryManager.Instance;
     }
 
-    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType)
+    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType, WeaponDataSO weaponDataSO)
     {
         this.itemName = itemName;
         this.quantity = quantity;
@@ -42,6 +43,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         this.itemDescription = itemDescription;
         this.objectPrefab = objectPrefab;
         this.itemType = itemType;
+        this.data = weaponDataSO;
         isFull = true;
 
         itemImage.sprite = sprite;
@@ -62,14 +64,20 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnLeftClick()
     {
+        if (!isFull) return;
+
         if (isSelected)
         {
             EquipGear();
+            selectedShader.SetActive(false);
+            inventoryManager.ClearPreviewWindow();
+            isSelected = false;
         }
         else
         {
             inventoryManager.DeselectAllSlots();
             selectedShader.SetActive(true);
+            inventoryManager.UpdatePreviewWindow(sprite, itemName, itemType, data);
             isSelected = true;
         }
     }
@@ -77,15 +85,45 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     private void EquipGear()
     {
         if (itemType == ItemType.Head)
-            headSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab);
+            headSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data);
         if (itemType == ItemType.Body)
-            bodySlot.EquipGear(sprite, itemName, itemDescription, objectPrefab);
+            bodySlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data);
         if (itemType == ItemType.Legs)
-            legSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab);
-        if (itemType == ItemType.Mainhand)
-            mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, ItemType.Mainhand);
-        if (itemType == ItemType.OffHand)
-            offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, ItemType.OffHand);
+            legSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data);
+        if (itemType == ItemType.TwoHanded)
+        {
+            mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.TwoHanded);
+            offHandSlot.UnequipGear();
+        }
+
+        if (itemType == ItemType.OneHanded)
+        {
+            if (!mainHandSlot.slotInUse)
+            {
+                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.OneHanded);
+            }
+            else if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
+            {
+                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.OneHanded);
+            }
+            else if (!offHandSlot.slotInUse)
+            {
+                offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.OneHanded);
+            }
+            else
+            {
+                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.OneHanded);
+            }
+        }
+        if (itemType == ItemType.Offhand)
+        {
+            offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, data, ItemType.Offhand);
+            if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
+            {
+                mainHandSlot.UnequipGear();
+            }
+        }
+
 
         EmptySlot();
     }
@@ -103,6 +141,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         //Create a new item
         GameObject itemToDrop = new GameObject(itemName);
         Item newItem = itemToDrop.AddComponent<Item>();
+        newItem.itemType = this.itemType;
         Instantiate(objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
         newItem.quantity = 1;
         newItem.itemName = itemName;

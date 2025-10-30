@@ -482,13 +482,14 @@ GameObject:
   - component: {fileID: 7633851088770056553}
   - component: {fileID: 6185456339951093771}
   - component: {fileID: 1320491129892645054}
-  - component: {fileID: 5456132219388091275}
+  - component: {fileID: 4902479843315799468}
   - component: {fileID: 645754214093089905}
   - component: {fileID: 4905286535046853527}
   - component: {fileID: 8882958460414044634}
   - component: {fileID: 4605205822069560298}
   - component: {fileID: 8777653310934471351}
   - component: {fileID: 1112255887905720510}
+  - component: {fileID: 429233470662685356}
   m_Layer: 7
   m_Name: Player 1
   m_TagString: Player
@@ -671,7 +672,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &5456132219388091275
+--- !u!114 &4902479843315799468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -680,11 +681,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 655887787118595647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41478574a33e19148a568bce7ad1fde0, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c49547a2f62c514a819f55a243a90cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaximumHealth: 100
   CurrentHealth: 100
+  blockAngle: 90
 --- !u!114 &645754214093089905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,7 +701,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 7633851088770056553}
   animator: {fileID: 6703403266685607163}
-  PlayerInputController: {fileID: 0}
   playerInput: {fileID: 0}
   weaponController: {fileID: 4905286535046853527}
   _experienceController: {fileID: 8777653310934471351}
@@ -710,8 +711,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  AttackCompleted: 0
-  _lookInput: {x: 0, y: 0}
+  attackButtonPressed: 0
 --- !u!114 &4905286535046853527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +730,8 @@ MonoBehaviour:
   instantiatedPrimaryWeapon: {fileID: 0}
   instantiatedSecondaryWeapon: {fileID: 0}
   primaryWeaponAttackCompleted: 0
+  canAttack: 1
+  HasShieldEquipped: 0
   OneHandedAndShieldAnimator: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
   DualWieldAnimator: {fileID: 22100000, guid: b43ff40815227c74794c7656af867670, type: 2}
   TwoHandedAnimator: {fileID: 22100000, guid: 08371dc23f8a4ab4bafa3e0a6df57139, type: 2}
@@ -745,7 +747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2ef8734e320ae419e7cf65da5ad380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthController: {fileID: 5456132219388091275}
+  HealthController: {fileID: 4902479843315799468}
   MaximumHealth: 0
   CurrentHealth: 0
   PlayerController: {fileID: 645754214093089905}
@@ -808,6 +810,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   Grounded: 0
+--- !u!114 &429233470662685356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655887787118595647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98787fe8aa6706c469307e11bd2a65d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &682793434446774257
 GameObject:
   m_ObjectHideFlags: 0
@@ -5736,10 +5750,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthbarCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1812737107396415578, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
-      propertyPath: HealthController
-      value: 
-      objectReference: {fileID: 5456132219388091275}
     - target: {fileID: 4178907810135180989, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

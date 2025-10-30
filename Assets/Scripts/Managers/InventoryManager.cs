@@ -1,15 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : Singleton<InventoryManager>, PlayerInputActions.IPlayerActions
 {
     public GameObject InventoryMenu;
     public GameObject EquipmentMenu;
 
     public ItemSlot[] itemSlot;
     public EquipmentSlot[] equipmentSlot;
+    public EquippedSlot[] equippedSlot;
     public ItemSO[] itemSOs;
+
+    [SerializeField] private Image previewImage;
+    [SerializeField] private TMP_Text itemNamePreText;
+    [SerializeField] private TMP_Text itemTypePreText;
+    [SerializeField] private TMP_Text attackPreText;
+    [SerializeField] private TMP_Text movementSpeedPreText;
 
     void Update()
     {
@@ -18,10 +28,10 @@ public class InventoryManager : Singleton<InventoryManager>
             Inventory();
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            Equipment();
-        }
+        // if (Input.GetKeyDown(KeyCode.Tab))
+        // {
+        //     Equipment();
+        // }
     }
 
     void Inventory()
@@ -30,6 +40,7 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             InventoryMenu.SetActive(false);
             EquipmentMenu.SetActive(false);
+            NewWeaponController.Instance.canAttack = true;
             Time.timeScale = 1;
         }
         else
@@ -40,12 +51,13 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
-    void Equipment()
+    public void Equipment()
     {
         if (EquipmentMenu.activeSelf)
         {
             InventoryMenu.SetActive(false);
             EquipmentMenu.SetActive(false);
+            NewWeaponController.Instance.canAttack = true;
             Time.timeScale = 1;
         }
         else
@@ -56,28 +68,15 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
-    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType)
+    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, ItemType itemType, WeaponDataSO weaponDataSO)
     {
-        if (itemType == ItemType.Consumable)
+
+        for (int i = 0; i < equipmentSlot.Length; i++)
         {
-            for (int i = 0; i < itemSlot.Length; i++)
+            if (equipmentSlot[i].isFull == false)
             {
-                if (itemSlot[i].isFull == false)
-                {
-                    itemSlot[i].AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType);
-                    return;
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < equipmentSlot.Length; i++)
-            {
-                if (equipmentSlot[i].isFull == false)
-                {
-                    equipmentSlot[i].AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType);
-                    return;
-                }
+                equipmentSlot[i].AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType, weaponDataSO);
+                return;
             }
         }
     }
@@ -112,6 +111,81 @@ public class InventoryManager : Singleton<InventoryManager>
                 equipmentSlot[i].isSelected = false;
             }
         }
+
+        for (int i = 0; i < equippedSlot.Length; i++)
+        {
+            if (equippedSlot[i].isSelected)
+            {
+                equippedSlot[i].selectedShader.SetActive(false);
+                equippedSlot[i].isSelected = false;
+            }
+        }
+    }
+
+    public void UpdatePreviewWindow(Sprite sprite, string itemName, ItemType itemType, WeaponDataSO weaponDataSO)
+    {
+        previewImage.sprite = sprite;
+        itemNamePreText.text = itemName;
+        itemTypePreText.text = itemType.ToString();
+        attackPreText.text = weaponDataSO.WeaponDamage.ToString();
+        movementSpeedPreText.text = weaponDataSO.MovementSpeedDuringAttack.ToString();
+    }
+
+    public void ClearPreviewWindow()
+    {
+        previewImage.sprite = null;
+        itemNamePreText.text = "";
+        itemTypePreText.text = "";
+        attackPreText.text = "";
+        movementSpeedPreText.text = "";
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnLookMouse(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnLookStick(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnAbility1(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnBlock(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnSwapWeapon(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnOpenEquipmentMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Equipment();
+        }
     }
 }
 
@@ -121,6 +195,7 @@ public enum ItemType
     Head,
     Body,
     Legs,
-    Mainhand,
-    OffHand
+    OneHanded,
+    TwoHanded,
+    Offhand
 };

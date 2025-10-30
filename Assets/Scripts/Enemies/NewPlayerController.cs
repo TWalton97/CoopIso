@@ -7,7 +7,6 @@ public class NewPlayerController : Entity
 {
     public Rigidbody Rigidbody;
     public Animator animator;
-    [SerializeField] private NewPlayerInputController PlayerInputController;
     [SerializeField] private PlayerInput playerInput;
     public NewWeaponController weaponController;
     public ExperienceController _experienceController;
@@ -18,18 +17,19 @@ public class NewPlayerController : Entity
     public float _jumpForce;
     public float attackCooldown;
 
-    private PlayerIdleState idleState;
-    private PlayerAttackState attackState;
-    private PlayerBlockState blockState;
-    public StateMachine stateMachine;
+    public StateMachine attackStateMachine;
+    public PlayerIdleState idleState;
+    PlayerAttackState attackState;
+    public PlayerBlockState blockState;
+
     public StateMachine movementStateMachine;
     CountdownTimer attackCooldownTimer;
 
     [SerializeField] private LayerMask GroundLayer = NavMeshUtils.GROUND_LAYER;
-    private bool blocking = false;
     private Vector2 _moveInput;
     private Vector2 _lookInput;
-    private int equippedWeapon = 0;
+    private bool blockButtonPressed;
+    [HideInInspector] public bool attackButtonPressed;
     private const string KEYBOARD_SCHEME = "Keyboard&Mouse";
     private const string GAMEPAD_SCHEME = "Gamepad";
 
@@ -43,25 +43,30 @@ public class NewPlayerController : Entity
     }
     void Start()
     {
-        stateMachine = new StateMachine();
-
         playerInput = GetComponent<PlayerInput>();
 
+        SetupMovementStateMachine();
+        SetupAttackStateMachine();
+    }
+
+    private void SetupAttackStateMachine()
+    {
+        attackStateMachine = new StateMachine();
+
         idleState = new PlayerIdleState(this, animator);
-        var moveState = new PlayerMoveState(this, animator);
-        attackState = new PlayerAttackState(this, animator, weaponController.instantiatedPrimaryWeapon);
-        var attackComboState = new PlayerComboAttackState(this, animator);
-        blockState = new PlayerBlockState(this, animator, weaponController.instantiatedSecondaryWeapon);
+        attackState = new PlayerAttackState(this, animator);
+        blockState = new PlayerBlockState(this, animator);
 
-        At(idleState, blockState, stateMachine, new FuncPredicate(() => blocking));
-        At(blockState, idleState, stateMachine, new FuncPredicate(() => !blocking));
+        At(idleState, blockState, attackStateMachine, new FuncPredicate(() => blockButtonPressed && weaponController.HasShieldEquipped));
+        At(blockState, idleState, attackStateMachine, new FuncPredicate(() => !blockButtonPressed && weaponController.HasShieldEquipped));
 
-        At(attackState, idleState, stateMachine, new FuncPredicate(() => attackCooldownTimer.IsFinished));
+        Any(attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
 
-        At(attackComboState, idleState, stateMachine, new FuncPredicate(() => attackCooldownTimer.IsFinished));
+        attackStateMachine.SetState(idleState);
+    }
 
-        stateMachine.SetState(idleState);
-
+    private void SetupMovementStateMachine()
+    {
         movementStateMachine = new StateMachine();
 
         var groundedState = new PlayerGroundedState(this, animator);
@@ -78,7 +83,7 @@ public class NewPlayerController : Entity
 
     void Update()
     {
-        stateMachine.Update();
+        attackStateMachine.Update();
         movementStateMachine.Update();
         attackCooldownTimer.Tick(Time.deltaTime);
         Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity).normalized;
@@ -90,7 +95,7 @@ public class NewPlayerController : Entity
     void FixedUpdate()
     {
         movementStateMachine.FixedUpdate();
-        stateMachine.FixedUpdate();
+        attackStateMachine.FixedUpdate();
         Move();
     }
     #endregion
@@ -148,20 +153,6 @@ public class NewPlayerController : Entity
 
     }
 
-    public void OnSwapWeapon()
-    {
-        if (equippedWeapon == 0 || equippedWeapon == 2)
-        {
-            EquipWeaponOne();
-            equippedWeapon = 1;
-        }
-        else
-        {
-            EquipWeaponTwo();
-            equippedWeapon = 2;
-        }
-    }
-
     public void OnLookStick(InputValue value)
     {
         var dir = value.Get<Vector2>();
@@ -175,16 +166,24 @@ public class NewPlayerController : Entity
         RotateTowardsMouse(dir);
     }
 
-    private void OnBlock(bool performed)
+    public void OnBlock(InputValue value)
     {
-        blocking = performed;
-        animator.SetBool("Blocking", performed);
+        if (value.isPressed)
+        {
+            blockButtonPressed = true;
+        }
+        else
+        {
+            blockButtonPressed = false;
+        }
     }
 
     private void OnAttack()
     {
-        if (weaponController.instantiatedPrimaryWeapon == null) return;
-        weaponController.Attack();
+        if (weaponController.canAttack && weaponController.instantiatedPrimaryWeapon != null)
+        {
+            attackButtonPressed = true;
+        }
     }
 
     public void OnJump()
@@ -200,17 +199,4 @@ public class NewPlayerController : Entity
     }
     #endregion
 
-    #region Debug
-    [ContextMenu("Equip Weapon One")]
-    public void EquipWeaponOne()
-    {
-        //weaponController.EquipWeapon(NewWeaponController.WeaponAttackTypes.DualWield, WeaponManager.Instance.OneHandedAxe, WeaponManager.Instance.OneHandedMace);
-    }
-
-    [ContextMenu("Equip Weapon Two")]
-    public void EquipWeaponTwo()
-    {
-        //weaponController.EquipWeapon(NewWeaponController.WeaponAttackTypes.TwoHanded, WeaponManager.Instance.TwoHandedSword);
-    }
-    #endregion
 }

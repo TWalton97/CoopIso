@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad5d46b7afddf7428ccd964161ee659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Data>k__BackingField: {fileID: 11400000, guid: e29c7fa259745ed4c9ac8b02b84f47c5, type: 2}
+  <Data>k__BackingField: {fileID: 11400000, guid: ac71d518e800c2e41bf84dfe54f9b96c, type: 2}
   animatorOverrideController: {fileID: 0}
   hitboxActivationDelay: 0.65
   damage: 10

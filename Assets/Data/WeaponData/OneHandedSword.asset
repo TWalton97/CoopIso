@@ -10,11 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
-  m_Name: Axe
+  m_Name: OneHandedSword
   m_EditorClassIdentifier: 
-  <NumberOfAttacks>k__BackingField: 2
-  <MovementSpeedDuringAttack>k__BackingField: 2
-  ComponentData: []
-  references:
-    version: 2
-    RefIds: []
+  <WeaponDamage>k__BackingField: 3
+  <MovementSpeedDuringAttack>k__BackingField: 3.5

@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public int quantity;
     public Sprite sprite;
     public GameObject objectPrefab;
+    public WeaponDataSO data;
 
     [TextArea] public string itemDescription;
 
@@ -18,13 +19,14 @@ public class Item : MonoBehaviour
     void Start()
     {
         inventoryManager = InventoryManager.Instance;    //TODO: fix this
+        data = GetComponentInChildren<Weapon>().Data;
     }
 
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.tag == "Player")
         {
-            inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType);
+            inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, itemType, data);
             Destroy(gameObject);
         }
     }

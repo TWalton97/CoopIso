@@ -87,13 +87,22 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""74cb8589-21f7-4202-bd3a-7ddce4070ff4"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""SwapWeapon"",
                     ""type"": ""Button"",
                     ""id"": ""28dd76ff-38c0-4c08-8b6d-10395cea964f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenEquipmentMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""020575cb-f71c-4f73-b36c-61d783bac945"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -345,6 +354,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d89604e1-d8c0-4f1c-aa62-4587c0188242"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a8a5b48c-a1de-4d13-bf14-649ff08adfdc"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -373,6 +393,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""SwapWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2eaaec2-2e9d-468d-97b0-4440213c880f"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""OpenEquipmentMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df0c0985-358b-4486-8be3-ff18ed4190a5"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""OpenEquipmentMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -968,6 +1010,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         m_Player_SwapWeapon = m_Player.FindAction("SwapWeapon", throwIfNotFound: true);
+        m_Player_OpenEquipmentMenu = m_Player.FindAction("OpenEquipmentMenu", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1055,6 +1098,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Ability1;
     private readonly InputAction m_Player_Block;
     private readonly InputAction m_Player_SwapWeapon;
+    private readonly InputAction m_Player_OpenEquipmentMenu;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1067,6 +1111,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
         public InputAction @Block => m_Wrapper.m_Player_Block;
         public InputAction @SwapWeapon => m_Wrapper.m_Player_SwapWeapon;
+        public InputAction @OpenEquipmentMenu => m_Wrapper.m_Player_OpenEquipmentMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1100,6 +1145,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SwapWeapon.started += instance.OnSwapWeapon;
             @SwapWeapon.performed += instance.OnSwapWeapon;
             @SwapWeapon.canceled += instance.OnSwapWeapon;
+            @OpenEquipmentMenu.started += instance.OnOpenEquipmentMenu;
+            @OpenEquipmentMenu.performed += instance.OnOpenEquipmentMenu;
+            @OpenEquipmentMenu.canceled += instance.OnOpenEquipmentMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1128,6 +1176,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SwapWeapon.started -= instance.OnSwapWeapon;
             @SwapWeapon.performed -= instance.OnSwapWeapon;
             @SwapWeapon.canceled -= instance.OnSwapWeapon;
+            @OpenEquipmentMenu.started -= instance.OnOpenEquipmentMenu;
+            @OpenEquipmentMenu.performed -= instance.OnOpenEquipmentMenu;
+            @OpenEquipmentMenu.canceled -= instance.OnOpenEquipmentMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1318,6 +1369,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAbility1(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
         void OnSwapWeapon(InputAction.CallbackContext context);
+        void OnOpenEquipmentMenu(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

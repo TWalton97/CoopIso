@@ -9,7 +9,7 @@ public class Hitbox : MonoBehaviour
     private LayerMask _targetLayer;
     public Action OnTargetDamaged;
     private Collider[] colls;
-    private Entity _controller;
+    public Entity _controller;
     public bool DestroyHitboxOnHit = true;
 
     public void Init(int damage, LayerMask targetLayer, Entity controller)
@@ -23,6 +23,14 @@ public class Hitbox : MonoBehaviour
     {
         colls = GetComponents<Collider>();
         _targetLayer = Physics.AllLayers;
+    }
+
+    void Start()
+    {
+        if (_controller == null)
+        {
+            _controller = GetComponentInParent<Entity>();
+        }
     }
 
     private void OnEnable()

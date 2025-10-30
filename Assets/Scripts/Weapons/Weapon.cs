@@ -8,7 +8,6 @@ public class Weapon : MonoBehaviour
     [field: SerializeField] public WeaponDataSO Data { get; private set; }
     public event Action OnEnter;
     public event Action OnExit;
-    private int currentAttackCounter;
     private Animator animator;
     public RuntimeAnimatorController animatorOverrideController;
     public AnimationEventHandler EventHandler { get; private set; }
@@ -19,8 +18,6 @@ public class Weapon : MonoBehaviour
     public bool active = false;
 
     public int attackHash;
-
-    private readonly float startingMovementSpeed;
 
     public AttackAnimationHash attackAnimationHash;
     public enum AttackAnimationHash
@@ -44,6 +41,7 @@ public class Weapon : MonoBehaviour
         this.weaponHand = weaponHand;
         SetAttackAnimationHash();
     }
+
     void Awake()
     {
         animator = GetComponentInParent<Animator>();
@@ -51,19 +49,28 @@ public class Weapon : MonoBehaviour
         EventHandler = GetComponent<AnimationEventHandler>();
     }
 
-    public void Enter(Action endAction)
+    public virtual void Enter(Action endAction)
     {
         newPlayerController.animator.CrossFade(attackHash, 0.2f, (int)PlayerAnimatorLayers.UpperBody);
         StartCoroutine(ActivateHitbox(endAction));
+        InvokeOnEnter();
+    }
 
+    public void InvokeOnEnter()
+    {
         OnEnter?.Invoke();
     }
 
-    private void Exit()
+    public void InvokeOnExit()
+    {
+        OnExit?.Invoke();
+    }
+
+    public virtual void Exit()
     {
         newPlayerController._movementSpeed = newPlayerController._maximumMovementSpeed;
 
-        OnExit?.Invoke();
+        InvokeOnExit();
     }
 
     public void SetPlayer(NewPlayerController controller)
@@ -81,7 +88,7 @@ public class Weapon : MonoBehaviour
             newPlayerController._movementSpeed = Mathf.Lerp(newPlayerController._maximumMovementSpeed, Data.MovementSpeedDuringAttack, elapsedTime / hitboxActivationDelay);
             yield return null;
         }
-        hitbox.ActivateHitbox(damage);
+        hitbox.ActivateHitbox(Data.WeaponDamage);
         yield return new WaitForSeconds(0.9f - hitboxActivationDelay);
         endAction?.Invoke();
         Exit();
@@ -113,3 +120,5 @@ public class Weapon : MonoBehaviour
         }
     }
 }
+
+

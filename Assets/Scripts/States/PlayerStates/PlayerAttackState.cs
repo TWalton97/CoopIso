@@ -3,27 +3,32 @@ using Utilities;
 
 public class PlayerAttackState : PlayerBaseState
 {
-    Weapon weapon;
-    private float startingSpeed;
-    public PlayerAttackState(NewPlayerController player, Animator animator, Weapon weapon) : base(player, animator)
+    public PlayerAttackState(NewPlayerController player, Animator animator) : base(player, animator)
     {
-        this.weapon = weapon;
+
     }
 
     public override void OnEnter()
     {
-        animator.CrossFade(weapon.attackHash, crossFadeDuration, (int)PlayerAnimatorLayers.UpperBody);
-        //weapon.Enter();
-        startingSpeed = player._movementSpeed;
-        //animator.CrossFade(AttackHash, crossFadeDuration, (int)PlayerAnimatorLayers.UpperBody);
+        Debug.Log("Enter attack state");
+
+        player.weaponController.Attack(AttackCompleted);
+    }
+
+    private void AttackCompleted()
+    {
+        player.weaponController.canAttack = true;
+        player.attackStateMachine.ChangeState(player.idleState);
     }
 
     public override void Update()
     {
+
     }
 
     public override void OnExit()
     {
-        player._movementSpeed = player._maximumMovementSpeed;
+        player.attackButtonPressed = false;
+        Debug.Log("Exit attack state");
     }
 }

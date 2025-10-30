@@ -8,11 +8,6 @@ using System;
 [Serializable]
 public class WeaponDataSO : ScriptableObject
 {
-    [field: SerializeField] public int NumberOfAttacks { get; private set; }
+    [field: SerializeField] public int WeaponDamage { get; private set; }
     [field: SerializeField] public float MovementSpeedDuringAttack { get; private set; }
-    [field: SerializeReference] public List<ComponentData> ComponentData;
-    public T GetData<T>()
-    {
-        return ComponentData.OfType<T>().FirstOrDefault();
-    }
 }

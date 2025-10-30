@@ -10,14 +10,14 @@ public class HealthController : MonoBehaviour, IDamageable
     public Action<int> OnHeal;
     public Action OnDie;
 
-    private bool IsDead = false;
+    protected bool IsDead = false;
 
     private void Awake()
     {
         CurrentHealth = MaximumHealth;
     }
 
-    public void TakeDamage(int damageAmount, Entity controller)
+    public virtual void TakeDamage(int damageAmount, Entity controller)
     {
         if (IsDead) return;
 
