@@ -194,6 +194,7 @@ public class InventoryController : MonoBehaviour
                     if (equippedSlot2.ItemTypeValidForSlot(equippedSlot1.itemData.itemType))
                     {
                         equippedSlot2.EquipGear(equippedSlot1.itemData);
+                        equippedSlot1.UnequipGear(0, true);
                     }
                 }
 

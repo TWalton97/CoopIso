@@ -76,6 +76,11 @@ public class EquippedSlot : ItemSlot
         else if (itemData.itemType == ItemType.Offhand)
         {
             PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOffhand(itemData.objectPrefab);
+            EquippedSlot mainHandSlot = inventoryController.FindEquippedSlotOfType(Slot.MainHand)[0];
+            if (mainHandSlot.slotInUse && mainHandSlot.itemData.itemType == ItemType.TwoHanded)
+            {
+                mainHandSlot.UnequipGear();
+            }
             //NewWeaponController.Instance.EquipOffhand(weapon);
         }
         else if (itemData.itemType == ItemType.TwoHanded)
