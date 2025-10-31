@@ -4,19 +4,9 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public string itemName;
-    public int quantity;
-    public Sprite sprite;
-    public GameObject objectPrefab;
-    public WeaponDataSO data;
-    public GameObject vfxPrefab;
-
-    [TextArea] public string itemDescription;
+    public ItemData itemData;
 
     public InventoryManager inventoryManager;
-
-    public ItemType itemType;
-
     private float x, y, z;
     private Quaternion targetRotation;
     private Vector3 targetPosition;
@@ -24,8 +14,8 @@ public class Item : MonoBehaviour
     void Start()
     {
         inventoryManager = InventoryManager.Instance;    //TODO: fix this
-        data = GetComponentInChildren<Weapon>().Data;
-        Instantiate(vfxPrefab, transform);
+        itemData.data = GetComponentInChildren<Weapon>().Data;
+        Instantiate(itemData.vfxPrefab, transform);
         targetRotation = transform.rotation;
         targetPosition = transform.position;
         StartCoroutine(RotateRandomly());
@@ -36,7 +26,7 @@ public class Item : MonoBehaviour
     {
         if (collider.gameObject.TryGetComponent(out PlayerInputController controller))
         {
-            inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, vfxPrefab, itemType, data, controller.playerIndex);
+            inventoryManager.AddItemToCorrectPlayerInventory(itemData, controller.playerIndex);
             Destroy(gameObject);
         }
     }
@@ -55,4 +45,17 @@ public class Item : MonoBehaviour
         transform.rotation = targetRotation;
         yield return null;
     }
+}
+
+[System.Serializable]
+public class ItemData
+{
+    public string itemName;
+    public int quantity;
+    public Sprite sprite;
+    [TextArea] public string itemDescription;
+    public GameObject objectPrefab;
+    public GameObject vfxPrefab;
+    public ItemType itemType;
+    public WeaponDataSO data;
 }

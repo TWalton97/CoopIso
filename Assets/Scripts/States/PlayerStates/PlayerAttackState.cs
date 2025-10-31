@@ -26,6 +26,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnExit()
     {
+        Debug.Log("Exiting attack state");
         player.attackButtonPressed = false;
     }
 }

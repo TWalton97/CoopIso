@@ -6,148 +6,112 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 
-public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
+public class EquipmentSlot : ItemSlot
 {
-    //Item Data
-    public string itemName;
-    public int quantity;
-    public Sprite sprite;
-    public bool isFull;
-    public string itemDescription;
-    public GameObject objectPrefab;
-    public GameObject vfxPrefab;
-    public Sprite emptySprite;
-    public ItemType itemType;
-    private WeaponDataSO data;
-
     //Item Slot
     [SerializeField] private Image itemImage;
 
     //Equipped Slots
     [SerializeField] private EquippedSlot headSlot, bodySlot, legSlot, mainHandSlot, offHandSlot;
 
-    public GameObject selectedShader;
-    public bool isSelected;
-
-    private InventoryController inventoryController;
-
     void Start()
     {
         inventoryController = GetComponentInParent<InventoryController>();
     }
 
-    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, GameObject vfxPrefab, ItemType itemType, WeaponDataSO weaponDataSO)
+    public void ImportItemDataToEquipmentSlot(ItemData itemData)
     {
-        this.itemName = itemName;
-        this.quantity = quantity;
-        this.sprite = sprite;
-        this.itemDescription = itemDescription;
-        this.objectPrefab = objectPrefab;
-        this.vfxPrefab = vfxPrefab;
-        this.itemType = itemType;
-        this.data = weaponDataSO;
-        isFull = true;
+        this.itemData = itemData;
+        slotInUse = true;
 
-        itemImage.sprite = sprite;
+        itemImage.sprite = itemData.sprite;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnLeftClick()
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            OnLeftClick();
-        }
-
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            OnRightClick();
-        }
-    }
-
-    public void OnLeftClick()
-    {
-        if (!isFull) return;
+        //If nothing is selected, you can only select slots that have an item in them
+        if (inventoryController.selectedItemSlots.Count == 0 && !slotInUse) return;
 
         if (isSelected)
         {
             EquipGear();
-            inventoryController.ClearPreviewWindow();
-            isSelected = false;
         }
         else
         {
-            inventoryController.DeselectAllSlots();
-            isSelected = true;
-            if (isFull)
-                inventoryController.UpdatePreviewWindow(sprite, itemName, itemType, data);
+            inventoryController.RegisterButtonSelection(this);
+            if (slotInUse)
+                inventoryController.UpdatePreviewWindow(itemData.sprite, itemData.itemName, itemData.itemType, itemData.data);
+
+            if (inventoryController.selectedItemSlots.Count == 1)
+            {
+                isSelected = true;
+                selectedShader.SetActive(true);
+            }
         }
     }
 
     private void EquipGear()
     {
-        if (itemType == ItemType.Head)
-            headSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data);
-        if (itemType == ItemType.Body)
-            bodySlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data);
-        if (itemType == ItemType.Legs)
-            legSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data);
-        if (itemType == ItemType.TwoHanded)
+        if (itemData.itemType == ItemType.Head)
+            headSlot.EquipGear(itemData);
+        if (itemData.itemType == ItemType.Body)
+            bodySlot.EquipGear(itemData);
+        if (itemData.itemType == ItemType.Legs)
+            legSlot.EquipGear(itemData);
+        if (itemData.itemType == ItemType.TwoHanded)
         {
-            mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.TwoHanded);
+            mainHandSlot.EquipGear(itemData);
             offHandSlot.UnequipGear();
         }
 
-        if (itemType == ItemType.OneHanded)
+        if (itemData.itemType == ItemType.OneHanded)
         {
             if (!mainHandSlot.slotInUse)
             {
-                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.OneHanded);
+                mainHandSlot.EquipGear(itemData);
             }
             else if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
             {
-                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.OneHanded);
+                mainHandSlot.EquipGear(itemData);
             }
             else if (!offHandSlot.slotInUse)
             {
-                offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.OneHanded);
+                offHandSlot.EquipGear(itemData);
             }
             else
             {
-                mainHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.OneHanded);
+                mainHandSlot.EquipGear(itemData);
             }
         }
-        if (itemType == ItemType.Offhand)
+        if (itemData.itemType == ItemType.Offhand)
         {
-            offHandSlot.EquipGear(sprite, itemName, itemDescription, objectPrefab, vfxPrefab, data, ItemType.Offhand);
+            offHandSlot.EquipGear(itemData);
             if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
             {
                 mainHandSlot.UnequipGear();
             }
         }
+        inventoryController.DeselectAllSlots();
         EmptySlot();
     }
 
-    private void EmptySlot()
+    public override void EmptySlot()
     {
         itemImage.sprite = emptySprite;
 
-        isFull = false;
+        slotInUse = false;
         isSelected = false;
+        selectedShader.SetActive(false);
     }
 
-    public void OnRightClick()
+    public override void OnRightClick()
     {
         //Create a new item
-        GameObject itemToDrop = new GameObject(itemName);
+        GameObject itemToDrop = new GameObject(itemData.itemName);
         Item newItem = itemToDrop.AddComponent<Item>();
-        newItem.itemType = this.itemType;
-        Instantiate(objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
-        newItem.quantity = 1;
-        newItem.itemName = itemName;
-        newItem.sprite = sprite;
-        newItem.itemDescription = itemDescription;
-        newItem.objectPrefab = objectPrefab;
-        newItem.vfxPrefab = vfxPrefab;
+        newItem.itemData = itemData;
+
+        Instantiate(itemData.objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
 
         //Add collider
         itemToDrop.AddComponent<SphereCollider>().isTrigger = true;
@@ -155,8 +119,8 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         GameObject player = GameObject.FindWithTag("Player");
         itemToDrop.transform.position = player.transform.position + (player.transform.forward * 2f);
 
-        this.quantity -= 1;
-        if (this.quantity <= 0)
+        this.itemData.quantity -= 1;
+        if (this.itemData.quantity <= 0)
             EmptySlot();
     }
 }

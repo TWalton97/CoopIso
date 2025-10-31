@@ -2271,6 +2271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c3f23f3f02af140bcba0c29c5b2188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerIndex: 0
   equipmentSlot:
   - {fileID: 417611615784376836}
   - {fileID: 6695860986393781479}
@@ -2294,6 +2295,7 @@ MonoBehaviour:
   itemTypePreText: {fileID: 6087648399929515248}
   attackPreText: {fileID: 3757167801634430850}
   movementSpeedPreText: {fileID: 7834585893189856829}
+  selectedItemSlots: []
 --- !u!114 &8996223955438558204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4011,6 +4013,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2158255652360497732}
     m_Modifications:
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3939699073786317681}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquipmentSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: legSlot
       value: 
@@ -4023,6 +4053,10 @@ PrefabInstance:
       propertyPath: headSlot
       value: 
       objectReference: {fileID: 4813835461289068845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: quantity
+      value: -137
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: offHandSlot
       value: 
@@ -4144,6 +4178,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2158255652360497732}
     m_Modifications:
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4413836038453994480}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquipmentSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: legSlot
       value: 
@@ -4156,6 +4218,10 @@ PrefabInstance:
       propertyPath: headSlot
       value: 
       objectReference: {fileID: 4813835461289068845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: quantity
+      value: -137
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: offHandSlot
       value: 
@@ -4277,6 +4343,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2158255652360497732}
     m_Modifications:
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4449951587039377855}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquipmentSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: legSlot
       value: 
@@ -4289,6 +4383,10 @@ PrefabInstance:
       propertyPath: headSlot
       value: 
       objectReference: {fileID: 4813835461289068845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: quantity
+      value: -137
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: offHandSlot
       value: 
@@ -4410,6 +4508,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2158255652360497732}
     m_Modifications:
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 417611615784376836}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquipmentSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: legSlot
       value: 
@@ -4422,6 +4548,10 @@ PrefabInstance:
       propertyPath: headSlot
       value: 
       objectReference: {fileID: 4813835461289068845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: quantity
+      value: -137
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: offHandSlot
       value: 
@@ -4548,6 +4678,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2158255652360497732}
     m_Modifications:
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 302317048723553517}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquipmentSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: legSlot
       value: 
@@ -4560,6 +4718,10 @@ PrefabInstance:
       propertyPath: headSlot
       value: 
       objectReference: {fileID: 4813835461289068845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: quantity
+      value: -137
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: offHandSlot
       value: 
@@ -4770,6 +4932,10 @@ PrefabInstance:
       value: Potion
       objectReference: {fileID: 0}
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_SelectedColor.a
       value: 0.78431374
       objectReference: {fileID: 0}
@@ -4800,6 +4966,18 @@ PrefabInstance:
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5818025674287266264}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquippedSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: itemType
@@ -4923,40 +5101,16 @@ PrefabInstance:
       value: Mainhand
       objectReference: {fileID: 0}
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.a
-      value: 0.78431374
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6120726039836609845}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
       objectReference: {fileID: 0}
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.g
-      value: 0.8666667
-      objectReference: {fileID: 0}
-    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.r
-      value: 0.5529412
-      objectReference: {fileID: 0}
-    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.a
-      value: 0.78431374
-      objectReference: {fileID: 0}
-    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 0.8666667
-      objectReference: {fileID: 0}
-    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.r
-      value: 0.5529412
-      objectReference: {fileID: 0}
-    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
-      propertyPath: slotType
-      value: 4
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquippedSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5076,6 +5230,10 @@ PrefabInstance:
       value: Head
       objectReference: {fileID: 0}
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_SelectedColor.a
       value: 0.78431374
       objectReference: {fileID: 0}
@@ -5106,6 +5264,18 @@ PrefabInstance:
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4813835461289068845}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquippedSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: itemType
@@ -5233,6 +5403,10 @@ PrefabInstance:
       value: Legs
       objectReference: {fileID: 0}
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_SelectedColor.a
       value: 0.78431374
       objectReference: {fileID: 0}
@@ -5264,9 +5438,25 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.5529412
       objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4102359624836842081}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquippedSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: itemType
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: slotType
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5386,6 +5576,10 @@ PrefabInstance:
       value: Body
       objectReference: {fileID: 0}
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_SelectedColor.a
       value: 0.78431374
       objectReference: {fileID: 0}
@@ -5416,6 +5610,18 @@ PrefabInstance:
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3465383231841723188}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquippedSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: itemType
@@ -5454,6 +5660,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2158255652360497732}
     m_Modifications:
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Colors.m_FadeDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8918968606083501949}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquipmentSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: legSlot
       value: 
@@ -5466,6 +5704,10 @@ PrefabInstance:
       propertyPath: headSlot
       value: 
       objectReference: {fileID: 4813835461289068845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: quantity
+      value: -137
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: offHandSlot
       value: 
@@ -5676,6 +5918,10 @@ PrefabInstance:
       value: Trinket
       objectReference: {fileID: 0}
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_SelectedColor.a
       value: 0.78431374
       objectReference: {fileID: 0}
@@ -5706,6 +5952,18 @@ PrefabInstance:
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2508433751747127578}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquippedSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: slotType
@@ -5740,6 +5998,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2158255652360497732}
     m_Modifications:
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4703538168014759691}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquipmentSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: legSlot
       value: 
@@ -5752,6 +6038,10 @@ PrefabInstance:
       propertyPath: headSlot
       value: 
       objectReference: {fileID: 4813835461289068845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: quantity
+      value: -137
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: offHandSlot
       value: 
@@ -5962,6 +6252,10 @@ PrefabInstance:
       value: Potion
       objectReference: {fileID: 0}
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_SelectedColor.a
       value: 0.78431374
       objectReference: {fileID: 0}
@@ -5992,6 +6286,18 @@ PrefabInstance:
     - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquippedSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: itemType
@@ -6150,6 +6456,18 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.5529412
       objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 110233383281660958}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485577128835466130, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquippedSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: slotType
       value: 5
@@ -6183,6 +6501,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2158255652360497732}
     m_Modifications:
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6695860986393781479}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EquipmentSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343838037956635415, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: legSlot
       value: 
@@ -6195,6 +6541,10 @@ PrefabInstance:
       propertyPath: headSlot
       value: 
       objectReference: {fileID: 4813835461289068845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: quantity
+      value: -137
+      objectReference: {fileID: 0}
     - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: offHandSlot
       value: 

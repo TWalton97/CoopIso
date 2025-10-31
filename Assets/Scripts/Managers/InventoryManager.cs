@@ -47,6 +47,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
             if (!player0MenuOpened && !player1MenuOpened)
             {
+                EquipmentMenuObjects[playerIndex].controller.DeselectAllSlots();
                 Time.timeScale = 1;
                 //TODO: STILL FIX THIS
                 //PlayerJoinManager.Instance.GetPlayerControllerByIndex(0).WeaponController.canAttack = true;
@@ -61,6 +62,7 @@ public class InventoryManager : Singleton<InventoryManager>
         else
         {
             EquipmentMenuObjects[playerIndex].EquipmentMenuObject.SetActive(true);
+            EquipmentMenuObjects[playerIndex].controller.ClearPreviewWindow();
             if (playerIndex == 0) player0MenuOpened = true;
             if (playerIndex == 1) player1MenuOpened = true;
             Time.timeScale = 0;
@@ -68,9 +70,9 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
-    public void AddItem(string itemName, int quantity, Sprite sprite, string itemDescription, GameObject objectPrefab, GameObject vfxPrefab, ItemType itemType, WeaponDataSO weaponDataSO, int playerIndex)
+    public void AddItemToCorrectPlayerInventory(ItemData itemData, int playerIndex)
     {
-        EquipmentMenuObjects[playerIndex].controller.AddItem(itemName, quantity, sprite, itemDescription, objectPrefab, vfxPrefab, itemType, weaponDataSO);
+        EquipmentMenuObjects[playerIndex].controller.AddItemToFirstEmptySlot(itemData);
     }
 
     public void UseItem(string itemName)

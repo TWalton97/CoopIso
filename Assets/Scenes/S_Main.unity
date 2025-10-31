@@ -1122,15 +1122,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Shield
-  quantity: 1
-  sprite: {fileID: 21300000, guid: 2eb711b376b568746b9ec0029dc05b63, type: 3}
-  objectPrefab: {fileID: 8601840781972821055, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-  data: {fileID: 0}
-  vfxPrefab: {fileID: 165858437583528537, guid: 9748af5b7332a964f8a234a8b56041bf, type: 3}
-  itemDescription: A one-handed sword. Light enough to allow for nimble movement.
+  itemData:
+    itemName: Shield
+    quantity: 1
+    sprite: {fileID: 21300000, guid: 2eb711b376b568746b9ec0029dc05b63, type: 3}
+    itemDescription: A one-handed sword. Light enough to allow for nimble movement.
+    objectPrefab: {fileID: 8601840781972821055, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
+    vfxPrefab: {fileID: 165858437583528537, guid: 9748af5b7332a964f8a234a8b56041bf, type: 3}
+    itemType: 6
+    data: {fileID: 0}
   inventoryManager: {fileID: 0}
-  itemType: 6
 --- !u!4 &46009186
 Transform:
   m_ObjectHideFlags: 0
@@ -1140,7 +1141,7 @@ Transform:
   m_GameObject: {fileID: 46009183}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.73, y: 0.257, z: 2.4}
+  m_LocalPosition: {x: -5.58, y: 0.257, z: -1.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4258,6 +4259,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130122594}
   m_CullTransparentMesh: 1
+--- !u!1001 &130517547
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1737826715}
+    m_Modifications:
+    - target: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_Name
+      value: Axe1H_Mainhand
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 270
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
 --- !u!1 &131029040
 GameObject:
   m_ObjectHideFlags: 3
@@ -4686,14 +4744,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb6b4491cc6f4488e7729c3362ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptySprite: {fileID: 0}
   slotImage: {fileID: 735226370}
+  itemData:
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    data: {fileID: 0}
+  selectedShader: {fileID: 0}
+  slotInUse: 0
+  isSelected: 0
+  slotIndex: 0
   slotName: {fileID: 2084396188}
   itemType: 3
-  slotType: 2
-  slotInUse: 0
-  selectedShader: {fileID: 0}
-  isSelected: 0
-  emptySprite: {fileID: 0}
+  slotType: 0
 --- !u!1 &146974223
 GameObject:
   m_ObjectHideFlags: 0
@@ -6108,14 +6176,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb6b4491cc6f4488e7729c3362ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptySprite: {fileID: 0}
   slotImage: {fileID: 632248255}
+  itemData:
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    data: {fileID: 0}
+  selectedShader: {fileID: 0}
+  slotInUse: 0
+  isSelected: 0
+  slotIndex: 0
   slotName: {fileID: 1633414163}
   itemType: 3
-  slotType: 2
-  slotInUse: 0
-  selectedShader: {fileID: 0}
-  isSelected: 0
-  emptySprite: {fileID: 0}
+  slotType: 0
 --- !u!1001 &223552950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7944,6 +8022,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294996812}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &301467515 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+  m_PrefabInstance: {fileID: 130517547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &302943362 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
@@ -8222,11 +8305,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326943570}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &333762778 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-  m_PrefabInstance: {fileID: 1286914482}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &348031735 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5287457068786090241, guid: 5d2ca6eeafddc6f4287ad0288051d36c, type: 3}
@@ -11632,68 +11710,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590838765}
   m_CullTransparentMesh: 1
---- !u!1001 &590913196
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 674971235}
-    m_Modifications:
-    - target: {fileID: 7351689401621798789, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_Name
-      value: Axe2H_Mainhand
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
---- !u!4 &590913197 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-  m_PrefabInstance: {fileID: 590913196}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &593742574
 GameObject:
   m_ObjectHideFlags: 0
@@ -12083,7 +12099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &617729322
 Transform:
   m_ObjectHideFlags: 0
@@ -13430,82 +13446,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9026411916271417683, guid: 9e5a9218d74d96441a7c27458043dc96, type: 3}
   m_PrefabInstance: {fileID: 8903212503341939417}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &674971232
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 674971235}
-  - component: {fileID: 674971234}
-  - component: {fileID: 674971233}
-  m_Layer: 0
-  m_Name: Item (7)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!135 &674971233
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 674971232}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.75
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &674971234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 674971232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Two-Handed Axe
-  quantity: 1
-  sprite: {fileID: 21300000, guid: 0dd2ad6c520c76a478f115e7512d2e23, type: 3}
-  objectPrefab: {fileID: 7351689401621798789, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-  data: {fileID: 0}
-  vfxPrefab: {fileID: 4440629263168635932, guid: 13fa8b191e984754bbc8a420cbe17e0b, type: 3}
-  itemDescription: A heavy two-handed axe. Swing with caution.
-  inventoryManager: {fileID: 0}
-  itemType: 5
---- !u!4 &674971235
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 674971232}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.89, y: 0, z: -50.07}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 590913197}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &682989343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15109,6 +15049,83 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &710230460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 710230463}
+  - component: {fileID: 710230462}
+  - component: {fileID: 710230461}
+  m_Layer: 0
+  m_Name: Item (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &710230461
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710230460}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &710230462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710230460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData:
+    itemName: Two-Handed Axe
+    quantity: 1
+    sprite: {fileID: 21300000, guid: 0dd2ad6c520c76a478f115e7512d2e23, type: 3}
+    itemDescription: A heavy two-handed axe. Swing with caution.
+    objectPrefab: {fileID: 7351689401621798789, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+    vfxPrefab: {fileID: 4440629263168635932, guid: 13fa8b191e984754bbc8a420cbe17e0b, type: 3}
+    itemType: 5
+    data: {fileID: 11400000, guid: e5f1ef78c2c63b14d90c9f72f0e99f29, type: 2}
+  inventoryManager: {fileID: 0}
+--- !u!4 &710230463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710230460}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.33, y: 0, z: -2.72}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1385536551}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &711417218
 GameObject:
   m_ObjectHideFlags: 0
@@ -17948,14 +17965,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb6b4491cc6f4488e7729c3362ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptySprite: {fileID: 0}
   slotImage: {fileID: 806654060}
+  itemData:
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    data: {fileID: 0}
+  selectedShader: {fileID: 0}
+  slotInUse: 0
+  isSelected: 0
+  slotIndex: 0
   slotName: {fileID: 1869746301}
   itemType: 1
   slotType: 0
-  slotInUse: 0
-  selectedShader: {fileID: 0}
-  isSelected: 0
-  emptySprite: {fileID: 0}
+--- !u!1001 &859398192
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 710230463}
+    m_Modifications:
+    - target: {fileID: 7351689401621798789, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_Name
+      value: Axe2H_Mainhand
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
 --- !u!1 &860577201
 GameObject:
   m_ObjectHideFlags: 0
@@ -19316,14 +19400,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb6b4491cc6f4488e7729c3362ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptySprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   slotImage: {fileID: 1571559730}
+  itemData:
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    data: {fileID: 0}
+  selectedShader: {fileID: 2049158053}
+  slotInUse: 0
+  isSelected: 0
+  slotIndex: 0
   slotName: {fileID: 1790625752}
   itemType: 4
-  slotType: 3
-  slotInUse: 0
-  selectedShader: {fileID: 2049158053}
-  isSelected: 0
-  emptySprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  slotType: 0
 --- !u!114 &942732220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26539,14 +26633,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb6b4491cc6f4488e7729c3362ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptySprite: {fileID: 0}
   slotImage: {fileID: 2143458888}
+  itemData:
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    data: {fileID: 0}
+  selectedShader: {fileID: 0}
+  slotInUse: 0
+  isSelected: 0
+  slotIndex: 0
   slotName: {fileID: 606704689}
   itemType: 1
   slotType: 0
-  slotInUse: 0
-  selectedShader: {fileID: 0}
-  isSelected: 0
-  emptySprite: {fileID: 0}
 --- !u!1001 &1192443822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30114,14 +30218,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb6b4491cc6f4488e7729c3362ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptySprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   slotImage: {fileID: 1121605437}
+  itemData:
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    data: {fileID: 0}
+  selectedShader: {fileID: 1656140236}
+  slotInUse: 0
+  isSelected: 0
+  slotIndex: 0
   slotName: {fileID: 763574608}
   itemType: 5
-  slotType: 4
-  slotInUse: 0
-  selectedShader: {fileID: 1656140236}
-  isSelected: 0
-  emptySprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  slotType: 0
 --- !u!224 &1281188908
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30347,63 +30461,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d2ca6eeafddc6f4287ad0288051d36c, type: 3}
---- !u!1001 &1286914482
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1469941633}
-    m_Modifications:
-    - target: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_Name
-      value: Axe1H_Mainhand
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7222619110832967660, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 270
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
 --- !u!1001 &1288565168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30765,14 +30822,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb6b4491cc6f4488e7729c3362ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptySprite: {fileID: 0}
   slotImage: {fileID: 1812391644}
+  itemData:
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    data: {fileID: 0}
+  selectedShader: {fileID: 0}
+  slotInUse: 0
+  isSelected: 0
+  slotIndex: 0
   slotName: {fileID: 860577203}
   itemType: 2
-  slotType: 1
-  slotInUse: 0
-  selectedShader: {fileID: 0}
-  isSelected: 0
-  emptySprite: {fileID: 0}
+  slotType: 0
 --- !u!1 &1301337103
 GameObject:
   m_ObjectHideFlags: 0
@@ -32919,6 +32986,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+--- !u!4 &1385536551 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7354837468773632839, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+  m_PrefabInstance: {fileID: 859398192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1388929540 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5080376076805606549, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
@@ -34764,83 +34836,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468041183}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1469941630
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1469941633}
-  - component: {fileID: 1469941632}
-  - component: {fileID: 1469941631}
-  m_Layer: 0
-  m_Name: Item (4)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!135 &1469941631
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1469941630}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.75
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1469941632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1469941630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: One-Handed Axe
-  quantity: 1
-  sprite: {fileID: 21300000, guid: 38a702e6b4c2c9142859427b96a7c6f9, type: 3}
-  objectPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-  data: {fileID: 0}
-  vfxPrefab: {fileID: 3110887897120308211, guid: a95e11b18d6a3724d9e03fd9eb685ac4, type: 3}
-  itemDescription: A one-handed hatchet. In the right hands this could do some serious
-    damage.
-  inventoryManager: {fileID: 0}
-  itemType: 4
---- !u!4 &1469941633
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1469941630}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.09, y: 0, z: -52.54}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 333762778}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1471061152 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5287457068786090241, guid: 5d2ca6eeafddc6f4287ad0288051d36c, type: 3}
@@ -36192,82 +36187,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d2ca6eeafddc6f4287ad0288051d36c, type: 3}
---- !u!1 &1552323460
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1552323463}
-  - component: {fileID: 1552323462}
-  - component: {fileID: 1552323461}
-  m_Layer: 0
-  m_Name: Item (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!135 &1552323461
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552323460}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.75
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1552323462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552323460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: One-handed Sword
-  quantity: 1
-  sprite: {fileID: 21300000, guid: c4df26f72f7ef544ebecdafb3b35eb0d, type: 3}
-  objectPrefab: {fileID: 9079547992211365241, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-  data: {fileID: 0}
-  vfxPrefab: {fileID: 165858437583528537, guid: c96cdb5aeb6db8145aa538add18cf648, type: 3}
-  itemDescription: A one-handed sword. Light enough to allow for nimble movement.
-  inventoryManager: {fileID: 0}
-  itemType: 4
---- !u!4 &1552323463
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552323460}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.93, y: 0, z: -2.69}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2112956172}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1562026905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39699,82 +39618,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673093078}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1680867654
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1680867657}
-  - component: {fileID: 1680867656}
-  - component: {fileID: 1680867655}
-  m_Layer: 0
-  m_Name: Item (6)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!135 &1680867655
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680867654}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.75
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1680867656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680867654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Shield
-  quantity: 1
-  sprite: {fileID: 21300000, guid: 2eb711b376b568746b9ec0029dc05b63, type: 3}
-  objectPrefab: {fileID: 8601840781972821055, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-  data: {fileID: 0}
-  vfxPrefab: {fileID: 165858437583528537, guid: 9748af5b7332a964f8a234a8b56041bf, type: 3}
-  itemDescription: A one-handed sword. Light enough to allow for nimble movement.
-  inventoryManager: {fileID: 0}
-  itemType: 6
---- !u!4 &1680867657
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680867654}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.33, y: 0.257, z: -3.46}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2038968533}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1682435448
 GameObject:
   m_ObjectHideFlags: 0
@@ -39805,15 +39648,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Two-Handed Axe
-  quantity: 1
-  sprite: {fileID: 21300000, guid: 0dd2ad6c520c76a478f115e7512d2e23, type: 3}
-  objectPrefab: {fileID: 7351689401621798789, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-  data: {fileID: 0}
-  vfxPrefab: {fileID: 4440629263168635932, guid: 13fa8b191e984754bbc8a420cbe17e0b, type: 3}
-  itemDescription: A heavy two-handed axe. Swing with caution.
+  itemData:
+    itemName: Two-Handed Axe
+    quantity: 1
+    sprite: {fileID: 21300000, guid: 0dd2ad6c520c76a478f115e7512d2e23, type: 3}
+    itemDescription: A heavy two-handed axe. Swing with caution.
+    objectPrefab: {fileID: 7351689401621798789, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+    vfxPrefab: {fileID: 4440629263168635932, guid: 13fa8b191e984754bbc8a420cbe17e0b, type: 3}
+    itemType: 5
+    data: {fileID: 11400000, guid: e5f1ef78c2c63b14d90c9f72f0e99f29, type: 2}
   inventoryManager: {fileID: 0}
-  itemType: 5
 --- !u!4 &1682435450
 Transform:
   m_ObjectHideFlags: 0
@@ -40630,6 +40474,84 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5080376076805606549, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
   m_PrefabInstance: {fileID: 1733054953}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1737826712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1737826715}
+  - component: {fileID: 1737826714}
+  - component: {fileID: 1737826713}
+  m_Layer: 0
+  m_Name: Item (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &1737826713
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737826712}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1737826714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737826712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData:
+    itemName: One-Handed Axe
+    quantity: 1
+    sprite: {fileID: 21300000, guid: 38a702e6b4c2c9142859427b96a7c6f9, type: 3}
+    itemDescription: A one-handed hatchet. In the right hands this could do some
+      serious damage.
+    objectPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+    vfxPrefab: {fileID: 3110887897120308211, guid: a95e11b18d6a3724d9e03fd9eb685ac4, type: 3}
+    itemType: 4
+    data: {fileID: 0}
+  inventoryManager: {fileID: 0}
+--- !u!4 &1737826715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737826712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.68, y: 0, z: -2.63}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 301467515}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1741255726
 GameObject:
   m_ObjectHideFlags: 0
@@ -40756,15 +40678,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: One-handed Sword
-  quantity: 1
-  sprite: {fileID: 21300000, guid: c4df26f72f7ef544ebecdafb3b35eb0d, type: 3}
-  objectPrefab: {fileID: 9079547992211365241, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-  data: {fileID: 0}
-  vfxPrefab: {fileID: 165858437583528537, guid: c96cdb5aeb6db8145aa538add18cf648, type: 3}
-  itemDescription: A one-handed sword. Light enough to allow for nimble movement.
+  itemData:
+    itemName: One-handed Sword
+    quantity: 1
+    sprite: {fileID: 21300000, guid: c4df26f72f7ef544ebecdafb3b35eb0d, type: 3}
+    itemDescription: A one-handed sword. Light enough to allow for nimble movement.
+    objectPrefab: {fileID: 9079547992211365241, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
+    vfxPrefab: {fileID: 165858437583528537, guid: c96cdb5aeb6db8145aa538add18cf648, type: 3}
+    itemType: 4
+    data: {fileID: 0}
   inventoryManager: {fileID: 0}
-  itemType: 4
 --- !u!4 &1745737839
 Transform:
   m_ObjectHideFlags: 0
@@ -40774,7 +40697,7 @@ Transform:
   m_GameObject: {fileID: 1745737836}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.51, y: 0, z: 1.32}
+  m_LocalPosition: {x: -3.13, y: 0, z: 0.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42953,14 +42876,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb6b4491cc6f4488e7729c3362ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptySprite: {fileID: 0}
   slotImage: {fileID: 543161565}
+  itemData:
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    data: {fileID: 0}
+  selectedShader: {fileID: 0}
+  slotInUse: 0
+  isSelected: 0
+  slotIndex: 0
   slotName: {fileID: 509855679}
   itemType: 2
-  slotType: 1
-  slotInUse: 0
-  selectedShader: {fileID: 0}
-  isSelected: 0
-  emptySprite: {fileID: 0}
+  slotType: 0
 --- !u!4 &1873668607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 815717311366020756, guid: c990293928bd4fb4a937ccfc41e2061e, type: 3}
@@ -46081,84 +46014,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1086107817556774945, guid: b06d736dd31cb7f4a9c851ddb8ac65a4, type: 3}
   m_PrefabInstance: {fileID: 1595224580}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2038968532
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1680867657}
-    m_Modifications:
-    - target: {fileID: 4681152429029747364, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: weaponHand
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4681152429029747364, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: <Data>k__BackingField
-      value: 
-      objectReference: {fileID: 11400000, guid: 45c62f986883fb847b8787a00fd7be64, type: 2}
-    - target: {fileID: 4681152429029747364, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: animatorOverrideController
-      value: 
-      objectReference: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
-    - target: {fileID: 8601840781972821055, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_Name
-      value: Shield_Offhand
-      objectReference: {fileID: 0}
-    - target: {fileID: 8601840781972821055, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.128
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.358
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
---- !u!4 &2038968533 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8940824148410961541, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-  m_PrefabInstance: {fileID: 2038968532}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2049158053
 GameObject:
   m_ObjectHideFlags: 0
@@ -46451,14 +46306,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb6b4491cc6f4488e7729c3362ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptySprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   slotImage: {fileID: 142080725}
+  itemData:
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    data: {fileID: 0}
+  selectedShader: {fileID: 727816497}
+  slotInUse: 0
+  isSelected: 0
+  slotIndex: 0
   slotName: {fileID: 244571083}
   itemType: 5
-  slotType: 4
-  slotInUse: 0
-  selectedShader: {fileID: 727816497}
-  isSelected: 0
-  emptySprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  slotType: 0
 --- !u!114 &2061960917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47044,68 +46909,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5080376076805606549, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
   m_PrefabInstance: {fileID: 2091818745}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2112956171
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1552323463}
-    m_Modifications:
-    - target: {fileID: 9079547992211365241, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_Name
-      value: Sword1H_Mainhand
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
---- !u!4 &2112956172 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9082666826239297741, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
-  m_PrefabInstance: {fileID: 2112956171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2118618736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47372,16 +47175,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: One-Handed Axe
-  quantity: 1
-  sprite: {fileID: 21300000, guid: 38a702e6b4c2c9142859427b96a7c6f9, type: 3}
-  objectPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-  data: {fileID: 0}
-  vfxPrefab: {fileID: 3110887897120308211, guid: a95e11b18d6a3724d9e03fd9eb685ac4, type: 3}
-  itemDescription: A one-handed hatchet. In the right hands this could do some serious
-    damage.
+  itemData:
+    itemName: One-Handed Axe
+    quantity: 1
+    sprite: {fileID: 21300000, guid: 38a702e6b4c2c9142859427b96a7c6f9, type: 3}
+    itemDescription: A one-handed hatchet. In the right hands this could do some
+      serious damage.
+    objectPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+    vfxPrefab: {fileID: 3110887897120308211, guid: a95e11b18d6a3724d9e03fd9eb685ac4, type: 3}
+    itemType: 4
+    data: {fileID: 0}
   inventoryManager: {fileID: 0}
-  itemType: 4
 --- !u!4 &2127260746
 Transform:
   m_ObjectHideFlags: 0
@@ -49832,10 +49636,8 @@ SceneRoots:
   - {fileID: 3011069633694310470}
   - {fileID: 1577084783}
   - {fileID: 1682435450}
-  - {fileID: 674971235}
+  - {fileID: 710230463}
   - {fileID: 2127260746}
-  - {fileID: 1469941633}
+  - {fileID: 1737826715}
   - {fileID: 1745737839}
-  - {fileID: 1552323463}
   - {fileID: 46009186}
-  - {fileID: 1680867657}

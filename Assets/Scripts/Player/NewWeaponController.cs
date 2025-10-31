@@ -51,7 +51,7 @@ public class NewWeaponController : MonoBehaviour
         {
             if (currentWeaponAttackType == WeaponAttackTypes.DualWield)
             {
-                instantiatedSecondaryWeapon.Enter(() => canAttack = true);
+                instantiatedSecondaryWeapon.Enter(OnActionCompleted);
                 canAttack = false;
                 comboCounter.Start();
                 primaryWeaponAttackCompleted = !primaryWeaponAttackCompleted;

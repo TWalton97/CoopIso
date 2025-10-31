@@ -3,124 +3,104 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class EquippedSlot : MonoBehaviour, IPointerClickHandler
+public class EquippedSlot : ItemSlot
 {
     //Slot appearance
-    [SerializeField] private Image slotImage;
     [SerializeField] private TMP_Text slotName;
 
     //Slot data
     [SerializeField] private ItemType itemType = new ItemType();
-    [SerializeField] private Slot slotType;
+    public Slot slotType;
     public ItemType equippedWeaponType { get; private set; }
-
-    private Sprite itemSprite;
-    private string itemName;
-    private string itemDescription;
-    private GameObject itemPrefab;
-    private GameObject vfxPrefab;
-    private WeaponDataSO data;
-
-    private InventoryManager inventoryManager;
-    private InventoryController inventoryController;
-    private EquipmentSOLibrary equipmentSOLibrary;
-
-    //Other variables
-    public bool slotInUse;
-    public GameObject selectedShader;
-    public bool isSelected;
-
-    [SerializeField] private Sprite emptySprite;
 
     void Start()
     {
-        inventoryManager = InventoryManager.Instance;
         inventoryController = GetComponentInParent<InventoryController>();
-        equipmentSOLibrary = EquipmentSOLibrary.Instance;
 
         //EquipGear(itemSprite, itemName, itemDescription, itemPrefab, vfxPrefab, data, itemType);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnLeftClick()
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            OnLeftClick();
-        }
+        if (inventoryController.selectedItemSlots.Count == 0 && !slotInUse) return;
 
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (isSelected)
         {
-            OnRightClick();
-        }
-    }
-
-    void OnLeftClick()
-    {
-        if (isSelected && slotInUse)
-        {
-            inventoryManager.ClearPreviewWindow();
+            inventoryController.ClearPreviewWindow();
             UnequipGear();
         }
         else
         {
-            inventoryManager.DeselectAllSlots();
-            inventoryManager.UpdatePreviewWindow(itemSprite, itemName, itemType, data);
-            isSelected = true;
+            inventoryController.RegisterButtonSelection(this);
+            if (slotInUse)
+                inventoryController.UpdatePreviewWindow(itemData.sprite, itemData.itemName, itemType, itemData.data);
+            //inventoryController.DeselectAllSlots();
+
+            if (inventoryController.selectedItemSlots.Count == 1)
+            {
+                isSelected = true;
+                selectedShader.SetActive(true);
+            }
         }
     }
 
-    void OnRightClick()
+    public override void OnRightClick()
     {
         UnequipGear();
     }
 
-    public void EquipGear(Sprite sprite, string itemName, string itemDescription, GameObject weapon, GameObject vfxPrefab, WeaponDataSO weaponDataSO, ItemType itemType = ItemType.Head)
+    public void EquipGear(ItemData itemData, int index = 0, bool deleteItemInSlot = false)
     {
         if (slotInUse)
-            UnequipGear();
+            UnequipGear(index, deleteItemInSlot);
 
-        this.itemSprite = sprite;
-        slotImage.sprite = this.itemSprite;
+        this.itemData = itemData;
+        slotImage.sprite = itemData.sprite;
         slotImage.enabled = true;
         slotName.enabled = false;
-        itemPrefab = weapon.gameObject;
-        this.vfxPrefab = vfxPrefab;
-        this.itemType = itemType;
-        this.equippedWeaponType = itemType;
-        this.data = weaponDataSO;
 
-        this.itemName = itemName;
-        this.itemDescription = itemDescription;
-
-        if (itemType == ItemType.OneHanded)
+        if (itemData.itemType == ItemType.OneHanded)
         {
-            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOneHandedWeapon(weapon);
+            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOneHandedWeapon(itemData.objectPrefab);
+            if (slotType == Slot.OffHand)
+            {
+                //Check if the slot in the main hand is two-handed and unequip it if it is
+                EquippedSlot mainHandSlot = inventoryController.FindEquippedSlotOfType(Slot.MainHand)[0];
+                if (mainHandSlot.slotInUse && mainHandSlot.itemData.itemType == ItemType.TwoHanded)
+                {
+                    mainHandSlot.UnequipGear();
+                }
+            }
             //NewWeaponController.Instance.EquipOneHandedWeapon(weapon);
         }
-        else if (itemType == ItemType.Offhand)
+        else if (itemData.itemType == ItemType.Offhand)
         {
-            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOffhand(weapon);
+            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOffhand(itemData.objectPrefab);
             //NewWeaponController.Instance.EquipOffhand(weapon);
         }
-        else if (itemType == ItemType.TwoHanded)
+        else if (itemData.itemType == ItemType.TwoHanded)
         {
-            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipTwoHandedWeapon(weapon);
+            inventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].UnequipGear();
+            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipTwoHandedWeapon(itemData.objectPrefab);
             //NewWeaponController.Instance.EquipTwoHandedWeapon(weapon);
         }
 
         slotInUse = true;
     }
 
-    public void UnequipGear()
+    public override void EmptySlot()
     {
-        inventoryManager.DeselectAllSlots();
-        if (slotInUse)
+        UnequipGear();
+    }
+
+    public void UnequipGear(int index = 0, bool deleteItemInSlot = false)
+    {
+        inventoryController.DeselectAllSlots();
+        if (slotInUse && !deleteItemInSlot)
         {
-            inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemPrefab, vfxPrefab, itemType, data, inventoryController.playerIndex);
+            inventoryController.AddItemToSelectedSlot(itemData, index);
         }
 
-
-        this.itemSprite = emptySprite;
         slotImage.sprite = emptySprite;
         slotImage.enabled = false;
         slotName.enabled = true;
@@ -138,6 +118,42 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
                 //NewWeaponController.Instance.UnequipWeapon(Weapon.WeaponHand.OffHand);
                 break;
         }
+    }
+
+    public bool ItemTypeValidForSlot(ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case ItemType.Consumable:
+                if (slotType == Slot.Potion)
+                    return true;
+                break;
+            case ItemType.Head:
+                if (slotType == Slot.Potion)
+                    return true;
+                break;
+            case ItemType.Body:
+                if (slotType == Slot.Body)
+                    return true;
+                break;
+            case ItemType.Legs:
+                if (slotType == Slot.Legs)
+                    return true;
+                break;
+            case ItemType.OneHanded:
+                if (slotType == Slot.MainHand || slotType == Slot.OffHand)
+                    return true;
+                break;
+            case ItemType.TwoHanded:
+                if (slotType == Slot.MainHand)
+                    return true;
+                break;
+            case ItemType.Offhand:
+                if (slotType == Slot.OffHand)
+                    return true;
+                break;
+        }
+        return false;
     }
 
 }
