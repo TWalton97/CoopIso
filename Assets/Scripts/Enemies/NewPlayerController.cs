@@ -13,6 +13,7 @@ public class NewPlayerController : Entity
     public ExperienceController ExperienceController { get; private set; }
     public PlayerInputController PlayerInputController { get; private set; }
     public GroundCheck GroundCheck { get; private set; }
+    public Interactor Interactor { get; private set; }
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
@@ -43,6 +44,7 @@ public class NewPlayerController : Entity
         ExperienceController = GetComponent<ExperienceController>();
         PlayerInputController = GetComponent<PlayerInputController>();
         GroundCheck = GetComponent<GroundCheck>();
+        Interactor = GetComponentInChildren<Interactor>();
     }
     void Start()
     {
@@ -70,6 +72,7 @@ public class NewPlayerController : Entity
         PlayerInputController.OnAttackPerformed += Attack;
         PlayerInputController.OnJumpPerformed += Jump;
         PlayerInputController.OnBlockPerformed += Block;
+        PlayerInputController.OnInteractPerformed += Interact;
     }
 
     private void UnsubscribeFromInputEvents()
@@ -84,6 +87,7 @@ public class NewPlayerController : Entity
         PlayerInputController.OnAttackPerformed -= Attack;
         PlayerInputController.OnJumpPerformed -= Jump;
         PlayerInputController.OnBlockPerformed -= Block;
+        PlayerInputController.OnInteractPerformed -= Interact;
     }
 
     void Update()
@@ -245,6 +249,15 @@ public class NewPlayerController : Entity
         {
             blockButtonPressed = false;
         }
+    }
+
+    #endregion
+
+    #region Interactions
+
+    private void Interact(CallbackContext context)
+    {
+        Interactor.Interact();
     }
 
     #endregion

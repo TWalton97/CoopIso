@@ -107,6 +107,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""c08a53a2-790c-4c21-9b3d-bafe4f315880"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -421,11 +430,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""df0c0985-358b-4486-8be3-ff18ed4190a5"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""OpenEquipmentMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91eccc23-3f5f-4924-983b-932e722e5918"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95613980-34c9-44e6-ac3d-1284c54833b8"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -968,7 +999,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""76dd7b4d-e9de-48bf-9037-8f099bfec36e"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -1053,6 +1084,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         m_Player_SwapWeapon = m_Player.FindAction("SwapWeapon", throwIfNotFound: true);
         m_Player_OpenEquipmentMenu = m_Player.FindAction("OpenEquipmentMenu", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1142,6 +1174,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Block;
     private readonly InputAction m_Player_SwapWeapon;
     private readonly InputAction m_Player_OpenEquipmentMenu;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1155,6 +1188,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Block => m_Wrapper.m_Player_Block;
         public InputAction @SwapWeapon => m_Wrapper.m_Player_SwapWeapon;
         public InputAction @OpenEquipmentMenu => m_Wrapper.m_Player_OpenEquipmentMenu;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1191,6 +1225,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @OpenEquipmentMenu.started += instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.performed += instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.canceled += instance.OnOpenEquipmentMenu;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1222,6 +1259,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @OpenEquipmentMenu.started -= instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.performed -= instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.canceled -= instance.OnOpenEquipmentMenu;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1421,6 +1461,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnBlock(InputAction.CallbackContext context);
         void OnSwapWeapon(InputAction.CallbackContext context);
         void OnOpenEquipmentMenu(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

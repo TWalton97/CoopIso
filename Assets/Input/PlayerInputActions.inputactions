@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "c08a53a2-790c-4c21-9b3d-bafe4f315880",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -399,11 +408,33 @@
                 {
                     "name": "",
                     "id": "df0c0985-358b-4486-8be3-ff18ed4190a5",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "OpenEquipmentMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91eccc23-3f5f-4924-983b-932e722e5918",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95613980-34c9-44e6-ac3d-1284c54833b8",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -946,7 +977,7 @@
                 {
                     "name": "",
                     "id": "76dd7b4d-e9de-48bf-9037-8f099bfec36e",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",

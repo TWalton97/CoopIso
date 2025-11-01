@@ -29,7 +29,6 @@ public class InventoryController : MonoBehaviour
 
     private void OnDisable()
     {
-        print("On disable");
         ResetButtonSelection();
     }
 

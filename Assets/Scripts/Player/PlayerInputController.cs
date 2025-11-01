@@ -8,10 +8,10 @@ using System.Collections.Generic;
 public class PlayerInputController : MonoBehaviour
 {
     public PlayerInput playerInput { get; private set; }
-    private PlayerInputActions playerInputActions;
+    public PlayerInputActions playerInputActions { get; private set; }
 
-    private const string gameplayMapName = "Player";
-    private const string UIMapName = "UI";
+    public string gameplayMapName { get; private set; } = "Player";
+    public string UIMapName { get; private set; } = "UI";
     private InputActionMap gameplayMap;
     private InputActionMap UIMap;
 
@@ -30,6 +30,7 @@ public class PlayerInputController : MonoBehaviour
     public Action<CallbackContext> OnJumpPerformed;
     public Action<CallbackContext> OnAbility1Performed;
     public Action<CallbackContext> OnBlockPerformed;
+    public Action<CallbackContext> OnInteractPerformed;
 
     //Stored dictionary for unsubscribing from all events
     private Dictionary<InputAction, Action<CallbackContext>> subscribedInputActions = new Dictionary<InputAction, Action<CallbackContext>>();
@@ -68,6 +69,7 @@ public class PlayerInputController : MonoBehaviour
         SubscribeToInputAction(playerInputActions.Player.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.LookMouse.id.ToString(), OnLookMouse, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.LookStick.id.ToString(), OnLookStick, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.Interact.id.ToString(), OnInteract, gameplayMap);
 
         SubscribeToInputAction(playerInputActions.UI.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, UIMap);
 
@@ -155,6 +157,11 @@ public class PlayerInputController : MonoBehaviour
     {
 
     }
+
+    public void OnInteract(CallbackContext context)
+    {
+        OnInteractPerformed?.Invoke(context);
+    }
     #endregion
 
     #region UI Input Actions
@@ -212,7 +219,6 @@ public class PlayerInputController : MonoBehaviour
     #region Shared Input Actions
     public void OnEquipmentMenu(CallbackContext context)
     {
-        Debug.Log("OnEquipmentMenuPressed");
         InventoryManager.Instance.Equipment(playerIndex);
     }
     #endregion

@@ -2,33 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IInteractable
 {
     public ItemData itemData;
-
     public InventoryManager inventoryManager;
-    private float x, y, z;
     private Quaternion targetRotation;
     private Vector3 targetPosition;
+    private bool _isInteractable = true;
+    public InteractionType InteractionType;
+
+    public string interactableName { get => itemData.itemName; set => itemData.itemName = value; }
+    public bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
+    public InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
 
     void Start()
     {
-        inventoryManager = InventoryManager.Instance;    //TODO: fix this
+        inventoryManager = InventoryManager.Instance;
         itemData.data = GetComponentInChildren<Weapon>().Data;
         Instantiate(itemData.vfxPrefab, transform);
         targetRotation = transform.rotation;
         targetPosition = transform.position;
         StartCoroutine(RotateRandomly());
-    }
-
-
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.TryGetComponent(out PlayerInputController controller))
-        {
-            inventoryManager.AddItemToCorrectPlayerInventory(itemData, controller.playerIndex);
-            Destroy(gameObject);
-        }
     }
 
     private IEnumerator RotateRandomly()
@@ -44,6 +38,17 @@ public class Item : MonoBehaviour
         }
         transform.rotation = targetRotation;
         yield return null;
+    }
+
+    private void CollectItem(int playerIndex)
+    {
+        inventoryManager.AddItemToCorrectPlayerInventory(itemData, playerIndex);
+        Destroy(gameObject);
+    }
+
+    public void OnInteract(int playerIndex)
+    {
+        CollectItem(playerIndex);
     }
 }
 

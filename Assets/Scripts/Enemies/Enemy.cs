@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -33,14 +34,13 @@ public class Enemy : Entity
     public string StateName;
     private EnemyWanderState wanderState;
 
+    private bool spawned = false;
+
     public override void Awake()
     {
         base.Awake();
         hitbox = GetComponentInChildren<Hitbox>();
-        if (!agent.isOnNavMesh)
-        {
-            agent.enabled = false;
-        }
+        StartCoroutine(WaitForNavMeshAndSpawn());
     }
 
     void Start()
@@ -92,12 +92,14 @@ public class Enemy : Entity
 
     void Update()
     {
+        if (!spawned) return;
         stateMachine.Update();
         attackTimer.Tick(Time.deltaTime);
     }
 
     void FixedUpdate()
     {
+        if (!spawned) return;
         stateMachine.FixedUpdate();
     }
 
@@ -127,11 +129,20 @@ public class Enemy : Entity
 
     private void DistributeExperience()
     {
-        Debug.Log("Distributing experience");
         NewPlayerController[] playerControllers = FindObjectsOfType<NewPlayerController>();
         foreach (NewPlayerController playerController in playerControllers)
         {
             playerController.ExperienceController.AddExperience(ExpValue);
         }
+    }
+
+    private IEnumerator WaitForNavMeshAndSpawn()
+    {
+        while (!NavMesh.SamplePosition(transform.position, out _, 1f, NavMesh.AllAreas))
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        agent.enabled = true;
+        spawned = true;
     }
 }
