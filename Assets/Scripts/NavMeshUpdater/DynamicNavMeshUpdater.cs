@@ -59,7 +59,7 @@ public class DynamicNavMeshUpdater : MonoBehaviour
     static Vector3 QuantizePosition(Vector3 position, Vector3 quantization)
     {
         float x = quantization.z * Mathf.Floor(position.x / quantization.x);
-        float y = quantization.y * Mathf.Floor(position.y / quantization.y);
+        float y = quantization.y * Mathf.Floor(position.y - 1 / quantization.y);
         float z = quantization.z * Mathf.Floor(position.z / quantization.z);
         return new Vector3(x, y, z);
     }
