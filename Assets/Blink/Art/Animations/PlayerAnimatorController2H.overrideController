@@ -9,5 +9,7 @@ AnimatorOverrideController:
   m_Name: PlayerAnimatorController2H
   m_Controller: {fileID: 9100000, guid: 5b7e4efa974f7334191e8c27409f2845, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 2550410822785019017, guid: b38fcdbf88f95f2468be0a4ae7aae7f8, type: 3}
-    m_OverrideClip: {fileID: 381366046490202241, guid: ee5e404da5ae61d4291af7340ab39b19, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 4b2c9f22c1258634386dd033850cc925, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a9cf1cdfceb04164aaf2d300e32ca0f0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: eeb2639c76c4bf746a0b40ca7bb9a66f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e7d65374e3991f74a933e48529676871, type: 2}

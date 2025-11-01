@@ -8,4 +8,8 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: PlayerAnimatorController1HShield
   m_Controller: {fileID: 9100000, guid: 5b7e4efa974f7334191e8c27409f2845, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 4b2c9f22c1258634386dd033850cc925, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 38a6fa648ce631a409d549343e2ac56a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: eeb2639c76c4bf746a0b40ca7bb9a66f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 38a6fa648ce631a409d549343e2ac56a, type: 2}

@@ -123,6 +123,11 @@ public class InventoryController : MonoBehaviour
 
     public void RegisterButtonSelection(ItemSlot itemSlot)
     {
+        if (selectedItemSlots.Contains(itemSlot))
+        {
+            ResetButtonSelection();
+            return;
+        }
         selectedItemSlots.Add(itemSlot);
         if (selectedItemSlots.Count == 2)
         {
@@ -144,13 +149,31 @@ public class InventoryController : MonoBehaviour
             }
             else if (selectedItemSlots[0] is EquipmentSlot && selectedItemSlots[1] is EquippedSlot)
             {
-                //If I equip to a full slot, the previously equipped item gets deleted
                 EquippedSlot equippedSlot = selectedItemSlots[1] as EquippedSlot;
                 if (equippedSlot.ItemTypeValidForSlot(selectedItemSlots[0].itemData.itemType))
                 {
-                    ItemData itemData = selectedItemSlots[0].itemData;
-                    selectedItemSlots[0].EmptySlot();
-                    equippedSlot.EquipGear(itemData, selectedItemSlots[0].slotIndex);
+                    if (equippedSlot.slotType == Slot.OffHand)
+                    {
+                        EquippedSlot mainSlot = FindEquippedSlotOfType(Slot.MainHand)[0];
+                        if (!mainSlot.slotInUse && mainSlot.ItemTypeValidForSlot(selectedItemSlots[0].itemData.itemType))
+                        {
+                            ItemData itemData = selectedItemSlots[0].itemData;
+                            selectedItemSlots[0].EmptySlot();
+                            equippedSlot.EquipGear(itemData, selectedItemSlots[0].slotIndex);
+                        }
+                        else
+                        {
+                            ItemData itemData = selectedItemSlots[0].itemData;
+                            selectedItemSlots[0].EmptySlot();
+                            equippedSlot.EquipGear(itemData, selectedItemSlots[0].slotIndex);
+                        }
+                    }
+                    else
+                    {
+                        ItemData itemData = selectedItemSlots[0].itemData;
+                        selectedItemSlots[0].EmptySlot();
+                        equippedSlot.EquipGear(itemData, selectedItemSlots[0].slotIndex);
+                    }
                 }
             }
             else if (selectedItemSlots[0] is EquippedSlot && selectedItemSlots[1] is EquipmentSlot)
@@ -175,10 +198,8 @@ public class InventoryController : MonoBehaviour
                 EquippedSlot equippedSlot1 = selectedItemSlots[0] as EquippedSlot;
                 EquippedSlot equippedSlot2 = selectedItemSlots[1] as EquippedSlot;
 
-                //If the 2nd slot isn't in use, we just check if the item in our slot can go into that slot
                 if (equippedSlot2.slotInUse)
                 {
-                    //We need to check that both weapons are valid for each other's slots
                     if (equippedSlot2.ItemTypeValidForSlot(equippedSlot1.itemData.itemType) && equippedSlot1.ItemTypeValidForSlot(equippedSlot2.itemData.itemType))
                     {
                         ItemData itemData = equippedSlot2.itemData;
@@ -189,17 +210,13 @@ public class InventoryController : MonoBehaviour
                 }
                 else
                 {
-                    //If item is valid
                     if (equippedSlot2.ItemTypeValidForSlot(equippedSlot1.itemData.itemType))
                     {
                         equippedSlot2.EquipGear(equippedSlot1.itemData);
                         equippedSlot1.UnequipGear(0, true);
                     }
                 }
-
             }
-
-
             DeselectAllSlots();
             ClearPreviewWindow();
             selectedItemSlots.Clear();

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 935806930815462672}
   - component: {fileID: 8076866308431420103}
   - component: {fileID: 7769894917561011699}
-  - component: {fileID: 1401081672180910576}
   m_Layer: 0
   m_Name: Torch.001
   m_TagString: Untagged
@@ -86,28 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1401081672180910576
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 510141063021254879}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1648318550784961951, guid: edcc86a903182d0429c0d7b2c727fec0, type: 3}
 --- !u!1 &8712300021360254310
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,6 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7206927362178746234}
   - component: {fileID: 4220554822487122790}
+  - component: {fileID: 2506863767804179163}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -194,7 +172,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -202,6 +180,29 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &2506863767804179163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8712300021360254310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1001 &749987270279788626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -210,6 +211,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 935806930815462672}
     m_Modifications:
+    - target: {fileID: 363946921170397246, guid: 4daecac5922e4cf46914efecc3de4129, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0face13fdba49094f96e086359e61c30, type: 2}
     - target: {fileID: 5866797894309309924, guid: 4daecac5922e4cf46914efecc3de4129, type: 3}
       propertyPath: m_Name
       value: Fire_Effect

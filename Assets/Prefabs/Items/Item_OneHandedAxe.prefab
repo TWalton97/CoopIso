@@ -55,8 +55,9 @@ MonoBehaviour:
     objectPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
     vfxPrefab: {fileID: 3110887897120308211, guid: a95e11b18d6a3724d9e03fd9eb685ac4, type: 3}
     itemType: 4
-    data: {fileID: 0}
+    data: {fileID: 11400000, guid: 45c62f986883fb847b8787a00fd7be64, type: 2}
   inventoryManager: {fileID: 0}
+  InteractionType: 0
 --- !u!135 &3677078007523840295
 SphereCollider:
   m_ObjectHideFlags: 0

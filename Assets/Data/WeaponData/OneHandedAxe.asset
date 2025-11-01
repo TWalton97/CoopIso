@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: OneHandedAxe
   m_EditorClassIdentifier: 
   <WeaponDamage>k__BackingField: 5
+  <NumberOfAttacksInCombo>k__BackingField: 2
   <MovementSpeedDuringAttack>k__BackingField: 3

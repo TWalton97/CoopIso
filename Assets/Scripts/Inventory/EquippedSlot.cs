@@ -58,6 +58,7 @@ public class EquippedSlot : ItemSlot
         slotImage.sprite = itemData.sprite;
         slotImage.enabled = true;
         slotName.enabled = false;
+        equippedWeaponType = itemData.itemType;
 
         if (itemData.itemType == ItemType.OneHanded)
         {

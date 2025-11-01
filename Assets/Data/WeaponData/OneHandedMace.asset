@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: OneHandedMace
   m_EditorClassIdentifier: 
   <WeaponDamage>k__BackingField: 6
+  <NumberOfAttacksInCombo>k__BackingField: 1
   <MovementSpeedDuringAttack>k__BackingField: 2.75

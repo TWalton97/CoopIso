@@ -96,7 +96,8 @@ public class Interactor : MonoBehaviour
                 nearestInteractable = nearbyInteractableColliders[0].GetComponent<IInteractable>();
             }
 
-            DisplayInteractUI();
+            if (nearestInteractable != null)
+                DisplayInteractUI();
         }
     }
 

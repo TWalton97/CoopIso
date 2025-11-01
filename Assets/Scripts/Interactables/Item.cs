@@ -8,7 +8,7 @@ public class Item : MonoBehaviour, IInteractable
     public InventoryManager inventoryManager;
     private Quaternion targetRotation;
     private Vector3 targetPosition;
-    private bool _isInteractable = true;
+    private bool _isInteractable = false;
     public InteractionType InteractionType;
 
     public string interactableName { get => itemData.itemName; set => itemData.itemName = value; }
@@ -37,6 +37,7 @@ public class Item : MonoBehaviour, IInteractable
             yield return new WaitForSeconds(0.05f);
         }
         transform.rotation = targetRotation;
+        _isInteractable = true;
         yield return null;
     }
 

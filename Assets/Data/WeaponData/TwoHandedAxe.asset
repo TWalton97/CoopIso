@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: TwoHandedAxe
   m_EditorClassIdentifier: 
   <WeaponDamage>k__BackingField: 10
+  <NumberOfAttacksInCombo>k__BackingField: 2
   <MovementSpeedDuringAttack>k__BackingField: 2

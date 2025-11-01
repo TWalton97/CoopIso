@@ -14,6 +14,7 @@ public class NewPlayerController : Entity
     public PlayerInputController PlayerInputController { get; private set; }
     public GroundCheck GroundCheck { get; private set; }
     public Interactor Interactor { get; private set; }
+    public AnimationStatusTracker AnimationStatusTracker { get; private set; }
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
@@ -45,6 +46,7 @@ public class NewPlayerController : Entity
         PlayerInputController = GetComponent<PlayerInputController>();
         GroundCheck = GetComponent<GroundCheck>();
         Interactor = GetComponentInChildren<Interactor>();
+        AnimationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
     }
     void Start()
     {
@@ -230,10 +232,7 @@ public class NewPlayerController : Entity
 
     private void Attack(CallbackContext context)
     {
-        if (WeaponController.canAttack && WeaponController.instantiatedPrimaryWeapon != null)
-        {
-            attackButtonPressed = true;
-        }
+        attackButtonPressed = true;
     }
 
     private void Block(CallbackContext context)

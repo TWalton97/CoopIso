@@ -14,12 +14,15 @@ public class NewWeaponController : MonoBehaviour
 
     public Weapon instantiatedPrimaryWeapon;
     public Weapon instantiatedSecondaryWeapon;
-    private WeaponAttackTypes currentWeaponAttackType;
     public bool primaryWeaponAttackCompleted = false;
+
     private CountdownTimer comboCounter;    //We use this to determine when to reset our current attack combo
     private float comboPeriod = 3;
+    int numAttacks;
+
     public bool canAttack = true;
     public bool HasShieldEquipped;
+    private Action OnActionCompleted;
 
     protected void Awake()
     {
@@ -27,14 +30,21 @@ public class NewWeaponController : MonoBehaviour
         newPlayerController = GetComponent<NewPlayerController>();
     }
 
+    void Start()
+    {
+        newPlayerController.AnimationStatusTracker.OnAnimationCompleted += ResetAttack;
+    }
+
     void OnEnable()
     {
-        comboCounter.OnTimerStop += () => primaryWeaponAttackCompleted = false;
+
+        comboCounter.OnTimerStop += () => numAttacks = 0;
     }
 
     void OnDisable()
     {
-        comboCounter.OnTimerStop -= () => primaryWeaponAttackCompleted = false;
+        newPlayerController.AnimationStatusTracker.OnAnimationCompleted -= ResetAttack;
+        comboCounter.OnTimerStop -= () => numAttacks = 0;
     }
 
     void Update()
@@ -44,32 +54,48 @@ public class NewWeaponController : MonoBehaviour
 
     public void Attack(Action OnActionCompleted)
     {
-        if (instantiatedPrimaryWeapon == null) return;
-        if (!canAttack) return;
+        this.OnActionCompleted = OnActionCompleted;
 
-        if (primaryWeaponAttackCompleted)
+        if (!canAttack)
         {
-            if (currentWeaponAttackType == WeaponAttackTypes.DualWield)
-            {
-                instantiatedSecondaryWeapon.Enter(OnActionCompleted);
-                canAttack = false;
-                comboCounter.Start();
-                primaryWeaponAttackCompleted = !primaryWeaponAttackCompleted;
-                return;
-            }
+            OnActionCompleted?.Invoke();
+            return;
         }
 
-        instantiatedPrimaryWeapon.Enter(OnActionCompleted);
+        if (instantiatedPrimaryWeapon == null)
+        {
+            newPlayerController.Animator.SetInteger("counter", numAttacks);
+            newPlayerController.Animator.SetTrigger("Attack");
+            numAttacks++;
+            canAttack = false;
+            comboCounter.Start();
+            if (numAttacks >= 3)
+            {
+                numAttacks = 0;
+            }
+            return;
+        }
+
+        instantiatedPrimaryWeapon.Enter(OnActionCompleted, numAttacks);
+        numAttacks++;
         canAttack = false;
         comboCounter.Start();
-        primaryWeaponAttackCompleted = !primaryWeaponAttackCompleted;
+
+        //If the combo exceeds 3, reset
+        if (numAttacks >= instantiatedPrimaryWeapon.Data.NumberOfAttacksInCombo)
+        {
+            numAttacks = 0;
+        }
+    }
+
+    private void ResetAttack()
+    {
+        canAttack = true;
+        OnActionCompleted.Invoke();
     }
 
     public void EquipOneHandedWeapon(GameObject weaponPrefab)
     {
-        //If the player's main hand is open, equip it there
-        //Otherwise try to equip in offhand
-        //Otherwise just replace main hand
         if (instantiatedPrimaryWeapon == null)
         {
             instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
@@ -129,12 +155,11 @@ public class NewWeaponController : MonoBehaviour
         instantiatedSecondaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
         instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
         instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand);
-        UpdateAnimator();
-
         if (instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.Shield)
         {
             HasShieldEquipped = true;
         }
+        UpdateAnimator();
     }
 
     private void UpdateAnimator()
@@ -142,31 +167,52 @@ public class NewWeaponController : MonoBehaviour
         primaryWeaponAttackCompleted = false;
         canAttack = true;
 
-        if (instantiatedPrimaryWeapon == null) return;
+        //If you have no weapons equipped, enter unarmed
 
-        if (HasShieldEquipped)
+        if (instantiatedPrimaryWeapon == null && instantiatedSecondaryWeapon == null)
+        {
+            animator.runtimeAnimatorController = UnarmedAnimator;
+        }
+        else if (instantiatedPrimaryWeapon == null && HasShieldEquipped)
+        {
+            animator.runtimeAnimatorController = UnarmedAnimator;
+        }
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && HasShieldEquipped)
         {
             animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
-            currentWeaponAttackType = WeaponAttackTypes.OneHanded;
+        }
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
+        {
+            animator.runtimeAnimatorController = DualWieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
         {
             animator.runtimeAnimatorController = TwoHandedAnimator;
-            currentWeaponAttackType = WeaponAttackTypes.TwoHanded;
         }
-        else if (instantiatedSecondaryWeapon != null)
-        {
-            if (instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
-            {
-                animator.runtimeAnimatorController = DualWieldAnimator;
-                currentWeaponAttackType = WeaponAttackTypes.DualWield;
-            }
-        }
-        else
-        {
-            animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
-            currentWeaponAttackType = WeaponAttackTypes.OneHanded;
-        }
+
+        // if (instantiatedPrimaryWeapon == null)
+        //     {
+        //         animator.runtimeAnimatorController = UnarmedAnimator;
+        //     }
+        //     else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
+        //     {
+        //         animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
+        //     }
+        //     else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
+        //     {
+        //         animator.runtimeAnimatorController = TwoHandedAnimator;
+        //     }
+        //     else if (instantiatedSecondaryWeapon != null)
+        //     {
+        //         if (instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
+        //         {
+        //             animator.runtimeAnimatorController = DualWieldAnimator;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
+        //     }
     }
 
     public void UnequipWeapon(Weapon.WeaponHand weaponHand)
@@ -191,6 +237,7 @@ public class NewWeaponController : MonoBehaviour
         }
     }
 
+    public RuntimeAnimatorController UnarmedAnimator;
     public AnimatorOverrideController OneHandedAndShieldAnimator;
     public AnimatorOverrideController DualWieldAnimator;
     public AnimatorOverrideController TwoHandedAnimator;

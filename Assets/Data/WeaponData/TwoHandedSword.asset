@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: TwoHandedSword
   m_EditorClassIdentifier: 
   <WeaponDamage>k__BackingField: 8
+  <NumberOfAttacksInCombo>k__BackingField: 2
   <MovementSpeedDuringAttack>k__BackingField: 2.5
