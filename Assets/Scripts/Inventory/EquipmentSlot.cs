@@ -114,7 +114,7 @@ public class EquipmentSlot : ItemSlot
         //Add collider
         itemToDrop.AddComponent<SphereCollider>().isTrigger = true;
 
-        GameObject player = GameObject.FindWithTag("Player");
+        GameObject player = PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).gameObject;
         itemToDrop.transform.position = player.transform.position + (player.transform.forward * 2f);
 
         this.itemData.quantity -= 1;
