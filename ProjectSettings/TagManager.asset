@@ -42,3 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: PreviewWindows
+    uniqueID: 2985450481
+    locked: 0
+  - name: InventoryUI
+    uniqueID: 3985213697
+    locked: 0

@@ -73,7 +73,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Ability1"",
+                    ""name"": ""Ability"",
                     ""type"": ""Button"",
                     ""id"": ""761d307e-b221-4f49-b202-9f99bed00893"",
                     ""expectedControlType"": """",
@@ -87,17 +87,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""74cb8589-21f7-4202-bd3a-7ddce4070ff4"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""SwapWeapon"",
-                    ""type"": ""Button"",
-                    ""id"": ""28dd76ff-38c0-4c08-8b6d-10395cea964f"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""OpenEquipmentMenu"",
@@ -112,6 +103,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""c08a53a2-790c-4c21-9b3d-bafe4f315880"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DrinkPotionOne"",
+                    ""type"": ""Button"",
+                    ""id"": ""87144098-23cc-4b0e-babe-9ebd4e26beff"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DrinkPotionTwo"",
+                    ""type"": ""Button"",
+                    ""id"": ""de65f1dd-8924-44a6-94ac-7040f079b1a0"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -231,28 +240,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8"",
-                    ""path"": ""<XRController>/{Primary2DAxis}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3ea4d645-4504-4529-b061-ab81934c3752"",
-                    ""path"": ""<Joystick>/stick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -286,34 +273,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""id"": ""663176d6-a383-4628-a6ee-60372336479f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Touch"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ee3d0cd2-254e-47a7-a8cb-bc94d9658c54"",
-                    ""path"": ""<Joystick>/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8255d333-5683-4943-a58a-ccb207ff1dce"",
-                    ""path"": ""<XRController>/{PrimaryAction}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Attack"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -330,30 +295,30 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""663176d6-a383-4628-a6ee-60372336479f"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""3757351d-a1d5-40fa-9855-53c9fd0efb46"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Ability1"",
+                    ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e9e9362-1971-49cc-adb1-b7b6747f0710"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""2e37c5da-e092-4011-85a6-c0aeabf26311"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -374,56 +339,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0f288fab-46ed-4bb8-a8b2-2712029d054d"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Block"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a8a5b48c-a1de-4d13-bf14-649ff08adfdc"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""LookStick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a6de3e2b-a9f2-463e-b40c-a920dfd30567"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""SwapWeapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""eac6d8e4-9417-4ee4-af24-01adb2d96738"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""SwapWeapon"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e2eaaec2-2e9d-468d-97b0-4440213c880f"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""OpenEquipmentMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -440,12 +361,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""91eccc23-3f5f-4924-983b-932e722e5918"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""e2eaaec2-2e9d-468d-97b0-4440213c880f"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Interact"",
+                    ""action"": ""OpenEquipmentMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -457,6 +378,61 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91eccc23-3f5f-4924-983b-932e722e5918"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78ac7345-3df6-4a66-af5e-c5e0e156c7bd"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DrinkPotionOne"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""132691f5-49e9-4702-a3e8-ac0e30829c7b"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DrinkPotionOne"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1b28675-c621-4694-96ff-cd8e6e2700fb"",
+                    ""path"": ""<XInputController>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DrinkPotionTwo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4494fdc2-d285-4c8a-8d39-85de1f82b0e8"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DrinkPotionTwo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -479,7 +455,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""70e0007c-e55d-4f12-ab2a-999c6c075038"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -488,7 +464,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""2a48f440-70fb-4dd1-ade4-a3176791cabb"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -560,6 +536,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""OpenEquipmentMenu"",
                     ""type"": ""Button"",
                     ""id"": ""ec213c62-1d8a-4097-a0cf-169e2f6db101"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DropItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3bf42f8-649d-4db7-b7a1-6a55d4c50724"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1006,6 +991,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""OpenEquipmentMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1e74cd5-cdc5-4c31-bfda-06c4829fe12c"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DropItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1080,11 +1076,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_LookStick = m_Player.FindAction("LookStick", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
+        m_Player_Ability = m_Player.FindAction("Ability", throwIfNotFound: true);
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
-        m_Player_SwapWeapon = m_Player.FindAction("SwapWeapon", throwIfNotFound: true);
         m_Player_OpenEquipmentMenu = m_Player.FindAction("OpenEquipmentMenu", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_DrinkPotionOne = m_Player.FindAction("DrinkPotionOne", throwIfNotFound: true);
+        m_Player_DrinkPotionTwo = m_Player.FindAction("DrinkPotionTwo", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1098,6 +1095,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_OpenEquipmentMenu = m_UI.FindAction("OpenEquipmentMenu", throwIfNotFound: true);
+        m_UI_DropItem = m_UI.FindAction("DropItem", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -1170,11 +1168,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LookStick;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Ability1;
+    private readonly InputAction m_Player_Ability;
     private readonly InputAction m_Player_Block;
-    private readonly InputAction m_Player_SwapWeapon;
     private readonly InputAction m_Player_OpenEquipmentMenu;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_DrinkPotionOne;
+    private readonly InputAction m_Player_DrinkPotionTwo;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1184,11 +1183,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @LookStick => m_Wrapper.m_Player_LookStick;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
+        public InputAction @Ability => m_Wrapper.m_Player_Ability;
         public InputAction @Block => m_Wrapper.m_Player_Block;
-        public InputAction @SwapWeapon => m_Wrapper.m_Player_SwapWeapon;
         public InputAction @OpenEquipmentMenu => m_Wrapper.m_Player_OpenEquipmentMenu;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @DrinkPotionOne => m_Wrapper.m_Player_DrinkPotionOne;
+        public InputAction @DrinkPotionTwo => m_Wrapper.m_Player_DrinkPotionTwo;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1213,21 +1213,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Ability1.started += instance.OnAbility1;
-            @Ability1.performed += instance.OnAbility1;
-            @Ability1.canceled += instance.OnAbility1;
+            @Ability.started += instance.OnAbility;
+            @Ability.performed += instance.OnAbility;
+            @Ability.canceled += instance.OnAbility;
             @Block.started += instance.OnBlock;
             @Block.performed += instance.OnBlock;
             @Block.canceled += instance.OnBlock;
-            @SwapWeapon.started += instance.OnSwapWeapon;
-            @SwapWeapon.performed += instance.OnSwapWeapon;
-            @SwapWeapon.canceled += instance.OnSwapWeapon;
             @OpenEquipmentMenu.started += instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.performed += instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.canceled += instance.OnOpenEquipmentMenu;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @DrinkPotionOne.started += instance.OnDrinkPotionOne;
+            @DrinkPotionOne.performed += instance.OnDrinkPotionOne;
+            @DrinkPotionOne.canceled += instance.OnDrinkPotionOne;
+            @DrinkPotionTwo.started += instance.OnDrinkPotionTwo;
+            @DrinkPotionTwo.performed += instance.OnDrinkPotionTwo;
+            @DrinkPotionTwo.canceled += instance.OnDrinkPotionTwo;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1247,21 +1250,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Ability1.started -= instance.OnAbility1;
-            @Ability1.performed -= instance.OnAbility1;
-            @Ability1.canceled -= instance.OnAbility1;
+            @Ability.started -= instance.OnAbility;
+            @Ability.performed -= instance.OnAbility;
+            @Ability.canceled -= instance.OnAbility;
             @Block.started -= instance.OnBlock;
             @Block.performed -= instance.OnBlock;
             @Block.canceled -= instance.OnBlock;
-            @SwapWeapon.started -= instance.OnSwapWeapon;
-            @SwapWeapon.performed -= instance.OnSwapWeapon;
-            @SwapWeapon.canceled -= instance.OnSwapWeapon;
             @OpenEquipmentMenu.started -= instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.performed -= instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.canceled -= instance.OnOpenEquipmentMenu;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @DrinkPotionOne.started -= instance.OnDrinkPotionOne;
+            @DrinkPotionOne.performed -= instance.OnDrinkPotionOne;
+            @DrinkPotionOne.canceled -= instance.OnDrinkPotionOne;
+            @DrinkPotionTwo.started -= instance.OnDrinkPotionTwo;
+            @DrinkPotionTwo.performed -= instance.OnDrinkPotionTwo;
+            @DrinkPotionTwo.canceled -= instance.OnDrinkPotionTwo;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1294,6 +1300,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_OpenEquipmentMenu;
+    private readonly InputAction m_UI_DropItem;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1309,6 +1316,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @OpenEquipmentMenu => m_Wrapper.m_UI_OpenEquipmentMenu;
+        public InputAction @DropItem => m_Wrapper.m_UI_DropItem;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1351,6 +1359,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @OpenEquipmentMenu.started += instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.performed += instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.canceled += instance.OnOpenEquipmentMenu;
+            @DropItem.started += instance.OnDropItem;
+            @DropItem.performed += instance.OnDropItem;
+            @DropItem.canceled += instance.OnDropItem;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1388,6 +1399,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @OpenEquipmentMenu.started -= instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.performed -= instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.canceled -= instance.OnOpenEquipmentMenu;
+            @DropItem.started -= instance.OnDropItem;
+            @DropItem.performed -= instance.OnDropItem;
+            @DropItem.canceled -= instance.OnDropItem;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1457,11 +1471,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnLookStick(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnAbility1(InputAction.CallbackContext context);
+        void OnAbility(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
-        void OnSwapWeapon(InputAction.CallbackContext context);
         void OnOpenEquipmentMenu(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnDrinkPotionOne(InputAction.CallbackContext context);
+        void OnDrinkPotionTwo(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
@@ -1476,5 +1491,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnOpenEquipmentMenu(InputAction.CallbackContext context);
+        void OnDropItem(InputAction.CallbackContext context);
     }
 }

@@ -8,6 +8,11 @@ public class CutoutObject : MonoBehaviour
 
     [SerializeField] private LayerMask wallMask;
 
+    [SerializeField] private float SphereCastRadius;
+
+    [SerializeField] private float CutoutSize;
+    [SerializeField] private float FalloffSize;
+
     private Camera mainCamera;
 
 
@@ -39,7 +44,8 @@ public class CutoutObject : MonoBehaviour
             cutoutPos.y /= Screen.width / Screen.height;
 
             Vector3 offset = targetObject.position - transform.position;
-            RaycastHit[] hitObjects = Physics.RaycastAll(transform.position, offset, offset.magnitude, wallMask);
+            //RaycastHit[] hitObjects = Physics.RaycastAll(transform.position, offset, offset.magnitude, wallMask);
+            RaycastHit[] hitObjects = Physics.SphereCastAll(transform.position, SphereCastRadius, offset, offset.magnitude - 3, wallMask);
 
             for (int i = 0; i < hitObjects.Length; ++i)
             {
@@ -48,8 +54,8 @@ public class CutoutObject : MonoBehaviour
                 for (int m = 0; m < materials.Length; ++m)
                 {
                     materials[m].SetVector("_CutoutPos", cutoutPos);
-                    materials[m].SetFloat("_CutoutSize", 0.15f);
-                    materials[m].SetFloat("_FalloffSize", 0.02f);
+                    materials[m].SetFloat("_CutoutSize", CutoutSize);
+                    materials[m].SetFloat("_FalloffSize", FalloffSize);
                 }
             }
         }

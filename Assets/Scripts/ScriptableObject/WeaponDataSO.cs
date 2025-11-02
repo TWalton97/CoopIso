@@ -6,7 +6,7 @@ using System;
 
 [CreateAssetMenu(fileName = "WeaponData", menuName = "Data/Weapon Data")]
 [Serializable]
-public class WeaponDataSO : ScriptableObject
+public class WeaponDataSO : ItemSO
 {
     [field: SerializeField] public int WeaponDamage { get; private set; }
     [field: SerializeField] public int NumberOfAttacksInCombo { get; private set; }

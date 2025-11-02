@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler, IDeselectHandler, IPointerEnterHandler
 {
     [SerializeField] protected Sprite emptySprite;
     [SerializeField] protected Image slotImage;
@@ -17,6 +17,15 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public int slotIndex;
 
     protected InventoryController inventoryController;
+
+    public GameObject previewObject;
+    public PreviewWindow previewWindow;
+    public Button selectable;
+
+    void Awake()
+    {
+        inventoryController = GetComponentInParent<InventoryController>();
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -48,5 +57,37 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         isSelected = false;
         selectedShader.SetActive(false);
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        inventoryController.CurrentlySelectedItemSlot = this;
+        DisplayPreview();
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        HidePreview();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        selectable.Select();
+    }
+
+    private void DisplayPreview()
+    {
+        if (slotInUse && previewObject != null)
+        {
+            previewWindow.FillPreviewWindow(itemData);
+            previewObject.SetActive(true);
+        }
+
+    }
+
+    public void HidePreview()
+    {
+        if (previewObject != null)
+            previewObject.SetActive(false);
     }
 }

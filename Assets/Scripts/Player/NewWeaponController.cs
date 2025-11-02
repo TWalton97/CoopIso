@@ -81,8 +81,9 @@ public class NewWeaponController : MonoBehaviour
         canAttack = false;
         comboCounter.Start();
 
+        WeaponDataSO weaponData = instantiatedPrimaryWeapon.Data as WeaponDataSO;
         //If the combo exceeds 3, reset
-        if (numAttacks >= instantiatedPrimaryWeapon.Data.NumberOfAttacksInCombo)
+        if (numAttacks >= weaponData.NumberOfAttacksInCombo)
         {
             numAttacks = 0;
         }
@@ -162,18 +163,12 @@ public class NewWeaponController : MonoBehaviour
         UpdateAnimator();
     }
 
-    private void UpdateAnimator()
+    public void UpdateAnimator()
     {
         primaryWeaponAttackCompleted = false;
         canAttack = true;
 
-        //If you have no weapons equipped, enter unarmed
-
-        if (instantiatedPrimaryWeapon == null && instantiatedSecondaryWeapon == null)
-        {
-            animator.runtimeAnimatorController = UnarmedAnimator;
-        }
-        else if (instantiatedPrimaryWeapon == null && HasShieldEquipped)
+        if (instantiatedPrimaryWeapon == null)
         {
             animator.runtimeAnimatorController = UnarmedAnimator;
         }
@@ -181,7 +176,11 @@ public class NewWeaponController : MonoBehaviour
         {
             animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
         }
-        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && instantiatedSecondaryWeapon == null)
+        {
+            animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
+        }
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
         {
             animator.runtimeAnimatorController = DualWieldAnimator;
         }

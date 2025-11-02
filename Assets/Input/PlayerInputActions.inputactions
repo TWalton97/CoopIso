@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ability1",
+                    "name": "Ability",
                     "type": "Button",
                     "id": "761d307e-b221-4f49-b202-9f99bed00893",
                     "expectedControlType": "",
@@ -65,17 +65,8 @@
                     "id": "74cb8589-21f7-4202-bd3a-7ddce4070ff4",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press(behavior=2)",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SwapWeapon",
-                    "type": "Button",
-                    "id": "28dd76ff-38c0-4c08-8b6d-10395cea964f",
-                    "expectedControlType": "",
-                    "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "OpenEquipmentMenu",
@@ -90,6 +81,24 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "c08a53a2-790c-4c21-9b3d-bafe4f315880",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DrinkPotionOne",
+                    "type": "Button",
+                    "id": "87144098-23cc-4b0e-babe-9ebd4e26beff",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DrinkPotionTwo",
+                    "type": "Button",
+                    "id": "de65f1dd-8924-44a6-94ac-7040f079b1a0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -209,28 +218,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8",
-                    "path": "<XRController>/{Primary2DAxis}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3ea4d645-4504-4529-b061-ab81934c3752",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -264,34 +251,12 @@
                 },
                 {
                     "name": "",
-                    "id": "886e731e-7071-4ae4-95c0-e61739dad6fd",
-                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "id": "663176d6-a383-4628-a6ee-60372336479f",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Touch",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ee3d0cd2-254e-47a7-a8cb-bc94d9658c54",
-                    "path": "<Joystick>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8255d333-5683-4943-a58a-ccb207ff1dce",
-                    "path": "<XRController>/{PrimaryAction}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Attack",
+                    "groups": ";Gamepad",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -308,30 +273,30 @@
                 },
                 {
                     "name": "",
-                    "id": "663176d6-a383-4628-a6ee-60372336479f",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "3757351d-a1d5-40fa-9855-53c9fd0efb46",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Ability1",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e9e9362-1971-49cc-adb1-b7b6747f0710",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "2e37c5da-e092-4011-85a6-c0aeabf26311",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -352,56 +317,12 @@
                 },
                 {
                     "name": "",
-                    "id": "0f288fab-46ed-4bb8-a8b2-2712029d054d",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Block",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a8a5b48c-a1de-4d13-bf14-649ff08adfdc",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "LookStick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a6de3e2b-a9f2-463e-b40c-a920dfd30567",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "SwapWeapon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "eac6d8e4-9417-4ee4-af24-01adb2d96738",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "SwapWeapon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e2eaaec2-2e9d-468d-97b0-4440213c880f",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "OpenEquipmentMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -418,12 +339,12 @@
                 },
                 {
                     "name": "",
-                    "id": "91eccc23-3f5f-4924-983b-932e722e5918",
-                    "path": "<Keyboard>/e",
+                    "id": "e2eaaec2-2e9d-468d-97b0-4440213c880f",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Interact",
+                    "action": "OpenEquipmentMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -435,6 +356,61 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91eccc23-3f5f-4924-983b-932e722e5918",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78ac7345-3df6-4a66-af5e-c5e0e156c7bd",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DrinkPotionOne",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "132691f5-49e9-4702-a3e8-ac0e30829c7b",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DrinkPotionOne",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1b28675-c621-4694-96ff-cd8e6e2700fb",
+                    "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DrinkPotionTwo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4494fdc2-d285-4c8a-8d39-85de1f82b0e8",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DrinkPotionTwo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -457,7 +433,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "70e0007c-e55d-4f12-ab2a-999c6c075038",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -466,7 +442,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "2a48f440-70fb-4dd1-ade4-a3176791cabb",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -538,6 +514,15 @@
                     "name": "OpenEquipmentMenu",
                     "type": "Button",
                     "id": "ec213c62-1d8a-4097-a0cf-169e2f6db101",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DropItem",
+                    "type": "Button",
+                    "id": "d3bf42f8-649d-4db7-b7a1-6a55d4c50724",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -982,6 +967,17 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "OpenEquipmentMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b1e74cd5-cdc5-4c31-bfda-06c4829fe12c",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DropItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

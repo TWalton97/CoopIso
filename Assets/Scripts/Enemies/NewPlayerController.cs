@@ -3,6 +3,7 @@ using Utilities;
 using UnityEngine.InputSystem;
 using System;
 using static UnityEngine.InputSystem.InputAction;
+using System.Collections.Generic;
 
 public class NewPlayerController : Entity
 {
@@ -15,6 +16,8 @@ public class NewPlayerController : Entity
     public GroundCheck GroundCheck { get; private set; }
     public Interactor Interactor { get; private set; }
     public AnimationStatusTracker AnimationStatusTracker { get; private set; }
+    public PotionController PotionController { get; private set; }
+    public InventoryController InventoryController { get; private set; }
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
@@ -47,6 +50,8 @@ public class NewPlayerController : Entity
         GroundCheck = GetComponent<GroundCheck>();
         Interactor = GetComponentInChildren<Interactor>();
         AnimationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
+        PotionController = GetComponent<PotionController>();
+        InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
     }
     void Start()
     {
@@ -75,6 +80,8 @@ public class NewPlayerController : Entity
         PlayerInputController.OnJumpPerformed += Jump;
         PlayerInputController.OnBlockPerformed += Block;
         PlayerInputController.OnInteractPerformed += Interact;
+        PlayerInputController.OnDrinkPotionOnePerformed += DrinkPotionOne;
+        PlayerInputController.OnDrinkPotionTwoPerformed += DrinkPotionTwo;
     }
 
     private void UnsubscribeFromInputEvents()
@@ -90,6 +97,9 @@ public class NewPlayerController : Entity
         PlayerInputController.OnJumpPerformed -= Jump;
         PlayerInputController.OnBlockPerformed -= Block;
         PlayerInputController.OnInteractPerformed -= Interact;
+        PlayerInputController.OnDrinkPotionOnePerformed -= DrinkPotionOne;
+        PlayerInputController.OnDrinkPotionTwoPerformed -= DrinkPotionTwo;
+
     }
 
     void Update()
@@ -257,6 +267,28 @@ public class NewPlayerController : Entity
     private void Interact(CallbackContext context)
     {
         Interactor.Interact();
+    }
+
+    private void DrinkPotionOne(CallbackContext context)
+    {
+        //We need to look in our inventory for what potion is in this slot
+        //Get the data from that potion
+        //Send it to the potion controller
+
+        List<EquippedSlot> potionSlots = InventoryController.FindEquippedSlotOfType(Slot.Potion);
+        if (!potionSlots[0].slotInUse) return;
+
+        PotionSO itemData = potionSlots[0].itemData.data as PotionSO;
+        PotionController.UsePotion(itemData);
+    }
+
+    private void DrinkPotionTwo(CallbackContext context)
+    {
+        List<EquippedSlot> potionSlots = InventoryController.FindEquippedSlotOfType(Slot.Potion);
+        if (!potionSlots[1].slotInUse) return;
+
+        PotionSO itemData = potionSlots[1].itemData.data as PotionSO;
+        PotionController.UsePotion(itemData);
     }
 
     #endregion

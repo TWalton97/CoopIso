@@ -45,7 +45,7 @@ public class NewPlayerInputController : MonoBehaviour
         //Single input actions
         _playerInputActions.Player.Jump.performed += OnJump;
         _playerInputActions.Player.Attack.performed += OnAttack;
-        _playerInputActions.Player.Ability1.performed += OnAbility1;
+        // _playerInputActions.Player.Ability1.performed += OnAbility1;
         _playerInputActions.Player.Block.performed += OnBlock;
     }
 
@@ -55,7 +55,7 @@ public class NewPlayerInputController : MonoBehaviour
 
         _playerInputActions.Player.Jump.performed -= OnJump;
         _playerInputActions.Player.Attack.performed -= OnAttack;
-        _playerInputActions.Player.Ability1.performed -= OnAbility1;
+        // _playerInputActions.Player.Ability1.performed -= OnAbility1;
         _playerInputActions.Player.Block.performed -= OnBlock;
     }
 

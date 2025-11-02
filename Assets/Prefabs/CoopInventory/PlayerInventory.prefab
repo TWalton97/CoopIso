@@ -4065,6 +4065,14 @@ PrefabInstance:
       propertyPath: mainHandSlot
       value: 
       objectReference: {fileID: 6120726039836609845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotOne
+      value: 
+      objectReference: {fileID: 5818025674287266264}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotTwo
+      value: 
+      objectReference: {fileID: 1454862781952645035}
     - target: {fileID: 3635876430368209423, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_Name
       value: EquipmentSlot (4)
@@ -4230,6 +4238,14 @@ PrefabInstance:
       propertyPath: mainHandSlot
       value: 
       objectReference: {fileID: 6120726039836609845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotOne
+      value: 
+      objectReference: {fileID: 5818025674287266264}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotTwo
+      value: 
+      objectReference: {fileID: 1454862781952645035}
     - target: {fileID: 3635876430368209423, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_Name
       value: EquipmentSlot (7)
@@ -4395,6 +4411,14 @@ PrefabInstance:
       propertyPath: mainHandSlot
       value: 
       objectReference: {fileID: 6120726039836609845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotOne
+      value: 
+      objectReference: {fileID: 5818025674287266264}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotTwo
+      value: 
+      objectReference: {fileID: 1454862781952645035}
     - target: {fileID: 3635876430368209423, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_Name
       value: EquipmentSlot (6)
@@ -4560,6 +4584,14 @@ PrefabInstance:
       propertyPath: mainHandSlot
       value: 
       objectReference: {fileID: 6120726039836609845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotOne
+      value: 
+      objectReference: {fileID: 5818025674287266264}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotTwo
+      value: 
+      objectReference: {fileID: 1454862781952645035}
     - target: {fileID: 3635876430368209423, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_Name
       value: EquipmentSlot
@@ -4730,6 +4762,14 @@ PrefabInstance:
       propertyPath: mainHandSlot
       value: 
       objectReference: {fileID: 6120726039836609845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotOne
+      value: 
+      objectReference: {fileID: 5818025674287266264}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotTwo
+      value: 
+      objectReference: {fileID: 1454862781952645035}
     - target: {fileID: 3635876430368209423, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_Name
       value: EquipmentSlot (3)
@@ -5716,6 +5756,14 @@ PrefabInstance:
       propertyPath: mainHandSlot
       value: 
       objectReference: {fileID: 6120726039836609845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotOne
+      value: 
+      objectReference: {fileID: 5818025674287266264}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotTwo
+      value: 
+      objectReference: {fileID: 1454862781952645035}
     - target: {fileID: 3635876430368209423, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_Name
       value: EquipmentSlot (2)
@@ -6050,6 +6098,14 @@ PrefabInstance:
       propertyPath: mainHandSlot
       value: 
       objectReference: {fileID: 6120726039836609845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotOne
+      value: 
+      objectReference: {fileID: 5818025674287266264}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotTwo
+      value: 
+      objectReference: {fileID: 1454862781952645035}
     - target: {fileID: 3635876430368209423, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_Name
       value: EquipmentSlot (5)
@@ -6553,6 +6609,14 @@ PrefabInstance:
       propertyPath: mainHandSlot
       value: 
       objectReference: {fileID: 6120726039836609845}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotOne
+      value: 
+      objectReference: {fileID: 5818025674287266264}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: potionSlotTwo
+      value: 
+      objectReference: {fileID: 1454862781952645035}
     - target: {fileID: 3635876430368209423, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_Name
       value: EquipmentSlot (1)

@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
-    //This is the controller for an individual isntance of an inventory
-    //It stores references to all item slots
-    //
-
     public int playerIndex;
 
     public EquipmentSlot[] equipmentSlot;
@@ -21,6 +17,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private TMP_Text movementSpeedPreText;
 
     public List<ItemSlot> selectedItemSlots = new();
+    public ItemSlot CurrentlySelectedItemSlot;
 
     private void Start()
     {
@@ -98,17 +95,30 @@ public class InventoryController : MonoBehaviour
         ResetButtonSelection();
     }
 
-    public void UpdatePreviewWindow(Sprite sprite, string itemName, ItemType itemType, WeaponDataSO weaponDataSO)
+    //TODO: fix the way preview window works, maybe just remove it
+    public void UpdatePreviewWindow(Sprite sprite, string itemName, ItemType itemType, ItemData weaponDataSO)
     {
+        if (previewImage == null) return;
         previewImage.sprite = sprite;
         itemNamePreText.text = itemName;
         itemTypePreText.text = itemType.ToString();
-        attackPreText.text = weaponDataSO.WeaponDamage.ToString();
-        movementSpeedPreText.text = weaponDataSO.MovementSpeedDuringAttack.ToString();
+        //attackPreText.text = weaponDataSO.WeaponDamage.ToString();
+        //movementSpeedPreText.text = weaponDataSO.MovementSpeedDuringAttack.ToString();
     }
 
     public void ClearPreviewWindow()
     {
+        foreach (ItemSlot slot in equipmentSlot)
+        {
+            slot.HidePreview();
+        }
+
+        foreach (ItemSlot slot in equippedSlot)
+        {
+            slot.HidePreview();
+        }
+
+        if (previewImage == null) return;
         previewImage.sprite = null;
         itemNamePreText.text = "";
         itemTypePreText.text = "";
@@ -159,7 +169,7 @@ public class InventoryController : MonoBehaviour
                         {
                             ItemData itemData = selectedItemSlots[0].itemData;
                             selectedItemSlots[0].EmptySlot();
-                            equippedSlot.EquipGear(itemData, selectedItemSlots[0].slotIndex);
+                            mainSlot.EquipGear(itemData);
                         }
                         else
                         {

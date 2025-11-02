@@ -12,12 +12,7 @@ public class EquipmentSlot : ItemSlot
     [SerializeField] private Image itemImage;
 
     //Equipped Slots
-    [SerializeField] private EquippedSlot headSlot, bodySlot, legSlot, mainHandSlot, offHandSlot;
-
-    void Start()
-    {
-        inventoryController = GetComponentInParent<InventoryController>();
-    }
+    [SerializeField] private EquippedSlot headSlot, bodySlot, legSlot, mainHandSlot, offHandSlot, potionSlotOne, potionSlotTwo;
 
     public void ImportItemDataToEquipmentSlot(ItemData itemData)
     {
@@ -40,7 +35,7 @@ public class EquipmentSlot : ItemSlot
         {
             inventoryController.RegisterButtonSelection(this);
             if (slotInUse)
-                inventoryController.UpdatePreviewWindow(itemData.sprite, itemData.itemName, itemData.itemType, itemData.data);
+                inventoryController.UpdatePreviewWindow(itemData.sprite, itemData.itemName, itemData.itemType, itemData);
 
             if (inventoryController.selectedItemSlots.Count == 1)
             {
@@ -52,6 +47,8 @@ public class EquipmentSlot : ItemSlot
 
     private void EquipGear()
     {
+        if (itemData.itemType == ItemType.Consumable)
+            potionSlotOne.EquipGear(itemData);
         if (itemData.itemType == ItemType.Head)
             headSlot.EquipGear(itemData);
         if (itemData.itemType == ItemType.Body)
@@ -91,6 +88,7 @@ public class EquipmentSlot : ItemSlot
                 mainHandSlot.UnequipGear();
             }
         }
+        HidePreview();
         inventoryController.DeselectAllSlots();
         EmptySlot();
     }
@@ -121,6 +119,10 @@ public class EquipmentSlot : ItemSlot
 
         this.itemData.quantity -= 1;
         if (this.itemData.quantity <= 0)
+        {
             EmptySlot();
+            HidePreview();
+        }
+
     }
 }

@@ -490,6 +490,8 @@ GameObject:
   - component: {fileID: 4605205822069560298}
   - component: {fileID: 8777653310934471351}
   - component: {fileID: 1112255887905720510}
+  - component: {fileID: 4324044300627354677}
+  - component: {fileID: 1617534711877101827}
   m_Layer: 7
   m_Name: Player 1
   m_TagString: Player
@@ -819,6 +821,41 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   Grounded: 0
+--- !u!114 &4324044300627354677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655887787118595647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd4d906fed6dfb4ab790d9167eee246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  Target: {fileID: 4484667974996794071}
+  Camera: {fileID: 0}
+  FadedAlpha: 0.2
+  RetainShadows: 1
+  TargetPositionOffset: {x: 0, y: 1, z: 0}
+  FadeSpeed: 3
+  ObjectsBlockingView: []
+--- !u!114 &1617534711877101827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655887787118595647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2769c2919e9dbd04c82d3d2e56b49a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthController: {fileID: 4902479843315799468}
 --- !u!1 &682793434446774257
 GameObject:
   m_ObjectHideFlags: 0

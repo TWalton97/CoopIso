@@ -13,13 +13,6 @@ public class EquippedSlot : ItemSlot
     public Slot slotType;
     public ItemType equippedWeaponType { get; private set; }
 
-    void Start()
-    {
-        inventoryController = GetComponentInParent<InventoryController>();
-
-        //EquipGear(itemSprite, itemName, itemDescription, itemPrefab, vfxPrefab, data, itemType);
-    }
-
     public override void OnLeftClick()
     {
         if (inventoryController.selectedItemSlots.Count == 0 && !slotInUse) return;
@@ -33,7 +26,7 @@ public class EquippedSlot : ItemSlot
         {
             inventoryController.RegisterButtonSelection(this);
             if (slotInUse)
-                inventoryController.UpdatePreviewWindow(itemData.sprite, itemData.itemName, itemType, itemData.data);
+                inventoryController.UpdatePreviewWindow(itemData.sprite, itemData.itemName, itemType, itemData);
             //inventoryController.DeselectAllSlots();
 
             if (inventoryController.selectedItemSlots.Count == 1)
@@ -47,6 +40,7 @@ public class EquippedSlot : ItemSlot
     public override void OnRightClick()
     {
         UnequipGear();
+        HidePreview();
     }
 
     public void EquipGear(ItemData itemData, int index = 0, bool deleteItemInSlot = false)
@@ -96,6 +90,7 @@ public class EquippedSlot : ItemSlot
 
     public override void EmptySlot()
     {
+        HidePreview();
         UnequipGear();
     }
 
@@ -124,6 +119,7 @@ public class EquippedSlot : ItemSlot
                 //NewWeaponController.Instance.UnequipWeapon(Weapon.WeaponHand.OffHand);
                 break;
         }
+        PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.UpdateAnimator();
     }
 
     public bool ItemTypeValidForSlot(ItemType itemType)

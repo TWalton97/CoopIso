@@ -5,7 +5,7 @@ using System;
 
 public class Weapon : MonoBehaviour
 {
-    [field: SerializeField] public WeaponDataSO Data { get; private set; }
+    [field: SerializeField] public ItemSO Data { get; private set; }
     public event Action OnEnter;
     public event Action OnExit;
     public NewPlayerController newPlayerController { get; private set; }

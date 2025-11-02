@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class HealthController : MonoBehaviour, IDamageable
 {
@@ -17,7 +18,7 @@ public class HealthController : MonoBehaviour, IDamageable
         CurrentHealth = MaximumHealth;
     }
 
-    public virtual void TakeDamage(int damageAmount, Entity controller)
+    public virtual void TakeDamage(int damageAmount, Entity controller, bool bypassBlockCheck = false)
     {
         if (IsDead) return;
 
@@ -53,5 +54,18 @@ public class HealthController : MonoBehaviour, IDamageable
         IsDead = true;
         Debug.Log(gameObject.name + " has died");
         OnDie?.Invoke();
+    }
+
+    public IEnumerator RestoreHealthOverDuration(int amountOfHealth, int duration, Action endAction)
+    {
+        int amountOfHealthPerInterval = amountOfHealth / duration;
+
+        for (int i = 0; i < duration; i++)
+        {
+            Heal(amountOfHealthPerInterval);
+            yield return new WaitForSeconds(1);
+        }
+        endAction?.Invoke();
+        yield return null;
     }
 }

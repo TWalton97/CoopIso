@@ -77,13 +77,6 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public void UseItem(string itemName)
     {
-        for (int i = 0; i < itemSOs.Length; i++)
-        {
-            if (itemSOs[i].name == itemName)
-            {
-                itemSOs[i].UseItem();
-            }
-        }
     }
 
     public void DeselectAllSlots()
@@ -123,6 +116,11 @@ public class InventoryManager : Singleton<InventoryManager>
         itemTypePreText.text = "";
         attackPreText.text = "";
         movementSpeedPreText.text = "";
+    }
+
+    public InventoryController GetInventoryControllerByIndex(int playerIndex)
+    {
+        return EquipmentMenuObjects[playerIndex].controller;
     }
 }
 

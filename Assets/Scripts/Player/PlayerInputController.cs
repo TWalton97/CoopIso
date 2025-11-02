@@ -28,9 +28,11 @@ public class PlayerInputController : MonoBehaviour
 
     public Action<CallbackContext> OnAttackPerformed;
     public Action<CallbackContext> OnJumpPerformed;
-    public Action<CallbackContext> OnAbility1Performed;
+    public Action<CallbackContext> OnAbilityPerformed;
     public Action<CallbackContext> OnBlockPerformed;
     public Action<CallbackContext> OnInteractPerformed;
+    public Action<CallbackContext> OnDrinkPotionOnePerformed;
+    public Action<CallbackContext> OnDrinkPotionTwoPerformed;
 
     //Stored dictionary for unsubscribing from all events
     private Dictionary<InputAction, Action<CallbackContext>> subscribedInputActions = new Dictionary<InputAction, Action<CallbackContext>>();
@@ -65,13 +67,14 @@ public class PlayerInputController : MonoBehaviour
         //These are one shot events (buttons)
         SubscribeToInputAction(playerInputActions.Player.Attack.id.ToString(), OnAttack, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.Jump.id.ToString(), OnJump, gameplayMap);
-        SubscribeToInputAction(playerInputActions.Player.Ability1.id.ToString(), OnAbility1, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.LookMouse.id.ToString(), OnLookMouse, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.LookStick.id.ToString(), OnLookStick, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.Interact.id.ToString(), OnInteract, gameplayMap);
-
+        SubscribeToInputAction(playerInputActions.Player.DrinkPotionOne.id.ToString(), OnDrinkPotionOne, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.DrinkPotionTwo.id.ToString(), OnDrinkPotionTwo, gameplayMap);
         SubscribeToInputAction(playerInputActions.UI.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, UIMap);
+        SubscribeToInputAction(playerInputActions.UI.DropItem.id.ToString(), OnDropItem, UIMap);
 
         //Specific cases//
 
@@ -118,9 +121,9 @@ public class PlayerInputController : MonoBehaviour
     }
 
     #region Player Input Actions
-    public void OnAbility1(CallbackContext context)
+    public void OnAbility(CallbackContext context)
     {
-        OnAbility1Performed?.Invoke(context);
+
     }
 
     public void OnAttack(CallbackContext context)
@@ -161,6 +164,16 @@ public class PlayerInputController : MonoBehaviour
     public void OnInteract(CallbackContext context)
     {
         OnInteractPerformed?.Invoke(context);
+    }
+
+    public void OnDrinkPotionOne(CallbackContext context)
+    {
+        OnDrinkPotionOnePerformed?.Invoke(context);
+    }
+
+    public void OnDrinkPotionTwo(CallbackContext context)
+    {
+        OnDrinkPotionTwoPerformed?.Invoke(context);
     }
     #endregion
 
@@ -213,6 +226,12 @@ public class PlayerInputController : MonoBehaviour
     public void OnTrackedDevicePosition(CallbackContext context)
     {
 
+    }
+
+    public void OnDropItem(CallbackContext context)
+    {
+        InventoryController controller = InventoryManager.Instance.GetInventoryControllerByIndex(playerIndex);
+        controller.CurrentlySelectedItemSlot.OnRightClick();
     }
     #endregion
 

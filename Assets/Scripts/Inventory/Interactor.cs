@@ -114,6 +114,7 @@ public class Interactor : MonoBehaviour
                 distFromInteractable = dist;
             }
         }
+        if (nearestCollider == null) return null;
         return nearestCollider.GetComponent<IInteractable>();
     }
 

@@ -58,7 +58,7 @@ public class Enemy : Entity
         At(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
         At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
         At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
-        At(attackState, chaseState, new FuncPredicate(() => !playerDetector.CanAttackPlayer() && attackState.AttackCompleted));
+        At(attackState, chaseState, new FuncPredicate(() => attackState.AttackCompleted));
 
         //Any(staggerStage, new FuncPredicate(() => IsStaggered && !IsDead));
         //At(staggerStage, chaseState, new FuncPredicate(() => !IsStaggered && !IsDead));

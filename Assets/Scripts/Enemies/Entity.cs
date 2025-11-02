@@ -19,7 +19,7 @@ public class Entity : MonoBehaviour, IDamageable
         healthController.Heal(healAmount);
     }
 
-    public virtual void TakeDamage(int damageAmount, Entity controller)
+    public virtual void TakeDamage(int damageAmount, Entity controller, bool bypassBlockCheck)
     {
         healthController.TakeDamage(damageAmount, controller);
     }

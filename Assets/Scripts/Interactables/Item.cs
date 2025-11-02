@@ -18,8 +18,8 @@ public class Item : MonoBehaviour, IInteractable
     void Start()
     {
         inventoryManager = InventoryManager.Instance;
-        itemData.data = GetComponentInChildren<Weapon>().Data;
-        Instantiate(itemData.vfxPrefab, transform);
+        if (itemData.vfxPrefab != null)
+            Instantiate(itemData.vfxPrefab, transform);
         targetRotation = transform.rotation;
         targetPosition = transform.position;
         StartCoroutine(RotateRandomly());
@@ -63,5 +63,5 @@ public class ItemData
     public GameObject objectPrefab;
     public GameObject vfxPrefab;
     public ItemType itemType;
-    public WeaponDataSO data;
+    public ItemSO data;
 }

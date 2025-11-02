@@ -18,12 +18,14 @@ public class PlayerDetector : MonoBehaviour
 
     IDetectionStrategy detectionStrategy;
 
+
     void Start()
     {
         detectionTimer = new CountdownTimer(detectionCooldown);
         aggroTimer = new CountdownTimer(detectionCooldown);
         detectionStrategy = new ConeDetectionStrategy(detectionAngle, detectionRadius, innerDetectionRadius);
     }
+
 
     private void FindPlayer()
     {
