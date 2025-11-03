@@ -13,7 +13,7 @@ public class Enemy : Entity
     [SerializeField] protected Animator animator;
     public Collider coll;
     public GameObject ragdoll;
-    public GameObject body;
+    public List<GameObject> body;
 
     public float wanderSpeed;
     public float chaseSpeed;

@@ -163,11 +163,12 @@ MonoBehaviour:
   animator: {fileID: 7866579901005423658}
   coll: {fileID: 5327276164323173073}
   ragdoll: {fileID: 6572463257021303076}
-  body: {fileID: 6435347138700680734}
+  body:
+  - {fileID: 6435347138700680734}
   wanderSpeed: 1
   chaseSpeed: 2.5
   rotationSpeed: 80
-  wanderRadius: 10
+  wanderRadius: 2
   timeBetweenAttacks: 1
   IsStaggered: 0
   StateName: 
@@ -215,6 +216,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   Player: {fileID: 0}
+  DisplayGizmos: 0
 --- !u!95 &7866579901005423658
 Animator:
   serializedVersion: 5

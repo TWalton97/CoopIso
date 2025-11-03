@@ -10,6 +10,7 @@ public class EnemyAttackState : EnemyBaseState
 
     AnimatorStateInfo animatorStateInfo;
     float actualNormalizedTime;
+    private Coroutine attackCoroutine;
 
     public EnemyAttackState(Enemy enemy, Animator animator, NavMeshAgent agent, Transform player) : base(enemy, animator)
     {
@@ -19,11 +20,15 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void OnEnter()
     {
-        enemy.StartCoroutine(WaitForEndOfAttack());
+        attackCoroutine = enemy.StartCoroutine(WaitForEndOfAttack());
     }
 
     public override void OnExit()
     {
+        if (attackCoroutine != null)
+        {
+            enemy.StopCoroutine(attackCoroutine);
+        }
         AttackCompleted = false;
     }
 
@@ -68,6 +73,7 @@ public class EnemyAttackState : EnemyBaseState
         {
             yield return null;
         }
+        attackCoroutine = null;
         AttackCompleted = true;
     }
 

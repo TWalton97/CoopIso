@@ -13,7 +13,10 @@ public class EnemyDieState : EnemyBaseState
     public override void OnEnter()
     {
         agent.enabled = false;
-        enemy.body.SetActive(false);
+        foreach (GameObject obj in enemy.body)
+        {
+            obj.SetActive(false);
+        }
         enemy.ragdoll.SetActive(true);
         enemy.coll.enabled = false;
         //animator.CrossFade(DieHash, crossFadeDuration);

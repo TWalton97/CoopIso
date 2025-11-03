@@ -17,12 +17,18 @@ public class CullingTarget : MonoBehaviour
     MonoBehaviour[] scripts;
 
     NavMeshAgent agent;
+    Animator animator;
 
     void Awake()
     {
         objectRenderers = gameObject.GetComponentsInChildren<Renderer>();
         scripts = GetComponents<MonoBehaviour>();
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
 
         for (int i = 0; i < scripts.Length; i++)
         {
@@ -78,10 +84,12 @@ public class CullingTarget : MonoBehaviour
             case CullingBehaviour.ToggleScripts:
                 EnableScripts(true);
                 agent.enabled = true;
+                animator.enabled = true;
                 break;
             case CullingBehaviour.Both:
                 EnableScripts(true);
                 agent.enabled = true;
+                animator.enabled = true;
                 foreach (Renderer rend in objectRenderers)
                 {
                     rend.enabled = true;
@@ -100,10 +108,12 @@ public class CullingTarget : MonoBehaviour
             case CullingBehaviour.ToggleScripts:
                 EnableScripts(false);
                 agent.enabled = false;
+                animator.enabled = false;
                 break;
             case CullingBehaviour.Both:
                 EnableScripts(false);
                 agent.enabled = false;
+                animator.enabled = false;
                 foreach (Renderer rend in objectRenderers)
                 {
                     rend.enabled = false;

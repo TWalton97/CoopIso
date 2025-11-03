@@ -18,6 +18,8 @@ public class PlayerDetector : MonoBehaviour
 
     IDetectionStrategy detectionStrategy;
 
+    public bool DisplayGizmos = false;
+
 
     void Start()
     {
@@ -83,6 +85,8 @@ public class PlayerDetector : MonoBehaviour
 
     void OnDrawGizmos()
     {
+        if (!DisplayGizmos) return;
+
         Gizmos.color = Color.red;
 
         // Draw a spheres for the radii

@@ -175,8 +175,6 @@ public class NewPlayerController : Entity
         Animator.SetFloat("VelocityX", localVelocity.x / _maximumMovementSpeed);
         Animator.SetFloat("VelocityZ", localVelocity.z / _maximumMovementSpeed);
 
-        //Animator.SetFloat("VelocityX", Mathf.Clamp(localVelocity.x, -1, 1));
-        //Animator.SetFloat("VelocityZ", Mathf.Clamp(localVelocity.z, -1, 1));
         Animator.SetFloat("SpeedMultiplier", Mathf.Clamp(_movementSpeed / _maximumMovementSpeed, 0.5f, 1));
     }
     #endregion
@@ -195,7 +193,6 @@ public class NewPlayerController : Entity
         newVel.y = Rigidbody.velocity.y;
 
         Rigidbody.velocity = newVel;
-
 
         //If we're moving with gamepad and not touching right stick, we rotate character to face movement direction
         if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME && PlayerInputController.LookStickVal == Vector2.zero)
