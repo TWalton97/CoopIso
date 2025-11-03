@@ -33,7 +33,7 @@ public class EnemyAttackState : EnemyBaseState
         actualNormalizedTime = Mathf.Clamp01(animatorStateInfo.normalizedTime);
 
         agent.SetDestination(enemy.transform.position);
-        RotateTowardsTarget(GetRotationTowardsTarget());
+        //RotateTowardsTarget(GetRotationTowardsTarget());
     }
 
     private Quaternion GetRotationTowardsTarget()
@@ -52,6 +52,12 @@ public class EnemyAttackState : EnemyBaseState
 
     private IEnumerator WaitForEndOfAttack()
     {
+        animator.CrossFade(IdleHash, crossFadeDuration);
+        while (!CheckAngleToAttacker(enemy.playerDetector.Player.gameObject, 30))
+        {
+            RotateTowardsTarget(GetRotationTowardsTarget());
+            yield return null;
+        }
         yield return null;
         animator.CrossFade(AttackHash, crossFadeDuration);
         AttackCompleted = false;
@@ -63,5 +69,17 @@ public class EnemyAttackState : EnemyBaseState
             yield return null;
         }
         AttackCompleted = true;
+    }
+
+    private bool CheckAngleToAttacker(GameObject attacker, float blockAngle)
+    {
+        var directionToPlayer = attacker.transform.position - enemy.transform.position;
+        var angleToPlayer = Vector3.Angle(directionToPlayer, enemy.transform.forward);
+
+        if (!(angleToPlayer < blockAngle / 2f))
+        {
+            return false;
+        }
+        return true;
     }
 }

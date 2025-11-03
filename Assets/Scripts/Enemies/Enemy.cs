@@ -8,9 +8,9 @@ public class Enemy : Entity
 {
     public int ExpValue;
     public float ExpRange;
-    [SerializeField] NavMeshAgent agent;
+    [SerializeField] protected NavMeshAgent agent;
     public PlayerDetector playerDetector;
-    [SerializeField] Animator animator;
+    [SerializeField] protected Animator animator;
     public Collider coll;
     public GameObject ragdoll;
     public GameObject body;
@@ -20,21 +20,21 @@ public class Enemy : Entity
 
     public float rotationSpeed;
 
-    [SerializeField] float wanderRadius = 10f;
-    [SerializeField] float timeBetweenAttacks = 1f;
+    [SerializeField] protected float wanderRadius = 10f;
+    [SerializeField] protected float timeBetweenAttacks = 1f;
 
-    StateMachine stateMachine;
-    Hitbox hitbox;
+    protected StateMachine stateMachine;
+    protected Hitbox hitbox;
 
-    CountdownTimer attackTimer;
+    protected CountdownTimer attackTimer;
 
-    private bool IsDead = false;
+    protected bool IsDead = false;
     [HideInInspector] public bool IsStaggered = false;
 
     public string StateName;
-    private EnemyWanderState wanderState;
+    protected EnemyWanderState wanderState;
 
-    private bool spawned = false;
+    protected bool spawned = false;
 
     public override void Awake()
     {
@@ -43,7 +43,7 @@ public class Enemy : Entity
         StartCoroutine(WaitForNavMeshAndSpawn());
     }
 
-    void Start()
+    protected virtual void Start()
     {
         attackTimer = new CountdownTimer(timeBetweenAttacks);
 
@@ -59,9 +59,6 @@ public class Enemy : Entity
         At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
         At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
         At(attackState, chaseState, new FuncPredicate(() => attackState.AttackCompleted));
-
-        //Any(staggerStage, new FuncPredicate(() => IsStaggered && !IsDead));
-        //At(staggerStage, chaseState, new FuncPredicate(() => !IsStaggered && !IsDead));
 
         Any(deathState, new FuncPredicate(() => IsDead));
 
@@ -87,8 +84,8 @@ public class Enemy : Entity
         stateMachine.OnStateChanged -= UpdateStateName;
     }
 
-    void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
-    void Any(IState to, IPredicate condition) => stateMachine.AddAnyTransition(to, condition);
+    protected void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
+    protected void Any(IState to, IPredicate condition) => stateMachine.AddAnyTransition(to, condition);
 
     void Update()
     {
@@ -103,7 +100,7 @@ public class Enemy : Entity
         stateMachine.FixedUpdate();
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
         if (attackTimer.IsRunning) return;
 
@@ -122,7 +119,7 @@ public class Enemy : Entity
         IsStaggered = true;
     }
 
-    private void UpdateStateName()
+    protected virtual void UpdateStateName()
     {
         StateName = stateMachine.current.State.ToString();
     }

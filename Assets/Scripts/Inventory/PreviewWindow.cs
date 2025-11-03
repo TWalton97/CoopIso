@@ -20,13 +20,13 @@ public class PreviewWindow : MonoBehaviour
         if (itemData.data is WeaponDataSO)
         {
             WeaponDataSO weaponData = itemData.data as WeaponDataSO;
-            List<WeaponAffix> weaponAffixes = AffixListConverter.ConvertListIntoWeaponAffixes(itemData.affixes);
+            SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
             ItemStats.text =
-            "Weapon Damage: " + (weaponData.WeaponMinDamage + AffixStatCalculator.CalculateMinDamage(weaponAffixes)).ToString() + "-" + (weaponData.WeaponMaxDamage + AffixStatCalculator.CalculateMaxDamage(weaponAffixes)).ToString() +
-            "\nAttacks per Second: " + (weaponData.AttacksPerSecond * AffixStatCalculator.CalculateAttackSpeed(weaponAffixes)).ToString() +
+            "Weapon Damage: " + spawnedWeaponsData.weaponMinDamage + "-" + spawnedWeaponsData.weaponMaxDamage +
+            "\nAttacks per Second: " + spawnedWeaponsData.attacksPerSecond.ToString("0.00") +
             "\nNumber of Attacks: " + weaponData.NumberOfAttacksInCombo +
             "\nMovement Speed: " + weaponData.MovementSpeedDuringAttack +
-            "\nDPS: " + (weaponData.AttacksPerSecond * AffixStatCalculator.CalculateAttackSpeed(weaponAffixes) * ((weaponData.WeaponMinDamage + AffixStatCalculator.CalculateMinDamage(weaponAffixes) + weaponData.WeaponMaxDamage + AffixStatCalculator.CalculateMaxDamage(weaponAffixes)) / 2)).ToString("0.00");
+            "\nDPS: " + ((spawnedWeaponsData.weaponMinDamage + spawnedWeaponsData.weaponMaxDamage) / 2 * spawnedWeaponsData.attacksPerSecond).ToString("0.00");
             ItemAffixes.text = BuildAffixString(itemData);
         }
         else if (itemData.data is PotionSO)

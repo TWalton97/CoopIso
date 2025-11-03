@@ -6,62 +6,67 @@ public static class AffixStatCalculator
 {
     public static float CalculateAttackSpeed(List<WeaponAffix> affixes)
     {
+        float attackSpeedMultiplier = 1;
         for (int i = 0; i < affixes.Count; i++)
         {
             if (affixes[i].statType == WeaponStatTypes.AttackSpeed)
             {
-                return 1 + (affixes[i].statValue * 0.01f);
+                attackSpeedMultiplier += affixes[i].statValue * 0.01f;
             }
         }
-        return 1;
+        return attackSpeedMultiplier;
     }
 
     public static int CalculateMinDamage(List<WeaponAffix> affixes)
     {
+        int minDamage = 0;
         for (int i = 0; i < affixes.Count; i++)
         {
             if (affixes[i].statType == WeaponStatTypes.MinimumDamage)
             {
-                return (int)affixes[i].statValue;
+                minDamage += (int)affixes[i].statValue;
             }
         }
-        return 0;
+        return minDamage;
     }
 
     public static int CalculateMaxDamage(List<WeaponAffix> affixes)
     {
+        int maxDamage = 0;
         for (int i = 0; i < affixes.Count; i++)
         {
             if (affixes[i].statType == WeaponStatTypes.MaximumDamage)
             {
-                return (int)affixes[i].statValue;
+                maxDamage += (int)affixes[i].statValue;
             }
         }
-        return 0;
+        return maxDamage;
     }
 
     public static int CalculateBlockAngle(List<ShieldAffix> affixes)
     {
+        int blockAngle = 0;
         for (int i = 0; i < affixes.Count; i++)
         {
             if (affixes[i].statType == ShieldStatTypes.IncreasedBlockAngle)
             {
-                return (int)affixes[i].statValue;
+                blockAngle += (int)affixes[i].statValue;
             }
         }
-        return 0;
+        return blockAngle;
     }
 
     public static int CalculateBlockAmount(List<ShieldAffix> affixes)
     {
+        int blockAmount = 0;
         for (int i = 0; i < affixes.Count; i++)
         {
             if (affixes[i].statType == ShieldStatTypes.IncreasedBlockAmount)
             {
-                return (int)affixes[i].statValue;
+                blockAmount += (int)affixes[i].statValue;
             }
         }
-        return 0;
+        return blockAmount;
     }
 }
 

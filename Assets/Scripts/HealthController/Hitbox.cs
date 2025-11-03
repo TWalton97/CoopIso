@@ -4,7 +4,7 @@ using System;
 
 public class Hitbox : MonoBehaviour
 {
-    [SerializeField] private int _damage;
+    public int _damage;
     private LayerMask _targetLayer;
     public Action OnTargetDamaged;
     private Collider[] colls;

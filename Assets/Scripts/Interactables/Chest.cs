@@ -49,6 +49,7 @@ public class Chest : MonoBehaviour, IInteractable
                     spawnedItem.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomWeaponAffix());
                 }
                 spawnedItem.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(rand);
+                spawnedItem.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(spawnedItem.itemData);
             }
             else if (spawnedItem.itemData.data.GetType() == typeof(ShieldSO))
             {
@@ -58,6 +59,7 @@ public class Chest : MonoBehaviour, IInteractable
                     spawnedItem.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomShieldAffix());
                 }
                 spawnedItem.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(rand);
+                spawnedItem.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(spawnedItem.itemData);
             }
 
             yield return new WaitForSeconds(0.2f);

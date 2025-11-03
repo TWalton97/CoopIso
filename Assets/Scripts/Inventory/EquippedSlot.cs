@@ -56,7 +56,7 @@ public class EquippedSlot : ItemSlot
 
         if (itemData.itemType == ItemType.OneHanded)
         {
-            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOneHandedWeapon(itemData.objectPrefab);
+            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOneHandedWeapon(itemData.objectPrefab, itemData);
             if (slotType == Slot.OffHand)
             {
                 //Check if the slot in the main hand is two-handed and unequip it if it is
@@ -70,7 +70,7 @@ public class EquippedSlot : ItemSlot
         }
         else if (itemData.itemType == ItemType.Offhand)
         {
-            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOffhand(itemData.objectPrefab);
+            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOffhand(itemData.objectPrefab, itemData);
             EquippedSlot mainHandSlot = inventoryController.FindEquippedSlotOfType(Slot.MainHand)[0];
             if (mainHandSlot.slotInUse && mainHandSlot.itemData.itemType == ItemType.TwoHanded)
             {
@@ -81,7 +81,7 @@ public class EquippedSlot : ItemSlot
         else if (itemData.itemType == ItemType.TwoHanded)
         {
             inventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].UnequipGear();
-            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipTwoHandedWeapon(itemData.objectPrefab);
+            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipTwoHandedWeapon(itemData.objectPrefab, itemData);
             //NewWeaponController.Instance.EquipTwoHandedWeapon(weapon);
         }
 

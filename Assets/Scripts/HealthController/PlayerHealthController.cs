@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerHealthController : HealthController
 {
     private NewPlayerController newPlayerController;
-    public float blockAngle;
 
     private void Awake()
     {
@@ -16,11 +15,12 @@ public class PlayerHealthController : HealthController
         {
             if (newPlayerController.attackStateMachine.current.State == newPlayerController.blockState)
             {
-                ShieldSO shieldData = newPlayerController.WeaponController.instantiatedSecondaryWeapon.Data as ShieldSO;
-                
-                if (CheckAngleToAttacker(controller.gameObject, shieldData.BlockAngle))
+                //ShieldSO shieldData = newPlayerController.WeaponController.instantiatedSecondaryWeapon.Data as ShieldSO;
+                SpawnedItemDataBase.SpawnedShieldData spawnedItemData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(newPlayerController.WeaponController.instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
+
+                if (CheckAngleToAttacker(controller.gameObject, spawnedItemData.blockAngle))
                 {
-                    Block(damageAmount, controller, shieldData);
+                    Block(damageAmount, controller, spawnedItemData);
                     return;
                 }
             }
@@ -51,9 +51,9 @@ public class PlayerHealthController : HealthController
 
 
     //Calculates the new damage amount and returns it
-    private void Block(int damageAmount, Entity controller, ShieldSO shieldData)
+    private void Block(int damageAmount, Entity controller, SpawnedItemDataBase.SpawnedShieldData shieldData)
     {
-        int newDamageAmount = Mathf.Clamp(damageAmount - shieldData.BlockAmount, 0, damageAmount);
+        int newDamageAmount = Mathf.Clamp(damageAmount - shieldData.blockAmount, 0, damageAmount);
         TakeDamage(newDamageAmount, controller, true);
     }
 }

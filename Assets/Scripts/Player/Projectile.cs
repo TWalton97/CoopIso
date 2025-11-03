@@ -4,7 +4,6 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private float _speed;
-    private Vector3 _direction;
     private float _maximumProjectileDuration = 3f;
     private bool _doesProjectilePierceEnemies = false;
     float _elapsedTime = 0f;
@@ -21,11 +20,12 @@ public class Projectile : MonoBehaviour
             _hitbox.OnTargetDamaged -= DestroyProjectile;
     }
 
-    public void Init(float speed, Vector3 direction, float maximumProjectileDuration = 3f, bool doesProjectilePierceEnemies = false)
+    public void Init(float speed, int damage, Entity spawner, float maximumProjectileDuration = 3f, bool doesProjectilePierceEnemies = false)
     {
         _speed = speed;
-        _direction = direction;
         _maximumProjectileDuration = maximumProjectileDuration;
+        _hitbox._damage = damage;
+        _hitbox._controller = spawner;
 
         if (!_doesProjectilePierceEnemies)
             _hitbox.OnTargetDamaged += DestroyProjectile;
@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
 
     private void MoveProjectile()
     {
-        transform.Translate(_direction * _speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * _speed * Time.deltaTime);
         _elapsedTime += Time.deltaTime;
 
         if (_elapsedTime >= _maximumProjectileDuration)

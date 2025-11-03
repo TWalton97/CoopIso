@@ -56,6 +56,7 @@ public class Item : MonoBehaviour, IInteractable
 [System.Serializable]
 public class ItemData
 {
+    public string itemID;
     public string itemName;
     public int quantity;
     public Sprite sprite;

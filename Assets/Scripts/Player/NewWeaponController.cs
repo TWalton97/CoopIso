@@ -96,14 +96,14 @@ public class NewWeaponController : MonoBehaviour
         OnActionCompleted.Invoke();
     }
 
-    public void EquipOneHandedWeapon(GameObject weaponPrefab)
+    public void EquipOneHandedWeapon(GameObject weaponPrefab, ItemData itemData)
     {
         if (instantiatedPrimaryWeapon == null)
         {
             instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand);
+            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
             UpdateAnimator();
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
@@ -112,7 +112,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand);
+            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
             UpdateAnimator();
         }
         else if (instantiatedSecondaryWeapon == null)
@@ -120,7 +120,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedSecondaryWeapon = Instantiate(weaponPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
             instantiatedSecondaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
-            instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand);
+            instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, itemData.itemID);
             UpdateAnimator();
         }
         else
@@ -129,12 +129,12 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand);
+            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
             UpdateAnimator();
         }
     }
 
-    public void EquipTwoHandedWeapon(GameObject weaponPrefab)
+    public void EquipTwoHandedWeapon(GameObject weaponPrefab, ItemData itemData)
     {
         //Unequip both existing weapons if they exist
         UnequipWeapon(Weapon.WeaponHand.MainHand);
@@ -144,11 +144,11 @@ public class NewWeaponController : MonoBehaviour
         instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
         instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
         instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-        instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand);
+        instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
         UpdateAnimator();
     }
 
-    public void EquipOffhand(GameObject weaponPrefab)
+    public void EquipOffhand(GameObject weaponPrefab, ItemData itemData)
     {
         //If there's already a secondary weapon
         //Replace it
@@ -156,7 +156,7 @@ public class NewWeaponController : MonoBehaviour
         instantiatedSecondaryWeapon = Instantiate(weaponPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
         instantiatedSecondaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
         instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
-        instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand);
+        instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, itemData.itemID);
         if (instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.Shield)
         {
             HasShieldEquipped = true;
