@@ -8,3 +8,9 @@ public enum PlayerAnimatorLayers
     Additive = 5,
     AdditiveReaction = 6,
 }
+
+public class AnimatorClipLengths
+{
+    public const float OneHandedAttack = 0.8666667f;
+    public const float TwoHandedAttack = 1.933333f;
+}

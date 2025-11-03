@@ -40,7 +40,26 @@ public class Chest : MonoBehaviour, IInteractable
 
         for (int i = 0; i < itemsToSpawn.Count; i++)
         {
-            Instantiate(itemsToSpawn[i], ReturnSpawnPositionInRadius(), Quaternion.identity);
+            Item spawnedItem = Instantiate(itemsToSpawn[i], ReturnSpawnPositionInRadius(), Quaternion.identity);
+            if (spawnedItem.itemData.data.GetType() == typeof(WeaponDataSO))
+            {
+                int rand = Random.Range(0, 3);
+                for (int r = 0; r < rand; r++)
+                {
+                    spawnedItem.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomWeaponAffix());
+                }
+                spawnedItem.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(rand);
+            }
+            else if (spawnedItem.itemData.data.GetType() == typeof(ShieldSO))
+            {
+                int rand = Random.Range(0, 3);
+                for (int r = 0; r < rand; r++)
+                {
+                    spawnedItem.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomShieldAffix());
+                }
+                spawnedItem.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(rand);
+            }
+
             yield return new WaitForSeconds(0.2f);
         }
     }

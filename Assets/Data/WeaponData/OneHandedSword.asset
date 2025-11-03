@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
   m_Name: OneHandedSword
   m_EditorClassIdentifier: 
-  <WeaponDamage>k__BackingField: 3
-  <NumberOfAttacksInCombo>k__BackingField: 1
-  <MovementSpeedDuringAttack>k__BackingField: 3.5
+  <WeaponMinDamage>k__BackingField: 4
+  <WeaponMaxDamage>k__BackingField: 9
+  <AttacksPerSecond>k__BackingField: 1.55
+  <NumberOfAttacksInCombo>k__BackingField: 2
+  <MovementSpeedDuringAttack>k__BackingField: 3

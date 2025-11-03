@@ -38,6 +38,8 @@ public class NewPlayerController : Entity
     private const string KEYBOARD_SCHEME = "Keyboard&Mouse";
     private const string GAMEPAD_SCHEME = "Gamepad";
 
+    public AnimationClip animationClip;
+
     #region MonoBehaviour
     public override void Awake()
     {
@@ -60,6 +62,7 @@ public class NewPlayerController : Entity
         SubscribeToInputEvents();
 
         _maximumMovementSpeed = _movementSpeed;
+
     }
 
     void OnDisable()
@@ -167,9 +170,13 @@ public class NewPlayerController : Entity
 
     private void UpdateAnimatorParameters()
     {
-        Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity).normalized;
-        Animator.SetFloat("VelocityX", Mathf.Clamp(localVelocity.x, -1, 1));
-        Animator.SetFloat("VelocityZ", Mathf.Clamp(localVelocity.z, -1, 1));
+        Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity);
+
+        Animator.SetFloat("VelocityX", localVelocity.x / _maximumMovementSpeed);
+        Animator.SetFloat("VelocityZ", localVelocity.z / _maximumMovementSpeed);
+
+        //Animator.SetFloat("VelocityX", Mathf.Clamp(localVelocity.x, -1, 1));
+        //Animator.SetFloat("VelocityZ", Mathf.Clamp(localVelocity.z, -1, 1));
         Animator.SetFloat("SpeedMultiplier", Mathf.Clamp(_movementSpeed / _maximumMovementSpeed, 0.5f, 1));
     }
     #endregion
@@ -292,5 +299,11 @@ public class NewPlayerController : Entity
     }
 
     #endregion
+
+    [ContextMenu("Print Animation Clip Length")]
+    public void PrintAnimationClipLength()
+    {
+        Debug.Log(animationClip.length);
+    }
 
 }

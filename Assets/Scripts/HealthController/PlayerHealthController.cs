@@ -17,6 +17,7 @@ public class PlayerHealthController : HealthController
             if (newPlayerController.attackStateMachine.current.State == newPlayerController.blockState)
             {
                 ShieldSO shieldData = newPlayerController.WeaponController.instantiatedSecondaryWeapon.Data as ShieldSO;
+                
                 if (CheckAngleToAttacker(controller.gameObject, shieldData.BlockAngle))
                 {
                     Block(damageAmount, controller, shieldData);

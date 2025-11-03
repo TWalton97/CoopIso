@@ -47,10 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData:
-    itemName: Shield
+    itemName: Old Shield
     quantity: 1
     sprite: {fileID: 21300000, guid: 2eb711b376b568746b9ec0029dc05b63, type: 3}
-    itemDescription: A one-handed sword. Light enough to allow for nimble movement.
+    itemDescription: An old shield. It won't fully protect you, but it's better than
+      nothing. Probably.
     objectPrefab: {fileID: 8601840781972821055, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
     vfxPrefab: {fileID: 165858437583528537, guid: 9748af5b7332a964f8a234a8b56041bf, type: 3}
     itemType: 6

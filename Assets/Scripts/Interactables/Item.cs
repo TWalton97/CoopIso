@@ -64,4 +64,5 @@ public class ItemData
     public GameObject vfxPrefab;
     public ItemType itemType;
     public ItemSO data;
+    public List<Affix> affixes;
 }

@@ -8,7 +8,9 @@ using System;
 [Serializable]
 public class WeaponDataSO : ItemSO
 {
-    [field: SerializeField] public int WeaponDamage { get; private set; }
+    [field: SerializeField] public int WeaponMinDamage { get; private set; }
+    [field: SerializeField] public int WeaponMaxDamage { get; private set; }
+    [field: SerializeField] public float AttacksPerSecond { get; private set; }
     [field: SerializeField] public int NumberOfAttacksInCombo { get; private set; }
     [field: SerializeField] public float MovementSpeedDuringAttack { get; private set; }
 }

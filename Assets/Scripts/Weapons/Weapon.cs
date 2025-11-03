@@ -9,8 +9,8 @@ public class Weapon : MonoBehaviour
     public event Action OnEnter;
     public event Action OnExit;
     public NewPlayerController newPlayerController { get; private set; }
-    public int damage;
-    public bool active = false;
+    private bool active = false;
+    private Hitbox hitbox;
 
     public WeaponHand weaponHand;
     public enum WeaponHand
@@ -20,6 +20,13 @@ public class Weapon : MonoBehaviour
     }
 
     public NewWeaponController.WeaponAttackTypes weaponAttackType;
+
+    public List<Affix> affixes;
+
+    void Awake()
+    {
+        hitbox = GetComponent<Hitbox>();
+    }
 
     public void Init(WeaponHand weaponHand)
     {
@@ -34,10 +41,19 @@ public class Weapon : MonoBehaviour
 
     public virtual void Enter(Action endAction, int attackNum)
     {
+        WeaponDataSO weaponData = Data as WeaponDataSO;
+        List<WeaponAffix> weaponAffixes = AffixListConverter.ConvertListIntoWeaponAffixes(affixes);
+        if (weaponAttackType == NewWeaponController.WeaponAttackTypes.OneHanded)
+        {
+            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", weaponData.AttacksPerSecond * AffixStatCalculator.CalculateAttackSpeed(weaponAffixes) * AnimatorClipLengths.OneHandedAttack);
+        }
+        else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded)
+        {
+            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", weaponData.AttacksPerSecond * AffixStatCalculator.CalculateAttackSpeed(weaponAffixes) * AnimatorClipLengths.TwoHandedAttack);
+        }
+
         newPlayerController.AnimationStatusTracker.OnAnimationCompleted += Exit;
         active = true;
-        newPlayerController.Animator.SetInteger("counter", attackNum);
-        newPlayerController.Animator.SetTrigger("Attack");
         InvokeOnEnter();
     }
 
@@ -62,6 +78,14 @@ public class Weapon : MonoBehaviour
     public void SetPlayer(NewPlayerController controller)
     {
         newPlayerController = controller;
+    }
+
+    public void ActivateHitbox()
+    {
+        WeaponDataSO weaponData = Data as WeaponDataSO;
+        List<WeaponAffix> weaponAffixes = AffixListConverter.ConvertListIntoWeaponAffixes(affixes);
+        int rolledDamage = UnityEngine.Random.Range(weaponData.WeaponMinDamage + AffixStatCalculator.CalculateMinDamage(weaponAffixes), weaponData.WeaponMaxDamage + AffixStatCalculator.CalculateMaxDamage(weaponAffixes));
+        hitbox.ActivateHitbox(rolledDamage);
     }
 }
 

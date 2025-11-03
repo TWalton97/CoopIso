@@ -77,12 +77,13 @@ public class NewWeaponController : MonoBehaviour
         }
 
         instantiatedPrimaryWeapon.Enter(OnActionCompleted, numAttacks);
+        newPlayerController.Animator.SetInteger("counter", numAttacks);
+        newPlayerController.Animator.SetTrigger("Attack");
         numAttacks++;
         canAttack = false;
         comboCounter.Start();
 
         WeaponDataSO weaponData = instantiatedPrimaryWeapon.Data as WeaponDataSO;
-        //If the combo exceeds 3, reset
         if (numAttacks >= weaponData.NumberOfAttacksInCombo)
         {
             numAttacks = 0;

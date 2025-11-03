@@ -248,8 +248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41478574a33e19148a568bce7ad1fde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaximumHealth: 10
-  CurrentHealth: 10
+  MaximumHealth: 24
+  CurrentHealth: 24
 --- !u!136 &5327276164323173073
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1583,6 +1583,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9026411916271417683}
     m_Modifications:
+    - target: {fileID: 121527813351980289, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 328760788120272001, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
       propertyPath: m_Name
       value: HealthbarCanvas

@@ -699,8 +699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c49547a2f62c514a819f55a243a90cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaximumHealth: 100
-  CurrentHealth: 100
+  MaximumHealth: 66
+  CurrentHealth: 66
   blockAngle: 90
 --- !u!114 &645754214093089905
 MonoBehaviour:
@@ -722,6 +722,7 @@ MonoBehaviour:
     m_Bits: 64
   blockButtonPressed: 0
   attackButtonPressed: 0
+  animationClip: {fileID: 0}
 --- !u!114 &4905286535046853527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,6 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthController: {fileID: 4902479843315799468}
+  drinkingPotion: 0
 --- !u!1 &682793434446774257
 GameObject:
   m_ObjectHideFlags: 0
@@ -4079,6 +4081,7 @@ GameObject:
   - component: {fileID: 8142935728404864121}
   - component: {fileID: 2277692392308862090}
   - component: {fileID: 5301371246870804829}
+  - component: {fileID: 63976761297270433}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -4171,6 +4174,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b33541b9157ffdb41b5417924dc1e3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &63976761297270433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6882994083792084415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8843fef43e7c646b65b34789b09b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6915343886500898568

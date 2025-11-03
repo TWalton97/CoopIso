@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Utilities;
 
@@ -10,12 +11,18 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnEnter()
     {
-        Debug.Log("entering attack state");
         player.WeaponController.Attack(AttackCompleted);
+        if (player.WeaponController.instantiatedPrimaryWeapon != null)
+        {
+            WeaponDataSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as WeaponDataSO;
+            player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedDuringAttack));
+            //player._movementSpeed = weaponData.MovementSpeedDuringAttack;
+        }
     }
 
     private void AttackCompleted()
     {
+        player._movementSpeed = player._maximumMovementSpeed;
         player.WeaponController.canAttack = true;
         player.attackStateMachine.ChangeState(player.idleState);
     }
@@ -27,7 +34,19 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnExit()
     {
-        Debug.Log("exiting attack state");
         player.attackButtonPressed = false;
     }
+
+    private IEnumerator ReduceMovementSpeed(float targetSpeed)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 0.5f)
+        {
+            elapsedTime += Time.deltaTime;
+            player._movementSpeed = Mathf.Lerp(player._maximumMovementSpeed, targetSpeed, elapsedTime / 0.5f);
+            yield return null;
+        }
+    }
+
 }

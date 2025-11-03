@@ -25,12 +25,6 @@ public class InventoryManager : Singleton<InventoryManager>
     public EquippedSlot[] equippedSlot;
     public ItemSO[] itemSOs;
 
-    [SerializeField] private Image previewImage;
-    [SerializeField] private TMP_Text itemNamePreText;
-    [SerializeField] private TMP_Text itemTypePreText;
-    [SerializeField] private TMP_Text attackPreText;
-    [SerializeField] private TMP_Text movementSpeedPreText;
-
     public bool IsInventoryOpened;
     public bool IsEquipmentMenuOpened;
 
@@ -85,7 +79,6 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             if (equipmentSlot[i].isSelected)
             {
-                //equipmentSlot[i].selectedShader.SetActive(false);
                 equipmentSlot[i].isSelected = false;
             }
         }
@@ -94,28 +87,9 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             if (equippedSlot[i].isSelected)
             {
-                //equippedSlot[i].selectedShader.SetActive(false);
                 equippedSlot[i].isSelected = false;
             }
         }
-    }
-
-    public void UpdatePreviewWindow(Sprite sprite, string itemName, ItemType itemType, WeaponDataSO weaponDataSO)
-    {
-        previewImage.sprite = sprite;
-        itemNamePreText.text = itemName;
-        itemTypePreText.text = itemType.ToString();
-        attackPreText.text = weaponDataSO.WeaponDamage.ToString();
-        movementSpeedPreText.text = weaponDataSO.MovementSpeedDuringAttack.ToString();
-    }
-
-    public void ClearPreviewWindow()
-    {
-        previewImage.sprite = null;
-        itemNamePreText.text = "";
-        itemTypePreText.text = "";
-        attackPreText.text = "";
-        movementSpeedPreText.text = "";
     }
 
     public InventoryController GetInventoryControllerByIndex(int playerIndex)

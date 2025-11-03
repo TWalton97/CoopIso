@@ -5,7 +5,6 @@ using System;
 public class Hitbox : MonoBehaviour
 {
     [SerializeField] private int _damage;
-    private readonly List<IDamageable> damageables = new List<IDamageable>();
     private LayerMask _targetLayer;
     public Action OnTargetDamaged;
     private Collider[] colls;
@@ -35,9 +34,7 @@ public class Hitbox : MonoBehaviour
 
     private void OnEnable()
     {
-        if (damageables.Count == 0) return;
 
-        damageables.Clear();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,9 +43,6 @@ public class Hitbox : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out IDamageable damageable))
         {
-            if (damageables.Contains(damageable)) return;
-
-            damageables.Add(damageable);
             damageable.TakeDamage(_damage, _controller);
             OnTargetDamaged?.Invoke();
             if (DestroyHitboxOnHit) Destroy(gameObject);
@@ -72,7 +66,5 @@ public class Hitbox : MonoBehaviour
         {
             coll.enabled = false;
         }
-
-        damageables.Clear();
     }
 }
