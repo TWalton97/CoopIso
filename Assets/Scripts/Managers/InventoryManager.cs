@@ -36,6 +36,7 @@ public class InventoryManager : Singleton<InventoryManager>
         if (EquipmentMenuObjects[playerIndex].EquipmentMenuObject.activeSelf)   //If the corresponding menu is opened, close it
         {
             EquipmentMenuObjects[playerIndex].EquipmentMenuObject.SetActive(false);
+            EquipmentMenuObjects[playerIndex].controller.OnMenuClosed?.Invoke();
             if (playerIndex == 0) player0MenuOpened = false;
             if (playerIndex == 1) player1MenuOpened = false;
 
@@ -56,7 +57,7 @@ public class InventoryManager : Singleton<InventoryManager>
         else
         {
             EquipmentMenuObjects[playerIndex].EquipmentMenuObject.SetActive(true);
-            EquipmentMenuObjects[playerIndex].controller.ClearPreviewWindow();
+            EquipmentMenuObjects[playerIndex].controller.OnMenuOpened?.Invoke();
             if (playerIndex == 0) player0MenuOpened = true;
             if (playerIndex == 1) player1MenuOpened = true;
             Time.timeScale = 0;
@@ -106,5 +107,6 @@ public enum ItemType
     Legs,
     OneHanded,
     TwoHanded,
-    Offhand
+    Offhand,
+    Bow
 };

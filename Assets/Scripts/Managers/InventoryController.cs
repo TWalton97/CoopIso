@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,23 +11,43 @@ public class InventoryController : MonoBehaviour
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;
 
-    [SerializeField] private Image previewImage;
-    [SerializeField] private TMP_Text itemNamePreText;
-    [SerializeField] private TMP_Text itemTypePreText;
-    [SerializeField] private TMP_Text attackPreText;
-    [SerializeField] private TMP_Text movementSpeedPreText;
+    [SerializeField] private TMP_Text PlayerHealthText;
+    [SerializeField] private TMP_Text PlayerMovementSpeedText;
+    [SerializeField] private TMP_Text PlayerAttacksPerSecondText;
+    [SerializeField] private TMP_Text PlayerManaText;
 
     public List<ItemSlot> selectedItemSlots = new();
     public ItemSlot CurrentlySelectedItemSlot;
+
+    private NewPlayerController controller;
+    public Action OnMenuOpened;
+    public Action OnMenuClosed;
 
     private void Start()
     {
         SetEquipmentSlotIndexes();
     }
 
+    void OnEnable()
+    {
+        controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(playerIndex);
+        controller.WeaponController.OnWeaponUpdated += UpdatePlayerStats;
+        OnMenuOpened += UpdatePlayerStats;
+    }
+
     private void OnDisable()
     {
+        controller.WeaponController.OnWeaponUpdated -= UpdatePlayerStats;
+        OnMenuOpened -= UpdatePlayerStats;
         ResetButtonSelection();
+    }
+
+    private void UpdatePlayerStats()
+    {
+        PlayerHealthText.text = controller.healthController.CurrentHealth.ToString() + "/" + controller.healthController.MaximumHealth.ToString();
+        PlayerMovementSpeedText.text = controller._maximumMovementSpeed.ToString();
+        PlayerAttacksPerSecondText.text = controller.PlayerStatsBlackboard.AttacksPerSecond.ToString("0.00");
+        PlayerManaText.text = controller.PlayerStatsBlackboard.ResourceCurrent.ToString() + "/" + controller.PlayerStatsBlackboard.ResourceMax.ToString();
     }
 
     private void SetEquipmentSlotIndexes()
@@ -93,37 +114,6 @@ public class InventoryController : MonoBehaviour
         }
 
         ResetButtonSelection();
-    }
-
-    //TODO: fix the way preview window works, maybe just remove it
-    public void UpdatePreviewWindow(Sprite sprite, string itemName, ItemType itemType, ItemData weaponDataSO)
-    {
-        if (previewImage == null) return;
-        previewImage.sprite = sprite;
-        itemNamePreText.text = itemName;
-        itemTypePreText.text = itemType.ToString();
-        //attackPreText.text = weaponDataSO.WeaponDamage.ToString();
-        //movementSpeedPreText.text = weaponDataSO.MovementSpeedDuringAttack.ToString();
-    }
-
-    public void ClearPreviewWindow()
-    {
-        foreach (ItemSlot slot in equipmentSlot)
-        {
-            slot.HidePreview();
-        }
-
-        foreach (ItemSlot slot in equippedSlot)
-        {
-            slot.HidePreview();
-        }
-
-        if (previewImage == null) return;
-        previewImage.sprite = null;
-        itemNamePreText.text = "";
-        itemTypePreText.text = "";
-        attackPreText.text = "";
-        movementSpeedPreText.text = "";
     }
 
     public void ResetButtonSelection()
@@ -228,7 +218,6 @@ public class InventoryController : MonoBehaviour
                 }
             }
             DeselectAllSlots();
-            ClearPreviewWindow();
             selectedItemSlots.Clear();
         }
     }

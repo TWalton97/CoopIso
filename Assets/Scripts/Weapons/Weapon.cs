@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
 
     public List<Affix> affixes;
     public string itemID;
-    private SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponData;
+    protected SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponData;
 
     void Awake()
     {
@@ -47,11 +47,15 @@ public class Weapon : MonoBehaviour
     {
         if (weaponAttackType == NewWeaponController.WeaponAttackTypes.OneHanded)
         {
-            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", spawnedWeaponData.attacksPerSecond * AnimatorClipLengths.OneHandedAttack);
+            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
         }
         else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded)
         {
-            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", spawnedWeaponData.attacksPerSecond * AnimatorClipLengths.TwoHandedAttack);
+            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.TwoHandedAttack);
+        }
+        else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.Bow)
+        {
+            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.BowAttack);
         }
 
         newPlayerController.AnimationStatusTracker.OnAnimationCompleted += Exit;
@@ -82,7 +86,7 @@ public class Weapon : MonoBehaviour
         newPlayerController = controller;
     }
 
-    public void ActivateHitbox()
+    public virtual void ActivateHitbox()
     {
         int rolledDamage = UnityEngine.Random.Range(spawnedWeaponData.weaponMinDamage, spawnedWeaponData.weaponMaxDamage);
         hitbox.ActivateHitbox(rolledDamage);

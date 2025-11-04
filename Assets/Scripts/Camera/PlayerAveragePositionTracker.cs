@@ -23,7 +23,6 @@ public class PlayerAveragePositionTracker : MonoBehaviour
 
     private void AddPlayer(GameObject obj)
     {
-        Debug.Log("Adding player");
         playerObjects.Add(obj);
     }
 

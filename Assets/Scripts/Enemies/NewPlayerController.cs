@@ -18,6 +18,7 @@ public class NewPlayerController : Entity
     public AnimationStatusTracker AnimationStatusTracker { get; private set; }
     public PotionController PotionController { get; private set; }
     public InventoryController InventoryController { get; private set; }
+    public PlayerStatsBlackboard PlayerStatsBlackboard { get; private set; }
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
@@ -54,6 +55,7 @@ public class NewPlayerController : Entity
         AnimationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
         PotionController = GetComponent<PotionController>();
         InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
+        PlayerStatsBlackboard = GetComponent<PlayerStatsBlackboard>();
     }
     void Start()
     {
@@ -62,12 +64,14 @@ public class NewPlayerController : Entity
         SubscribeToInputEvents();
 
         _maximumMovementSpeed = _movementSpeed;
+        PlayerInputController.attackCountdownTimer.OnTimerStop += () => attackButtonPressed = true;
 
     }
 
     void OnDisable()
     {
         UnsubscribeFromInputEvents();
+        PlayerInputController.attackCountdownTimer.OnTimerStop -= () => attackButtonPressed = true;
     }
 
     private void SubscribeToInputEvents()

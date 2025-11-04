@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 using System.Linq;
 using System.Collections.Generic;
+using Utilities;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class PlayerInputController : MonoBehaviour
     public Action<CallbackContext> OnLookStickPerformed;
 
     public Action<CallbackContext> OnAttackPerformed;
+    private bool AttackButtonHeldDown;
+    public CountdownTimer attackCountdownTimer { get; private set; }
+    private float attackHeldRepeatTime = 0.1f;
     public Action<CallbackContext> OnJumpPerformed;
     public Action<CallbackContext> OnAbilityPerformed;
     public Action<CallbackContext> OnBlockPerformed;
@@ -47,6 +51,8 @@ public class PlayerInputController : MonoBehaviour
 
         gameplayMap = playerInput.actions.FindActionMap(gameplayMapName);
         UIMap = playerInput.actions.FindActionMap(UIMapName);
+
+        attackCountdownTimer = new CountdownTimer(attackHeldRepeatTime);
     }
 
     void OnEnable()
@@ -82,12 +88,20 @@ public class PlayerInputController : MonoBehaviour
         InputAction action = playerInput.currentActionMap.FindAction(playerInputActions.Player.Block.id);
         action.started += OnBlock;
         action.canceled += OnBlock;
+
+        action = playerInput.currentActionMap.FindAction(playerInputActions.Player.Attack.id);
+        action.started += OnAttackHeld;
+        action.canceled += OnAttackHeld;
+
+        attackCountdownTimer.OnTimerStop += ResetAttackTimer;
     }
 
     void Update()
     {
         MoveVal = Move.ReadValue<Vector2>();
         LookStickVal = LookStick.ReadValue<Vector2>();
+
+        attackCountdownTimer.Tick(Time.deltaTime);
     }
 
     private void SubscribeToInputAction(string id, Action<CallbackContext> function, InputActionMap map)
@@ -108,6 +122,8 @@ public class PlayerInputController : MonoBehaviour
 
         InputAction action = UIMap.FindAction(playerInputActions.UI.OpenEquipmentMenu.id);
         action.performed += OnEquipmentMenu;
+
+        attackCountdownTimer.OnTimerStop -= ResetAttackTimer;
     }
 
     public void EnablePlayerActionMap()
@@ -129,6 +145,19 @@ public class PlayerInputController : MonoBehaviour
     public void OnAttack(CallbackContext context)
     {
         OnAttackPerformed?.Invoke(context);
+    }
+
+    public void OnAttackHeld(CallbackContext context)
+    {
+        AttackButtonHeldDown = !AttackButtonHeldDown;
+        if (AttackButtonHeldDown)
+        {
+            attackCountdownTimer.Start();
+        }
+        else
+        {
+            attackCountdownTimer.Pause();
+        }
     }
 
     public void OnBlock(CallbackContext context)
@@ -241,4 +270,12 @@ public class PlayerInputController : MonoBehaviour
         InventoryManager.Instance.Equipment(playerIndex);
     }
     #endregion
+
+    private void ResetAttackTimer()
+    {
+        if (AttackButtonHeldDown)
+        {
+            attackCountdownTimer.Start();
+        }
+    }
 }

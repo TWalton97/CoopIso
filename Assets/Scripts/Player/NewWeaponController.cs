@@ -12,6 +12,8 @@ public class NewWeaponController : MonoBehaviour
     public Transform mainHandTransform;
     public Transform offHandTransform;
 
+    public Action OnWeaponUpdated;
+
     public Weapon instantiatedPrimaryWeapon;
     public Weapon instantiatedSecondaryWeapon;
     public bool primaryWeaponAttackCompleted = false;
@@ -69,7 +71,7 @@ public class NewWeaponController : MonoBehaviour
             numAttacks++;
             canAttack = false;
             comboCounter.Start();
-            if (numAttacks >= 3)
+            if (numAttacks >= 2)
             {
                 numAttacks = 0;
             }
@@ -132,6 +134,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
             UpdateAnimator();
         }
+        OnWeaponUpdated?.Invoke();
     }
 
     public void EquipTwoHandedWeapon(GameObject weaponPrefab, ItemData itemData)
@@ -146,6 +149,7 @@ public class NewWeaponController : MonoBehaviour
         instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
         instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
         UpdateAnimator();
+        OnWeaponUpdated?.Invoke();
     }
 
     public void EquipOffhand(GameObject weaponPrefab, ItemData itemData)
@@ -162,6 +166,7 @@ public class NewWeaponController : MonoBehaviour
             HasShieldEquipped = true;
         }
         UpdateAnimator();
+        OnWeaponUpdated?.Invoke();
     }
 
     public void UpdateAnimator()
@@ -171,48 +176,35 @@ public class NewWeaponController : MonoBehaviour
 
         if (instantiatedPrimaryWeapon == null)
         {
+            animator.SetBool("DualWielding", false);
             animator.runtimeAnimatorController = UnarmedAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && HasShieldEquipped)
         {
+            animator.SetBool("DualWielding", false);
             animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && instantiatedSecondaryWeapon == null)
         {
+            animator.SetBool("DualWielding", false);
             animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
         {
+            animator.SetBool("DualWielding", true);
             animator.runtimeAnimatorController = DualWieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
         {
+            animator.SetBool("DualWielding", false);
             animator.runtimeAnimatorController = TwoHandedAnimator;
         }
-
-        // if (instantiatedPrimaryWeapon == null)
-        //     {
-        //         animator.runtimeAnimatorController = UnarmedAnimator;
-        //     }
-        //     else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
-        //     {
-        //         animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
-        //     }
-        //     else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
-        //     {
-        //         animator.runtimeAnimatorController = TwoHandedAnimator;
-        //     }
-        //     else if (instantiatedSecondaryWeapon != null)
-        //     {
-        //         if (instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
-        //         {
-        //             animator.runtimeAnimatorController = DualWieldAnimator;
-        //         }
-        //     }
-        //     else
-        //     {
-        //         animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
-        //     }
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.Bow)
+        {
+            animator.SetBool("DualWielding", false);
+            animator.runtimeAnimatorController = BowAnimator;
+        }
+        OnWeaponUpdated?.Invoke();
     }
 
     public void UnequipWeapon(Weapon.WeaponHand weaponHand)
@@ -241,6 +233,7 @@ public class NewWeaponController : MonoBehaviour
     public AnimatorOverrideController OneHandedAndShieldAnimator;
     public AnimatorOverrideController DualWieldAnimator;
     public AnimatorOverrideController TwoHandedAnimator;
+    public AnimatorOverrideController BowAnimator;
 
     [System.Serializable]
     public enum WeaponAttackTypes
@@ -248,7 +241,8 @@ public class NewWeaponController : MonoBehaviour
         OneHanded,
         TwoHanded,
         DualWield,
-        Shield
+        Shield,
+        Bow
     }
 }
 

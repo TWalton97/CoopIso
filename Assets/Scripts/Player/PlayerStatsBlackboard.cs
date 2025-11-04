@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class PlayerStatsBlackboard : MonoBehaviour
 {
@@ -17,7 +18,9 @@ public class PlayerStatsBlackboard : MonoBehaviour
     public float CurrentSpeed;
 
     [Header("Attack")]
-    public float AttackCooldown;
+    public NewWeaponController WeaponController;
+
+    public float AttacksPerSecond;
 
     [Header("Resources")]
     public ResourceController ResourceController;
@@ -30,23 +33,21 @@ public class PlayerStatsBlackboard : MonoBehaviour
     {
         UpdateHealthStats(0, null);
         UpdateMovementSpeed();
+        UpdateAttackStats();
         UpdateResourceStats();
-    }
-
-    void Update()
-    {
-        UpdateMovementSpeed();
     }
 
     private void OnEnable()
     {
         HealthController.OnTakeDamage += UpdateHealthStats;
+        WeaponController.OnWeaponUpdated += UpdateAttackStats;
         ResourceController.resource.OnResourceValueChanged += UpdateResourceStats;
     }
 
     private void OnDisable()
     {
         HealthController.OnTakeDamage -= UpdateHealthStats;
+        WeaponController.OnWeaponUpdated -= UpdateAttackStats;
         ResourceController.resource.OnResourceValueChanged -= UpdateResourceStats;
     }
 
@@ -64,6 +65,38 @@ public class PlayerStatsBlackboard : MonoBehaviour
         CurrentSpeed = Mathf.Floor(PlayerController.Rigidbody.velocity.magnitude);
     }
 
+    private void UpdateAttackStats()
+    {
+        float attacksPerSecond = 0.00f;
+        int numWeapons = 0;
+
+        if (WeaponController.instantiatedPrimaryWeapon == null)
+        {
+            AttacksPerSecond = 1.00f;
+            return;
+        }
+
+        if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
+        {
+            SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
+            attacksPerSecond += spawnedWeaponsData.attacksPerSecond;
+            numWeapons++;
+        }
+
+        if (WeaponController.instantiatedSecondaryWeapon != null && WeaponController.instantiatedSecondaryWeapon.Data.GetType() == typeof(WeaponDataSO))
+        {
+            SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
+            attacksPerSecond += spawnedWeaponsData.attacksPerSecond;
+            numWeapons++;
+        }
+
+        if (numWeapons != 0)
+        {
+            attacksPerSecond /= numWeapons;
+        }
+
+        AttacksPerSecond = attacksPerSecond;
+    }
 
     private void UpdateResourceStats()
     {

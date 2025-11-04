@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(HealthController))]
 public class Entity : MonoBehaviour, IDamageable
 {
-    protected HealthController healthController;
+    public HealthController healthController { get; private set; }
 
     public virtual void Awake()
     {

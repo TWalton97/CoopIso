@@ -15,5 +15,5 @@ MonoBehaviour:
   <WeaponMinDamage>k__BackingField: 6
   <WeaponMaxDamage>k__BackingField: 11
   <AttacksPerSecond>k__BackingField: 1.5
-  <NumberOfAttacksInCombo>k__BackingField: 2
-  <MovementSpeedDuringAttack>k__BackingField: 2.5
+  <NumberOfAttacksInCombo>k__BackingField: 3
+  <MovementSpeedMultiplierDuringAttack>k__BackingField: 0.8

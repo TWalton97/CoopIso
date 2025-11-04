@@ -47,15 +47,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData:
+    itemID: 6c449b55-872b-43c3-83c8-8312f2c53df4
     itemName: Old Shield
     quantity: 1
     sprite: {fileID: 21300000, guid: 2eb711b376b568746b9ec0029dc05b63, type: 3}
     itemDescription: An old shield. It won't fully protect you, but it's better than
       nothing. Probably.
     objectPrefab: {fileID: 8601840781972821055, guid: d08a1202dc9c31847a92b2db41662425, type: 3}
-    vfxPrefab: {fileID: 165858437583528537, guid: 9748af5b7332a964f8a234a8b56041bf, type: 3}
+    vfxPrefab: {fileID: 0}
     itemType: 6
     data: {fileID: 11400000, guid: 0f96e0b32566fe441b7fe0a89432a3d8, type: 2}
+    affixes: []
   inventoryManager: {fileID: 0}
   InteractionType: 0
 --- !u!135 &6623880556442527337

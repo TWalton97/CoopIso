@@ -8,8 +8,6 @@ public class EquippedSlot : ItemSlot
     //Slot appearance
     [SerializeField] private TMP_Text slotName;
 
-    //Slot data
-    [SerializeField] private ItemType itemType = new ItemType();
     public Slot slotType;
     public ItemType equippedWeaponType { get; private set; }
 
@@ -19,15 +17,11 @@ public class EquippedSlot : ItemSlot
 
         if (isSelected)
         {
-            inventoryController.ClearPreviewWindow();
             UnequipGear();
         }
         else
         {
             inventoryController.RegisterButtonSelection(this);
-            if (slotInUse)
-                inventoryController.UpdatePreviewWindow(itemData.sprite, itemData.itemName, itemType, itemData);
-            //inventoryController.DeselectAllSlots();
 
             if (inventoryController.selectedItemSlots.Count == 1)
             {

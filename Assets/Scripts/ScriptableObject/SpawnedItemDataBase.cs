@@ -1,9 +1,53 @@
 using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 {
     public Dictionary<string, SpawnedItemData> spawnedItemData = new Dictionary<string, SpawnedItemData>();
+
+    public List<Item> spawnableItems;
+
+    public Item SpawnRandomItem(int rarity)
+    {
+        Item itemBase = Instantiate(spawnableItems[UnityEngine.Random.Range(0, spawnableItems.Count - 1)]);
+        int numAffixes = GetAffixCount(rarity);
+        if (itemBase.itemData.data.GetType() == typeof(WeaponDataSO))
+        {
+            for (int i = 0; i < numAffixes; i++)
+            {
+                itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomWeaponAffix());
+            }
+        }
+        else if (itemBase.itemData.data.GetType() == typeof(ShieldSO))
+        {
+            for (int i = 0; i < numAffixes; i++)
+            {
+                itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomShieldAffix());
+            }
+        }
+        itemBase.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(numAffixes);
+        itemBase.itemData.itemID = RegisterItemToDatabase(itemBase.itemData);
+
+        return itemBase;
+    }
+
+    public int GetAffixCount(int rarityValue)
+    {
+        rarityValue = Mathf.Clamp(rarityValue, 0, 100);
+
+        float roll = UnityEngine.Random.Range(0f, 100f);
+
+
+        if (roll < rarityValue * 0.5f)
+            return 4;
+        else if (roll < rarityValue * 0.7f)
+            return 3;
+        else if (roll < rarityValue * 0.9f)
+            return 2;
+        else
+            return 1;
+    }
 
     public string RegisterItemToDatabase(ItemData itemData)
     {
@@ -17,7 +61,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             int weaponMaxDamage = weaponData.WeaponMaxDamage + AffixStatCalculator.CalculateMaxDamage(weaponAffixes);
             float attacksPerSecond = weaponData.AttacksPerSecond * AffixStatCalculator.CalculateAttackSpeed(weaponAffixes);
             int numberOfAttacksInCombo = weaponData.NumberOfAttacksInCombo;
-            float MovementSpeedDuringAttack = weaponData.MovementSpeedDuringAttack;
+            float MovementSpeedDuringAttack = weaponData.MovementSpeedMultiplierDuringAttack;
 
             SpawnedWeaponsData data = new SpawnedWeaponsData(id, weaponMinDamage, weaponMaxDamage, attacksPerSecond, numberOfAttacksInCombo, MovementSpeedDuringAttack);
             spawnedItemData.Add(id, data);

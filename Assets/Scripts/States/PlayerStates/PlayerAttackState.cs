@@ -15,8 +15,7 @@ public class PlayerAttackState : PlayerBaseState
         if (player.WeaponController.instantiatedPrimaryWeapon != null)
         {
             WeaponDataSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as WeaponDataSO;
-            player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedDuringAttack));
-            //player._movementSpeed = weaponData.MovementSpeedDuringAttack;
+            player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedMultiplierDuringAttack));
         }
     }
 
@@ -41,10 +40,10 @@ public class PlayerAttackState : PlayerBaseState
     {
         float elapsedTime = 0f;
 
-        while (elapsedTime < 0.5f)
+        while (elapsedTime < (1 / player.PlayerStatsBlackboard.AttacksPerSecond))
         {
             elapsedTime += Time.deltaTime;
-            player._movementSpeed = Mathf.Lerp(player._maximumMovementSpeed, targetSpeed, elapsedTime / 0.5f);
+            player._movementSpeed = Mathf.Lerp(player._maximumMovementSpeed, player._maximumMovementSpeed * targetSpeed, elapsedTime / 0.5f);
             yield return null;
         }
     }

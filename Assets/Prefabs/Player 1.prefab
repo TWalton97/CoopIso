@@ -701,7 +701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaximumHealth: 66
   CurrentHealth: 66
-  blockAngle: 90
+  PrintDamageTaken: 0
 --- !u!114 &645754214093089905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +747,7 @@ MonoBehaviour:
   OneHandedAndShieldAnimator: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
   DualWieldAnimator: {fileID: 22100000, guid: b43ff40815227c74794c7656af867670, type: 2}
   TwoHandedAnimator: {fileID: 22100000, guid: 08371dc23f8a4ab4bafa3e0a6df57139, type: 2}
+  BowAnimator: {fileID: 22100000, guid: b6e2fe2b2a5efe346b94305908e6b30e, type: 2}
 --- !u!114 &8882958460414044634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,7 +766,8 @@ MonoBehaviour:
   PlayerController: {fileID: 645754214093089905}
   MovementSpeed: 0
   CurrentSpeed: 0
-  AttackCooldown: 0
+  WeaponController: {fileID: 4905286535046853527}
+  AttacksPerSecond: 0
   ResourceController: {fileID: 4605205822069560298}
   ResourceType: 0
   ResourceMax: 0
@@ -2580,7 +2582,7 @@ Transform:
   m_GameObject: {fileID: 3509915736500816962}
   serializedVersion: 2
   m_LocalRotation: {x: 0.039114576, y: 0.026543673, z: -0.20351939, w: 0.9779291}
-  m_LocalPosition: {x: -0.306237, y: -0.000000018626404, z: 0.000000031664914}
+  m_LocalPosition: {x: -0.306237, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

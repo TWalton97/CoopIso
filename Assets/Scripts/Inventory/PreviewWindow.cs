@@ -24,8 +24,7 @@ public class PreviewWindow : MonoBehaviour
             ItemStats.text =
             "Weapon Damage: " + spawnedWeaponsData.weaponMinDamage + "-" + spawnedWeaponsData.weaponMaxDamage +
             "\nAttacks per Second: " + spawnedWeaponsData.attacksPerSecond.ToString("0.00") +
-            "\nNumber of Attacks: " + weaponData.NumberOfAttacksInCombo +
-            "\nMovement Speed: " + weaponData.MovementSpeedDuringAttack +
+            "\nMovement Speed: " + weaponData.MovementSpeedMultiplierDuringAttack +
             "\nDPS: " + ((spawnedWeaponsData.weaponMinDamage + spawnedWeaponsData.weaponMaxDamage) / 2 * spawnedWeaponsData.attacksPerSecond).ToString("0.00");
             ItemAffixes.text = BuildAffixString(itemData);
         }

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable
 {
-    public List<Item> itemsToSpawn;
+    public int Rarity;
     public Transform spawnPosition;
     private Animator animator;
+
+    private List<Item> itemsToSpawn = new();
 
     private string itemName = "Chest";
     public string interactableName { get => itemName; set => itemName = value; }
@@ -31,6 +33,16 @@ public class Chest : MonoBehaviour, IInteractable
     {
         isInteractable = false;
         animator.SetTrigger("Open");
+
+        int numItemsToSpawn = SpawnedItemDataBase.Instance.GetAffixCount(Rarity);
+
+        for (int i = 0; i < numItemsToSpawn; i++)
+        {
+            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(Rarity);
+            instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
+            itemsToSpawn.Add(instantiatedItem);
+        }
+
         StartCoroutine(SpawnItems());
     }
 
@@ -40,28 +52,6 @@ public class Chest : MonoBehaviour, IInteractable
 
         for (int i = 0; i < itemsToSpawn.Count; i++)
         {
-            Item spawnedItem = Instantiate(itemsToSpawn[i], ReturnSpawnPositionInRadius(), Quaternion.identity);
-            if (spawnedItem.itemData.data.GetType() == typeof(WeaponDataSO))
-            {
-                int rand = Random.Range(0, 3);
-                for (int r = 0; r < rand; r++)
-                {
-                    spawnedItem.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomWeaponAffix());
-                }
-                spawnedItem.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(rand);
-                spawnedItem.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(spawnedItem.itemData);
-            }
-            else if (spawnedItem.itemData.data.GetType() == typeof(ShieldSO))
-            {
-                int rand = Random.Range(0, 3);
-                for (int r = 0; r < rand; r++)
-                {
-                    spawnedItem.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomShieldAffix());
-                }
-                spawnedItem.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(rand);
-                spawnedItem.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(spawnedItem.itemData);
-            }
-
             yield return new WaitForSeconds(0.2f);
         }
     }

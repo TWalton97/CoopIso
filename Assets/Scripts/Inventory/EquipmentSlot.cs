@@ -34,8 +34,6 @@ public class EquipmentSlot : ItemSlot
         else
         {
             inventoryController.RegisterButtonSelection(this);
-            if (slotInUse)
-                inventoryController.UpdatePreviewWindow(itemData.sprite, itemData.itemName, itemData.itemType, itemData);
 
             if (inventoryController.selectedItemSlots.Count == 1)
             {

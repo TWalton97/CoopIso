@@ -57,7 +57,7 @@ public class Hitbox : MonoBehaviour
             coll.enabled = true;
         }
 
-        Invoke(nameof(DeactivateHitbox), 0.2f);
+        Invoke(nameof(DeactivateHitbox), 0.05f);
     }
 
     private void DeactivateHitbox()

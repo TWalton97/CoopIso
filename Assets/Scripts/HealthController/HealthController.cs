@@ -11,6 +11,7 @@ public class HealthController : MonoBehaviour, IDamageable
     public Action<int> OnHeal;
     public Action OnDie;
 
+    public bool PrintDamageTaken = false;
     protected bool IsDead = false;
 
     private void Awake()
@@ -24,6 +25,11 @@ public class HealthController : MonoBehaviour, IDamageable
 
         CurrentHealth = Mathf.Clamp(CurrentHealth - damageAmount, 0, MaximumHealth);
         OnTakeDamage?.Invoke(damageAmount, controller);
+
+        if (PrintDamageTaken)
+        {
+            Debug.Log(gameObject.name + " took " + damageAmount + " damage from " + controller.gameObject.name);
+        }
 
         if (CurrentHealth <= 0)
         {
