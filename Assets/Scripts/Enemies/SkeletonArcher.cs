@@ -23,9 +23,6 @@ public class SkeletonArcher : Enemy
         At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
         At(attackState, chaseState, new FuncPredicate(() => attackState.AttackCompleted));
 
-        //Any(staggerStage, new FuncPredicate(() => IsStaggered && !IsDead));
-        //At(staggerStage, chaseState, new FuncPredicate(() => !IsStaggered && !IsDead));
-
         Any(deathState, new FuncPredicate(() => IsDead));
 
         stateMachine.SetState(wanderState);
@@ -39,16 +36,6 @@ public class SkeletonArcher : Enemy
 
         Projectile proj = Instantiate(projectile, arrowSpawnPos.position, arrowSpawnPos.transform.rotation);
         proj.Init(projectileSpeed, damage, this, 3, false);
-        //Instantiate projectile here
         attackTimer.Start();
     }
-
-    // private Quaternion GetRotationTowardsTarget()
-    // {
-    //     Vector3 DirToTarget = enemy.playerDetector.Player.transform.position - agent.transform.position;
-    //     Quaternion targetRotation = Quaternion.LookRotation(DirToTarget, Vector3.up);
-    //     targetRotation.x = 0;
-    //     targetRotation.z = 0;
-    //     return targetRotation;
-    // }
 }

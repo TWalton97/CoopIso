@@ -2994,6 +2994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaximumHealth: 24
   CurrentHealth: 0
+  PrintDamageTaken: 0
 --- !u!195 &7433324669054062663
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3047,7 +3048,7 @@ MonoBehaviour:
   IsStaggered: 0
   StateName: 
   projectile: {fileID: 5783461640622885472, guid: 778cb966ce47eab41b78642fd79408cc, type: 3}
-  projectileSpeed: 10
+  projectileSpeed: 14
   damage: 4
   arrowSpawnPos: {fileID: 2679124445174203088}
 --- !u!114 &5542632148025433312

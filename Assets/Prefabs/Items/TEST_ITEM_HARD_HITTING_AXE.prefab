@@ -53,7 +53,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 38a702e6b4c2c9142859427b96a7c6f9, type: 3}
     itemDescription: This axe hits really, really hard. That's about it.
     objectPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
-    vfxPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 165858437583528537, guid: c96cdb5aeb6db8145aa538add18cf648, type: 3}
     itemType: 4
     data: {fileID: 11400000, guid: c5d8934e46d2aef47b5387d445b8d264, type: 2}
     affixes: []

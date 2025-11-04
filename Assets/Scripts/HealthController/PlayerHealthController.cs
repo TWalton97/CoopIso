@@ -15,9 +15,7 @@ public class PlayerHealthController : HealthController
         {
             if (newPlayerController.attackStateMachine.current.State == newPlayerController.blockState)
             {
-                //ShieldSO shieldData = newPlayerController.WeaponController.instantiatedSecondaryWeapon.Data as ShieldSO;
                 SpawnedItemDataBase.SpawnedShieldData spawnedItemData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(newPlayerController.WeaponController.instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
-
                 if (CheckAngleToAttacker(controller.gameObject, spawnedItemData.blockAngle))
                 {
                     Block(damageAmount, controller, spawnedItemData);

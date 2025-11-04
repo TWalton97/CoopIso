@@ -34,6 +34,9 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
     public int GetAffixCount(int rarityValue)
     {
+        if (rarityValue == -1)
+            return 0;
+
         rarityValue = Mathf.Clamp(rarityValue, 0, 100);
 
         float roll = UnityEngine.Random.Range(0f, 100f);

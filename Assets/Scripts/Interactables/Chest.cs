@@ -33,27 +33,27 @@ public class Chest : MonoBehaviour, IInteractable
     {
         isInteractable = false;
         animator.SetTrigger("Open");
-
-        int numItemsToSpawn = SpawnedItemDataBase.Instance.GetAffixCount(Rarity);
-
-        for (int i = 0; i < numItemsToSpawn; i++)
-        {
-            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(Rarity);
-            instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
-            itemsToSpawn.Add(instantiatedItem);
-        }
-
         StartCoroutine(SpawnItems());
     }
 
     private IEnumerator SpawnItems()
     {
-        yield return new WaitForSeconds(0.5f);
+        int numItemsToSpawn = SpawnedItemDataBase.Instance.GetAffixCount(Rarity);
+        for (int i = 0; i < numItemsToSpawn; i++)
+        {
+            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(Rarity);
+            instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
+            yield return new WaitForSeconds(0.2f);
+        }
 
         for (int i = 0; i < itemsToSpawn.Count; i++)
         {
+            Item instantiatedItem = Instantiate(itemsToSpawn[i], ReturnSpawnPositionInRadius(), Quaternion.identity);
+            instantiatedItem.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(instantiatedItem.itemData);
             yield return new WaitForSeconds(0.2f);
         }
+
+        yield return null;
     }
 
     private Vector3 ReturnSpawnPositionInRadius()

@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GroundCheckTransform: {fileID: 2043536047798340780}
-  GroundCheckRadius: 0.2
+  GroundCheckRadius: 0.4
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
