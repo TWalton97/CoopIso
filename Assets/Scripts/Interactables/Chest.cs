@@ -8,7 +8,7 @@ public class Chest : MonoBehaviour, IInteractable
     public Transform spawnPosition;
     private Animator animator;
 
-    private List<Item> itemsToSpawn = new();
+    public List<Item> itemsToSpawn;
 
     private string itemName = "Chest";
     public string interactableName { get => itemName; set => itemName = value; }

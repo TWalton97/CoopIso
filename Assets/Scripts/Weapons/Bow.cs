@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class Bow : Weapon
 {
+    public Animator BowAnimator;
     public Transform arrowSpawnPos;
     public Projectile projectilePrefab;
     public float projectileSpeed;
+    public override void Enter(System.Action endAction, int attackNum)
+    {
+        base.Enter(endAction, attackNum);
+        BowAnimator.SetFloat("AttackSpeedMultiplier", newPlayerController.Animator.GetFloat("AttackSpeedMultiplier"));
+        BowAnimator.SetTrigger("Fire");
+    }
     public override void ActivateHitbox()
     {
         int rolledDamage = Random.Range(spawnedWeaponData.weaponMinDamage, spawnedWeaponData.weaponMaxDamage);
@@ -12,14 +19,6 @@ public class Bow : Weapon
         proj.Init(projectileSpeed, rolledDamage, newPlayerController, 3, false);
     }
 
-    // private Quaternion GetRotationTowardsTarget()
-    // {
-    //     Vector3 DirToTarget = newPlayerController.transform.position + newPlayerController.transform.forward - arrowSpawnPos.position;
-    //     Quaternion targetRotation = Quaternion.LookRotation(DirToTarget, Vector3.up);
-    //     targetRotation.x = 0;
-    //     targetRotation.z = 0;
-    //     return targetRotation;
-    // }
 }
 
 

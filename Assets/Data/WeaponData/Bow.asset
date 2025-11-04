@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <WeaponMinDamage>k__BackingField: 3
   <WeaponMaxDamage>k__BackingField: 12
-  <AttacksPerSecond>k__BackingField: 1.3
+  <AttacksPerSecond>k__BackingField: 1.4
   <NumberOfAttacksInCombo>k__BackingField: 1
-  <MovementSpeedMultiplierDuringAttack>k__BackingField: 0.2
+  <MovementSpeedMultiplierDuringAttack>k__BackingField: 0.1

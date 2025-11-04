@@ -28,7 +28,7 @@ public class PlayerInputController : MonoBehaviour
     public Action<CallbackContext> OnLookStickPerformed;
 
     public Action<CallbackContext> OnAttackPerformed;
-    private bool AttackButtonHeldDown;
+    public bool AttackButtonHeldDown;
     public CountdownTimer attackCountdownTimer { get; private set; }
     private float attackHeldRepeatTime = 0.1f;
     public Action<CallbackContext> OnJumpPerformed;
@@ -149,13 +149,14 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnAttackHeld(CallbackContext context)
     {
-        AttackButtonHeldDown = !AttackButtonHeldDown;
-        if (AttackButtonHeldDown)
+        if (context.started)
         {
+            AttackButtonHeldDown = true;
             attackCountdownTimer.Start();
         }
-        else
+        else if (context.canceled)
         {
+            AttackButtonHeldDown = false;
             attackCountdownTimer.Pause();
         }
     }
