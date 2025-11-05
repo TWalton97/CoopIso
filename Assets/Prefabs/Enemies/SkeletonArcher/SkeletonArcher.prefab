@@ -3040,6 +3040,7 @@ MonoBehaviour:
   - {fileID: 1296096957024359430}
   - {fileID: 2173569951065190373}
   - {fileID: 8829721318290427134}
+  - {fileID: 9033092380839583032}
   wanderSpeed: 1.5
   chaseSpeed: 2.5
   rotationSpeed: 240

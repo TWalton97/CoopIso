@@ -41,6 +41,8 @@ public class NewPlayerController : Entity
 
     public AnimationClip animationClip;
 
+    public List<Renderer> playerIndicator;
+
     #region MonoBehaviour
     public override void Awake()
     {
@@ -66,6 +68,20 @@ public class NewPlayerController : Entity
         _maximumMovementSpeed = _movementSpeed;
         PlayerInputController.attackCountdownTimer.OnTimerStop += () => attackButtonPressed = true;
 
+        if (PlayerInputController.playerIndex == 1)
+        {
+            foreach (Renderer rend in playerIndicator)
+            {
+                rend.material.color = Color.red;
+            }
+        }
+        else
+        {
+            foreach (Renderer rend in playerIndicator)
+            {
+                rend.material.color = Color.blue;
+            }
+        }
     }
 
     void OnDisable()

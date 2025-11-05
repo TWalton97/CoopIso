@@ -39,14 +39,15 @@ public class Hitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((_targetLayer & (1 << other.gameObject.layer)) == 0) return;
+        //if ((_targetLayer & (1 << other.gameObject.layer)) == 0) return;
 
         if (other.gameObject.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(_damage, _controller);
             OnTargetDamaged?.Invoke();
-            if (DestroyHitboxOnHit) Destroy(gameObject);
         }
+
+        if (DestroyHitboxOnHit) Destroy(gameObject);
     }
 
     public void ActivateHitbox(int damage)

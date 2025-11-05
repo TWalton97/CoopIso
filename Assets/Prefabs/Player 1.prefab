@@ -726,6 +726,9 @@ MonoBehaviour:
   blockButtonPressed: 0
   attackButtonPressed: 0
   animationClip: {fileID: 0}
+  playerIndicator:
+  - {fileID: 3551300292844778127}
+  - {fileID: 4587684945262775440}
 --- !u!114 &4905286535046853527
 MonoBehaviour:
   m_ObjectHideFlags: 0
