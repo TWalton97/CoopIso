@@ -22,10 +22,12 @@ public class InventoryController : MonoBehaviour
     private NewPlayerController controller;
     public Action OnMenuOpened;
     public Action OnMenuClosed;
-
     private void Start()
     {
-        SetEquipmentSlotIndexes();
+        //Check what items the player has equipped into main and offhand
+        //Register them
+        //Add them to their equipped slots
+        
     }
 
     void OnEnable()
@@ -33,6 +35,7 @@ public class InventoryController : MonoBehaviour
         controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(playerIndex);
         controller.WeaponController.OnWeaponUpdated += UpdatePlayerStats;
         OnMenuOpened += UpdatePlayerStats;
+        SetEquipmentSlotIndexes();
     }
 
     private void OnDisable()

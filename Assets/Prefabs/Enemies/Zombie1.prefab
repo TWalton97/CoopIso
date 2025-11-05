@@ -1395,6 +1395,7 @@ GameObject:
   - component: {fileID: 7970124707720608647}
   - component: {fileID: 7839878868582317200}
   - component: {fileID: 4735479504967847861}
+  - component: {fileID: 9162978587876468743}
   m_Layer: 8
   m_Name: Zombie1
   m_TagString: Cull
@@ -1449,6 +1450,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0.6
   IsStaggered: 0
   StateName: 
+  animationStatusTracker: {fileID: 0}
 --- !u!195 &2546661760642592051
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1504,7 +1506,7 @@ Animator:
   m_GameObject: {fileID: 4115870468328907784}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8f7380da49034cd488ddff94b1ac35d1, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6742f0cb1ae369643b55f15153e80be2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3dc5f00cd18e947499512f1bdedcab29, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1529,6 +1531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaximumHealth: 32
   CurrentHealth: 32
+  PrintDamageTaken: 0
 --- !u!136 &7839878868582317200
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1574,6 +1577,18 @@ MonoBehaviour:
   objectRenderers: []
   cullingMode: 3
   isPriorityObject: 0
+--- !u!114 &9162978587876468743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115870468328907784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33541b9157ffdb41b5417924dc1e3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4141560499705226945
 GameObject:
   m_ObjectHideFlags: 0

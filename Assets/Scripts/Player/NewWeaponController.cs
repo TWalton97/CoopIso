@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utilities;
 
 public class NewWeaponController : MonoBehaviour
 {
-    private NewPlayerController newPlayerController;
+    public NewPlayerController newPlayerController;
     public Animator animator;
 
     public Transform mainHandTransform;
@@ -26,20 +27,23 @@ public class NewWeaponController : MonoBehaviour
     public bool HasShieldEquipped;
     private Action OnActionCompleted;
 
+    public Item StartingMainHandWeapon;
+    public Item StartingOffHandWeapon;
+    private bool StarterWeaponsEquipped = false;
+
     protected void Awake()
     {
         comboCounter = new CountdownTimer(comboPeriod);
-        newPlayerController = GetComponent<NewPlayerController>();
     }
 
     void Start()
     {
         newPlayerController.AnimationStatusTracker.OnAnimationCompleted += ResetAttack;
+        EquipStarterItems();
     }
 
     void OnEnable()
     {
-
         comboCounter.OnTimerStop += () => numAttacks = 0;
     }
 
@@ -52,6 +56,28 @@ public class NewWeaponController : MonoBehaviour
     void Update()
     {
         comboCounter.Tick(Time.deltaTime);
+    }
+
+    public void EquipStarterItems()
+    {
+        if (StarterWeaponsEquipped) return;
+        StarterWeaponsEquipped = true;
+
+        if (StartingMainHandWeapon != null)
+        {
+            Item starterSword = Instantiate(StartingMainHandWeapon);
+            starterSword.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(starterSword.itemData);
+            newPlayerController.InventoryController.FindEquippedSlotOfType(Slot.MainHand)[0].EquipGear(starterSword.itemData);
+            Destroy(starterSword.gameObject);
+        }
+
+        if (StartingOffHandWeapon != null)
+        {
+            Item starterShield = Instantiate(StartingOffHandWeapon);
+            starterShield.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(starterShield.itemData);
+            newPlayerController.InventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].EquipGear(starterShield.itemData);
+            Destroy(starterShield.gameObject);
+        }
     }
 
     public void Attack(Action OnActionCompleted)

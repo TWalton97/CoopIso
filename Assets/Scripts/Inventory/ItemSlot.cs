@@ -16,16 +16,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler, IDe
     public bool isSelected;
     public int slotIndex;
 
-    protected InventoryController inventoryController;
+    public InventoryController inventoryController;
 
     public GameObject previewObject;
     public PreviewWindow previewWindow;
     public Button selectable;
-
-    void Awake()
-    {
-        inventoryController = GetComponentInParent<InventoryController>();
-    }
 
     public void OnPointerClick(PointerEventData eventData)
     {

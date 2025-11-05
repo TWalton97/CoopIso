@@ -20,7 +20,7 @@ public class EnemyWanderState : EnemyBaseState
     public override void OnEnter()
     {
         agent.speed = enemy.wanderSpeed;
-        animator.CrossFade(IdleHash, crossFadeDuration);
+        //animator.CrossFade(IdleHash, crossFadeDuration);
     }
 
     public override void Update()
@@ -30,13 +30,13 @@ public class EnemyWanderState : EnemyBaseState
             if (!IsWaiting)
             {
                 IsWaiting = true;
-                animator.CrossFade(IdleHash, crossFadeDuration);
+                //animator.CrossFade(IdleHash, crossFadeDuration);
             }
             elapsedTime += Time.deltaTime;
             if (elapsedTime < waitTime) return;
             elapsedTime = 0;
             waitTime = Random.Range(2, 4);
-            animator.CrossFade(WalkHash, crossFadeDuration);
+            //animator.CrossFade(WalkHash, crossFadeDuration);
             IsWaiting = false;
             var randomDirection = Random.insideUnitSphere * wanderRadius;
             randomDirection += startPoint;

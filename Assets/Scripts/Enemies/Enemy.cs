@@ -36,11 +36,16 @@ public class Enemy : Entity
 
     protected bool spawned = false;
 
+    public AnimationStatusTracker animationStatusTracker;
+
     public override void Awake()
     {
         base.Awake();
         hitbox = GetComponentInChildren<Hitbox>();
         StartCoroutine(WaitForNavMeshAndSpawn());
+        animationStatusTracker = GetComponent<AnimationStatusTracker>();
+        if (animationStatusTracker == null)
+            animationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
     }
 
     protected virtual void Start()
@@ -92,12 +97,18 @@ public class Enemy : Entity
         if (!spawned) return;
         stateMachine.Update();
         attackTimer.Tick(Time.deltaTime);
+        UpdateAnimatorParameters();
     }
 
     void FixedUpdate()
     {
         if (!spawned) return;
         stateMachine.FixedUpdate();
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        animator.SetFloat("Velocity", agent.velocity.magnitude / chaseSpeed);
     }
 
     public virtual void Attack()

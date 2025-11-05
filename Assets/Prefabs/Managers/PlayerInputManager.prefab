@@ -90,3 +90,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputManager: {fileID: 8146656275737929616}
+  inventoryManager: {fileID: 0}
+  player1UI: {fileID: 5826690465090489193, guid: ede7314586aca9946bb16cd28469caba, type: 3}
+  player2UI: {fileID: 5826690465090489193, guid: 18cbaab794f0d654ca13a7ffa5ff135c, type: 3}

@@ -34,7 +34,7 @@ public class SkeletonArcher : Enemy
     {
         if (attackTimer.IsRunning) return;
 
-        Projectile proj = Instantiate(projectile, arrowSpawnPos.position, arrowSpawnPos.transform.rotation);
+        Projectile proj = Instantiate(projectile, arrowSpawnPos.position, transform.rotation);
         proj.Init(projectileSpeed, damage, this, 3, false);
         attackTimer.Start();
     }

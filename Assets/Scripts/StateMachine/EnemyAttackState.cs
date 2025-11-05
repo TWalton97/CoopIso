@@ -20,7 +20,10 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void OnEnter()
     {
+        //AttackCompleted = false;
         attackCoroutine = enemy.StartCoroutine(WaitForEndOfAttack());
+        agent.speed = 0;
+        enemy.animationStatusTracker.OnAnimationCompleted += CompleteAttack;
     }
 
     public override void OnExit()
@@ -30,6 +33,12 @@ public class EnemyAttackState : EnemyBaseState
             enemy.StopCoroutine(attackCoroutine);
         }
         AttackCompleted = false;
+        enemy.animationStatusTracker.OnAnimationCompleted -= CompleteAttack;
+    }
+
+    private void CompleteAttack()
+    {
+        AttackCompleted = true;
     }
 
     public override void Update()
@@ -57,24 +66,14 @@ public class EnemyAttackState : EnemyBaseState
 
     private IEnumerator WaitForEndOfAttack()
     {
-        animator.CrossFade(IdleHash, crossFadeDuration);
+        //animator.CrossFade(IdleHash, crossFadeDuration);
         while (!CheckAngleToAttacker(enemy.playerDetector.Player.gameObject, 30))
         {
             RotateTowardsTarget(GetRotationTowardsTarget());
             yield return null;
         }
-        yield return null;
         animator.CrossFade(AttackHash, crossFadeDuration);
-        AttackCompleted = false;
-
-        yield return new WaitForSeconds(0.3f);
-
-        while (actualNormalizedTime < 0.99f)
-        {
-            yield return null;
-        }
-        attackCoroutine = null;
-        AttackCompleted = true;
+        yield return null;
     }
 
     private bool CheckAngleToAttacker(GameObject attacker, float blockAngle)

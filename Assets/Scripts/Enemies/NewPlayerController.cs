@@ -10,7 +10,7 @@ public class NewPlayerController : Entity
     //Object references
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
-    public NewWeaponController WeaponController { get; private set; }
+    public NewWeaponController WeaponController;
     public ExperienceController ExperienceController { get; private set; }
     public PlayerInputController PlayerInputController { get; private set; }
     public GroundCheck GroundCheck { get; private set; }
@@ -43,7 +43,10 @@ public class NewPlayerController : Entity
 
     public List<Renderer> playerIndicator;
 
+    public Vector3 lookPoint;
+
     #region MonoBehaviour
+
     public override void Awake()
     {
         base.Awake();
@@ -214,8 +217,18 @@ public class NewPlayerController : Entity
 
         Rigidbody.velocity = newVel;
 
-        //If we're moving with gamepad and not touching right stick, we rotate character to face movement direction
-        if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME && PlayerInputController.LookStickVal == Vector2.zero)
+        if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState)
+        {
+            if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME && PlayerInputController.LookStickVal != Vector2.zero)
+            {
+                RotateToFaceDir(lookPoint);
+            }
+            else if (PlayerInputController.playerInput.currentControlScheme == KEYBOARD_SCHEME)
+            {
+                transform.LookAt(transform.position + lookPoint);
+            }
+        }
+        else
         {
             RotateToFaceDir(_moveInput);
         }
@@ -241,14 +254,17 @@ public class NewPlayerController : Entity
             Vector3 hitPoint = hit.point;
             Vector3 updatedHitPoint = new Vector3(hitPoint.x, transform.position.y, hitPoint.z);
             Vector3 dirToPoint = (updatedHitPoint - transform.position).normalized;
-            transform.LookAt(transform.position + dirToPoint);
+
+            //transform.LookAt(transform.position + dirToPoint);
+            //lookPoint = transform.position + dirToPoint;
+            lookPoint = dirToPoint;
         }
     }
 
     private void RotateTowardsStick(CallbackContext context)
     {
-        Vector2 dir = context.ReadValue<Vector2>();
-        RotateToFaceDir(dir);
+        lookPoint = context.ReadValue<Vector2>();
+        //RotateToFaceDir(dir);
     }
 
     private void RotateToFaceDir(Vector2 dir)
@@ -260,12 +276,15 @@ public class NewPlayerController : Entity
 
         transform.LookAt(transform.position + rotatedInputDirection);
     }
+
     #endregion
 
     #region Combat
 
     private void Attack(CallbackContext context)
     {
+        transform.LookAt(lookPoint);
+
         attackButtonPressed = true;
     }
 

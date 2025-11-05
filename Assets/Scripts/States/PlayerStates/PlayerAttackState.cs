@@ -4,6 +4,7 @@ using Utilities;
 
 public class PlayerAttackState : PlayerBaseState
 {
+    private Coroutine ReduceSpeedCoroutine;
     public PlayerAttackState(NewPlayerController player, Animator animator) : base(player, animator)
     {
 
@@ -15,13 +16,12 @@ public class PlayerAttackState : PlayerBaseState
         if (player.WeaponController.instantiatedPrimaryWeapon != null)
         {
             WeaponDataSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as WeaponDataSO;
-            player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedMultiplierDuringAttack));
+            ReduceSpeedCoroutine = player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedMultiplierDuringAttack));
         }
     }
 
     private void AttackCompleted()
     {
-        player._movementSpeed = player._maximumMovementSpeed;
         player.WeaponController.canAttack = true;
         player.attackStateMachine.ChangeState(player.idleState);
     }
@@ -34,6 +34,11 @@ public class PlayerAttackState : PlayerBaseState
     public override void OnExit()
     {
         player.attackButtonPressed = false;
+        if (ReduceSpeedCoroutine != null)
+        {
+            player.StopCoroutine(ReduceSpeedCoroutine);
+        }
+        player._movementSpeed = player._maximumMovementSpeed;
     }
 
     private IEnumerator ReduceMovementSpeed(float targetSpeed)

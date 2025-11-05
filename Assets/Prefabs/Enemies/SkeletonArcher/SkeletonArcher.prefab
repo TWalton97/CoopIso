@@ -2930,6 +2930,7 @@ GameObject:
   - component: {fileID: 5542632148025433312}
   - component: {fileID: 7893179272062647807}
   - component: {fileID: 8371414246281985758}
+  - component: {fileID: 1052276943576708563}
   m_Layer: 8
   m_Name: SkeletonArcher
   m_TagString: Cull
@@ -2969,7 +2970,7 @@ Animator:
   m_GameObject: {fileID: 8458699510939732860}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0c18218feab30a94397c5230415876c3, type: 3}
-  m_Controller: {fileID: 22100000, guid: 190567b9c34c0e54eb578cdaadb8c0ba, type: 2}
+  m_Controller: {fileID: 9100000, guid: e14f7d717c32c1748bac622d46fa888f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3048,6 +3049,7 @@ MonoBehaviour:
   timeBetweenAttacks: 1
   IsStaggered: 0
   StateName: 
+  animationStatusTracker: {fileID: 0}
   projectile: {fileID: 5783461640622885472, guid: 778cb966ce47eab41b78642fd79408cc, type: 3}
   projectileSpeed: 14
   damage: 4
@@ -3120,6 +3122,18 @@ MonoBehaviour:
   objectRenderers: []
   cullingMode: 3
   isPriorityObject: 0
+--- !u!114 &1052276943576708563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8458699510939732860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33541b9157ffdb41b5417924dc1e3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8550524380966310095
 GameObject:
   m_ObjectHideFlags: 0

@@ -1540,7 +1540,7 @@ GameObject:
   - component: {fileID: 8996223955438558204}
   - component: {fileID: 6615887008126007577}
   m_Layer: 5
-  m_Name: PlayerInventory_HoverPreview 1
+  m_Name: PlayerOneInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2937,6 +2937,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -3206,6 +3210,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -3475,6 +3483,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -3744,6 +3756,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -4057,6 +4073,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -4350,6 +4370,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -4897,6 +4921,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -5488,6 +5516,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -5805,6 +5837,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -6372,6 +6408,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -6963,6 +7003,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -7278,6 +7322,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -7591,6 +7639,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -7928,6 +7980,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -8221,6 +8277,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -8603,6 +8663,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2725020173113275251}
     - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
+    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
       propertyPath: itemData.objectPrefab
       value: 
       objectReference: {fileID: 0}
@@ -8757,6 +8821,10 @@ PrefabInstance:
       propertyPath: previewWindow
       value: 
       objectReference: {fileID: 593524136488715788}
+    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -8852,6 +8920,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -9165,6 +9237,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -9747,6 +9823,10 @@ PrefabInstance:
       propertyPath: previewWindow
       value: 
       objectReference: {fileID: 7579389835547005391}
+    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -9842,6 +9922,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -10497,6 +10581,10 @@ PrefabInstance:
       propertyPath: previewWindow
       value: 
       objectReference: {fileID: 7626431148020228734}
+    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -10636,6 +10724,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -11033,6 +11125,10 @@ PrefabInstance:
       propertyPath: previewWindow
       value: 
       objectReference: {fileID: 85900625725925261}
+    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -11128,6 +11224,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -11397,6 +11497,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -11710,6 +11814,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -12047,6 +12155,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -12384,6 +12496,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -12785,6 +12901,10 @@ PrefabInstance:
       propertyPath: previewWindow
       value: 
       objectReference: {fileID: 2466512407209639977}
+    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -12924,6 +13044,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -13217,6 +13341,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -13530,6 +13658,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -13867,6 +13999,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -14160,6 +14296,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -14473,6 +14613,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -14810,6 +14954,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -15103,6 +15251,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -16064,6 +16216,10 @@ PrefabInstance:
       propertyPath: previewWindow
       value: 
       objectReference: {fileID: 1268675345605176329}
+    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -16203,6 +16359,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 335
@@ -16592,6 +16752,10 @@ PrefabInstance:
       propertyPath: previewWindow
       value: 
       objectReference: {fileID: 4755988214238508275}
+    - target: {fileID: 8933637053102090660, guid: 2e725c9c0fdb72c45b6cbcb972665deb, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -16687,6 +16851,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -16956,6 +17124,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23
@@ -17225,6 +17397,10 @@ PrefabInstance:
       propertyPath: potionSlotTwo
       value: 
       objectReference: {fileID: 1454862781952645035}
+    - target: {fileID: 2528723249504237092, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
+      propertyPath: inventoryController
+      value: 
+      objectReference: {fileID: 2707734224326830091}
     - target: {fileID: 3190637353187344635, guid: c78b4c13b2068db44a9bf369b1414f96, type: 3}
       propertyPath: m_SizeDelta.x
       value: 336.23

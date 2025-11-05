@@ -6,8 +6,8 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Golem
-  m_Controller: {fileID: 9100000, guid: 6742f0cb1ae369643b55f15153e80be2, type: 2}
+  m_Name: GolemController
+  m_Controller: {fileID: 9100000, guid: 3dc5f00cd18e947499512f1bdedcab29, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: de559bbb071ebfd40ab5af80881e75e8, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: e7ff247fdcd69a9478eaae7fdf72de80, type: 2}
@@ -15,9 +15,5 @@ AnimatorOverrideController:
     m_OverrideClip: {fileID: 7400000, guid: 9cde348ef8613af4cbed36f086fdd58d, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: fc9a62f9b1354f342bacfbbe077c503e, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 2c477f41d4fcc2f4fbb2d5887702ef35, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 812aae90a9297f249908057eed4c0879, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 956c0c245261e5a4bb2d037742cf6872, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 4fc8452782fffc04d988c58b22394255, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 80017afd1957a7a42b4747d3c6af9b1b, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 37e6af8636979e04086967e3bd667606, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 2c477f41d4fcc2f4fbb2d5887702ef35, type: 2}
