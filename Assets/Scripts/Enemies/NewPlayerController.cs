@@ -19,6 +19,7 @@ public class NewPlayerController : Entity
     public PotionController PotionController { get; private set; }
     public InventoryController InventoryController { get; private set; }
     public PlayerStatsBlackboard PlayerStatsBlackboard { get; private set; }
+    public PlayerHealthController PlayerHealthController { get; private set; }
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
@@ -61,6 +62,7 @@ public class NewPlayerController : Entity
         PotionController = GetComponent<PotionController>();
         InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
         PlayerStatsBlackboard = GetComponent<PlayerStatsBlackboard>();
+        PlayerHealthController = GetComponent<PlayerHealthController>();
     }
     void Start()
     {
@@ -283,7 +285,7 @@ public class NewPlayerController : Entity
 
     private void Attack(CallbackContext context)
     {
-        transform.LookAt(lookPoint);
+        //transform.LookAt(lookPoint);
 
         attackButtonPressed = true;
     }

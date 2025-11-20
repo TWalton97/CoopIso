@@ -15,8 +15,16 @@ public class PlayerAttackState : PlayerBaseState
         player.WeaponController.Attack(AttackCompleted);
         if (player.WeaponController.instantiatedPrimaryWeapon != null)
         {
-            WeaponDataSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as WeaponDataSO;
-            ReduceSpeedCoroutine = player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedMultiplierDuringAttack));
+            if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
+            {
+                WeaponDataSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as WeaponDataSO;
+                ReduceSpeedCoroutine = player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedMultiplierDuringAttack));
+            }
+            else if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(BowSO))
+            {
+                BowSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as BowSO;
+                ReduceSpeedCoroutine = player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedMultiplierDuringAttack));
+            }
         }
     }
 

@@ -45,6 +45,18 @@ public class PreviewWindow : MonoBehaviour
             "\nBlockAmount: " + (shieldData.BlockAmount + AffixStatCalculator.CalculateBlockAmount(shieldAffixes)).ToString();
             ItemAffixes.text = BuildAffixString(itemData);
         }
+        else if (itemData.data is BowSO)
+        {
+            BowSO weaponData = itemData.data as BowSO;
+            SpawnedItemDataBase.SpawnedBowData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedBowData;
+            ItemStats.text =
+            "Weapon Damage: " + spawnedWeaponsData.weaponMinDamage + "-" + spawnedWeaponsData.weaponMaxDamage +
+            "\nAttacks per Second: " + spawnedWeaponsData.attacksPerSecond.ToString("0.00") +
+            "\nMovement Speed: " + weaponData.MovementSpeedMultiplierDuringAttack +
+            "\nNumber of Projectiles: " + spawnedWeaponsData.numberOfProjectiles +
+            "\nDPS: " + ((spawnedWeaponsData.weaponMinDamage + spawnedWeaponsData.weaponMaxDamage) / 2 * spawnedWeaponsData.attacksPerSecond).ToString("0.00");
+            ItemAffixes.text = BuildAffixString(itemData);
+        }
         else
         {
             ItemStats.text = "";

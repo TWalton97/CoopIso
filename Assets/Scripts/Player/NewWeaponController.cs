@@ -111,10 +111,21 @@ public class NewWeaponController : MonoBehaviour
         canAttack = false;
         comboCounter.Start();
 
-        WeaponDataSO weaponData = instantiatedPrimaryWeapon.Data as WeaponDataSO;
-        if (numAttacks >= weaponData.NumberOfAttacksInCombo)
+        if (instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
         {
-            numAttacks = 0;
+            WeaponDataSO weaponData = instantiatedPrimaryWeapon.Data as WeaponDataSO;
+            if (numAttacks >= weaponData.NumberOfAttacksInCombo)
+            {
+                numAttacks = 0;
+            }
+        }
+        else if (instantiatedPrimaryWeapon.Data.GetType() == typeof(BowSO))
+        {
+            BowSO weaponData = instantiatedPrimaryWeapon.Data as BowSO;
+            if (numAttacks >= weaponData.NumberOfAttacksInCombo)
+            {
+                numAttacks = 0;
+            }
         }
     }
 

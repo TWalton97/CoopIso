@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public static class AffixStatCalculator
 {
+    #region Weapon Stat Calculations
     public static float CalculateAttackSpeed(List<WeaponAffix> affixes)
     {
         float attackSpeedMultiplier = 1;
@@ -43,6 +43,10 @@ public static class AffixStatCalculator
         return maxDamage;
     }
 
+    #endregion
+
+    #region Shield Stat Calculations
+
     public static int CalculateBlockAngle(List<ShieldAffix> affixes)
     {
         int blockAngle = 0;
@@ -68,6 +72,71 @@ public static class AffixStatCalculator
         }
         return blockAmount;
     }
+
+    #endregion
+
+    #region Bow Stat Calculations
+
+    public static float CalculateAttackSpeed(List<BowAffix> affixes)
+    {
+        float attackSpeedMultiplier = 1;
+        for (int i = 0; i < affixes.Count; i++)
+        {
+            if (affixes[i].statType == BowStatTypes.AttackSpeed)
+            {
+                attackSpeedMultiplier += affixes[i].statValue * 0.01f;
+            }
+        }
+        return attackSpeedMultiplier;
+    }
+
+    public static int CalculateMinDamage(List<BowAffix> affixes)
+    {
+        int minDamage = 0;
+        for (int i = 0; i < affixes.Count; i++)
+        {
+            if (affixes[i].statType == BowStatTypes.MinimumDamage)
+            {
+                minDamage += (int)affixes[i].statValue;
+            }
+        }
+        return minDamage;
+    }
+
+    public static int CalculateMaxDamage(List<BowAffix> affixes)
+    {
+        int maxDamage = 0;
+        for (int i = 0; i < affixes.Count; i++)
+        {
+            if (affixes[i].statType == BowStatTypes.MaximumDamage)
+            {
+                maxDamage += (int)affixes[i].statValue;
+            }
+        }
+        return maxDamage;
+    }
+    public static int CalculateProjectileCount(List<BowAffix> affixes)
+    {
+        int projectileCount = 0;
+        for (int i = 0; i < affixes.Count; i++)
+        {
+            if (affixes[i].statType == BowStatTypes.ProjectileCount)
+            {
+                projectileCount += (int)affixes[i].statValue;
+            }
+        }
+        return projectileCount;
+    }
+
+    #endregion
+}
+
+#region Affix Factory
+[Serializable]
+public class Affix
+{
+    public int statTier;
+    public float statValue;
 }
 
 public class WeaponAffixFactory
@@ -116,8 +185,36 @@ public class WeaponAffixFactory
         Affix affix = new ShieldAffix(statType, statValue, rand);
         return affix;
     }
+
+    public static Affix ReturnRandomBowAffix()
+    {
+        int rand = UnityEngine.Random.Range(0, 4);
+        BowStatTypes statType = (BowStatTypes)rand;
+
+        float statValue = 0;
+        rand = UnityEngine.Random.Range(0, 3);
+        switch (statType)
+        {
+            case BowStatTypes.MaximumDamage:
+                statValue = BowPrefixes.IncreasedMaximumDamage[rand];
+                break;
+            case BowStatTypes.MinimumDamage:
+                statValue = BowPrefixes.IncreasedMinimumDamage[rand];
+                break;
+            case BowStatTypes.AttackSpeed:
+                statValue = BowPrefixes.IncreasedAttackSpeed[rand];
+                break;
+            case BowStatTypes.ProjectileCount:
+                statValue = BowPrefixes.IncreasedProjectiles[rand];
+                break;
+        }
+
+        Affix affix = new BowAffix(statType, statValue, rand);
+        return affix;
+    }
 }
 
+#region Weapon Affixes
 public static class WeaponPrefixes
 {
     public static int[] IncreasedMaximumDamage = new int[] { 1, 2, 3 };
@@ -141,7 +238,9 @@ public class WeaponAffix : Affix
         statTier = _statTier;
     }
 }
+#endregion
 
+#region Shield Affixes
 public static class ShieldPrefixes
 {
     public static int[] IncreasedBlockAngle = new int[] { 10, 20, 30 };
@@ -164,15 +263,41 @@ public class ShieldAffix : Affix
     }
 }
 
-[Serializable]
-public class Affix
+#endregion
+
+#region Bow Affixes
+
+public static class BowPrefixes
 {
-    public int statTier;
-    public float statValue;
+    public static int[] IncreasedMaximumDamage = new int[] { 1, 2, 3 };
+    public static int[] IncreasedMinimumDamage = new int[] { 1, 2, 3 };
+    public static float[] IncreasedAttackSpeed = new float[] { 5, 10, 15 };
+    public static int[] IncreasedProjectiles = new int[] { 1, 2, 3 };
+}
+[Serializable]
+public enum BowStatTypes
+{
+    MaximumDamage,
+    MinimumDamage,
+    AttackSpeed,
+    ProjectileCount,
+}
+public class BowAffix : Affix
+{
+    public BowStatTypes statType;
+    public BowAffix(BowStatTypes _statType, float _statValue, int _statTier)
+    {
+        statType = _statType;
+        statValue = _statValue;
+        statTier = _statTier;
+    }
 }
 
+#endregion
 
+#endregion
 
+#region Affix String Factory
 public static class AffixStringBuilder
 {
     public static string BuildStringBasedOnAffix(Affix affix)
@@ -207,6 +332,25 @@ public static class AffixStringBuilder
                     break;
             }
         }
+        else if (affix.GetType() == typeof(BowAffix))
+        {
+            BowAffix bowAffix = affix as BowAffix;
+            switch (bowAffix.statType)
+            {
+                case BowStatTypes.MaximumDamage:
+                    s = ReturnColorCodeBasedOnTier(affix.statTier) + "Increases weapon maximum damage by " + affix.statValue + "</color>";
+                    break;
+                case BowStatTypes.MinimumDamage:
+                    s = ReturnColorCodeBasedOnTier(affix.statTier) + "Increases weapon minimum damage by " + affix.statValue + "</color>";
+                    break;
+                case BowStatTypes.AttackSpeed:
+                    s = ReturnColorCodeBasedOnTier(affix.statTier) + "Increases weapon attack speed by " + affix.statValue + "%" + "</color>";
+                    break;
+                case BowStatTypes.ProjectileCount:
+                    s = ReturnColorCodeBasedOnTier(affix.statTier) + "Increases number of projectiles by " + affix.statValue + "</color>";
+                    break;
+            }
+        }
         return s;
     }
 
@@ -225,6 +369,9 @@ public static class AffixStringBuilder
     }
 }
 
+#endregion
+
+#region Affix List Converter
 public static class AffixListConverter
 {
     public static List<WeaponAffix> ConvertListIntoWeaponAffixes(List<Affix> affixes)
@@ -250,7 +397,20 @@ public static class AffixListConverter
 
         return shieldAffixes;
     }
+
+    public static List<BowAffix> ConvertListIntoBowAffixes(List<Affix> affixes)
+    {
+        List<BowAffix> bowAffixes = new List<BowAffix>();
+        for (int i = 0; i < affixes.Count; i++)
+        {
+            BowAffix bowAffix = affixes[i] as BowAffix;
+            bowAffixes.Add(bowAffix);
+        }
+
+        return bowAffixes;
+    }
 }
+#endregion
 
 
 

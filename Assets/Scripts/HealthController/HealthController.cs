@@ -10,6 +10,7 @@ public class HealthController : MonoBehaviour, IDamageable
     public Action<int, Entity> OnTakeDamage;
     public Action<int> OnHeal;
     public Action OnDie;
+    public Action<int, Entity> OnMaximumHealthChanged;
 
     public bool PrintDamageTaken = false;
     protected bool IsDead = false;
@@ -73,5 +74,12 @@ public class HealthController : MonoBehaviour, IDamageable
         }
         endAction?.Invoke();
         yield return null;
+    }
+
+    public void IncreaseMaximumHealth(int amountOfHealth)
+    {
+        MaximumHealth += amountOfHealth;
+        CurrentHealth += amountOfHealth;
+        OnMaximumHealthChanged?.Invoke(0, null);
     }
 }

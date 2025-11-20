@@ -26,6 +26,13 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
                 itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomShieldAffix());
             }
         }
+        else if (itemBase.itemData.data.GetType() == typeof(BowSO))
+        {
+            for (int i = 0; i < numAffixes; i++)
+            {
+                itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomBowAffix());
+            }
+        }
         itemBase.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(numAffixes);
         itemBase.itemData.itemID = RegisterItemToDatabase(itemBase.itemData);
 
@@ -66,7 +73,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             int numberOfAttacksInCombo = weaponData.NumberOfAttacksInCombo;
             float MovementSpeedDuringAttack = weaponData.MovementSpeedMultiplierDuringAttack;
 
-            SpawnedWeaponsData data = new SpawnedWeaponsData(id, weaponMinDamage, weaponMaxDamage, attacksPerSecond, numberOfAttacksInCombo, MovementSpeedDuringAttack);
+            SpawnedWeaponsData data = new SpawnedWeaponsData(id, weaponMinDamage, weaponMaxDamage, attacksPerSecond, MovementSpeedDuringAttack);
             spawnedItemData.Add(id, data);
         }
         else if (itemData.data.GetType() == typeof(ShieldSO))
@@ -77,6 +84,19 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             int blockAmount = shieldData.BlockAmount + AffixStatCalculator.CalculateBlockAmount(shieldAffixes);
 
             SpawnedShieldData data = new SpawnedShieldData(id, blockAngle, blockAmount);
+            spawnedItemData.Add(id, data);
+        }
+        else if (itemData.data.GetType() == typeof(BowSO))
+        {
+            BowSO weaponData = itemData.data as BowSO;
+            List<BowAffix> weaponAffixes = AffixListConverter.ConvertListIntoBowAffixes(itemData.affixes);
+            int weaponMinDamage = weaponData.WeaponMinDamage + AffixStatCalculator.CalculateMinDamage(weaponAffixes);
+            int weaponMaxDamage = weaponData.WeaponMaxDamage + AffixStatCalculator.CalculateMaxDamage(weaponAffixes);
+            float attacksPerSecond = weaponData.AttacksPerSecond * AffixStatCalculator.CalculateAttackSpeed(weaponAffixes);
+            float MovementSpeedDuringAttack = weaponData.MovementSpeedMultiplierDuringAttack;
+            int numberOfProjectiles = weaponData.NumberOfProjectiles + AffixStatCalculator.CalculateProjectileCount(weaponAffixes);
+
+            SpawnedBowData data = new SpawnedBowData(id, weaponMinDamage, weaponMaxDamage, attacksPerSecond, MovementSpeedDuringAttack, numberOfProjectiles);
             spawnedItemData.Add(id, data);
         }
 
@@ -90,6 +110,16 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         {
             data = spawnedItemData[id];
         }
+
+        if (spawnedItemData[id].GetType() == typeof(SpawnedWeaponsData))
+        {
+            return data as SpawnedWeaponsData;
+        }
+        else if (spawnedItemData[id].GetType() == typeof(SpawnedBowData))
+        {
+            return data as SpawnedBowData;
+        }
+
         return data;
     }
 
@@ -102,10 +132,9 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         public int weaponMinDamage;
         public int weaponMaxDamage;
         public float attacksPerSecond;
-        public int numberOfAttacksInCombo;
         public float novementSpeedDuringAttack;
 
-        public SpawnedWeaponsData(string _uniqueID, int _weaponMinDamage, int _weaponMaxDamage, float _attacksPerSecond, int _numberofAttacksInCombo, float _movementSpeedDuringAttack)
+        public SpawnedWeaponsData(string _uniqueID, int _weaponMinDamage, int _weaponMaxDamage, float _attacksPerSecond, float _movementSpeedDuringAttack)
         {
             uniqueID = _uniqueID;
             weaponMinDamage = _weaponMinDamage;
@@ -125,6 +154,25 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             uniqueID = _uniqueID;
             blockAngle = _blockAngle;
             blockAmount = _blockAmount;
+        }
+    }
+
+    public class SpawnedBowData : SpawnedItemData
+    {
+        public int weaponMinDamage;
+        public int weaponMaxDamage;
+        public float attacksPerSecond;
+        public float novementSpeedDuringAttack;
+        public int numberOfProjectiles;
+
+        public SpawnedBowData(string _uniqueID, int _weaponMinDamage, int _weaponMaxDamage, float _attacksPerSecond, float _movementSpeedDuringAttack, int _numberOfProjectiles)
+        {
+            uniqueID = _uniqueID;
+            weaponMinDamage = _weaponMinDamage;
+            weaponMaxDamage = _weaponMaxDamage;
+            attacksPerSecond = _attacksPerSecond;
+            novementSpeedDuringAttack = _movementSpeedDuringAttack;
+            numberOfProjectiles = _numberOfProjectiles;
         }
     }
 }

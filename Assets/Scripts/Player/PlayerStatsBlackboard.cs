@@ -42,6 +42,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         HealthController.OnTakeDamage += UpdateHealthStats;
         WeaponController.OnWeaponUpdated += UpdateAttackStats;
         ResourceController.resource.OnResourceValueChanged += UpdateResourceStats;
+        HealthController.OnMaximumHealthChanged += UpdateHealthStats;
     }
 
     private void OnDisable()
@@ -49,9 +50,10 @@ public class PlayerStatsBlackboard : MonoBehaviour
         HealthController.OnTakeDamage -= UpdateHealthStats;
         WeaponController.OnWeaponUpdated -= UpdateAttackStats;
         ResourceController.resource.OnResourceValueChanged -= UpdateResourceStats;
+        HealthController.OnMaximumHealthChanged -= UpdateHealthStats;
     }
 
-    private void UpdateHealthStats(int amount, Entity controller)
+    private void UpdateHealthStats(int amount = 0, Entity controller = null)
     {
         if (HealthController == null) return;
         MaximumHealth = HealthController.MaximumHealth;
@@ -74,6 +76,13 @@ public class PlayerStatsBlackboard : MonoBehaviour
         {
             AttacksPerSecond = 1.00f;
             return;
+        }
+
+        if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(BowSO))
+        {
+            SpawnedItemDataBase.SpawnedBowData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID) as SpawnedItemDataBase.SpawnedBowData;
+            attacksPerSecond += spawnedWeaponsData.attacksPerSecond;
+            numWeapons++;
         }
 
         if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))

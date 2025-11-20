@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
 
     public List<Affix> affixes;
     public string itemID;
-    protected SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponData;
+    protected SpawnedItemDataBase.SpawnedItemData spawnedWeaponData;
 
     void Awake()
     {
@@ -34,7 +34,17 @@ public class Weapon : MonoBehaviour
     {
         this.weaponHand = weaponHand;
         this.itemID = itemID;
-        spawnedWeaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
+
+        spawnedWeaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemID);// as SpawnedItemDataBase.SpawnedWeaponsData;
+        
+        if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedWeaponsData))
+        {
+            spawnedWeaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedWeaponsData;
+        }
+        else if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedBowData))
+        {
+            spawnedWeaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedBowData;
+        }
     }
 
     void OnDestroy()
@@ -88,8 +98,12 @@ public class Weapon : MonoBehaviour
 
     public virtual void ActivateHitbox()
     {
-        int rolledDamage = UnityEngine.Random.Range(spawnedWeaponData.weaponMinDamage, spawnedWeaponData.weaponMaxDamage);
-        hitbox.ActivateHitbox(rolledDamage);
+        if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedWeaponsData))
+        {
+            SpawnedItemDataBase.SpawnedWeaponsData weaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedWeaponsData;
+            int rolledDamage = UnityEngine.Random.Range(weaponData.weaponMinDamage, weaponData.weaponMaxDamage);
+            hitbox.ActivateHitbox(rolledDamage);
+        }
     }
 }
 

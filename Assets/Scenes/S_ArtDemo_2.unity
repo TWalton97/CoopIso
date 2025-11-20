@@ -11221,11 +11221,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: Rarity
-      value: 20
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: itemsToSpawn.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: itemsToSpawn.Array.data[0]
@@ -16298,7 +16298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: itemsToSpawn.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: itemsToSpawn.Array.data[0]
@@ -16308,6 +16308,10 @@ PrefabInstance:
       propertyPath: itemsToSpawn.Array.data[1]
       value: 
       objectReference: {fileID: 3672906315106084538, guid: 59fbd670f284fcf44b8e90cca2c96575, type: 3}
+    - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
+      propertyPath: itemsToSpawn.Array.data[2]
+      value: 
+      objectReference: {fileID: 4105654304781387039, guid: 82dffb8a2befeeb45b89519ba77b0823, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18124,6 +18128,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237f7219ddf7c064e85f5158a48f6bbc, type: 3}
+--- !u!1 &1618020937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1618020939}
+  - component: {fileID: 1618020938}
+  m_Layer: 0
+  m_Name: Vigor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1618020938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618020937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de9178040f41b3a47896ae783d13a246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentFeatLevel: 0
+  FeatData: {fileID: 0}
+  HealthIncreasePerLevel: 050000000a0000000f0000001400000019000000
+--- !u!4 &1618020939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618020937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1621193232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8582451509887590953, guid: f8c0297a8d99e2747baeb5697c8ecb66, type: 3}
@@ -24409,3 +24460,4 @@ SceneRoots:
   - {fileID: 567119674}
   - {fileID: 1165835284}
   - {fileID: 1288645449}
+  - {fileID: 1618020939}

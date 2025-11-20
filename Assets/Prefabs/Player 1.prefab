@@ -492,6 +492,7 @@ GameObject:
   - component: {fileID: 1112255887905720510}
   - component: {fileID: 4324044300627354677}
   - component: {fileID: 1617534711877101827}
+  - component: {fileID: 2505503115271518282}
   m_Layer: 7
   m_Name: Player 1
   m_TagString: Player
@@ -752,8 +753,8 @@ MonoBehaviour:
   primaryWeaponAttackCompleted: 0
   canAttack: 1
   HasShieldEquipped: 0
-  StartingMainHandWeapon: {fileID: 4105654304781387039, guid: eba1a490f17d0b943b617cbc20fe5536, type: 3}
-  StartingOffHandWeapon: {fileID: 0}
+  StartingMainHandWeapon: {fileID: 7507621691804293595, guid: 0d892f2c0381e594bbef46287f1e97dc, type: 3}
+  StartingOffHandWeapon: {fileID: 1060900815880863096, guid: c071088d36a89504db4669b19c753c83, type: 3}
   UnarmedAnimator: {fileID: 9100000, guid: 5b7e4efa974f7334191e8c27409f2845, type: 2}
   OneHandedAndShieldAnimator: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
   DualWieldAnimator: {fileID: 22100000, guid: b43ff40815227c74794c7656af867670, type: 2}
@@ -815,6 +816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
+  SkillPoints: 0
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 4330988381056590447}
 --- !u!114 &1112255887905720510
@@ -871,6 +873,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthController: {fileID: 4902479843315799468}
   drinkingPotion: 0
+--- !u!114 &2505503115271518282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655887787118595647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1037c5aa3198c264aa05dd765a9eb4d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvailableFeats: []
 --- !u!1 &682793434446774257
 GameObject:
   m_ObjectHideFlags: 0

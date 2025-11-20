@@ -6,6 +6,8 @@ public class ExperienceController : MonoBehaviour
     public int level = 1;
     public int experience = 0;
 
+    public int SkillPoints;
+
     public int[] levelExperienceRequirements;
 
     public Action OnExperienceGained;
@@ -34,6 +36,18 @@ public class ExperienceController : MonoBehaviour
     {
         level += 1;
         LevelUpParticle.Play();
+        SkillPoints++;
         OnLevelUp?.Invoke();
+    }
+
+    public bool TrySpendSkillpoints(int numSkillPoints)
+    {
+        if (SkillPoints - numSkillPoints >= 0)
+        {
+            SkillPoints -= numSkillPoints;
+            return true;
+        }
+
+        return false;
     }
 }

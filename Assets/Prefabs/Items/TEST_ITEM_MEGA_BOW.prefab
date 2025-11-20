@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4105654304781387039}
   - component: {fileID: 4532441580701341870}
   m_Layer: 0
-  m_Name: Item_Bow
+  m_Name: TEST_ITEM_MEGA_BOW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
     objectPrefab: {fileID: 1717406733745140, guid: 4535dcac0f9dc7244a77b80b041978a5, type: 3}
     vfxPrefab: {fileID: 0}
     itemType: 5
-    data: {fileID: 11400000, guid: 886e9b3c35b94ab4a9885384a3bbf2b0, type: 2}
+    data: {fileID: 11400000, guid: cab0d2c8ae7f95b498176a66048d954a, type: 2}
     affixes: []
   inventoryManager: {fileID: 0}
   InteractionType: 0
