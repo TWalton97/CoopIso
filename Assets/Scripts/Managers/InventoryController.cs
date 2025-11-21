@@ -19,21 +19,18 @@ public class InventoryController : MonoBehaviour
     public List<ItemSlot> selectedItemSlots = new();
     public ItemSlot CurrentlySelectedItemSlot;
 
-    private NewPlayerController controller;
+    public NewPlayerController controller { get; private set; }
     public Action OnMenuOpened;
     public Action OnMenuClosed;
     private void Start()
     {
-        //Check what items the player has equipped into main and offhand
-        //Register them
-        //Add them to their equipped slots
-        
     }
 
     void OnEnable()
     {
         controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(playerIndex);
         controller.WeaponController.OnWeaponUpdated += UpdatePlayerStats;
+        controller.PlayerHealthController.OnMaximumHealthChanged += UpdatePlayerStats;
         OnMenuOpened += UpdatePlayerStats;
         SetEquipmentSlotIndexes();
     }
@@ -41,11 +38,14 @@ public class InventoryController : MonoBehaviour
     private void OnDisable()
     {
         controller.WeaponController.OnWeaponUpdated -= UpdatePlayerStats;
+        controller.PlayerHealthController.OnMaximumHealthChanged -= UpdatePlayerStats;
         OnMenuOpened -= UpdatePlayerStats;
         ResetButtonSelection();
+        if (CurrentlySelectedItemSlot != null)
+            CurrentlySelectedItemSlot.HidePreview();
     }
 
-    private void UpdatePlayerStats()
+    public void UpdatePlayerStats()
     {
         PlayerHealthText.text = controller.healthController.CurrentHealth.ToString() + "/" + controller.healthController.MaximumHealth.ToString();
         PlayerMovementSpeedText.text = controller._maximumMovementSpeed.ToString();
@@ -164,11 +164,61 @@ public class InventoryController : MonoBehaviour
                             selectedItemSlots[0].EmptySlot();
                             mainSlot.EquipGear(itemData);
                         }
+                        else if (mainSlot.equippedWeaponType == ItemType.TwoHanded)
+                        {
+                            if (selectedItemSlots[0].itemData.itemType == ItemType.OneHanded)
+                            {
+                                ItemData itemData = selectedItemSlots[0].itemData;
+                                selectedItemSlots[0].EmptySlot();
+                                mainSlot.EquipGear(itemData);
+                                equippedSlot.UnequipGear();
+                            }
+                            else if (selectedItemSlots[0].itemData.itemType == ItemType.TwoHanded)
+                            {
+                                ItemData itemData = selectedItemSlots[0].itemData;
+                                selectedItemSlots[0].EmptySlot();
+                                equippedSlot.EquipGear(itemData);
+                            }
+                        }
+                        else if (mainSlot.equippedWeaponType == ItemType.OneHanded)
+                        {
+                            if (selectedItemSlots[0].itemData.itemType == ItemType.TwoHanded)
+                            {
+                                ItemData itemData = selectedItemSlots[0].itemData;
+                                selectedItemSlots[0].EmptySlot();
+                                mainSlot.EquipGear(itemData);
+                                equippedSlot.UnequipGear();
+                            }
+                            else if (selectedItemSlots[0].itemData.itemType == ItemType.OneHanded)
+                            {
+                                ItemData itemData = selectedItemSlots[0].itemData;
+                                selectedItemSlots[0].EmptySlot();
+                                equippedSlot.EquipGear(itemData);
+                            }
+                        }
                         else
                         {
                             ItemData itemData = selectedItemSlots[0].itemData;
                             selectedItemSlots[0].EmptySlot();
                             equippedSlot.EquipGear(itemData, selectedItemSlots[0].slotIndex);
+                        }
+                    }
+                    else if (equippedSlot.slotType == Slot.MainHand)
+                    {
+                        EquippedSlot offhandSlot = FindEquippedSlotOfType(Slot.OffHand)[0];
+                        ItemData itemData = selectedItemSlots[0].itemData;
+                        selectedItemSlots[0].EmptySlot();
+                        equippedSlot.EquipGear(itemData);
+                        if (offhandSlot.slotInUse)
+                        {
+                            if (itemData.itemType == ItemType.OneHanded && offhandSlot.equippedWeaponType == ItemType.TwoHanded)
+                            {
+                                offhandSlot.UnequipGear();
+                            }
+                            else if (itemData.itemType == ItemType.TwoHanded && offhandSlot.equippedWeaponType == ItemType.OneHanded)
+                            {
+                                offhandSlot.UnequipGear();
+                            }
                         }
                     }
                     else

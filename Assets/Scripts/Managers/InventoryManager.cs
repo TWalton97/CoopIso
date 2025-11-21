@@ -15,6 +15,7 @@ public class InventoryManager : Singleton<InventoryManager>
     [Serializable]
     public class EquipmentMenus
     {
+        public PlayerUserInterfaceController playerUserInterfaceController;
         public InventoryController controller;
         public GameObject EquipmentMenuObject;
         public int playerIndex;
@@ -23,7 +24,6 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;
-    public ItemSO[] itemSOs;
 
     public bool IsInventoryOpened;
     public bool IsEquipmentMenuOpened;
@@ -31,11 +31,11 @@ public class InventoryManager : Singleton<InventoryManager>
     private bool player0MenuOpened;
     private bool player1MenuOpened;
 
-    public void Equipment(int playerIndex)
+    public void OpenInventory(int playerIndex)
     {
-        if (EquipmentMenuObjects[playerIndex].EquipmentMenuObject.activeSelf)   //If the corresponding menu is opened, close it
+        if (EquipmentMenuObjects[playerIndex].playerUserInterfaceController.IsMenuOpened)
         {
-            EquipmentMenuObjects[playerIndex].EquipmentMenuObject.SetActive(false);
+            EquipmentMenuObjects[playerIndex].playerUserInterfaceController.CloseAllMenus();
             EquipmentMenuObjects[playerIndex].controller.OnMenuClosed?.Invoke();
             if (playerIndex == 0) player0MenuOpened = false;
             if (playerIndex == 1) player1MenuOpened = false;
@@ -44,8 +44,6 @@ public class InventoryManager : Singleton<InventoryManager>
             {
                 EquipmentMenuObjects[playerIndex].controller.DeselectAllSlots();
                 Time.timeScale = 1;
-                //TODO: STILL FIX THIS
-                //PlayerJoinManager.Instance.GetPlayerControllerByIndex(0).WeaponController.canAttack = true;
                 NewPlayerController controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(1);
                 if (controller != null)
                 {
@@ -56,7 +54,8 @@ public class InventoryManager : Singleton<InventoryManager>
         }
         else
         {
-            EquipmentMenuObjects[playerIndex].EquipmentMenuObject.SetActive(true);
+            EquipmentMenuObjects[playerIndex].playerUserInterfaceController.OpenInventoryPanel();
+
             EquipmentMenuObjects[playerIndex].controller.OnMenuOpened?.Invoke();
             if (playerIndex == 0) player0MenuOpened = true;
             if (playerIndex == 1) player1MenuOpened = true;
@@ -68,10 +67,6 @@ public class InventoryManager : Singleton<InventoryManager>
     public void AddItemToCorrectPlayerInventory(ItemData itemData, int playerIndex)
     {
         EquipmentMenuObjects[playerIndex].controller.AddItemToFirstEmptySlot(itemData);
-    }
-
-    public void UseItem(string itemName)
-    {
     }
 
     public void DeselectAllSlots()
@@ -96,6 +91,11 @@ public class InventoryManager : Singleton<InventoryManager>
     public InventoryController GetInventoryControllerByIndex(int playerIndex)
     {
         return EquipmentMenuObjects[playerIndex].controller;
+    }
+
+    public PlayerUserInterfaceController GetPlayerUserInterfaceControllerByIndex(int playerIndex)
+    {
+        return EquipmentMenuObjects[playerIndex].playerUserInterfaceController;
     }
 }
 

@@ -1,37 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FeatsController : MonoBehaviour
 {
-    //This controls what feats are available and which ones have been activated
-    //In the feats UI menu, each of these feats will be represented by a button
-    //Feats can have multiple levels available, as well as a required number of skillpoints 
-    public NewPlayerController newPlayerController { get; private set; }
-    public ExperienceController experienceController { get; private set; }
-    public PlayerHealthController playerHealthController { get; private set; }
+    public NewPlayerController newPlayerController;
+    public ExperienceController experienceController;
+    public PlayerHealthController playerHealthController;
 
-    public List<Feat> AvailableFeats;
+    public List<Feat> AvailableFeats = new List<Feat>();
 
     void Awake()
     {
-        newPlayerController = GetComponent<NewPlayerController>();
+        AddFeatsToList();
     }
 
-    void Start()
+    public void ActivateFeat(int featIndex, Action activatedSuccess, bool bypassReqs = false)
     {
-        experienceController = newPlayerController.ExperienceController;
-        playerHealthController = newPlayerController.PlayerHealthController;
+        if (bypassReqs)
+        {
+            AvailableFeats[featIndex].OnActivateNoReqs(this, activatedSuccess);
+        }
+        else
+        {
+            AvailableFeats[featIndex].OnActivate(this, activatedSuccess);
+        }
     }
 
-    public void ActivateFeat(int featIndex)
+
+    private void AddFeatsToList()
     {
-        
+        Vigor vigor = new Vigor(0);
+        AvailableFeats.Add(vigor);
+        Nimble nimble = new Nimble(1);
+        AvailableFeats.Add(nimble);
+        ShieldTraining shieldTraining = new ShieldTraining(0);
+        AvailableFeats.Add(shieldTraining);
+        DualWieldMastery dualWieldMastery = new DualWieldMastery(0);
+        AvailableFeats.Add(dualWieldMastery);
+        TwoHandedMastery twoHandedMastery = new TwoHandedMastery(0);
+        AvailableFeats.Add(twoHandedMastery);
     }
 
-    [ContextMenu("Upgrade Vigor")]
-    public void ActivateVigor()
-    {
-        ActivateFeat(0);
-    }
 }

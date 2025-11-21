@@ -81,6 +81,8 @@ public class PlayerInputController : MonoBehaviour
         SubscribeToInputAction(playerInputActions.Player.DrinkPotionTwo.id.ToString(), OnDrinkPotionTwo, gameplayMap);
         SubscribeToInputAction(playerInputActions.UI.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, UIMap);
         SubscribeToInputAction(playerInputActions.UI.DropItem.id.ToString(), OnDropItem, UIMap);
+        SubscribeToInputAction(playerInputActions.UI.MoveMenuLeft.id.ToString(), OnMoveMenuLeft, UIMap);
+        SubscribeToInputAction(playerInputActions.UI.MoveMenuRight.id.ToString(), OnMoveMenuRight, UIMap);
 
         //Specific cases//
 
@@ -263,12 +265,22 @@ public class PlayerInputController : MonoBehaviour
         InventoryController controller = InventoryManager.Instance.GetInventoryControllerByIndex(playerIndex);
         controller.CurrentlySelectedItemSlot.OnRightClick();
     }
+
+    public void OnMoveMenuLeft(CallbackContext context)
+    {
+        InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(playerIndex).GoToNextMenu();
+    }
+
+    public void OnMoveMenuRight(CallbackContext context)
+    {
+        InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(playerIndex).GoToNextMenu();
+    }
     #endregion
 
     #region Shared Input Actions
     public void OnEquipmentMenu(CallbackContext context)
     {
-        InventoryManager.Instance.Equipment(playerIndex);
+        InventoryManager.Instance.OpenInventory(playerIndex);
     }
     #endregion
 

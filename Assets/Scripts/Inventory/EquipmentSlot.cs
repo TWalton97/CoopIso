@@ -45,6 +45,8 @@ public class EquipmentSlot : ItemSlot
 
     private void EquipGear()
     {
+        if (!itemData.data.CheckItemRequirements(inventoryController.controller.PlayerStatsBlackboard)) return;
+
         if (itemData.itemType == ItemType.Consumable)
             potionSlotOne.EquipGear(itemData);
         if (itemData.itemType == ItemType.Head)
@@ -55,8 +57,35 @@ public class EquipmentSlot : ItemSlot
             legSlot.EquipGear(itemData);
         if (itemData.itemType == ItemType.TwoHanded)
         {
-            mainHandSlot.EquipGear(itemData);
-            offHandSlot.UnequipGear();
+            if (!inventoryController.controller.PlayerStatsBlackboard.TwoHandedMastery)
+            {
+                mainHandSlot.EquipGear(itemData);
+                offHandSlot.UnequipGear();
+            }
+            else
+            {
+                if (!mainHandSlot.slotInUse)
+                {
+                    mainHandSlot.EquipGear(itemData);
+                    if (offHandSlot.slotInUse && offHandSlot.equippedWeaponType == ItemType.OneHanded)
+                    {
+                        offHandSlot.UnequipGear();
+                    }
+                }
+                else if (mainHandSlot.equippedWeaponType == ItemType.OneHanded)
+                {
+                    mainHandSlot.EquipGear(itemData);
+                    offHandSlot.UnequipGear();
+                }
+                else if (!offHandSlot.slotInUse)
+                {
+                    offHandSlot.EquipGear(itemData);
+                }
+                else
+                {
+                    mainHandSlot.EquipGear(itemData);
+                }
+            }
         }
 
         if (itemData.itemType == ItemType.OneHanded)
@@ -68,6 +97,10 @@ public class EquipmentSlot : ItemSlot
             else if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
             {
                 mainHandSlot.EquipGear(itemData);
+                if (offHandSlot.slotInUse && offHandSlot.equippedWeaponType == ItemType.TwoHanded)
+                {
+                    offHandSlot.UnequipGear();
+                }
             }
             else if (!offHandSlot.slotInUse)
             {
@@ -115,12 +148,7 @@ public class EquipmentSlot : ItemSlot
         GameObject player = PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).gameObject;
         itemToDrop.transform.position = player.transform.position + (player.transform.forward * 2f);
 
-        this.itemData.quantity -= 1;
-        if (this.itemData.quantity <= 0)
-        {
-            EmptySlot();
-            HidePreview();
-        }
-
+        EmptySlot();
+        HidePreview();
     }
 }

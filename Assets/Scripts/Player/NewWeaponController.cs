@@ -39,7 +39,7 @@ public class NewWeaponController : MonoBehaviour
     void Start()
     {
         newPlayerController.AnimationStatusTracker.OnAnimationCompleted += ResetAttack;
-        EquipStarterItems();
+        StartCoroutine(WaitForSetup());
     }
 
     void OnEnable()
@@ -145,7 +145,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
             UpdateAnimator();
         }
-        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded && !newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
         {
             UnequipWeapon(Weapon.WeaponHand.MainHand);
             instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
@@ -213,35 +213,86 @@ public class NewWeaponController : MonoBehaviour
 
         if (instantiatedPrimaryWeapon == null)
         {
-            animator.SetBool("DualWielding", false);
             animator.runtimeAnimatorController = UnarmedAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && HasShieldEquipped)
         {
-            animator.SetBool("DualWielding", false);
             animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && instantiatedSecondaryWeapon == null)
         {
-            animator.SetBool("DualWielding", false);
             animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
         {
-            animator.SetBool("DualWielding", true);
             animator.runtimeAnimatorController = DualWieldAnimator;
         }
-        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded && instantiatedSecondaryWeapon == null)
         {
-            animator.SetBool("DualWielding", false);
             animator.runtimeAnimatorController = TwoHandedAnimator;
+        }
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded && instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
+        {
+            animator.runtimeAnimatorController = DualWieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.Bow)
         {
-            animator.SetBool("DualWielding", false);
             animator.runtimeAnimatorController = BowAnimator;
         }
+        CheckForAppropriateMastery();
         OnWeaponUpdated?.Invoke();
+    }
+
+    public void CheckForAppropriateMastery()
+    {
+        if (animator.runtimeAnimatorController == UnarmedAnimator)
+        {
+            if (newPlayerController.PlayerStatsBlackboard.UnarmedMastery)
+            {
+                animator.SetBool("WeaponMastery", true);
+                return;
+            }
+        }
+        else if (animator.runtimeAnimatorController == OneHandedAndShieldAnimator)
+        {
+            if (newPlayerController.PlayerStatsBlackboard.OneHandedMastery)
+            {
+                animator.SetBool("WeaponMastery", true);
+                return;
+            }
+        }
+        else if (animator.runtimeAnimatorController == TwoHandedAnimator)
+        {
+            // if (newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
+            // {
+            //     animator.SetBool("WeaponMastery", true);
+            //     return;
+            // }
+        }
+        else if (animator.runtimeAnimatorController == DualWieldAnimator)
+        {
+            if (newPlayerController.PlayerStatsBlackboard.DualWieldMastery && instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
+            {
+                animator.SetBool("WeaponMastery", true);
+                return;
+            }
+            else if (newPlayerController.PlayerStatsBlackboard.TwoHandedMastery && instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
+            {
+                animator.SetBool("WeaponMastery", true);
+                return;
+            }
+        }
+        else if (animator.runtimeAnimatorController == BowAnimator)
+        {
+            if (newPlayerController.PlayerStatsBlackboard.BowMastery)
+            {
+                animator.SetBool("WeaponMastery", true);
+                return;
+            }
+        }
+
+        animator.SetBool("WeaponMastery", false);
+
     }
 
     public void UnequipWeapon(Weapon.WeaponHand weaponHand)
@@ -280,6 +331,16 @@ public class NewWeaponController : MonoBehaviour
         DualWield,
         Shield,
         Bow
+    }
+
+    private IEnumerator WaitForSetup()
+    {
+        while (newPlayerController.InventoryController == null)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        EquipStarterItems();
+        yield return null;
     }
 }
 

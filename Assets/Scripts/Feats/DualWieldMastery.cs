@@ -1,19 +1,16 @@
-
 using System;
-
-public class Vigor : Feat
+public class DualWieldMastery : Feat
 {
-    public override string FeatName { get; set; } = "Vigor";
-    public override string FeatDescription { get; set; } = "Increases your character's maximum health, increasing the amount of damage you can take before dying.";
-    public int[] HealthIncreasePerLevel = { 5, 10, 15, 20, 25 };
+    public override string FeatName { get; set; } = "Dual Wield Mastery";
+    public override string FeatDescription { get; set; } = "Adds a powerful combo attack when using two weapons at once.";
     public override int StartingFeatLevel { get; set; }
     public override int CurrentFeatLevel { get; set; } = 0;
-    public override int MaximumFeatLevel { get; set; } = 5;
-    public override int SkillPointsCostPerLevel { get; set; } = 1;
-    public override int SkillPointsCostIncreasePerLevel { get; set; } = 1;
+    public override int MaximumFeatLevel { get; set; } = 1;
+    public override int SkillPointsCostPerLevel { get; set; } = 3;
+    public override int SkillPointsCostIncreasePerLevel { get; set; } = 0;
 
 
-    public Vigor(int startingLevel = 0)
+    public DualWieldMastery(int startingLevel = 0)
     {
         StartingFeatLevel = startingLevel;
     }
@@ -24,7 +21,8 @@ public class Vigor : Feat
 
         if (controller.experienceController.TrySpendSkillpoints(SkillPointsCostPerLevel))
         {
-            controller.playerHealthController.IncreaseMaximumHealth(HealthIncreasePerLevel[CurrentFeatLevel]);
+            controller.newPlayerController.PlayerStatsBlackboard.DualWieldMastery = true;
+            controller.newPlayerController.WeaponController.CheckForAppropriateMastery();
             CurrentFeatLevel++;
             SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
             activatedSuccess?.Invoke();
@@ -35,7 +33,7 @@ public class Vigor : Feat
     {
         if (CurrentFeatLevel == MaximumFeatLevel) return;
 
-        controller.playerHealthController.IncreaseMaximumHealth(HealthIncreasePerLevel[CurrentFeatLevel]);
+        controller.newPlayerController.PlayerStatsBlackboard.DualWieldMastery = true;
         CurrentFeatLevel++;
         SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
         activatedSuccess?.Invoke();
@@ -47,6 +45,6 @@ public class Vigor : Feat
         {
             return "Maximum Level Reached";
         }
-        return "Next Level: Increases maximum health by " + HealthIncreasePerLevel[CurrentFeatLevel];
+        return "Next Level: Improves your character's ability to fight with two weapons at once.";
     }
 }

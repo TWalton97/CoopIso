@@ -12,6 +12,7 @@ public class ExperienceController : MonoBehaviour
 
     public Action OnExperienceGained;
     public Action OnLevelUp;
+    public Action OnSkillPointUsed;
 
     public ParticleSystem LevelUpParticle;
 
@@ -45,6 +46,7 @@ public class ExperienceController : MonoBehaviour
         if (SkillPoints - numSkillPoints >= 0)
         {
             SkillPoints -= numSkillPoints;
+            OnSkillPointUsed?.Invoke();
             return true;
         }
 

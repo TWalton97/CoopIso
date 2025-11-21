@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using System;
 using static UnityEngine.InputSystem.InputAction;
 using System.Collections.Generic;
+using System.Collections;
 
 public class NewPlayerController : Entity
 {
@@ -20,6 +21,7 @@ public class NewPlayerController : Entity
     public InventoryController InventoryController { get; private set; }
     public PlayerStatsBlackboard PlayerStatsBlackboard { get; private set; }
     public PlayerHealthController PlayerHealthController { get; private set; }
+    public FeatsController FeatsController { get; private set; }
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
@@ -63,12 +65,14 @@ public class NewPlayerController : Entity
         InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
         PlayerStatsBlackboard = GetComponent<PlayerStatsBlackboard>();
         PlayerHealthController = GetComponent<PlayerHealthController>();
+        FeatsController = GetComponent<FeatsController>();
     }
     void Start()
     {
         SetupMovementStateMachine();
         SetupAttackStateMachine();
         SubscribeToInputEvents();
+        StartCoroutine(WaitForSetup());
 
         _maximumMovementSpeed = _movementSpeed;
         PlayerInputController.attackCountdownTimer.OnTimerStop += () => attackButtonPressed = true;
@@ -243,6 +247,12 @@ public class NewPlayerController : Entity
         Rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
     }
 
+    public void IncreaseMovementSpeed(float movementSpeedIncreaseAmount)
+    {
+        _movementSpeed += movementSpeedIncreaseAmount;
+        _maximumMovementSpeed += movementSpeedIncreaseAmount;
+    }
+
     #endregion
 
     #region Looking
@@ -342,6 +352,16 @@ public class NewPlayerController : Entity
     public void PrintAnimationClipLength()
     {
         Debug.Log(animationClip.length);
+    }
+
+    private IEnumerator WaitForSetup()
+    {
+        while (InventoryController == null)
+        {
+            InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return null;
     }
 
 }

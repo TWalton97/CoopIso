@@ -47,10 +47,11 @@ public class EquippedSlot : ItemSlot
         slotImage.enabled = true;
         slotName.enabled = false;
         equippedWeaponType = itemData.itemType;
+        NewPlayerController playerController = PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex);
 
         if (itemData.itemType == ItemType.OneHanded)
         {
-            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOneHandedWeapon(itemData.objectPrefab, itemData);
+            playerController.WeaponController.EquipOneHandedWeapon(itemData.objectPrefab, itemData);
             if (slotType == Slot.OffHand)
             {
                 //Check if the slot in the main hand is two-handed and unequip it if it is
@@ -64,7 +65,7 @@ public class EquippedSlot : ItemSlot
         }
         else if (itemData.itemType == ItemType.Offhand)
         {
-            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipOffhand(itemData.objectPrefab, itemData);
+            playerController.WeaponController.EquipOffhand(itemData.objectPrefab, itemData);
             EquippedSlot mainHandSlot = inventoryController.FindEquippedSlotOfType(Slot.MainHand)[0];
             if (mainHandSlot.slotInUse && mainHandSlot.itemData.itemType == ItemType.TwoHanded)
             {
@@ -74,8 +75,15 @@ public class EquippedSlot : ItemSlot
         }
         else if (itemData.itemType == ItemType.TwoHanded)
         {
-            inventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].UnequipGear();
-            PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.EquipTwoHandedWeapon(itemData.objectPrefab, itemData);
+            if (!inventoryController.controller.PlayerStatsBlackboard.TwoHandedMastery)
+            {
+                inventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].UnequipGear();
+                playerController.WeaponController.EquipTwoHandedWeapon(itemData.objectPrefab, itemData);
+            }
+            else
+            {
+                playerController.WeaponController.EquipOneHandedWeapon(itemData.objectPrefab, itemData);
+            }
             //NewWeaponController.Instance.EquipTwoHandedWeapon(weapon);
         }
 
@@ -141,7 +149,7 @@ public class EquippedSlot : ItemSlot
                     return true;
                 break;
             case ItemType.TwoHanded:
-                if (slotType == Slot.MainHand)
+                if (slotType == Slot.MainHand || (slotType == Slot.OffHand && inventoryController.controller.PlayerStatsBlackboard.TwoHandedMastery))
                     return true;
                 break;
             case ItemType.Offhand:

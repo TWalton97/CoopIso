@@ -171,6 +171,7 @@ MonoBehaviour:
   emptySprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   slotImage: {fileID: 0}
   itemData:
+    itemID: 
     itemName: 
     quantity: 0
     sprite: {fileID: 0}
@@ -179,10 +180,12 @@ MonoBehaviour:
     vfxPrefab: {fileID: 0}
     itemType: 0
     data: {fileID: 0}
+    affixes: []
   selectedShader: {fileID: 2542150294197543265}
   slotInUse: 0
   isSelected: 0
   slotIndex: 0
+  inventoryController: {fileID: 0}
   previewObject: {fileID: 5834734391732416372}
   previewWindow: {fileID: 484471865465876282}
   selectable: {fileID: 2343838037956635415}
@@ -429,6 +432,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 136118861960382532, guid: 94f7d4269456b0745b540763c8cfd5da, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835283117628707450, guid: 94f7d4269456b0745b540763c8cfd5da, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835283117628707450, guid: 94f7d4269456b0745b540763c8cfd5da, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835283117628707450, guid: 94f7d4269456b0745b540763c8cfd5da, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835283117628707450, guid: 94f7d4269456b0745b540763c8cfd5da, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835283117628707450, guid: 94f7d4269456b0745b540763c8cfd5da, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}

@@ -29,6 +29,16 @@ public class PlayerStatsBlackboard : MonoBehaviour
     public float ResourceCurrent;
     public float ResourceMin;
 
+    [Header("Equipment Requirements")]
+    public bool CanEquipShields = false;
+
+    [Header("Attack Masteries")]
+    public bool UnarmedMastery = false;
+    public bool OneHandedMastery = false;
+    public bool TwoHandedMastery = false;
+    public bool DualWieldMastery = false;
+    public bool BowMastery = false;
+
     private void Start()
     {
         UpdateHealthStats(0, null);
@@ -54,6 +64,13 @@ public class PlayerStatsBlackboard : MonoBehaviour
     }
 
     private void UpdateHealthStats(int amount = 0, Entity controller = null)
+    {
+        if (HealthController == null) return;
+        MaximumHealth = HealthController.MaximumHealth;
+        CurrentHealth = HealthController.CurrentHealth;
+    }
+
+    private void UpdateHealthStats()
     {
         if (HealthController == null) return;
         MaximumHealth = HealthController.MaximumHealth;

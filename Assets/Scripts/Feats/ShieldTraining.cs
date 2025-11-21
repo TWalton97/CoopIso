@@ -1,19 +1,16 @@
-
 using System;
-
-public class Vigor : Feat
+public class ShieldTraining : Feat
 {
-    public override string FeatName { get; set; } = "Vigor";
-    public override string FeatDescription { get; set; } = "Increases your character's maximum health, increasing the amount of damage you can take before dying.";
-    public int[] HealthIncreasePerLevel = { 5, 10, 15, 20, 25 };
+    public override string FeatName { get; set; } = "Shield Training";
+    public override string FeatDescription { get; set; } = "Allows your character to equip shields.";
     public override int StartingFeatLevel { get; set; }
     public override int CurrentFeatLevel { get; set; } = 0;
-    public override int MaximumFeatLevel { get; set; } = 5;
-    public override int SkillPointsCostPerLevel { get; set; } = 1;
-    public override int SkillPointsCostIncreasePerLevel { get; set; } = 1;
+    public override int MaximumFeatLevel { get; set; } = 1;
+    public override int SkillPointsCostPerLevel { get; set; } = 2;
+    public override int SkillPointsCostIncreasePerLevel { get; set; } = 0;
 
 
-    public Vigor(int startingLevel = 0)
+    public ShieldTraining(int startingLevel = 0)
     {
         StartingFeatLevel = startingLevel;
     }
@@ -24,7 +21,7 @@ public class Vigor : Feat
 
         if (controller.experienceController.TrySpendSkillpoints(SkillPointsCostPerLevel))
         {
-            controller.playerHealthController.IncreaseMaximumHealth(HealthIncreasePerLevel[CurrentFeatLevel]);
+            controller.newPlayerController.PlayerStatsBlackboard.CanEquipShields = true;
             CurrentFeatLevel++;
             SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
             activatedSuccess?.Invoke();
@@ -35,7 +32,7 @@ public class Vigor : Feat
     {
         if (CurrentFeatLevel == MaximumFeatLevel) return;
 
-        controller.playerHealthController.IncreaseMaximumHealth(HealthIncreasePerLevel[CurrentFeatLevel]);
+        controller.newPlayerController.PlayerStatsBlackboard.CanEquipShields = true;
         CurrentFeatLevel++;
         SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
         activatedSuccess?.Invoke();
@@ -47,6 +44,6 @@ public class Vigor : Feat
         {
             return "Maximum Level Reached";
         }
-        return "Next Level: Increases maximum health by " + HealthIncreasePerLevel[CurrentFeatLevel];
+        return "Next Level: Allows your character to equip shields";
     }
 }

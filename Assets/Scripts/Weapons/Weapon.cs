@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
         this.itemID = itemID;
 
         spawnedWeaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemID);// as SpawnedItemDataBase.SpawnedWeaponsData;
-        
+
         if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedWeaponsData))
         {
             spawnedWeaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedWeaponsData;
@@ -56,6 +56,10 @@ public class Weapon : MonoBehaviour
     public virtual void Enter(Action endAction, int attackNum)
     {
         if (weaponAttackType == NewWeaponController.WeaponAttackTypes.OneHanded)
+        {
+            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
+        }
+        else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded && newPlayerController.WeaponController.instantiatedSecondaryWeapon != null)
         {
             newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
         }

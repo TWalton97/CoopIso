@@ -549,6 +549,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveMenuLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f12eb3b-2b83-45f0-954e-a1c5d2e9684a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveMenuRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d760e03-4dac-456a-aba7-8fdb949287d3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1002,6 +1020,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""DropItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b66857e1-1a45-45e5-95e2-7804163acec9"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""MoveMenuRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a9291c0-2307-462e-97aa-98248ac73943"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""MoveMenuLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1096,6 +1136,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_OpenEquipmentMenu = m_UI.FindAction("OpenEquipmentMenu", throwIfNotFound: true);
         m_UI_DropItem = m_UI.FindAction("DropItem", throwIfNotFound: true);
+        m_UI_MoveMenuLeft = m_UI.FindAction("MoveMenuLeft", throwIfNotFound: true);
+        m_UI_MoveMenuRight = m_UI.FindAction("MoveMenuRight", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -1301,6 +1343,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_OpenEquipmentMenu;
     private readonly InputAction m_UI_DropItem;
+    private readonly InputAction m_UI_MoveMenuLeft;
+    private readonly InputAction m_UI_MoveMenuRight;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1317,6 +1361,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @OpenEquipmentMenu => m_Wrapper.m_UI_OpenEquipmentMenu;
         public InputAction @DropItem => m_Wrapper.m_UI_DropItem;
+        public InputAction @MoveMenuLeft => m_Wrapper.m_UI_MoveMenuLeft;
+        public InputAction @MoveMenuRight => m_Wrapper.m_UI_MoveMenuRight;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1362,6 +1408,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DropItem.started += instance.OnDropItem;
             @DropItem.performed += instance.OnDropItem;
             @DropItem.canceled += instance.OnDropItem;
+            @MoveMenuLeft.started += instance.OnMoveMenuLeft;
+            @MoveMenuLeft.performed += instance.OnMoveMenuLeft;
+            @MoveMenuLeft.canceled += instance.OnMoveMenuLeft;
+            @MoveMenuRight.started += instance.OnMoveMenuRight;
+            @MoveMenuRight.performed += instance.OnMoveMenuRight;
+            @MoveMenuRight.canceled += instance.OnMoveMenuRight;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1402,6 +1454,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DropItem.started -= instance.OnDropItem;
             @DropItem.performed -= instance.OnDropItem;
             @DropItem.canceled -= instance.OnDropItem;
+            @MoveMenuLeft.started -= instance.OnMoveMenuLeft;
+            @MoveMenuLeft.performed -= instance.OnMoveMenuLeft;
+            @MoveMenuLeft.canceled -= instance.OnMoveMenuLeft;
+            @MoveMenuRight.started -= instance.OnMoveMenuRight;
+            @MoveMenuRight.performed -= instance.OnMoveMenuRight;
+            @MoveMenuRight.canceled -= instance.OnMoveMenuRight;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1492,5 +1550,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnOpenEquipmentMenu(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
+        void OnMoveMenuLeft(InputAction.CallbackContext context);
+        void OnMoveMenuRight(InputAction.CallbackContext context);
     }
 }
