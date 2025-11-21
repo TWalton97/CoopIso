@@ -7,185 +7,509 @@ AvatarMask:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PlayerUpperBody
-  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000001000000000000000100000001000000
+  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
   m_Elements:
   - m_Path: 
     m_Weight: 1
-  - m_Path: Armature
+  - m_Path: Arm Armor Type 1 Color 1
     m_Weight: 0
-  - m_Path: Armature/Root_M
+  - m_Path: Arm Armor Type 1 Color 2
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_L
+  - m_Path: Arm Armor Type 1 Color 3
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_L/Knee_L
+  - m_Path: Arm Armor Type 2 Color 1
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_L/Knee_L/Ankle_L
+  - m_Path: Arm Armor Type 2 Color 2
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_L/Knee_L/Ankle_L/Toes_L
+  - m_Path: Arm Armor Type 2 Color 3
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_L/Knee_L/Ankle_L/Toes_L/ToesEnd_L
+  - m_Path: Arm Armor Type 3 Color 1
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_R
+  - m_Path: Arm Armor Type 3 Color 2
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_R/Knee_R
+  - m_Path: Arm Armor Type 3 Color 3
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_R/Knee_R/Ankle_R
+  - m_Path: Arm Armor Type 4 Color 1
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_R/Knee_R/Ankle_R/Toes_R
+  - m_Path: Arm Armor Type 4 Color 2
     m_Weight: 0
-  - m_Path: Armature/Root_M/Hip_R/Knee_R/Ankle_R/Toes_R/ToesEnd_R
+  - m_Path: Arm Armor Type 4 Color 3
     m_Weight: 0
-  - m_Path: Armature/Root_M/Spine1_M
+  - m_Path: Arm Armor Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Arm Armor Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Arm Armor Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Base Character Mesh
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M
+  - m_Path: Base Character Root
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M
+  - m_Path: Base Character Root/spine_01
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Neck_M
+  - m_Path: Base Character Root/spine_01/spine_02
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Neck_M/Head_M
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Neck_M/Head_M/Eye_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Neck_M/Head_M/Eye_L/EyeEnd_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/neck
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Neck_M/Head_M/Eye_R
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/neck/head
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Neck_M/Head_M/Eye_R/EyeEnd_R
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Neck_M/Head_M/HeadEnd_M
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Neck_M/Head_M/Jaw_M
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Neck_M/Head_M/Jaw_M/JawEnd_M
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/index_01_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/jnt_shoulder_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/index_01_l/index_02_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/jnt_shoulder_L/jnt_shoulderEnd_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/index_01_l/index_02_l/index_03_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/middle_01_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/middle_01_l/middle_02_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/middle_01_l/middle_02_l/middle_03_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/IndexFinger1_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/pinky_01_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/IndexFinger1_L/IndexFinger2_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/pinky_01_l/pinky_02_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/IndexFinger1_L/IndexFinger2_L/IndexFinger3_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/pinky_01_l/pinky_02_l/pinky_03_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/IndexFinger1_L/IndexFinger2_L/IndexFinger3_L/IndexFinger4_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/ring_01_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/jointItemL
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/ring_01_l/ring_02_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/ring_01_l/ring_02_l/ring_03_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L/MiddleFinger2_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/thumb_01_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L/MiddleFinger2_L/MiddleFinger3_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/thumb_01_l/thumb_02_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L/MiddleFinger2_L/MiddleFinger3_L/MiddleFinger4_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_l/upperarm_l/forearm_l/hand_l/thumb_01_l/thumb_02_l/thumb_03_l
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/PinkyFinger1_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/PinkyFinger1_L/PinkyFinger2_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/PinkyFinger1_L/PinkyFinger2_L/PinkyFinger3_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/PinkyFinger1_L/PinkyFinger2_L/PinkyFinger3_L/PinkyFinger4_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/RingFinger1_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/index_01_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/RingFinger1_L/RingFinger2_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/index_01_r/index_02_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/RingFinger1_L/RingFinger2_L/RingFinger3_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/index_01_r/index_02_r/index_03_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/RingFinger1_L/RingFinger2_L/RingFinger3_L/RingFinger4_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/middle_01_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/middle_01_r/middle_02_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L/ThumbFinger2_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/middle_01_r/middle_02_r/middle_03_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L/ThumbFinger2_L/ThumbFinger3_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/pinky_01_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L/ThumbFinger2_L/ThumbFinger3_L/ThumbFinger4_L
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/pinky_01_r/pinky_02_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/pinky_01_r/pinky_02_r/pinky_03_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/jnt_shoulder_R
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/ring_01_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/jnt_shoulder_R/jnt_shoulderEnd_R
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/ring_01_r/ring_02_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/ring_01_r/ring_02_r/ring_03_r
     m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/IndexFinger1_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/IndexFinger1_R/IndexFinger2_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/IndexFinger1_R/IndexFinger2_R/IndexFinger3_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/IndexFinger1_R/IndexFinger2_R/IndexFinger3_R/IndexFinger4_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/jointItemR
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R/MiddleFinger2_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R/MiddleFinger2_R/MiddleFinger3_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R/MiddleFinger2_R/MiddleFinger3_R/MiddleFinger4_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/PinkyFinger1_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/PinkyFinger1_R/PinkyFinger2_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/PinkyFinger1_R/PinkyFinger2_R/PinkyFinger3_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/PinkyFinger1_R/PinkyFinger2_R/PinkyFinger3_R/PinkyFinger4_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/RingFinger1_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/RingFinger1_R/RingFinger2_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/RingFinger1_R/RingFinger2_R/RingFinger3_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/RingFinger1_R/RingFinger2_R/RingFinger3_R/RingFinger4_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R/ThumbFinger2_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R/ThumbFinger2_R/ThumbFinger3_R
-    m_Weight: 1
-  - m_Path: Armature/Root_M/Spine1_M/Spine2_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R/ThumbFinger2_R/ThumbFinger3_R/ThumbFinger4_R
-    m_Weight: 1
-  - m_Path: Meshes
-    m_Weight: 1
-  - m_Path: Meshes/Accessories
-    m_Weight: 1
-  - m_Path: Meshes/Accessories/Underwear
-    m_Weight: 1
-  - m_Path: Meshes/Body
-    m_Weight: 1
-  - m_Path: Meshes/Body/Arms
-    m_Weight: 1
-  - m_Path: Meshes/Body/Chest
-    m_Weight: 1
-  - m_Path: Meshes/Body/Feet
-    m_Weight: 1
-  - m_Path: Meshes/Body/Hands
-    m_Weight: 1
-  - m_Path: Meshes/Body/Legs
-    m_Weight: 1
-  - m_Path: Meshes/Body/Neck
-    m_Weight: 1
-  - m_Path: Meshes/Eyes
-    m_Weight: 1
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/thumb_01_r
+    m_Weight: 1
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/thumb_01_r/thumb_02_r
+    m_Weight: 1
+  - m_Path: Base Character Root/spine_01/spine_02/spine_03/spine_04/shoulder_r/upperarm_r/forearm_r/hand_r/thumb_01_r/thumb_02_r/thumb_03_r
+    m_Weight: 1
+  - m_Path: Base Character Root/spine_01/upperleg_l
+    m_Weight: 1
+  - m_Path: Base Character Root/spine_01/upperleg_l/shin_l
+    m_Weight: 0
+  - m_Path: Base Character Root/spine_01/upperleg_l/shin_l/foot_l
+    m_Weight: 0
+  - m_Path: Base Character Root/spine_01/upperleg_l/shin_l/foot_l/toes_l
+    m_Weight: 0
+  - m_Path: Base Character Root/spine_01/upperleg_r
+    m_Weight: 1
+  - m_Path: Base Character Root/spine_01/upperleg_r/shin_r
+    m_Weight: 0
+  - m_Path: Base Character Root/spine_01/upperleg_r/shin_r/foot_r
+    m_Weight: 0
+  - m_Path: Base Character Root/spine_01/upperleg_r/shin_r/foot_r/toes_r
+    m_Weight: 0
+  - m_Path: Belt Armor Type 1 Color 1
+    m_Weight: 0
+  - m_Path: Belt Armor Type 1 Color 2
+    m_Weight: 0
+  - m_Path: Belt Armor Type 1 Color 3
+    m_Weight: 0
+  - m_Path: Belt Armor Type 2 Color 1
+    m_Weight: 0
+  - m_Path: Belt Armor Type 2 Color 2
+    m_Weight: 0
+  - m_Path: Belt Armor Type 2 Color 3
+    m_Weight: 0
+  - m_Path: Belt Armor Type 3 Color 1
+    m_Weight: 0
+  - m_Path: Belt Armor Type 3 Color 2
+    m_Weight: 0
+  - m_Path: Belt Armor Type 3 Color 3
+    m_Weight: 0
+  - m_Path: Belt Armor Type 4 Color 1
+    m_Weight: 0
+  - m_Path: Belt Armor Type 4 Color 2
+    m_Weight: 0
+  - m_Path: Belt Armor Type 4 Color 3
+    m_Weight: 0
+  - m_Path: Belt Armor Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Belt Armor Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Belt Armor Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Chest Armor Type 1 Color 1
+    m_Weight: 0
+  - m_Path: Chest Armor Type 1 Color 2
+    m_Weight: 0
+  - m_Path: Chest Armor Type 1 Color 3
+    m_Weight: 0
+  - m_Path: Chest Armor Type 2 Color 1
+    m_Weight: 0
+  - m_Path: Chest Armor Type 2 Color 2
+    m_Weight: 0
+  - m_Path: Chest Armor Type 2 Color 3
+    m_Weight: 0
+  - m_Path: Chest Armor Type 3 Color 1
+    m_Weight: 0
+  - m_Path: Chest Armor Type 3 Color 2
+    m_Weight: 0
+  - m_Path: Chest Armor Type 3 Color 3
+    m_Weight: 0
+  - m_Path: Chest Armor Type 4 Color 1
+    m_Weight: 0
+  - m_Path: Chest Armor Type 4 Color 2
+    m_Weight: 0
+  - m_Path: Chest Armor Type 4 Color 3
+    m_Weight: 0
+  - m_Path: Chest Armor Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Chest Armor Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Chest Armor Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Ears Type 1
+    m_Weight: 0
+  - m_Path: Ears Type 2
+    m_Weight: 0
+  - m_Path: Eyebrow Type 1 Color 1
+    m_Weight: 0
+  - m_Path: Eyebrow Type 1 Color 2
+    m_Weight: 0
+  - m_Path: Eyebrow Type 1 Color 3
+    m_Weight: 0
+  - m_Path: Eyebrow Type 1 Color 4
+    m_Weight: 0
+  - m_Path: Eyebrow Type 1 Color 5
+    m_Weight: 0
+  - m_Path: Eyebrow Type 2 Color 1
+    m_Weight: 0
+  - m_Path: Eyebrow Type 2 Color 2
+    m_Weight: 0
+  - m_Path: Eyebrow Type 2 Color 3
+    m_Weight: 0
+  - m_Path: Eyebrow Type 2 Color 4
+    m_Weight: 0
+  - m_Path: Eyebrow Type 2 Color 5
+    m_Weight: 0
+  - m_Path: Eyebrow Type 3 Color 1
+    m_Weight: 0
+  - m_Path: Eyebrow Type 3 Color 2
+    m_Weight: 0
+  - m_Path: Eyebrow Type 3 Color 3
+    m_Weight: 0
+  - m_Path: Eyebrow Type 3 Color 4
+    m_Weight: 0
+  - m_Path: Eyebrow Type 3 Color 5
+    m_Weight: 0
+  - m_Path: Eyebrow Type 4 Color 1
+    m_Weight: 0
+  - m_Path: Eyebrow Type 4 Color 2
+    m_Weight: 0
+  - m_Path: Eyebrow Type 4 Color 3
+    m_Weight: 0
+  - m_Path: Eyebrow Type 4 Color 4
+    m_Weight: 0
+  - m_Path: Eyebrow Type 4 Color 5
+    m_Weight: 0
+  - m_Path: Eyebrow Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Eyebrow Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Eyebrow Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Eyebrow Type 5 Color 4
+    m_Weight: 0
+  - m_Path: Eyebrow Type 5 Color 5
+    m_Weight: 0
+  - m_Path: Eyes Type 1 Color 1
+    m_Weight: 0
+  - m_Path: Eyes Type 1 Color 2
+    m_Weight: 0
+  - m_Path: Eyes Type 1 Color 3
+    m_Weight: 0
+  - m_Path: Eyes Type 1 Color 4
+    m_Weight: 0
+  - m_Path: Eyes Type 1 Color 5
+    m_Weight: 0
+  - m_Path: Eyes Type 2 Color 1
+    m_Weight: 0
+  - m_Path: Eyes Type 2 Color 2
+    m_Weight: 0
+  - m_Path: Eyes Type 2 Color 3
+    m_Weight: 0
+  - m_Path: Eyes Type 2 Color 4
+    m_Weight: 0
+  - m_Path: Eyes Type 2 Color 5
+    m_Weight: 0
+  - m_Path: Eyes Type 3 Color 1
+    m_Weight: 0
+  - m_Path: Eyes Type 3 Color 2
+    m_Weight: 0
+  - m_Path: Eyes Type 3 Color 3
+    m_Weight: 0
+  - m_Path: Eyes Type 3 Color 4
+    m_Weight: 0
+  - m_Path: Eyes Type 3 Color 5
+    m_Weight: 0
+  - m_Path: Eyes Type 4 Color 1
+    m_Weight: 0
+  - m_Path: Eyes Type 4 Color 2
+    m_Weight: 0
+  - m_Path: Eyes Type 4 Color 3
+    m_Weight: 0
+  - m_Path: Eyes Type 4 Color 4
+    m_Weight: 0
+  - m_Path: Eyes Type 4 Color 5
+    m_Weight: 0
+  - m_Path: Eyes Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Eyes Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Eyes Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Eyes Type 5 Color 4
+    m_Weight: 0
+  - m_Path: Eyes Type 5 Color 5
+    m_Weight: 0
+  - m_Path: Face Hair Type 1 Color 1
+    m_Weight: 0
+  - m_Path: Face Hair Type 1 Color 2
+    m_Weight: 0
+  - m_Path: Face Hair Type 1 Color 3
+    m_Weight: 0
+  - m_Path: Face Hair Type 1 Color 4
+    m_Weight: 0
+  - m_Path: Face Hair Type 1 Color 5
+    m_Weight: 0
+  - m_Path: Face Hair Type 2 Color 1
+    m_Weight: 0
+  - m_Path: Face Hair Type 2 Color 2
+    m_Weight: 0
+  - m_Path: Face Hair Type 2 Color 3
+    m_Weight: 0
+  - m_Path: Face Hair Type 2 Color 4
+    m_Weight: 0
+  - m_Path: Face Hair Type 2 Color 5
+    m_Weight: 0
+  - m_Path: Face Hair Type 3 Color 1
+    m_Weight: 0
+  - m_Path: Face Hair Type 3 Color 2
+    m_Weight: 0
+  - m_Path: Face Hair Type 3 Color 3
+    m_Weight: 0
+  - m_Path: Face Hair Type 3 Color 4
+    m_Weight: 0
+  - m_Path: Face Hair Type 3 Color 5
+    m_Weight: 0
+  - m_Path: Face Hair Type 4 Color 1
+    m_Weight: 0
+  - m_Path: Face Hair Type 4 Color 2
+    m_Weight: 0
+  - m_Path: Face Hair Type 4 Color 3
+    m_Weight: 0
+  - m_Path: Face Hair Type 4 Color 4
+    m_Weight: 0
+  - m_Path: Face Hair Type 4 Color 5
+    m_Weight: 0
+  - m_Path: Face Hair Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Face Hair Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Face Hair Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Face Hair Type 5 Color 4
+    m_Weight: 0
+  - m_Path: Face Hair Type 5 Color 5
+    m_Weight: 0
+  - m_Path: Feet Armor Type 1 Color 1
+    m_Weight: 0
+  - m_Path: Feet Armor Type 1 Color 2
+    m_Weight: 0
+  - m_Path: Feet Armor Type 1 Color 3
+    m_Weight: 0
+  - m_Path: Feet Armor Type 2 Color 1
+    m_Weight: 0
+  - m_Path: Feet Armor Type 2 Color 2
+    m_Weight: 0
+  - m_Path: Feet Armor Type 2 Color 3
+    m_Weight: 0
+  - m_Path: Feet Armor Type 3 Color 1
+    m_Weight: 0
+  - m_Path: Feet Armor Type 3 Color 2
+    m_Weight: 0
+  - m_Path: Feet Armor Type 3 Color 3
+    m_Weight: 0
+  - m_Path: Feet Armor Type 4 Color 1
+    m_Weight: 0
+  - m_Path: Feet Armor Type 4 Color 2
+    m_Weight: 0
+  - m_Path: Feet Armor Type 4 Color 3
+    m_Weight: 0
+  - m_Path: Feet Armor Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Feet Armor Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Feet Armor Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Hair Type 1 Color 1
+    m_Weight: 0
+  - m_Path: Hair Type 1 Color 2
+    m_Weight: 0
+  - m_Path: Hair Type 1 Color 3
+    m_Weight: 0
+  - m_Path: Hair Type 1 Color 4
+    m_Weight: 0
+  - m_Path: Hair Type 1 Color 5
+    m_Weight: 0
+  - m_Path: Hair Type 2 Color 1
+    m_Weight: 0
+  - m_Path: Hair Type 2 Color 2
+    m_Weight: 0
+  - m_Path: Hair Type 2 Color 3
+    m_Weight: 0
+  - m_Path: Hair Type 2 Color 4
+    m_Weight: 0
+  - m_Path: Hair Type 2 Color 5
+    m_Weight: 0
+  - m_Path: Hair Type 3 Color 1
+    m_Weight: 0
+  - m_Path: Hair Type 3 Color 2
+    m_Weight: 0
+  - m_Path: Hair Type 3 Color 3
+    m_Weight: 0
+  - m_Path: Hair Type 3 Color 4
+    m_Weight: 0
+  - m_Path: Hair Type 3 Color 5
+    m_Weight: 0
+  - m_Path: Hair Type 4 Color 1
+    m_Weight: 0
+  - m_Path: Hair Type 4 Color 2
+    m_Weight: 0
+  - m_Path: Hair Type 4 Color 3
+    m_Weight: 0
+  - m_Path: Hair Type 4 Color 4
+    m_Weight: 0
+  - m_Path: Hair Type 4 Color 5
+    m_Weight: 0
+  - m_Path: Hair Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Hair Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Hair Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Hair Type 5 Color 4
+    m_Weight: 0
+  - m_Path: Hair Type 5 Color 5
+    m_Weight: 0
+  - m_Path: Head Armor Type 1 Color 1
+    m_Weight: 0
+  - m_Path: Head Armor Type 1 Color 2
+    m_Weight: 0
+  - m_Path: Head Armor Type 1 Color 3
+    m_Weight: 0
+  - m_Path: Head Armor Type 2 Color 1
+    m_Weight: 0
+  - m_Path: Head Armor Type 2 Color 2
+    m_Weight: 0
+  - m_Path: Head Armor Type 2 Color 3
+    m_Weight: 0
+  - m_Path: Head Armor Type 3 Color 1
+    m_Weight: 0
+  - m_Path: Head Armor Type 3 Color 2
+    m_Weight: 0
+  - m_Path: Head Armor Type 3 Color 3
+    m_Weight: 0
+  - m_Path: Head Armor Type 4 Color 1
+    m_Weight: 0
+  - m_Path: Head Armor Type 4 Color 2
+    m_Weight: 0
+  - m_Path: Head Armor Type 4 Color 3
+    m_Weight: 0
+  - m_Path: Head Armor Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Head Armor Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Head Armor Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Legs Armor Type 1 Color 1
+    m_Weight: 0
+  - m_Path: Legs Armor Type 1 Color 2
+    m_Weight: 0
+  - m_Path: Legs Armor Type 1 Color 3
+    m_Weight: 0
+  - m_Path: Legs Armor Type 2 Color 1
+    m_Weight: 0
+  - m_Path: Legs Armor Type 2 Color 2
+    m_Weight: 0
+  - m_Path: Legs Armor Type 2 Color 3
+    m_Weight: 0
+  - m_Path: Legs Armor Type 3 Color 1
+    m_Weight: 0
+  - m_Path: Legs Armor Type 3 Color 2
+    m_Weight: 0
+  - m_Path: Legs Armor Type 3 Color 3
+    m_Weight: 0
+  - m_Path: Legs Armor Type 4 Color 1
+    m_Weight: 0
+  - m_Path: Legs Armor Type 4 Color 2
+    m_Weight: 0
+  - m_Path: Legs Armor Type 4 Color 3
+    m_Weight: 0
+  - m_Path: Legs Armor Type 5 Color 1
+    m_Weight: 0
+  - m_Path: Legs Armor Type 5 Color 2
+    m_Weight: 0
+  - m_Path: Legs Armor Type 5 Color 3
+    m_Weight: 0
+  - m_Path: Nose Type 1
+    m_Weight: 0
+  - m_Path: Nose Type 2
+    m_Weight: 0
+  - m_Path: Nose Type 3
+    m_Weight: 0
+  - m_Path: Nose Type 4
+    m_Weight: 0
+  - m_Path: Nose Type 5
+    m_Weight: 0

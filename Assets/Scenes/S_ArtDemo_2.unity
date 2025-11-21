@@ -9583,6 +9583,9 @@ MonoBehaviour:
   - {fileID: 1441066551765538833, guid: aeac89239d3dcbc42b2c8e91c579afff, type: 3}
   - {fileID: 7985580861925192519, guid: 19074bbd346371443ad9ca2acc7efacd, type: 3}
   - {fileID: 4845004349861385238, guid: 0ba85ec1da2ebd441ad77e5178783e47, type: 3}
+  - {fileID: 6325581541471828504, guid: d96448a32dc0e2c4cbe4993438dccba1, type: 3}
+  - {fileID: 1223344451551807704, guid: b7683252bebe81f4c93e176b88f0a486, type: 3}
+  - {fileID: 4630488950179993611, guid: b0cd6b04a9adaf746be0764bfd4b1953, type: 3}
 --- !u!1001 &877881353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11232,16 +11235,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: itemsToSpawn.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: itemsToSpawn.Array.data[0]
       value: 
-      objectReference: {fileID: 8141692574711525087, guid: db4bc9c57c5859b488b47bca7839372b, type: 3}
+      objectReference: {fileID: 8475685219581847362, guid: 8714d47c60ac80c48ae77c8ca9dd2967, type: 3}
     - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: itemsToSpawn.Array.data[1]
       value: 
-      objectReference: {fileID: 7244810151996339239, guid: fee8c54116d6d05409bc9cd4b23960a6, type: 3}
+      objectReference: {fileID: 1060900815880863096, guid: c071088d36a89504db4669b19c753c83, type: 3}
+    - target: {fileID: 8043813026218414691, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
+      propertyPath: itemsToSpawn.Array.data[2]
+      value: 
+      objectReference: {fileID: 4105654304781387039, guid: eba1a490f17d0b943b617cbc20fe5536, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

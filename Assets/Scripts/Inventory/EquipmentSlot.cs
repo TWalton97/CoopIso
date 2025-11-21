@@ -72,7 +72,7 @@ public class EquipmentSlot : ItemSlot
                         offHandSlot.UnequipGear();
                     }
                 }
-                else if (mainHandSlot.equippedWeaponType == ItemType.OneHanded)
+                else if (mainHandSlot.equippedWeaponType == ItemType.OneHanded || mainHandSlot.equippedWeaponType == ItemType.Bow)
                 {
                     mainHandSlot.EquipGear(itemData);
                     offHandSlot.UnequipGear();
@@ -102,6 +102,10 @@ public class EquipmentSlot : ItemSlot
                     offHandSlot.UnequipGear();
                 }
             }
+            else if (mainHandSlot.equippedWeaponType == ItemType.Bow)
+            {
+                mainHandSlot.EquipGear(itemData);
+            }
             else if (!offHandSlot.slotInUse)
             {
                 offHandSlot.EquipGear(itemData);
@@ -114,9 +118,18 @@ public class EquipmentSlot : ItemSlot
         if (itemData.itemType == ItemType.Offhand)
         {
             offHandSlot.EquipGear(itemData);
-            if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
+            if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded && !inventoryController.controller.PlayerStatsBlackboard.TwoHandedMastery)
             {
                 mainHandSlot.UnequipGear();
+            }
+        }
+
+        if (itemData.itemType == ItemType.Bow)
+        {
+            mainHandSlot.EquipGear(itemData);
+            if (offHandSlot.slotInUse)
+            {
+                offHandSlot.UnequipGear();
             }
         }
         HidePreview();

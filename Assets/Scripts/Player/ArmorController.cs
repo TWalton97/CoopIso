@@ -20,6 +20,11 @@ public class ArmorController : MonoBehaviour
     private EquippedArmor instantiatedHelmet;
     public Item StartingHelmet;
 
+    [Header("Legs")]
+    public Transform legsTransform;
+    private EquippedArmor instantiatedLegs;
+    public Item StartingLegs;
+
     private bool StarterItemsEquipped = false;
 
     public class EquippedArmor
@@ -89,6 +94,31 @@ public class ArmorController : MonoBehaviour
         }
     }
 
+    public void EquipLegs(GameObject legsPrefab, ItemData itemData)
+    {
+        if (instantiatedLegs == null)
+        {
+            GameObject obj = Instantiate(legsPrefab, legsTransform.position, Quaternion.identity, legsTransform);
+            SkinnedMeshRenderer skinnedMeshRenderer = obj.GetComponent<SkinnedMeshRenderer>();
+            skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.RootBone;
+            skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.Bones;
+            instantiatedLegs = new EquippedArmor(obj, itemData);
+            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            playerHealthController.UpdateArmorAmount(spawnedArmorData.armorAmount);
+        }
+    }
+
+    public void UnequipLegs()
+    {
+        if (instantiatedLegs != null)
+        {
+            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(instantiatedLegs.itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            playerHealthController.UpdateArmorAmount(-spawnedArmorData.armorAmount);
+            Destroy(instantiatedLegs.instantiatedObject);
+            instantiatedLegs = null;
+        }
+    }
+
 
     public void EquipStarterItems()
     {
@@ -109,6 +139,14 @@ public class ArmorController : MonoBehaviour
             starterHelmet.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(starterHelmet.itemData);
             newPlayerController.InventoryController.FindEquippedSlotOfType(Slot.Head)[0].EquipGear(starterHelmet.itemData);
             Destroy(starterHelmet.gameObject);
+        }
+
+        if (StartingLegs != null)
+        {
+            Item starterLegs = Instantiate(StartingLegs);
+            starterLegs.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(starterLegs.itemData);
+            newPlayerController.InventoryController.FindEquippedSlotOfType(Slot.Legs)[0].EquipGear(starterLegs.itemData);
+            Destroy(starterLegs.gameObject);
         }
     }
 

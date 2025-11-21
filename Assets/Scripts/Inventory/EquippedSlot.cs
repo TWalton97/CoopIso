@@ -67,9 +67,16 @@ public class EquippedSlot : ItemSlot
         {
             playerController.WeaponController.EquipOffhand(itemData.objectPrefab, itemData);
             EquippedSlot mainHandSlot = inventoryController.FindEquippedSlotOfType(Slot.MainHand)[0];
-            if (mainHandSlot.slotInUse && mainHandSlot.itemData.itemType == ItemType.TwoHanded)
+            if (mainHandSlot.slotInUse)
             {
-                mainHandSlot.UnequipGear();
+                if (mainHandSlot.itemData.itemType == ItemType.TwoHanded && !playerController.PlayerStatsBlackboard.TwoHandedMastery)
+                {
+                    mainHandSlot.UnequipGear();
+                }
+                else if (mainHandSlot.itemData.itemType == ItemType.Bow)
+                {
+                    mainHandSlot.UnequipGear();
+                }
             }
             //NewWeaponController.Instance.EquipOffhand(weapon);
         }
@@ -86,6 +93,11 @@ public class EquippedSlot : ItemSlot
             }
             //NewWeaponController.Instance.EquipTwoHandedWeapon(weapon);
         }
+        else if (itemData.itemType == ItemType.Bow)
+        {
+            inventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].UnequipGear();
+            playerController.WeaponController.EquipTwoHandedWeapon(itemData.objectPrefab, itemData);
+        }
 
         if (itemData.itemType == ItemType.Body)
         {
@@ -94,6 +106,10 @@ public class EquippedSlot : ItemSlot
         else if (itemData.itemType == ItemType.Head)
         {
             playerController.ArmorController.EquipHelmet(itemData.objectPrefab, itemData);
+        }
+        else if (itemData.itemType == ItemType.Legs)
+        {
+            playerController.ArmorController.EquipLegs(itemData.objectPrefab, itemData);
         }
 
         slotInUse = true;
@@ -135,6 +151,9 @@ public class EquippedSlot : ItemSlot
                 break;
             case Slot.Head:
                 playerController.ArmorController.UnequipHelmet();
+                break;
+            case Slot.Legs:
+                playerController.ArmorController.UnequipLegs();
                 break;
         }
         HidePreview();
