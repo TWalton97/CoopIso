@@ -62,6 +62,7 @@ public class ItemData
     public Sprite sprite;
     [TextArea] public string itemDescription;
     public GameObject objectPrefab;
+    public GameObject floorObjectPrefab;
     public GameObject vfxPrefab;
     public ItemType itemType;
     public ItemSO data;

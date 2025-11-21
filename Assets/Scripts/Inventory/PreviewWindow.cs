@@ -22,9 +22,8 @@ public class PreviewWindow : MonoBehaviour
             WeaponDataSO weaponData = itemData.data as WeaponDataSO;
             SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
             ItemStats.text =
-            "Weapon Damage: " + spawnedWeaponsData.weaponMinDamage + "-" + spawnedWeaponsData.weaponMaxDamage +
-            "\nAttacks per Second: " + spawnedWeaponsData.attacksPerSecond.ToString("0.00") +
-            "\nMovement Speed: " + weaponData.MovementSpeedMultiplierDuringAttack +
+            "Weapon Damage: " + weaponData.WeaponMinDamage + "-" + weaponData.WeaponMaxDamage + " <color=#FFE500>(" + spawnedWeaponsData.weaponMinDamage + "-" + spawnedWeaponsData.weaponMaxDamage + ")</color>" +
+            "\nAttacks per Second: " + weaponData.AttacksPerSecond + " <color=#FFE500>(" + spawnedWeaponsData.attacksPerSecond.ToString("0.00") + ")</color>" +
             "\nDPS: " + ((spawnedWeaponsData.weaponMinDamage + spawnedWeaponsData.weaponMaxDamage) / 2 * spawnedWeaponsData.attacksPerSecond).ToString("0.00");
             ItemAffixes.text = BuildAffixString(itemData);
         }
@@ -41,8 +40,8 @@ public class PreviewWindow : MonoBehaviour
             ShieldSO shieldData = itemData.data as ShieldSO;
             List<ShieldAffix> shieldAffixes = AffixListConverter.ConvertListIntoShieldAffixes(itemData.affixes);
             ItemStats.text =
-            "BlockAngle: " + (shieldData.BlockAngle + AffixStatCalculator.CalculateBlockAngle(shieldAffixes)).ToString() +
-            "\nBlockAmount: " + (shieldData.BlockAmount + AffixStatCalculator.CalculateBlockAmount(shieldAffixes)).ToString();
+            "BlockAngle: " + shieldData.BlockAngle + " <color=#FFE500>(" + (shieldData.BlockAngle + AffixStatCalculator.CalculateBlockAngle(shieldAffixes)).ToString() + ")</color>" +
+            "\nBlockAmount: " + shieldData.BlockAmount + " <color=#FFE500>(" + (shieldData.BlockAmount + AffixStatCalculator.CalculateBlockAmount(shieldAffixes)).ToString() + ")</color>";
             ItemAffixes.text = BuildAffixString(itemData);
         }
         else if (itemData.data is BowSO)
@@ -50,11 +49,19 @@ public class PreviewWindow : MonoBehaviour
             BowSO weaponData = itemData.data as BowSO;
             SpawnedItemDataBase.SpawnedBowData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedBowData;
             ItemStats.text =
-            "Weapon Damage: " + spawnedWeaponsData.weaponMinDamage + "-" + spawnedWeaponsData.weaponMaxDamage +
-            "\nAttacks per Second: " + spawnedWeaponsData.attacksPerSecond.ToString("0.00") +
-            "\nMovement Speed: " + weaponData.MovementSpeedMultiplierDuringAttack +
-            "\nNumber of Projectiles: " + spawnedWeaponsData.numberOfProjectiles +
+            "Weapon Damage: " + weaponData.WeaponMinDamage + "-" + weaponData.WeaponMaxDamage + " <color=#FFE500>(" + spawnedWeaponsData.weaponMinDamage + "-" + spawnedWeaponsData.weaponMaxDamage + ")</color>" +
+            "\nAttacks per Second: " + weaponData.AttacksPerSecond + " <color=#FFE500>(" + spawnedWeaponsData.attacksPerSecond.ToString("0.00") + ")</color>" +
+            "\nNumber of Projectiles: " + weaponData.NumberOfProjectiles + " <color=#FFE500>(" + spawnedWeaponsData.numberOfProjectiles + ")</color>" +
             "\nDPS: " + ((spawnedWeaponsData.weaponMinDamage + spawnedWeaponsData.weaponMaxDamage) / 2 * spawnedWeaponsData.attacksPerSecond).ToString("0.00");
+            ItemAffixes.text = BuildAffixString(itemData);
+        }
+        else if (itemData.data is ArmorSO)
+        {
+            ArmorSO armorData = itemData.data as ArmorSO;
+            SpawnedItemDataBase.SpawnedArmorData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            ItemStats.text =
+            "Armor Type: " + spawnedWeaponsData.armorType.ToString() +
+            "\nArmor Amount: " + armorData.ArmorAmount + " <color=#FFE500>(" + spawnedWeaponsData.armorAmount + ")</color>";
             ItemAffixes.text = BuildAffixString(itemData);
         }
         else

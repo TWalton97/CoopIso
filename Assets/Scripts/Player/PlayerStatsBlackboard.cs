@@ -5,12 +5,15 @@ using Unity.VisualScripting;
 public class PlayerStatsBlackboard : MonoBehaviour
 {
     [Header("Health")]
-    public HealthController HealthController;
+    public PlayerHealthController HealthController;
 
     public float MaximumHealth;
     public float CurrentHealth;
 
     public Action OnHealthChanged;
+
+    [Header("Defenses")]
+    public int ArmorAmount;
 
     [Header("Movement")]
     public NewPlayerController PlayerController;
@@ -31,6 +34,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
     [Header("Equipment Requirements")]
     public bool CanEquipShields = false;
+    public ArmorType armorType;
 
     [Header("Attack Masteries")]
     public bool UnarmedMastery = false;
@@ -53,6 +57,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         WeaponController.OnWeaponUpdated += UpdateAttackStats;
         ResourceController.resource.OnResourceValueChanged += UpdateResourceStats;
         HealthController.OnMaximumHealthChanged += UpdateHealthStats;
+        HealthController.OnArmorAmountChanged += UpdateArmorStats;
     }
 
     private void OnDisable()
@@ -61,6 +66,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         WeaponController.OnWeaponUpdated -= UpdateAttackStats;
         ResourceController.resource.OnResourceValueChanged -= UpdateResourceStats;
         HealthController.OnMaximumHealthChanged -= UpdateHealthStats;
+        HealthController.OnArmorAmountChanged -= UpdateArmorStats;
     }
 
     private void UpdateHealthStats(int amount = 0, Entity controller = null)
@@ -75,6 +81,12 @@ public class PlayerStatsBlackboard : MonoBehaviour
         if (HealthController == null) return;
         MaximumHealth = HealthController.MaximumHealth;
         CurrentHealth = HealthController.CurrentHealth;
+    }
+
+    private void UpdateArmorStats()
+    {
+        if (HealthController == null) return;
+        ArmorAmount = HealthController.ArmorAmount;
     }
 
     private void UpdateMovementSpeed()

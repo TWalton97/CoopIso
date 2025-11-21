@@ -140,7 +140,15 @@ public class EquipmentSlot : ItemSlot
         Item newItem = itemToDrop.AddComponent<Item>();
         newItem.itemData = itemData;
 
-        Instantiate(itemData.objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
+        if (itemData.floorObjectPrefab == null)
+        {
+            Instantiate(itemData.objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
+        }
+        else
+        {
+            Instantiate(itemData.floorObjectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
+        }
+
 
         //Add collider
         itemToDrop.AddComponent<SphereCollider>().isTrigger = true;

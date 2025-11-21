@@ -4,7 +4,7 @@ using System;
 public class Vigor : Feat
 {
     public override string FeatName { get; set; } = "Vigor";
-    public override string FeatDescription { get; set; } = "Increases your character's maximum health, increasing the amount of damage you can take before dying.";
+    public override string FeatDescription { get; set; } = "Increases the amount of damage your character can take before dying.";
     public int[] HealthIncreasePerLevel = { 5, 10, 15, 20, 25 };
     public override int StartingFeatLevel { get; set; }
     public override int CurrentFeatLevel { get; set; } = 0;

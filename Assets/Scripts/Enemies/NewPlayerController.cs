@@ -12,6 +12,7 @@ public class NewPlayerController : Entity
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public NewWeaponController WeaponController;
+    public ArmorController ArmorController;
     public ExperienceController ExperienceController { get; private set; }
     public PlayerInputController PlayerInputController { get; private set; }
     public GroundCheck GroundCheck { get; private set; }

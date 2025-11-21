@@ -33,6 +33,13 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
                 itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomBowAffix());
             }
         }
+        else if (itemBase.itemData.data.GetType() == typeof(ArmorSO))
+        {
+            for (int i = 0; i < numAffixes; i++)
+            {
+                itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomArmorAffix());
+            }
+        }
         itemBase.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(numAffixes);
         itemBase.itemData.itemID = RegisterItemToDatabase(itemBase.itemData);
 
@@ -49,14 +56,16 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         float roll = UnityEngine.Random.Range(0f, 100f);
 
 
-        if (roll < rarityValue * 0.5f)
+        if (roll < rarityValue * 0.05f)
             return 4;
-        else if (roll < rarityValue * 0.7f)
+        else if (roll < rarityValue * 0.2f)
             return 3;
-        else if (roll < rarityValue * 0.9f)
+        else if (roll < rarityValue * 0.4f)
             return 2;
-        else
+        else if (roll < rarityValue * 0.9f)
             return 1;
+        else
+            return 0;
     }
 
     public string RegisterItemToDatabase(ItemData itemData)
@@ -71,9 +80,8 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             int weaponMaxDamage = weaponData.WeaponMaxDamage + AffixStatCalculator.CalculateMaxDamage(weaponAffixes);
             float attacksPerSecond = weaponData.AttacksPerSecond * AffixStatCalculator.CalculateAttackSpeed(weaponAffixes);
             int numberOfAttacksInCombo = weaponData.NumberOfAttacksInCombo;
-            float MovementSpeedDuringAttack = weaponData.MovementSpeedMultiplierDuringAttack;
 
-            SpawnedWeaponsData data = new SpawnedWeaponsData(id, weaponMinDamage, weaponMaxDamage, attacksPerSecond, MovementSpeedDuringAttack);
+            SpawnedWeaponsData data = new SpawnedWeaponsData(id, weaponMinDamage, weaponMaxDamage, attacksPerSecond);
             spawnedItemData.Add(id, data);
         }
         else if (itemData.data.GetType() == typeof(ShieldSO))
@@ -97,6 +105,14 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             int numberOfProjectiles = weaponData.NumberOfProjectiles + AffixStatCalculator.CalculateProjectileCount(weaponAffixes);
 
             SpawnedBowData data = new SpawnedBowData(id, weaponMinDamage, weaponMaxDamage, attacksPerSecond, MovementSpeedDuringAttack, numberOfProjectiles);
+            spawnedItemData.Add(id, data);
+        }
+        else if (itemData.data.GetType() == typeof(ArmorSO))
+        {
+            ArmorSO armorData = itemData.data as ArmorSO;
+            List<ArmorAffix> armorAffixes = AffixListConverter.ConvertListIntoArmorAffixes(itemData.affixes);
+            int increasedArmor = Mathf.CeilToInt(armorData.ArmorAmount * AffixStatCalculator.CalculateArmor(armorAffixes));
+            SpawnedArmorData data = new SpawnedArmorData(id, armorData.ArmorType, increasedArmor);
             spawnedItemData.Add(id, data);
         }
 
@@ -134,13 +150,12 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         public float attacksPerSecond;
         public float novementSpeedDuringAttack;
 
-        public SpawnedWeaponsData(string _uniqueID, int _weaponMinDamage, int _weaponMaxDamage, float _attacksPerSecond, float _movementSpeedDuringAttack)
+        public SpawnedWeaponsData(string _uniqueID, int _weaponMinDamage, int _weaponMaxDamage, float _attacksPerSecond)
         {
             uniqueID = _uniqueID;
             weaponMinDamage = _weaponMinDamage;
             weaponMaxDamage = _weaponMaxDamage;
             attacksPerSecond = _attacksPerSecond;
-            novementSpeedDuringAttack = _movementSpeedDuringAttack;
         }
     }
 
@@ -173,6 +188,19 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             attacksPerSecond = _attacksPerSecond;
             novementSpeedDuringAttack = _movementSpeedDuringAttack;
             numberOfProjectiles = _numberOfProjectiles;
+        }
+    }
+
+    public class SpawnedArmorData : SpawnedItemData
+    {
+        public ArmorType armorType;
+        public int armorAmount;
+
+        public SpawnedArmorData(string _uniqueID, ArmorType _armorType, int _armorAmount)
+        {
+            uniqueID = _uniqueID;
+            armorType = _armorType;
+            armorAmount = _armorAmount;
         }
     }
 }

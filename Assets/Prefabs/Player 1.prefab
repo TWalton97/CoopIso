@@ -786,6 +786,11 @@ MonoBehaviour:
   ResourceCurrent: 0
   ResourceMin: 0
   CanEquipShields: 0
+  UnarmedMastery: 0
+  OneHandedMastery: 0
+  TwoHandedMastery: 0
+  DualWieldMastery: 0
+  BowMastery: 0
 --- !u!114 &4605205822069560298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,7 +1174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3658670456545444167
 Transform:
   m_ObjectHideFlags: 0
@@ -3732,7 +3737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &661624162969452964
 Transform:
   m_ObjectHideFlags: 0
@@ -4548,7 +4553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6104959234628594519
 Transform:
   m_ObjectHideFlags: 0
@@ -5470,7 +5475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6915982948513693742
 Transform:
   m_ObjectHideFlags: 0

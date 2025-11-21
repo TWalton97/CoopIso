@@ -33,7 +33,7 @@ public class FeatsController : MonoBehaviour
     {
         Vigor vigor = new Vigor(0);
         AvailableFeats.Add(vigor);
-        Nimble nimble = new Nimble(1);
+        Nimble nimble = new Nimble(0);
         AvailableFeats.Add(nimble);
         ShieldTraining shieldTraining = new ShieldTraining(0);
         AvailableFeats.Add(shieldTraining);
@@ -41,6 +41,8 @@ public class FeatsController : MonoBehaviour
         AvailableFeats.Add(dualWieldMastery);
         TwoHandedMastery twoHandedMastery = new TwoHandedMastery(0);
         AvailableFeats.Add(twoHandedMastery);
+        ArmorMastery armorMastery = new ArmorMastery(1);
+        AvailableFeats.Add(armorMastery);
     }
 
 }

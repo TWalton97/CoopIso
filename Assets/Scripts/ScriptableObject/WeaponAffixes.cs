@@ -129,6 +129,23 @@ public static class AffixStatCalculator
     }
 
     #endregion
+
+    #region Armor Stat Calculations
+
+    public static float CalculateArmor(List<ArmorAffix> affixes)
+    {
+        float armor = 1;
+        for (int i = 0; i < affixes.Count; i++)
+        {
+            if (affixes[i].statType == ArmorStatTypes.IncreasedArmor)
+            {
+                armor += affixes[i].statValue * 0.01f;
+            }
+        }
+        return armor;
+    }
+
+    #endregion
 }
 
 #region Affix Factory
@@ -210,6 +227,24 @@ public class WeaponAffixFactory
         }
 
         Affix affix = new BowAffix(statType, statValue, rand);
+        return affix;
+    }
+
+    public static Affix ReturnRandomArmorAffix()
+    {
+        int rand = UnityEngine.Random.Range(0, 1);
+        ArmorStatTypes statType = (ArmorStatTypes)rand;
+
+        float statValue = 0;
+        rand = UnityEngine.Random.Range(0, 3);
+        switch (statType)
+        {
+            case ArmorStatTypes.IncreasedArmor:
+                statValue = ArmorPrefixes.IncreasedArmor[rand];
+                break;
+        }
+
+        Affix affix = new ArmorAffix(statType, statValue, rand);
         return affix;
     }
 }
@@ -295,6 +330,29 @@ public class BowAffix : Affix
 
 #endregion
 
+#region Armor Affixes
+
+public static class ArmorPrefixes
+{
+    public static int[] IncreasedArmor = new int[] { 50, 75, 100 };
+}
+[Serializable]
+public enum ArmorStatTypes
+{
+    IncreasedArmor
+}
+public class ArmorAffix : Affix
+{
+    public ArmorStatTypes statType;
+    public ArmorAffix(ArmorStatTypes _statType, float _statValue, int _statTier)
+    {
+        statType = _statType;
+        statValue = _statValue;
+        statTier = _statTier;
+    }
+}
+
+#endregion
 #endregion
 
 #region Affix String Factory
@@ -348,6 +406,16 @@ public static class AffixStringBuilder
                     break;
                 case BowStatTypes.ProjectileCount:
                     s = ReturnColorCodeBasedOnTier(affix.statTier) + "Increases number of projectiles by " + affix.statValue + "</color>";
+                    break;
+            }
+        }
+        else if (affix.GetType() == typeof(ArmorAffix))
+        {
+            ArmorAffix armorAffix = affix as ArmorAffix;
+            switch (armorAffix.statType)
+            {
+                case ArmorStatTypes.IncreasedArmor:
+                    s = ReturnColorCodeBasedOnTier(affix.statTier) + "Increases armor by " + affix.statValue + "%" + "</color>";
                     break;
             }
         }
@@ -408,6 +476,18 @@ public static class AffixListConverter
         }
 
         return bowAffixes;
+    }
+
+    public static List<ArmorAffix> ConvertListIntoArmorAffixes(List<Affix> affixes)
+    {
+        List<ArmorAffix> armorAffixes = new List<ArmorAffix>();
+        for (int i = 0; i < affixes.Count; i++)
+        {
+            ArmorAffix armorAffix = affixes[i] as ArmorAffix;
+            armorAffixes.Add(armorAffix);
+        }
+
+        return armorAffixes;
     }
 }
 #endregion

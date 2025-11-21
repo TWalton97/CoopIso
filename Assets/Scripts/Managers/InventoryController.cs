@@ -15,6 +15,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private TMP_Text PlayerMovementSpeedText;
     [SerializeField] private TMP_Text PlayerAttacksPerSecondText;
     [SerializeField] private TMP_Text PlayerManaText;
+    [SerializeField] private TMP_Text PlayerArmorText;
 
     public List<ItemSlot> selectedItemSlots = new();
     public ItemSlot CurrentlySelectedItemSlot;
@@ -31,6 +32,7 @@ public class InventoryController : MonoBehaviour
         controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(playerIndex);
         controller.WeaponController.OnWeaponUpdated += UpdatePlayerStats;
         controller.PlayerHealthController.OnMaximumHealthChanged += UpdatePlayerStats;
+        controller.PlayerHealthController.OnArmorAmountChanged += UpdatePlayerStats;
         OnMenuOpened += UpdatePlayerStats;
         SetEquipmentSlotIndexes();
     }
@@ -39,6 +41,7 @@ public class InventoryController : MonoBehaviour
     {
         controller.WeaponController.OnWeaponUpdated -= UpdatePlayerStats;
         controller.PlayerHealthController.OnMaximumHealthChanged -= UpdatePlayerStats;
+        controller.PlayerHealthController.OnArmorAmountChanged -= UpdatePlayerStats;
         OnMenuOpened -= UpdatePlayerStats;
         ResetButtonSelection();
         if (CurrentlySelectedItemSlot != null)
@@ -51,6 +54,7 @@ public class InventoryController : MonoBehaviour
         PlayerMovementSpeedText.text = controller._maximumMovementSpeed.ToString();
         PlayerAttacksPerSecondText.text = controller.PlayerStatsBlackboard.AttacksPerSecond.ToString("0.00");
         PlayerManaText.text = controller.PlayerStatsBlackboard.ResourceCurrent.ToString() + "/" + controller.PlayerStatsBlackboard.ResourceMax.ToString();
+        PlayerArmorText.text = controller.PlayerStatsBlackboard.ArmorAmount.ToString();
     }
 
     private void SetEquipmentSlotIndexes()

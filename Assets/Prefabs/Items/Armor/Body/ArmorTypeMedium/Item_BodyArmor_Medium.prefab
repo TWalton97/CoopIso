@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4401364980641974804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6858843415525979666}
+  - component: {fileID: 3687732309643741796}
+  - component: {fileID: 7244771465029886118}
+  m_Layer: 10
+  m_Name: Item_BodyArmor_Medium
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6858843415525979666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401364980641974804}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.139, y: 0.2524209, z: 2.374249}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2447571742643486310}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3687732309643741796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401364980641974804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData:
+    itemID: 
+    itemName: Medium Body Armor
+    quantity: 1
+    sprite: {fileID: 21300000, guid: 13baec530bb89bf45a6f175a1375ea83, type: 3}
+    itemDescription: It's not the most beautiful piece of armor, but it will do a
+      good job protecting you.
+    objectPrefab: {fileID: 3640026981607998382, guid: 6033a2e8082f4224cabbd32da0e42c45, type: 3}
+    floorObjectPrefab: {fileID: 4904714683043825076, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+    vfxPrefab: {fileID: 0}
+    itemType: 2
+    data: {fileID: 11400000, guid: 4944988477f0f3349a02b9ed28db4b51, type: 2}
+    affixes: []
+  inventoryManager: {fileID: 0}
+  InteractionType: 0
+--- !u!135 &7244771465029886118
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401364980641974804}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &3441596981115760972
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6858843415525979666}
+    m_Modifications:
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.079
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.071
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904714683043825076, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+      propertyPath: m_Name
+      value: Chest Armor Type 2 Color 1 Part
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+--- !u!4 &2447571742643486310 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1023592207283277610, guid: 9c2bae9b9c1345047a8b6ef8129f77df, type: 3}
+  m_PrefabInstance: {fileID: 3441596981115760972}
+  m_PrefabAsset: {fileID: 0}

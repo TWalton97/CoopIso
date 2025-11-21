@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class PlayerHealthController : HealthController
 {
+    public Action OnArmorAmountChanged;
+    public int ArmorAmount;
     private NewPlayerController newPlayerController;
 
     private void Awake()
@@ -26,7 +29,7 @@ public class PlayerHealthController : HealthController
 
         if (IsDead) return;
 
-        CurrentHealth = Mathf.Clamp(CurrentHealth - damageAmount, 0, MaximumHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth - ApplyArmorReduction(damageAmount), 0, MaximumHealth);
         OnTakeDamage?.Invoke(damageAmount, controller);
 
         if (CurrentHealth <= 0)
@@ -53,5 +56,19 @@ public class PlayerHealthController : HealthController
     {
         int newDamageAmount = Mathf.Clamp(damageAmount - shieldData.blockAmount, 0, damageAmount);
         TakeDamage(newDamageAmount, controller, true);
+    }
+
+    public void UpdateArmorAmount(int amount)
+    {
+        ArmorAmount += amount;
+        OnArmorAmountChanged?.Invoke();
+    }
+
+    private int ApplyArmorReduction(int baseDamage, int K = 12)
+    {
+        if (baseDamage <= 0) return 0;
+        if (ArmorAmount <= 0) return baseDamage;
+        int damage = Mathf.Clamp(baseDamage * K / (K + ArmorAmount), 1, baseDamage);
+        return damage;
     }
 }

@@ -87,6 +87,15 @@ public class EquippedSlot : ItemSlot
             //NewWeaponController.Instance.EquipTwoHandedWeapon(weapon);
         }
 
+        if (itemData.itemType == ItemType.Body)
+        {
+            playerController.ArmorController.EquipBodyArmor(itemData.objectPrefab, itemData);
+        }
+        else if (itemData.itemType == ItemType.Head)
+        {
+            playerController.ArmorController.EquipHelmet(itemData.objectPrefab, itemData);
+        }
+
         slotInUse = true;
     }
 
@@ -98,6 +107,7 @@ public class EquippedSlot : ItemSlot
 
     public void UnequipGear(int index = 0, bool deleteItemInSlot = false)
     {
+        NewPlayerController playerController = PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex);
         inventoryController.DeselectAllSlots();
         if (slotInUse && !deleteItemInSlot)
         {
@@ -120,7 +130,14 @@ public class EquippedSlot : ItemSlot
                 PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.UnequipWeapon(Weapon.WeaponHand.OffHand);
                 //NewWeaponController.Instance.UnequipWeapon(Weapon.WeaponHand.OffHand);
                 break;
+            case Slot.Body:
+                playerController.ArmorController.UnequipBodyArmor();
+                break;
+            case Slot.Head:
+                playerController.ArmorController.UnequipHelmet();
+                break;
         }
+        HidePreview();
         PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).WeaponController.UpdateAnimator();
     }
 

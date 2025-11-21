@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5943126142168136107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1652416200582090264}
+  - component: {fileID: 1441066551765538833}
+  - component: {fileID: 2980439659972724265}
+  m_Layer: 10
+  m_Name: Item_Helmet_Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1652416200582090264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943126142168136107}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.535, y: 0.25242066, z: 2.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3333210354246171707}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1441066551765538833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943126142168136107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData:
+    itemID: 
+    itemName: Light Helmet
+    quantity: 1
+    sprite: {fileID: 21300000, guid: fbc991a4cc408a44c95f71e2ebaa8b3b, type: 3}
+    itemDescription: A light helmet.
+    objectPrefab: {fileID: 3436534754023387433, guid: 0c910e5f89978204b88997762c0e62a8, type: 3}
+    floorObjectPrefab: {fileID: 4011953086874976024, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+    vfxPrefab: {fileID: 0}
+    itemType: 1
+    data: {fileID: 11400000, guid: 84b29a839b598634d9ea7bcaa223c831, type: 2}
+    affixes: []
+  inventoryManager: {fileID: 0}
+  InteractionType: 0
+--- !u!135 &2980439659972724265
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943126142168136107}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &4311369799888138677
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1652416200582090264}
+    m_Modifications:
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.13253126
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.008542061
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99543226
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.09547024
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -10.957
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011953086874976024, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+      propertyPath: m_Name
+      value: Head Armor Type 5 Color 3 Part
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+--- !u!4 &3333210354246171707 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1555147965349416334, guid: f1a9a1ad81b5ace4d963f7bbb2b38df1, type: 3}
+  m_PrefabInstance: {fileID: 4311369799888138677}
+  m_PrefabAsset: {fileID: 0}
