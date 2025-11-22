@@ -5,17 +5,18 @@ using System;
 public class Hitbox : MonoBehaviour
 {
     public int _damage;
-    private LayerMask _targetLayer;
+    protected LayerMask _targetLayer;
     public Action OnTargetDamaged;
-    private Collider[] colls;
+    protected Collider[] colls;
     public Entity _controller;
     public bool DestroyHitboxOnHit = true;
 
-    public void Init(int damage, LayerMask targetLayer, Entity controller)
+    public virtual void Init(int damage, LayerMask targetLayer, Entity controller, bool destroyHitboxOnHit = true)
     {
         _damage = damage;
         _targetLayer = targetLayer;
         _controller = controller;
+        DestroyHitboxOnHit = destroyHitboxOnHit;
     }
 
     private void Awake()
@@ -24,7 +25,7 @@ public class Hitbox : MonoBehaviour
         _targetLayer = Physics.AllLayers;
     }
 
-    void Start()
+    public virtual void Start()
     {
         if (_controller == null)
         {
@@ -37,7 +38,7 @@ public class Hitbox : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         //if ((_targetLayer & (1 << other.gameObject.layer)) == 0) return;
 
@@ -50,7 +51,7 @@ public class Hitbox : MonoBehaviour
         if (DestroyHitboxOnHit) Destroy(gameObject);
     }
 
-    public void ActivateHitbox(int damage)
+    public virtual void ActivateHitbox(int damage)
     {
         _damage = damage;
         foreach (Collider coll in colls)
@@ -61,7 +62,7 @@ public class Hitbox : MonoBehaviour
         Invoke(nameof(DeactivateHitbox), 0.05f);
     }
 
-    private void DeactivateHitbox()
+    public virtual void DeactivateHitbox()
     {
         foreach (Collider coll in colls)
         {

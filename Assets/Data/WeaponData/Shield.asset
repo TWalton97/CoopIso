@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlockAngle: 60
   BlockAmount: 2
+  ArmorAmount: 2

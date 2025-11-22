@@ -45,7 +45,7 @@ public class FeatsController : MonoBehaviour
         AvailableFeats.Add(dualWieldMastery);
         TwoHandedMastery twoHandedMastery = new TwoHandedMastery(0);
         AvailableFeats.Add(twoHandedMastery);
-        ArmorMastery armorMastery = new ArmorMastery(1);
+        ArmorMastery armorMastery = new ArmorMastery(3);
         AvailableFeats.Add(armorMastery);
     }
 

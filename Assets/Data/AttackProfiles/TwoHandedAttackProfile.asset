@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0adb5b75a8aa484197405a0f3daedae, type: 3}
+  m_Name: TwoHandedAttackProfile
+  m_EditorClassIdentifier: 
+  attack1: {fileID: 7400000, guid: a9cf1cdfceb04164aaf2d300e32ca0f0, type: 2}
+  attack2: {fileID: 7400000, guid: e7d65374e3991f74a933e48529676871, type: 2}
+  attack3: {fileID: 7400000, guid: a9cf1cdfceb04164aaf2d300e32ca0f0, type: 2}
+  comboAttack: {fileID: 7400000, guid: 42dda8e7ae087254cade381bb161483c, type: 2}

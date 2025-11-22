@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 public class PlayerUserInterfaceController : MonoBehaviour
 {
     public GameObject PlayerInventoryPanel;
     public GameObject PlayerFeatsPanel;
+    public GameObject PlayerResourcePanel;
 
     public InventoryController inventoryController;
     public PlayerFeatsPanelController featsPanelController;
+    public ResourcePanelController resourcePanelController;
 
     private InventoryManager inventoryManager;
     public int PlayerIndex { get; private set; }
@@ -95,7 +96,13 @@ public class PlayerUserInterfaceController : MonoBehaviour
         }
         SetupInventoryMenu(playerInput);
         SetupFeatsMenu();
+        resourcePanelController.Init(PlayerJoinManager.Instance.GetPlayerControllerByIndex(playerInput.playerIndex));
         yield return null;
+    }
+
+    public void DisplayPlayerResourcePanel(bool value)
+    {
+        PlayerResourcePanel.SetActive(value);
     }
 
 }

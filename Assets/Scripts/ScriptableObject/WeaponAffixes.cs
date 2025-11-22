@@ -73,6 +73,19 @@ public static class AffixStatCalculator
         return blockAmount;
     }
 
+    public static float CalculateArmor(List<ShieldAffix> affixes)
+    {
+        float armor = 1;
+        for (int i = 0; i < affixes.Count; i++)
+        {
+            if (affixes[i].statType == ShieldStatTypes.IncreasedArmor)
+            {
+                armor += affixes[i].statValue * 0.01f;
+            }
+        }
+        return armor;
+    }
+
     #endregion
 
     #region Bow Stat Calculations
@@ -184,7 +197,7 @@ public class WeaponAffixFactory
 
     public static Affix ReturnRandomShieldAffix()
     {
-        int rand = UnityEngine.Random.Range(0, 2);
+        int rand = UnityEngine.Random.Range(0, 3);
         ShieldStatTypes statType = (ShieldStatTypes)rand;
 
         float statValue = 0;
@@ -196,6 +209,9 @@ public class WeaponAffixFactory
                 break;
             case ShieldStatTypes.IncreasedBlockAmount:
                 statValue = ShieldPrefixes.IncreasedBlockAmount[rand];
+                break;
+            case ShieldStatTypes.IncreasedArmor:
+                statValue = ShieldPrefixes.IncreasedArmorAmount[rand];
                 break;
         }
 
@@ -280,12 +296,14 @@ public static class ShieldPrefixes
 {
     public static int[] IncreasedBlockAngle = new int[] { 10, 20, 30 };
     public static int[] IncreasedBlockAmount = new int[] { 1, 2, 3 };
+    public static int[] IncreasedArmorAmount = new int[] { 25, 50, 100 };
 }
 [Serializable]
 public enum ShieldStatTypes
 {
     IncreasedBlockAngle,
-    IncreasedBlockAmount
+    IncreasedBlockAmount,
+    IncreasedArmor
 }
 public class ShieldAffix : Affix
 {
@@ -387,6 +405,9 @@ public static class AffixStringBuilder
                     break;
                 case ShieldStatTypes.IncreasedBlockAmount:
                     s = ReturnColorCodeBasedOnTier(affix.statTier) + "Increases block amount by " + affix.statValue + "</color>";
+                    break;
+                case ShieldStatTypes.IncreasedArmor:
+                    s = ReturnColorCodeBasedOnTier(affix.statTier) + "Increases armor by " + affix.statValue + "%" + "</color>";
                     break;
             }
         }

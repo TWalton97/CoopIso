@@ -192,6 +192,10 @@ public class EquippedSlot : ItemSlot
                 if (slotType == Slot.OffHand)
                     return true;
                 break;
+            case ItemType.Bow:
+                if (slotType == Slot.MainHand)
+                    return true;
+                break;
         }
         return false;
     }

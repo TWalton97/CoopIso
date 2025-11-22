@@ -3,10 +3,16 @@ using UnityEngine;
 
 public class AnimationStatusTracker : MonoBehaviour
 {
-    public Action OnAnimationCompleted;
+    public Action OnAttackCompleted;
+    public Action OnAbilityCompleted;
 
-    public void AnimationCompleted()
+    public void AttackAnimationCompleted()
     {
-        OnAnimationCompleted?.Invoke();
+        OnAttackCompleted?.Invoke();
+    }
+
+    public void AbilityAnimationCompleted()
+    {
+        OnAbilityCompleted?.Invoke();
     }
 }

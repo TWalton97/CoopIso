@@ -59,8 +59,8 @@ public class EquipmentSlot : ItemSlot
         {
             if (!inventoryController.controller.PlayerStatsBlackboard.TwoHandedMastery)
             {
-                mainHandSlot.EquipGear(itemData);
                 offHandSlot.UnequipGear();
+                mainHandSlot.EquipGear(itemData);
             }
             else
             {
@@ -74,8 +74,8 @@ public class EquipmentSlot : ItemSlot
                 }
                 else if (mainHandSlot.equippedWeaponType == ItemType.OneHanded || mainHandSlot.equippedWeaponType == ItemType.Bow)
                 {
-                    mainHandSlot.EquipGear(itemData);
                     offHandSlot.UnequipGear();
+                    mainHandSlot.EquipGear(itemData);
                 }
                 else if (!offHandSlot.slotInUse)
                 {
@@ -96,11 +96,11 @@ public class EquipmentSlot : ItemSlot
             }
             else if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
             {
-                mainHandSlot.EquipGear(itemData);
                 if (offHandSlot.slotInUse && offHandSlot.equippedWeaponType == ItemType.TwoHanded)
                 {
                     offHandSlot.UnequipGear();
                 }
+                mainHandSlot.EquipGear(itemData);
             }
             else if (mainHandSlot.equippedWeaponType == ItemType.Bow)
             {
@@ -117,20 +117,20 @@ public class EquipmentSlot : ItemSlot
         }
         if (itemData.itemType == ItemType.Offhand)
         {
-            offHandSlot.EquipGear(itemData);
             if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded && !inventoryController.controller.PlayerStatsBlackboard.TwoHandedMastery)
             {
                 mainHandSlot.UnequipGear();
             }
+            offHandSlot.EquipGear(itemData);
         }
 
         if (itemData.itemType == ItemType.Bow)
         {
-            mainHandSlot.EquipGear(itemData);
             if (offHandSlot.slotInUse)
             {
                 offHandSlot.UnequipGear();
             }
+            mainHandSlot.EquipGear(itemData);
         }
         HidePreview();
         inventoryController.DeselectAllSlots();

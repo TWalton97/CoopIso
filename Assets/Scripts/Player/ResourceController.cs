@@ -1,10 +1,28 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class ResourceController : MonoBehaviour
 {
     public Resource resource;
+
+    void Start()
+    {
+        StartCoroutine(RegenerateResource());
+    }
+
+    private IEnumerator RegenerateResource()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (resource.resourceCurrent != resource.resourceMax)
+        {
+            resource.AddResource(resource.resourceRegenerationPerSecond / 10f);
+            yield return null;
+        }
+        StartCoroutine(RegenerateResource());
+        yield return null;
+    }
 }
 
 [Serializable]
@@ -14,6 +32,8 @@ public class Resource
     public float resourceMax;
     public float resourceCurrent;
     public float resourceMin = 0;
+
+    public float resourceRegenerationPerSecond = 2f;
 
     public Action OnResourceMinReached;
     public Action OnResourceMaxReached;

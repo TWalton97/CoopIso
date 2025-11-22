@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0adb5b75a8aa484197405a0f3daedae, type: 3}
+  m_Name: DualWieldAttackProfile
+  m_EditorClassIdentifier: 
+  attack1: {fileID: 7400000, guid: 38a6fa648ce631a409d549343e2ac56a, type: 2}
+  attack2: {fileID: 7400000, guid: 15d19422fa43add4bb6b0bc627a6ad4b, type: 2}
+  attack3: {fileID: 7400000, guid: 38a6fa648ce631a409d549343e2ac56a, type: 2}
+  comboAttack: {fileID: 7400000, guid: 42dda8e7ae087254cade381bb161483c, type: 2}

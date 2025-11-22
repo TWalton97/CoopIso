@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
     public List<Affix> affixes;
     public string itemID;
     protected SpawnedItemDataBase.SpawnedItemData spawnedWeaponData;
+    public int averageWeaponDamage;
 
     void Awake()
     {
@@ -40,17 +41,21 @@ public class Weapon : MonoBehaviour
         if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedWeaponsData))
         {
             spawnedWeaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedWeaponsData;
+            SpawnedItemDataBase.SpawnedWeaponsData data = spawnedWeaponData as SpawnedItemDataBase.SpawnedWeaponsData;
+            averageWeaponDamage = (data.weaponMinDamage + data.weaponMaxDamage) / 2;
         }
         else if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedBowData))
         {
             spawnedWeaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedBowData;
+            SpawnedItemDataBase.SpawnedBowData data = spawnedWeaponData as SpawnedItemDataBase.SpawnedBowData;
+            averageWeaponDamage = (data.weaponMinDamage + data.weaponMaxDamage) / 2;
         }
     }
 
     void OnDestroy()
     {
         if (newPlayerController != null)
-            newPlayerController.AnimationStatusTracker.OnAnimationCompleted -= Exit;
+            newPlayerController.AnimationStatusTracker.OnAttackCompleted -= Exit;
     }
 
     public virtual void Enter(Action endAction, int attackNum)
@@ -72,7 +77,7 @@ public class Weapon : MonoBehaviour
             newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.BowAttack);
         }
 
-        newPlayerController.AnimationStatusTracker.OnAnimationCompleted += Exit;
+        newPlayerController.AnimationStatusTracker.OnAttackCompleted += Exit;
         active = true;
         InvokeOnEnter();
     }

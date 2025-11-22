@@ -38,10 +38,11 @@ public class PreviewWindow : MonoBehaviour
         else if (itemData.data is ShieldSO)
         {
             ShieldSO shieldData = itemData.data as ShieldSO;
-            List<ShieldAffix> shieldAffixes = AffixListConverter.ConvertListIntoShieldAffixes(itemData.affixes);
+            SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedShieldData;
             ItemStats.text =
-            "BlockAngle: " + shieldData.BlockAngle + " <color=#FFE500>(" + (shieldData.BlockAngle + AffixStatCalculator.CalculateBlockAngle(shieldAffixes)).ToString() + ")</color>" +
-            "\nBlockAmount: " + shieldData.BlockAmount + " <color=#FFE500>(" + (shieldData.BlockAmount + AffixStatCalculator.CalculateBlockAmount(shieldAffixes)).ToString() + ")</color>";
+            "BlockAngle: " + shieldData.BlockAngle + " <color=#FFE500>(" + spawnedShieldData.blockAngle + ")</color>" +
+            "\nBlockAmount: " + shieldData.BlockAmount + " <color=#FFE500>(" + spawnedShieldData.blockAmount + ")</color>" +
+            "\nArmor Amount: " + shieldData.ArmorAmount + " <color=#FFE500>(" + spawnedShieldData.armorAmount + ")</color>";
             ItemAffixes.text = BuildAffixString(itemData);
         }
         else if (itemData.data is BowSO)

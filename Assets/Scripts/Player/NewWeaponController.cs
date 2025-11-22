@@ -31,6 +31,13 @@ public class NewWeaponController : MonoBehaviour
     public Item StartingOffHandWeapon;
     private bool StarterWeaponsEquipped = false;
 
+    public AttackProfile oneHandedAttackProfile;
+    public AttackProfile twoHandedAttackProfile;
+    public AttackProfile dualWieldAttackProfile;
+    public AttackProfile bowAttackProfile;
+
+    public float CombinedWeaponDamage;
+
     protected void Awake()
     {
         comboCounter = new CountdownTimer(comboPeriod);
@@ -38,7 +45,7 @@ public class NewWeaponController : MonoBehaviour
 
     void Start()
     {
-        newPlayerController.AnimationStatusTracker.OnAnimationCompleted += ResetAttack;
+        newPlayerController.AnimationStatusTracker.OnAttackCompleted += ResetAttack;
         StartCoroutine(WaitForSetup());
     }
 
@@ -49,7 +56,7 @@ public class NewWeaponController : MonoBehaviour
 
     void OnDisable()
     {
-        newPlayerController.AnimationStatusTracker.OnAnimationCompleted -= ResetAttack;
+        newPlayerController.AnimationStatusTracker.OnAttackCompleted -= ResetAttack;
         comboCounter.OnTimerStop -= () => numAttacks = 0;
     }
 
@@ -175,6 +182,7 @@ public class NewWeaponController : MonoBehaviour
             PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
+        CalculateWeaponDamage();
         OnWeaponUpdated?.Invoke();
     }
 
@@ -191,13 +199,12 @@ public class NewWeaponController : MonoBehaviour
         instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
         PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
         UpdateAnimator();
+        CalculateWeaponDamage();
         OnWeaponUpdated?.Invoke();
     }
 
     public void EquipOffhand(GameObject weaponPrefab, ItemData itemData)
     {
-        //If there's already a secondary weapon
-        //Replace it
         UnequipWeapon(Weapon.WeaponHand.OffHand);
         instantiatedSecondaryWeapon = Instantiate(weaponPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
         instantiatedSecondaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
@@ -205,10 +212,13 @@ public class NewWeaponController : MonoBehaviour
         instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, itemData.itemID);
         if (instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.Shield)
         {
+            SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
+            newPlayerController.PlayerHealthController.UpdateArmorAmount(spawnedShieldData.armorAmount);
             HasShieldEquipped = true;
         }
         PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
         UpdateAnimator();
+        CalculateWeaponDamage();
         OnWeaponUpdated?.Invoke();
     }
 
@@ -219,31 +229,37 @@ public class NewWeaponController : MonoBehaviour
 
         if (instantiatedPrimaryWeapon == null)
         {
-            animator.runtimeAnimatorController = UnarmedAnimator;
+            //animator.runtimeAnimatorController = UnarmedAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && HasShieldEquipped)
         {
-            animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
+            ApplyAttackProfile(oneHandedAttackProfile);
+            //animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && instantiatedSecondaryWeapon == null)
         {
-            animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
+            ApplyAttackProfile(oneHandedAttackProfile);
+            //animator.runtimeAnimatorController = OneHandedAndShieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
         {
-            animator.runtimeAnimatorController = DualWieldAnimator;
+            ApplyAttackProfile(dualWieldAttackProfile);
+            //animator.runtimeAnimatorController = DualWieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded && instantiatedSecondaryWeapon == null)
         {
-            animator.runtimeAnimatorController = TwoHandedAnimator;
+            ApplyAttackProfile(twoHandedAttackProfile);
+            //animator.runtimeAnimatorController = TwoHandedAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded && instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded)
         {
-            animator.runtimeAnimatorController = DualWieldAnimator;
+            ApplyAttackProfile(dualWieldAttackProfile);
+            //animator.runtimeAnimatorController = DualWieldAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.Bow)
         {
-            animator.runtimeAnimatorController = BowAnimator;
+            ApplyAttackProfile(bowAttackProfile);
+            //animator.runtimeAnimatorController = BowAnimator;
         }
         CheckForAppropriateMastery();
         OnWeaponUpdated?.Invoke();
@@ -251,7 +267,7 @@ public class NewWeaponController : MonoBehaviour
 
     public void CheckForAppropriateMastery()
     {
-        if (animator.runtimeAnimatorController == UnarmedAnimator)
+        if (instantiatedPrimaryWeapon == null && instantiatedSecondaryWeapon == null)
         {
             if (newPlayerController.PlayerStatsBlackboard.UnarmedMastery)
             {
@@ -259,7 +275,11 @@ public class NewWeaponController : MonoBehaviour
                 return;
             }
         }
-        else if (animator.runtimeAnimatorController == OneHandedAndShieldAnimator)
+        else if (instantiatedPrimaryWeapon == null && instantiatedSecondaryWeapon != null)
+        {
+            return;
+        }
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && (instantiatedSecondaryWeapon == null || HasShieldEquipped))
         {
             if (newPlayerController.PlayerStatsBlackboard.OneHandedMastery)
             {
@@ -267,7 +287,7 @@ public class NewWeaponController : MonoBehaviour
                 return;
             }
         }
-        else if (animator.runtimeAnimatorController == TwoHandedAnimator)
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded && instantiatedSecondaryWeapon == null)
         {
             // if (newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
             // {
@@ -275,7 +295,7 @@ public class NewWeaponController : MonoBehaviour
             //     return;
             // }
         }
-        else if (animator.runtimeAnimatorController == DualWieldAnimator)
+        else if (instantiatedPrimaryWeapon != null)
         {
             if (newPlayerController.PlayerStatsBlackboard.DualWieldMastery && instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded)
             {
@@ -288,7 +308,7 @@ public class NewWeaponController : MonoBehaviour
                 return;
             }
         }
-        else if (animator.runtimeAnimatorController == BowAnimator)
+        else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.Bow)
         {
             if (newPlayerController.PlayerStatsBlackboard.BowMastery)
             {
@@ -317,11 +337,64 @@ public class NewWeaponController : MonoBehaviour
                 if (instantiatedSecondaryWeapon != null)
                 {
                     PlayerPreviewManager.Instance.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand);
+                    if (HasShieldEquipped)
+                    {
+                        SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
+                        newPlayerController.PlayerHealthController.UpdateArmorAmount(-spawnedShieldData.armorAmount);
+                    }
                     Destroy(instantiatedSecondaryWeapon.gameObject);
                     HasShieldEquipped = false;
                     instantiatedSecondaryWeapon = null;
                 }
                 break;
+        }
+        CalculateWeaponDamage();
+    }
+
+    public void ApplyAttackProfile(AttackProfile attackProfile)
+    {
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchLeft", attackProfile.attack1);
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchRight", attackProfile.attack2);
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchLeft", attackProfile.attack3);
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("SpinAttack_TwoWeapons", attackProfile.comboAttack);
+    }
+
+    private void CalculateWeaponDamage()
+    {
+        //If the player only has one weapon, we just take the average damage of it
+        //If the player has two, we take 70% of each one and then average it
+        int primaryWeaponDamage;
+        int secondaryWeaponDamage;
+
+        if (instantiatedPrimaryWeapon == null)
+        {
+            primaryWeaponDamage = 0;
+        }
+        else
+        {
+            primaryWeaponDamage = instantiatedPrimaryWeapon.averageWeaponDamage;
+        }
+
+        if (instantiatedSecondaryWeapon == null || HasShieldEquipped)
+        {
+            secondaryWeaponDamage = 0;
+        }
+        else
+        {
+            secondaryWeaponDamage = instantiatedSecondaryWeapon.averageWeaponDamage;
+        }
+
+        if (primaryWeaponDamage == 0)
+        {
+            CombinedWeaponDamage = 0;
+        }
+        else if (secondaryWeaponDamage == 0)
+        {
+            CombinedWeaponDamage = primaryWeaponDamage;
+        }
+        else
+        {
+            CombinedWeaponDamage = (primaryWeaponDamage * 0.8f) + (secondaryWeaponDamage * 0.8f);
         }
     }
 

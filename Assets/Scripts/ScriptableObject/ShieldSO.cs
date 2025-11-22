@@ -6,6 +6,7 @@ public class ShieldSO : ItemSO
 {
     public int BlockAngle;
     public int BlockAmount;
+    public int ArmorAmount;
 
     public override bool CheckItemRequirements(PlayerStatsBlackboard playerStatsBlackboard)
     {

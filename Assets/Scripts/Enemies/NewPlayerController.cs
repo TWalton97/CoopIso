@@ -23,6 +23,9 @@ public class NewPlayerController : Entity
     public PlayerStatsBlackboard PlayerStatsBlackboard { get; private set; }
     public PlayerHealthController PlayerHealthController { get; private set; }
     public FeatsController FeatsController { get; private set; }
+    public PlayerAnimationController PlayerAnimationController { get; private set; }
+    public AbilityController AbilityController { get; private set; }
+    public ResourceController ResourceController { get; private set; }
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
@@ -32,6 +35,7 @@ public class NewPlayerController : Entity
     public PlayerIdleState idleState;
     PlayerAttackState attackState;
     public PlayerBlockState blockState;
+    public PlayerCastState castState;
 
     public StateMachine movementStateMachine;
 
@@ -40,6 +44,7 @@ public class NewPlayerController : Entity
     private Vector2 _moveInput;
     public bool blockButtonPressed;
     public bool attackButtonPressed;
+    public bool abilityButtonPressed;
     public string KEYBOARD_SCHEME { get; private set; } = "Keyboard&Mouse";
     public string GAMEPAD_SCHEME { get; private set; } = "Gamepad";
 
@@ -67,6 +72,9 @@ public class NewPlayerController : Entity
         PlayerStatsBlackboard = GetComponent<PlayerStatsBlackboard>();
         PlayerHealthController = GetComponent<PlayerHealthController>();
         FeatsController = GetComponent<FeatsController>();
+        PlayerAnimationController = GetComponent<PlayerAnimationController>();
+        AbilityController = GetComponent<AbilityController>();
+        ResourceController = GetComponent<ResourceController>();
     }
     void Start()
     {
@@ -109,6 +117,7 @@ public class NewPlayerController : Entity
         PlayerInputController.OnLookMousePerformed += RotateTowardsMouse;
         PlayerInputController.OnLookStickPerformed += RotateTowardsStick;
 
+        PlayerInputController.OnAbilityPerformed += Ability;
         PlayerInputController.OnAttackPerformed += Attack;
         PlayerInputController.OnJumpPerformed += Jump;
         PlayerInputController.OnBlockPerformed += Block;
@@ -126,6 +135,7 @@ public class NewPlayerController : Entity
         PlayerInputController.OnLookMousePerformed -= RotateTowardsMouse;
         PlayerInputController.OnLookStickPerformed -= RotateTowardsStick;
 
+        PlayerInputController.OnAbilityPerformed -= Ability;
         PlayerInputController.OnAttackPerformed -= Attack;
         PlayerInputController.OnJumpPerformed -= Jump;
         PlayerInputController.OnBlockPerformed -= Block;
@@ -185,11 +195,18 @@ public class NewPlayerController : Entity
         idleState = new PlayerIdleState(this, Animator);
         attackState = new PlayerAttackState(this, Animator);
         blockState = new PlayerBlockState(this, Animator);
+        castState = new PlayerCastState(this, Animator);
 
         At(idleState, blockState, attackStateMachine, new FuncPredicate(() => blockButtonPressed && WeaponController.HasShieldEquipped));
         At(blockState, idleState, attackStateMachine, new FuncPredicate(() => !blockButtonPressed && WeaponController.HasShieldEquipped));
 
-        Any(attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
+        At(idleState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
+        At(blockState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
+
+        At(idleState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && AbilityController.equippedAbility1.CanUse()));
+        At(blockState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && AbilityController.equippedAbility1.CanUse()));
+
+        //Any(attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
 
         attackStateMachine.SetState(idleState);
     }
@@ -293,6 +310,16 @@ public class NewPlayerController : Entity
     #endregion
 
     #region Combat
+
+    private void Ability(CallbackContext context)
+    {
+        //AbilityController.UseAbility1();
+
+        //We check if we can cast the ability
+        //If we can, try to transition to cast state
+
+        abilityButtonPressed = true;
+    }
 
     private void Attack(CallbackContext context)
     {

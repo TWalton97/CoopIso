@@ -8,9 +8,18 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
     public List<Item> spawnableItems;
 
-    public Item SpawnRandomItem(int rarity)
+    public Item SpawnRandomItem(int rarity, Item itemToSpawn = null)
     {
-        Item itemBase = Instantiate(spawnableItems[UnityEngine.Random.Range(0, spawnableItems.Count - 1)]);
+        Item itemBase;
+        if (itemToSpawn == null)
+        {
+            itemBase = Instantiate(spawnableItems[UnityEngine.Random.Range(0, spawnableItems.Count - 1)]);
+        }
+        else
+        {
+            itemBase = Instantiate(itemToSpawn);
+        }
+
         int numAffixes = GetAffixCount(rarity);
         if (itemBase.itemData.data.GetType() == typeof(WeaponDataSO))
         {
@@ -90,8 +99,9 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             List<ShieldAffix> shieldAffixes = AffixListConverter.ConvertListIntoShieldAffixes(itemData.affixes);
             int blockAngle = shieldData.BlockAngle + AffixStatCalculator.CalculateBlockAngle(shieldAffixes);
             int blockAmount = shieldData.BlockAmount + AffixStatCalculator.CalculateBlockAmount(shieldAffixes);
+            int armorAmount = Mathf.CeilToInt(shieldData.ArmorAmount * AffixStatCalculator.CalculateArmor(shieldAffixes));
 
-            SpawnedShieldData data = new SpawnedShieldData(id, blockAngle, blockAmount);
+            SpawnedShieldData data = new SpawnedShieldData(id, blockAngle, blockAmount, armorAmount);
             spawnedItemData.Add(id, data);
         }
         else if (itemData.data.GetType() == typeof(BowSO))
@@ -163,12 +173,14 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
     {
         public int blockAngle;
         public int blockAmount;
+        public int armorAmount;
 
-        public SpawnedShieldData(string _uniqueID, int _blockAngle, int _blockAmount)
+        public SpawnedShieldData(string _uniqueID, int _blockAngle, int _blockAmount, int _armorAmount)
         {
             uniqueID = _uniqueID;
             blockAngle = _blockAngle;
             blockAmount = _blockAmount;
+            armorAmount = _armorAmount;
         }
     }
 

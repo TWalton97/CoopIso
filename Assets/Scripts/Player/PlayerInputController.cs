@@ -71,6 +71,7 @@ public class PlayerInputController : MonoBehaviour
         LookStick.Enable();
 
         //These are one shot events (buttons)
+        SubscribeToInputAction(playerInputActions.Player.Ability.id.ToString(), OnAbility, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.Attack.id.ToString(), OnAttack, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.Jump.id.ToString(), OnJump, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, gameplayMap);
@@ -94,6 +95,10 @@ public class PlayerInputController : MonoBehaviour
         action = playerInput.currentActionMap.FindAction(playerInputActions.Player.Attack.id);
         action.started += OnAttackHeld;
         action.canceled += OnAttackHeld;
+
+        action = playerInput.currentActionMap.FindAction(playerInputActions.Player.Ability.id);
+        action.started += OnAbility;
+        action.canceled -= OnAbility;
 
         attackCountdownTimer.OnTimerStop += ResetAttackTimer;
     }
@@ -141,7 +146,7 @@ public class PlayerInputController : MonoBehaviour
     #region Player Input Actions
     public void OnAbility(CallbackContext context)
     {
-
+        OnAbilityPerformed?.Invoke(context);
     }
 
     public void OnAttack(CallbackContext context)

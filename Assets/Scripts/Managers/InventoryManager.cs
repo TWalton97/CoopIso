@@ -34,6 +34,11 @@ public class InventoryManager : Singleton<InventoryManager>
                 EquipmentMenuObjects[playerIndex].controller.DeselectAllSlots();
                 Time.timeScale = 1;
                 NewPlayerController controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(1);
+                foreach (EquipmentMenus equipmentMenus in EquipmentMenuObjects)
+                {
+                    if (equipmentMenus.controller != null)
+                        equipmentMenus.playerUserInterfaceController.DisplayPlayerResourcePanel(true);
+                }
                 if (controller != null)
                 {
                     controller.WeaponController.canAttack = true;
@@ -50,6 +55,11 @@ public class InventoryManager : Singleton<InventoryManager>
             if (playerIndex == 0) player0MenuOpened = true;
             if (playerIndex == 1) player1MenuOpened = true;
             Time.timeScale = 0;
+            foreach (EquipmentMenus equipmentMenus in EquipmentMenuObjects)
+            {
+                if (equipmentMenus.controller != null)
+                    equipmentMenus.playerUserInterfaceController.DisplayPlayerResourcePanel(false);
+            }
             PlayerPreview.SetActive(true);
             OnMenuOpened?.Invoke();
         }

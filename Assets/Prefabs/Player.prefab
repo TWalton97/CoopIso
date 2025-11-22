@@ -14985,6 +14985,8 @@ GameObject:
   - component: {fileID: 6731698400158370482}
   - component: {fileID: 90509361737073914}
   - component: {fileID: 1963507904449709706}
+  - component: {fileID: 5462929516163145740}
+  - component: {fileID: 1154131606781797226}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -15221,6 +15223,7 @@ MonoBehaviour:
     m_Bits: 64
   blockButtonPressed: 0
   attackButtonPressed: 0
+  abilityButtonPressed: 0
   animationClip: {fileID: 0}
   playerIndicator:
   - {fileID: 9106999442041791226}
@@ -15249,6 +15252,10 @@ MonoBehaviour:
   HasShieldEquipped: 0
   StartingMainHandWeapon: {fileID: 7507621691804293595, guid: 0d892f2c0381e594bbef46287f1e97dc, type: 3}
   StartingOffHandWeapon: {fileID: 0}
+  oneHandedAttackProfile: {fileID: 11400000, guid: ca170934416f2e540a8ccc28c4c603df, type: 2}
+  twoHandedAttackProfile: {fileID: 11400000, guid: f0ec3d025e2dfc246b8eca57f5442245, type: 2}
+  dualWieldAttackProfile: {fileID: 11400000, guid: b5e01b42ab1bd224b8a87e7f620e02a1, type: 2}
+  bowAttackProfile: {fileID: 11400000, guid: 421a3dd49930284438034e12f7746a98, type: 2}
   UnarmedAnimator: {fileID: 9100000, guid: 5b7e4efa974f7334191e8c27409f2845, type: 2}
   OneHandedAndShieldAnimator: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
   DualWieldAnimator: {fileID: 22100000, guid: b43ff40815227c74794c7656af867670, type: 2}
@@ -15304,6 +15311,7 @@ MonoBehaviour:
     resourceMax: 100
     resourceCurrent: 100
     resourceMin: 0
+    resourceRegenerationPerSecond: 1.5
 --- !u!114 &9155891904063514100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15406,11 +15414,66 @@ MonoBehaviour:
   playerHealthController: {fileID: 6810012523319174219}
   skinnedMeshRendererBoneRef: {fileID: 5716145673506366617}
   bodyArmorTransform: {fileID: 3877442105456433360}
-  StartingBodyArmor: {fileID: 8141692574711525087, guid: db4bc9c57c5859b488b47bca7839372b, type: 3}
+  StartingBodyArmor: {fileID: 671674740870320807, guid: 04478f353a783e74e89e6cec6e03b9e4, type: 3}
   helmetTransform: {fileID: 598264786547000333}
-  StartingHelmet: {fileID: 1441066551765538833, guid: aeac89239d3dcbc42b2c8e91c579afff, type: 3}
+  StartingHelmet: {fileID: 4845004349861385238, guid: 0ba85ec1da2ebd441ad77e5178783e47, type: 3}
   legsTransform: {fileID: 1900913105297275281}
-  StartingLegs: {fileID: 4630488950179993611, guid: b0cd6b04a9adaf746be0764bfd4b1953, type: 3}
+  StartingLegs: {fileID: 6325581541471828504, guid: d96448a32dc0e2c4cbe4993438dccba1, type: 3}
+--- !u!114 &5462929516163145740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013222344262508588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae30a2eb96edb14b8cf56f0ba94bb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newPlayerController: {fileID: 7230535324818502119}
+  resourceController: {fileID: 6695485961067399900}
+  playerAnimator: {fileID: 6304829339036781307}
+  abilityAOC: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
+  AbilityToEquip: {fileID: 6577518296069191898, guid: 05965a6704d41234c9af534cc5169e17, type: 3}
+  equippedAbility1: {fileID: 0}
+  equippedAbility2: {fileID: 0}
+  equippedAbility3: {fileID: 0}
+  ActivatedAbility: {fileID: 0}
+--- !u!114 &1154131606781797226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013222344262508588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894006e9f90751e43a13d550df075e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseController: {fileID: 9100000, guid: 1b77f6b07525fa442bd5145bec90e51c, type: 2}
+  placeholderClips:
+  - {fileID: -5286009312453217497, guid: 23a8707d3821acf42b4929bdc13c3200, type: 3}
+  - {fileID: 6148109966606671466, guid: 5c1542a47c9dbfc4fa74c5cbe385b4d1, type: 3}
+  - {fileID: -3100369314251171874, guid: 65aceb821688847449cbad8f6eb6241d, type: 3}
+  - {fileID: 3898671758408027237, guid: b09d851b76d92f144abcea300e30fa58, type: 3}
+  - {fileID: -3494265298917962225, guid: c4220332113c53f40b2f01986b4dece5, type: 3}
+  - {fileID: -3680801536559587348, guid: be84e2a3959792f4aa57054f950a3db2, type: 3}
+  - {fileID: -1439395797136352278, guid: 7cf92d4881982f5488a4170ec7f8866d, type: 3}
+  - {fileID: 1671312553167048998, guid: 087092adc27465a41a8f07804f3c0178, type: 3}
+  - {fileID: -6337207191384161919, guid: 7d569195caea6364689fa56fa5f0e7c5, type: 3}
+  - {fileID: 7402836860979311914, guid: 8d55f6f9b242d5b41bfa11d806d6e5be, type: 3}
+  - {fileID: 2567725345388053393, guid: 15e216e1b12268b4cae1302c53cc43dc, type: 3}
+  - {fileID: 8521470458871766595, guid: f431314797169014584017049600a63e, type: 3}
+  - {fileID: 7400000, guid: 42dda8e7ae087254cade381bb161483c, type: 2}
+  - {fileID: -517674273957482040, guid: 5cc53a90696edc1408fdda805eebb809, type: 3}
+  - {fileID: 7400000, guid: 4b2c9f22c1258634386dd033850cc925, type: 2}
+  - {fileID: 7400000, guid: eeb2639c76c4bf746a0b40ca7bb9a66f, type: 2}
+  - {fileID: 7400000, guid: 4b2c9f22c1258634386dd033850cc925, type: 2}
+  - {fileID: 7400000, guid: 011722f6d8551204e9046c37c5ebb172, type: 2}
+  - {fileID: 7400000, guid: 11e42c6bc697fc849b34161ac728a651, type: 2}
+  - {fileID: 7400000, guid: 14ef156f788f8bd4f92511daf3e7707a, type: 2}
 --- !u!1 &5016090182544120206
 GameObject:
   m_ObjectHideFlags: 0
@@ -25017,16 +25080,13 @@ Animator:
   m_GameObject: {fileID: 8117568368394724624}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 831f7229e82863e4d80ada075e09eba6, type: 3}
-  m_Controller: {fileID: 22100000, guid: b6e2fe2b2a5efe346b94305908e6b30e, type: 2}
+  m_Controller: {fileID: 22100000, guid: b43ff40815227c74794c7656af867670, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Base Character Root'\n\tFrom animation clip
-    'BowShot'\n\tFrom animation clip 'BowShot'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

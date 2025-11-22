@@ -52,7 +52,7 @@ MonoBehaviour:
     quantity: 1
     sprite: {fileID: 21300000, guid: fbc991a4cc408a44c95f71e2ebaa8b3b, type: 3}
     itemDescription: A medium pair of leggings.
-    objectPrefab: {fileID: 51287363461439347, guid: 07771cc7b3365b447a343262167edc4e, type: 3}
+    objectPrefab: {fileID: 4602066518352732491, guid: b18ef68fe4e65d4408d85e21c9096463, type: 3}
     floorObjectPrefab: {fileID: 6732823504039379065, guid: 70b4c3764739b8045a793719e716f6fb, type: 3}
     vfxPrefab: {fileID: 0}
     itemType: 3

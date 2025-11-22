@@ -53,7 +53,7 @@ public class InventoryController : MonoBehaviour
         PlayerHealthText.text = controller.healthController.CurrentHealth.ToString() + "/" + controller.healthController.MaximumHealth.ToString();
         PlayerMovementSpeedText.text = controller._maximumMovementSpeed.ToString();
         PlayerAttacksPerSecondText.text = controller.PlayerStatsBlackboard.AttacksPerSecond.ToString("0.00");
-        PlayerManaText.text = controller.PlayerStatsBlackboard.ResourceCurrent.ToString() + "/" + controller.PlayerStatsBlackboard.ResourceMax.ToString();
+        PlayerManaText.text = controller.PlayerStatsBlackboard.ResourceCurrent.ToString("00") + "/" + controller.PlayerStatsBlackboard.ResourceMax.ToString("00");
         PlayerArmorText.text = controller.PlayerStatsBlackboard.ArmorAmount.ToString();
     }
 
@@ -178,14 +178,20 @@ public class InventoryController : MonoBehaviour
                             {
                                 ItemData itemData = selectedItemSlots[0].itemData;
                                 selectedItemSlots[0].EmptySlot();
-                                mainSlot.EquipGear(itemData);
                                 equippedSlot.UnequipGear();
+                                mainSlot.EquipGear(itemData);
                             }
                             else if (selectedItemSlots[0].itemData.itemType == ItemType.TwoHanded)
                             {
                                 ItemData itemData = selectedItemSlots[0].itemData;
                                 selectedItemSlots[0].EmptySlot();
                                 equippedSlot.EquipGear(itemData);
+                            }
+                            else if (selectedItemSlots[0].itemData.itemType == ItemType.Bow)
+                            {
+                                ItemData itemData = selectedItemSlots[0].itemData;
+                                selectedItemSlots[0].EmptySlot();
+                                mainSlot.EquipGear(itemData);
                             }
                         }
                         else if (mainSlot.equippedWeaponType == ItemType.OneHanded)
@@ -194,8 +200,8 @@ public class InventoryController : MonoBehaviour
                             {
                                 ItemData itemData = selectedItemSlots[0].itemData;
                                 selectedItemSlots[0].EmptySlot();
-                                mainSlot.EquipGear(itemData);
                                 equippedSlot.UnequipGear();
+                                mainSlot.EquipGear(itemData);
                             }
                             else if (selectedItemSlots[0].itemData.itemType == ItemType.OneHanded)
                             {
@@ -203,6 +209,19 @@ public class InventoryController : MonoBehaviour
                                 selectedItemSlots[0].EmptySlot();
                                 equippedSlot.EquipGear(itemData);
                             }
+                            else if (selectedItemSlots[0].itemData.itemType == ItemType.Bow)
+                            {
+                                ItemData itemData = selectedItemSlots[0].itemData;
+                                selectedItemSlots[0].EmptySlot();
+                                equippedSlot.EquipGear(itemData);
+                            }
+                        }
+                        else if (mainSlot.equippedWeaponType == ItemType.Bow)
+                        {
+                            ItemData itemData = selectedItemSlots[0].itemData;
+                            selectedItemSlots[0].EmptySlot();
+                            equippedSlot.UnequipGear();
+                            mainSlot.EquipGear(itemData);
                         }
                         else
                         {
@@ -224,6 +243,10 @@ public class InventoryController : MonoBehaviour
                                 offhandSlot.UnequipGear();
                             }
                             else if (itemData.itemType == ItemType.TwoHanded && offhandSlot.equippedWeaponType == ItemType.OneHanded)
+                            {
+                                offhandSlot.UnequipGear();
+                            }
+                            else if (itemData.itemType == ItemType.Bow)
                             {
                                 offhandSlot.UnequipGear();
                             }
@@ -273,8 +296,8 @@ public class InventoryController : MonoBehaviour
                 {
                     if (equippedSlot2.ItemTypeValidForSlot(equippedSlot1.itemData.itemType))
                     {
-                        equippedSlot2.EquipGear(equippedSlot1.itemData);
                         equippedSlot1.UnequipGear(0, true);
+                        equippedSlot2.EquipGear(equippedSlot1.itemData);
                     }
                 }
             }

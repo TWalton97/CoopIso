@@ -23,7 +23,7 @@ public class EnemyAttackState : EnemyBaseState
         //AttackCompleted = false;
         attackCoroutine = enemy.StartCoroutine(WaitForEndOfAttack());
         agent.speed = 0;
-        enemy.animationStatusTracker.OnAnimationCompleted += CompleteAttack;
+        enemy.animationStatusTracker.OnAttackCompleted += CompleteAttack;
     }
 
     public override void OnExit()
@@ -33,7 +33,7 @@ public class EnemyAttackState : EnemyBaseState
             enemy.StopCoroutine(attackCoroutine);
         }
         AttackCompleted = false;
-        enemy.animationStatusTracker.OnAnimationCompleted -= CompleteAttack;
+        enemy.animationStatusTracker.OnAttackCompleted -= CompleteAttack;
     }
 
     private void CompleteAttack()

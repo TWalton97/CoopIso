@@ -48,8 +48,8 @@ public class Chest : MonoBehaviour, IInteractable
 
         for (int i = 0; i < itemsToSpawn.Count; i++)
         {
-            Item instantiatedItem = Instantiate(itemsToSpawn[i], ReturnSpawnPositionInRadius(), Quaternion.identity);
-            instantiatedItem.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(instantiatedItem.itemData);
+            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(Rarity, itemsToSpawn[i]);
+            instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }
 
