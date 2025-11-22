@@ -143,6 +143,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
             instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
+            PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded && !newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
@@ -152,6 +153,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
             instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
+            PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
         else if (instantiatedSecondaryWeapon == null)
@@ -160,6 +162,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedSecondaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
             instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, itemData.itemID);
+            PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
             UpdateAnimator();
         }
         else
@@ -169,6 +172,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
             instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
+            PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
         OnWeaponUpdated?.Invoke();
@@ -185,6 +189,7 @@ public class NewWeaponController : MonoBehaviour
         instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
         instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
         instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
+        PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
         UpdateAnimator();
         OnWeaponUpdated?.Invoke();
     }
@@ -202,6 +207,7 @@ public class NewWeaponController : MonoBehaviour
         {
             HasShieldEquipped = true;
         }
+        PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
         UpdateAnimator();
         OnWeaponUpdated?.Invoke();
     }
@@ -302,6 +308,7 @@ public class NewWeaponController : MonoBehaviour
             case Weapon.WeaponHand.MainHand:
                 if (instantiatedPrimaryWeapon != null)
                 {
+                    PlayerPreviewManager.Instance.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand);
                     Destroy(instantiatedPrimaryWeapon.gameObject);
                     instantiatedPrimaryWeapon = null;
                 }
@@ -309,6 +316,7 @@ public class NewWeaponController : MonoBehaviour
             case Weapon.WeaponHand.OffHand:
                 if (instantiatedSecondaryWeapon != null)
                 {
+                    PlayerPreviewManager.Instance.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand);
                     Destroy(instantiatedSecondaryWeapon.gameObject);
                     HasShieldEquipped = false;
                     instantiatedSecondaryWeapon = null;

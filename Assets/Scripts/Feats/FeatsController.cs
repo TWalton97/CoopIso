@@ -33,7 +33,11 @@ public class FeatsController : MonoBehaviour
     {
         Vigor vigor = new Vigor(0);
         AvailableFeats.Add(vigor);
+        AvailableFeats.Add(vigor);
+        AvailableFeats.Add(vigor);
         Nimble nimble = new Nimble(0);
+        AvailableFeats.Add(nimble);
+        AvailableFeats.Add(nimble);
         AvailableFeats.Add(nimble);
         ShieldTraining shieldTraining = new ShieldTraining(0);
         AvailableFeats.Add(shieldTraining);

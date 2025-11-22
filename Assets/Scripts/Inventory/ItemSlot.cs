@@ -69,7 +69,6 @@ public class ItemSlot : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
             previewWindow.FillPreviewWindow(itemData);
             previewObject.SetActive(true);
         }
-
     }
 
     public void HidePreview()

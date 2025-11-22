@@ -1012,11 +1012,33 @@
                 },
                 {
                     "name": "",
+                    "id": "b2e6233e-01a5-4796-bcbb-d2b85939bd21",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MoveMenuRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5a9291c0-2307-462e-97aa-98248ac73943",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
+                    "action": "MoveMenuLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bfc0345a-80c3-41f3-8f44-7684f1e69499",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "MoveMenuLeft",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler
 {
     public Button button;
+    public RectTransform rectTransform;
     public TMP_Text FeatName;
     public List<LevelBubble> FeatBubbles;
     private FeatsController controller;
@@ -85,6 +86,7 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
     public void OnSelect(BaseEventData eventData)
     {
         playerFeatsPanelController.UpdateFeatPreviewWindow(feat);
+        playerFeatsPanelController.UpdateViewPosition(rectTransform);
     }
 
     public void OnDeselect(BaseEventData eventData)

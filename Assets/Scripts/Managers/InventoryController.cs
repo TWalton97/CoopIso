@@ -125,6 +125,10 @@ public class InventoryController : MonoBehaviour
 
     public void ResetButtonSelection()
     {
+        foreach (ItemSlot itemSlot in selectedItemSlots)
+        {
+            itemSlot.DeselectButton();
+        }
         selectedItemSlots.Clear();
     }
 

@@ -46,7 +46,6 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     private void CreatePlayerCanvas(PlayerInput playerInput)
     {
         InputSystemUIInputModule inputModule;
-        InventoryController controller;
         PlayerUserInterfaceController playerUserInterfaceController;
         switch (playerInput.playerIndex)
         {
@@ -55,26 +54,17 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
                 inputModule = Instantiate(player1UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
                 playerInput.uiInputModule = inputModule;
 
-                //Setting up the player inventory controller and giving it the appropriate player index
-                // inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].EquipmentMenuObject = inputModule.gameObject;
-                // controller = inputModule.GetComponentInChildren<InventoryController>();
-                // inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].controller = controller;
-                // controller.playerIndex = playerInput.playerIndex;
 
-                //Setting up the player feats panel
-
-                //We should do this setup through the PlayerUserInterfaceController
                 playerUserInterfaceController = inputModule.GetComponent<PlayerUserInterfaceController>();
                 playerUserInterfaceController.Init(playerInput);
                 break;
             case 1:
                 inputModule = Instantiate(player2UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
                 playerInput.uiInputModule = inputModule;
-                inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].EquipmentMenuObject = inputModule.gameObject;
-                controller = inputModule.GetComponent<InventoryController>();
-                inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].controller = controller;
-                controller.playerIndex = playerInput.playerIndex;
 
+
+                playerUserInterfaceController = inputModule.GetComponent<PlayerUserInterfaceController>();
+                playerUserInterfaceController.Init(playerInput);
                 break;
         }
     }

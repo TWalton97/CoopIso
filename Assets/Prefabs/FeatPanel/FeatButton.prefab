@@ -747,6 +747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 6904434225900552204}
+  rectTransform: {fileID: 5186649958044930557}
   FeatName: {fileID: 3927457175359680030}
   FeatBubbles:
   - {fileID: 7673714997401536518}
@@ -755,7 +756,7 @@ MonoBehaviour:
   - {fileID: 8382435694152271675}
   - {fileID: 3959563085251967205}
   FeatIndex: 0
-  selectable: {fileID: 0}
+  selectable: {fileID: 6904434225900552204}
   DeactiveColor: {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 1}
   ActiveColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &5040415194070788992

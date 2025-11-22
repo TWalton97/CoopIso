@@ -1,16 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
     public static Action OnMenuOpened;
     public static Action OnMenuClosed;
-    public GameObject EquipmentMenu;
+    public GameObject PlayerPreview;
 
     [Serializable]
     public class EquipmentMenus
@@ -21,12 +16,6 @@ public class InventoryManager : Singleton<InventoryManager>
         public int playerIndex;
     }
     public EquipmentMenus[] EquipmentMenuObjects = new EquipmentMenus[2];
-
-    public EquipmentSlot[] equipmentSlot;
-    public EquippedSlot[] equippedSlot;
-
-    public bool IsInventoryOpened;
-    public bool IsEquipmentMenuOpened;
 
     private bool player0MenuOpened;
     private bool player1MenuOpened;
@@ -49,6 +38,7 @@ public class InventoryManager : Singleton<InventoryManager>
                 {
                     controller.WeaponController.canAttack = true;
                 }
+                PlayerPreview.SetActive(false);
                 OnMenuClosed?.Invoke();
             }
         }
@@ -60,6 +50,7 @@ public class InventoryManager : Singleton<InventoryManager>
             if (playerIndex == 0) player0MenuOpened = true;
             if (playerIndex == 1) player1MenuOpened = true;
             Time.timeScale = 0;
+            PlayerPreview.SetActive(true);
             OnMenuOpened?.Invoke();
         }
     }
@@ -67,25 +58,6 @@ public class InventoryManager : Singleton<InventoryManager>
     public void AddItemToCorrectPlayerInventory(ItemData itemData, int playerIndex)
     {
         EquipmentMenuObjects[playerIndex].controller.AddItemToFirstEmptySlot(itemData);
-    }
-
-    public void DeselectAllSlots()
-    {
-        for (int i = 0; i < equipmentSlot.Length; i++)
-        {
-            if (equipmentSlot[i].isSelected)
-            {
-                equipmentSlot[i].isSelected = false;
-            }
-        }
-
-        for (int i = 0; i < equippedSlot.Length; i++)
-        {
-            if (equippedSlot[i].isSelected)
-            {
-                equippedSlot[i].isSelected = false;
-            }
-        }
     }
 
     public InventoryController GetInventoryControllerByIndex(int playerIndex)

@@ -40,8 +40,8 @@ public class NewPlayerController : Entity
     private Vector2 _moveInput;
     public bool blockButtonPressed;
     public bool attackButtonPressed;
-    private const string KEYBOARD_SCHEME = "Keyboard&Mouse";
-    private const string GAMEPAD_SCHEME = "Gamepad";
+    public string KEYBOARD_SCHEME { get; private set; } = "Keyboard&Mouse";
+    public string GAMEPAD_SCHEME { get; private set; } = "Gamepad";
 
     public AnimationClip animationClip;
 
