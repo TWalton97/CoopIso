@@ -13,6 +13,7 @@ public class PlayerUserInterfaceController : MonoBehaviour
     public InventoryController inventoryController;
     public PlayerFeatsPanelController featsPanelController;
     public ResourcePanelController resourcePanelController;
+    public AbilityScrollController AbilityScrollController;
 
     private InventoryManager inventoryManager;
     public int PlayerIndex { get; private set; }
@@ -103,6 +104,11 @@ public class PlayerUserInterfaceController : MonoBehaviour
     public void DisplayPlayerResourcePanel(bool value)
     {
         PlayerResourcePanel.SetActive(value);
+    }
+
+    public void AddAbility(BaseAbility ability)
+    {
+        AbilityScrollController.AddAbility(ability);
     }
 
 }

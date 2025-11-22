@@ -125,6 +125,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CycleAbilityListRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a018d94-c9a6-46db-93e9-deaa4387fa5d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CycleAbilityListLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""407f10ae-2b6d-4d70-99e8-bf614d98767f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -433,6 +451,50 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""DrinkPotionTwo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cff23296-2cd2-4238-8c08-02e06a56299a"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""CycleAbilityListRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5bbc4a1b-d7e1-4e68-b122-f7c12b03b29f"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""CycleAbilityListRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b52d52b-bfd4-47db-bfdd-1ddfc48dcce9"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""CycleAbilityListLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d39b2226-1f61-4800-9ae7-6336cb90c858"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""CycleAbilityListLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1144,6 +1206,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_DrinkPotionOne = m_Player.FindAction("DrinkPotionOne", throwIfNotFound: true);
         m_Player_DrinkPotionTwo = m_Player.FindAction("DrinkPotionTwo", throwIfNotFound: true);
+        m_Player_CycleAbilityListRight = m_Player.FindAction("CycleAbilityListRight", throwIfNotFound: true);
+        m_Player_CycleAbilityListLeft = m_Player.FindAction("CycleAbilityListLeft", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1238,6 +1302,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_DrinkPotionOne;
     private readonly InputAction m_Player_DrinkPotionTwo;
+    private readonly InputAction m_Player_CycleAbilityListRight;
+    private readonly InputAction m_Player_CycleAbilityListLeft;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1253,6 +1319,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @DrinkPotionOne => m_Wrapper.m_Player_DrinkPotionOne;
         public InputAction @DrinkPotionTwo => m_Wrapper.m_Player_DrinkPotionTwo;
+        public InputAction @CycleAbilityListRight => m_Wrapper.m_Player_CycleAbilityListRight;
+        public InputAction @CycleAbilityListLeft => m_Wrapper.m_Player_CycleAbilityListLeft;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1295,6 +1363,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DrinkPotionTwo.started += instance.OnDrinkPotionTwo;
             @DrinkPotionTwo.performed += instance.OnDrinkPotionTwo;
             @DrinkPotionTwo.canceled += instance.OnDrinkPotionTwo;
+            @CycleAbilityListRight.started += instance.OnCycleAbilityListRight;
+            @CycleAbilityListRight.performed += instance.OnCycleAbilityListRight;
+            @CycleAbilityListRight.canceled += instance.OnCycleAbilityListRight;
+            @CycleAbilityListLeft.started += instance.OnCycleAbilityListLeft;
+            @CycleAbilityListLeft.performed += instance.OnCycleAbilityListLeft;
+            @CycleAbilityListLeft.canceled += instance.OnCycleAbilityListLeft;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1332,6 +1406,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DrinkPotionTwo.started -= instance.OnDrinkPotionTwo;
             @DrinkPotionTwo.performed -= instance.OnDrinkPotionTwo;
             @DrinkPotionTwo.canceled -= instance.OnDrinkPotionTwo;
+            @CycleAbilityListRight.started -= instance.OnCycleAbilityListRight;
+            @CycleAbilityListRight.performed -= instance.OnCycleAbilityListRight;
+            @CycleAbilityListRight.canceled -= instance.OnCycleAbilityListRight;
+            @CycleAbilityListLeft.started -= instance.OnCycleAbilityListLeft;
+            @CycleAbilityListLeft.performed -= instance.OnCycleAbilityListLeft;
+            @CycleAbilityListLeft.canceled -= instance.OnCycleAbilityListLeft;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1557,6 +1637,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnDrinkPotionOne(InputAction.CallbackContext context);
         void OnDrinkPotionTwo(InputAction.CallbackContext context);
+        void OnCycleAbilityListRight(InputAction.CallbackContext context);
+        void OnCycleAbilityListLeft(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

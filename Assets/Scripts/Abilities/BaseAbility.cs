@@ -18,7 +18,7 @@ public class BaseAbility : MonoBehaviour, IAbility
         resourceController = _resourceController;
     }
 
-    public virtual void OnEnter()
+    public virtual void OnEnter(NewPlayerController controller)
     {
 
     }
@@ -28,7 +28,7 @@ public class BaseAbility : MonoBehaviour, IAbility
 
     }
 
-    public virtual bool CanUse()
+    public virtual bool CanUse(ResourceController resourceController)
     {
         if (resourceController.resource.resourceType == abilityData.ResourceType && resourceController.resource.RemoveResource(abilityData.ResourceAmount)) return true;
 

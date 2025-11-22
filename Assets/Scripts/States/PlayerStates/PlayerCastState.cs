@@ -9,7 +9,9 @@ public class PlayerCastState : PlayerBaseState
 
     public override void OnEnter()
     {
-        player.AbilityController.UseAbility1();
+        PlayerUserInterfaceController controller = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(player.PlayerInputController.playerIndex);
+        BaseAbility selectedAbility = controller.AbilityScrollController.ActiveAbility;
+        player.AbilityController.UseAbility(selectedAbility);
         player.AnimationStatusTracker.OnAbilityCompleted += AbilityCompleted;
     }
 

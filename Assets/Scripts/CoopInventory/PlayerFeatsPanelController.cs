@@ -27,7 +27,7 @@ public class PlayerFeatsPanelController : MonoBehaviour
 
     private bool setupCompleted;
 
-    private NewPlayerController playerController;
+    public NewPlayerController playerController { get; private set; }
 
     public void CreateFeatButtons(FeatsController controller)
     {
@@ -38,7 +38,16 @@ public class PlayerFeatsPanelController : MonoBehaviour
         UpdateSkillPointText();
         int index = 0;
 
-        foreach (Feat feat in controller.AvailableFeats)
+        // foreach (Feat feat in controller.AvailableFeats)
+        // {
+        //     FeatButton featButton = Instantiate(FeatButtonPrefab, FeatBubbleParent);
+        //     featButton.InitializeButton(feat, controller, this, index);
+        //     featButtons.Add(featButton);
+
+        //     index++;
+        // }
+
+        foreach (FeatSO feat in controller.AllFeats)
         {
             FeatButton featButton = Instantiate(FeatButtonPrefab, FeatBubbleParent);
             featButton.InitializeButton(feat, controller, this, index);
@@ -62,7 +71,7 @@ public class PlayerFeatsPanelController : MonoBehaviour
 
     public void OnEnable()
     {
-        UpdateFeatPreviewWindow(featButtons[0].feat);
+        UpdateFeatPreviewWindow(featButtons[0].currentFeatLevel, featButtons[0].feat);
         UpdateSkillPointText();
         foreach (FeatButton featButton in featButtons)
         {
@@ -88,12 +97,41 @@ public class PlayerFeatsPanelController : MonoBehaviour
         SkillPointsRemainingText.text = "Skill Points Remaining: " + experienceController.SkillPoints.ToString();
     }
 
-    public void UpdateFeatPreviewWindow(Feat feat)
+    public void UpdateFeatPreviewWindow(int currentFeatLevel, FeatSO feat)
     {
         FeatPreviewTitle.text = feat.FeatName;
         FeatPreviewCost.text = "Cost: " + feat.SkillPointsCostPerLevel.ToString();
-        FeatPreviewStats.text = feat.GenerateStatString();
-        FeatPreviewDescription.text = feat.FeatDescription;
+
+        if (feat is StatIncreaseFeat statIncreaseFeat)
+        {
+            if (currentFeatLevel == feat.MaximumFeatLevel)
+            {
+                FeatPreviewStats.text = "Maximum Level Reached";
+            }
+            else
+            {
+                int safeIndex = Mathf.Clamp(currentFeatLevel, 0, statIncreaseFeat.ValueIncreasePerLevel.Length - 1);
+                FeatPreviewStats.text = feat.FeatUpgradeDescription + statIncreaseFeat.ValueIncreasePerLevel[safeIndex];
+            }
+        }
+        else
+        {
+            if (currentFeatLevel == 0)
+            {
+                FeatPreviewStats.text = "Next Level: " + feat.FeatUnlockDescription;
+            }
+            else if (currentFeatLevel == feat.MaximumFeatLevel)
+            {
+                FeatPreviewStats.text = "Maximum level reached";
+            }
+            else
+            {
+                FeatPreviewStats.text = "Next Level: " + feat.FeatUpgradeDescription;
+            }
+        }
+
+        FeatPreviewDescription.text = feat.FeatStatDescription;
+
     }
 
     public void UpdateViewPosition(RectTransform target)

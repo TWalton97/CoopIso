@@ -11,6 +11,12 @@ public class FeatsController : MonoBehaviour
 
     public List<Feat> AvailableFeats = new List<Feat>();
 
+
+    public List<FeatSO> AllFeats;
+    private HashSet<FeatSO> unlockedFeats = new HashSet<FeatSO>();
+
+    public BaseAbility cycloneData;
+
     void Awake()
     {
         AddFeatsToList();
@@ -28,16 +34,25 @@ public class FeatsController : MonoBehaviour
         }
     }
 
+    public void Unlock(int currentFeatLevel, int index, Action activatedSuccess)
+    {
+        FeatSO feat = AllFeats[index];
+        //unlockedFeats.Add(feat);
+
+        feat.OnActivate(currentFeatLevel, this, activatedSuccess);
+
+        // if (feat is AbilityUnlockFeat abilityUnlockFeat)
+        // {
+        //     abilityUnlockFeat.UnlockAbility(newPlayerController.AbilityController);
+        // }
+    }
+
 
     private void AddFeatsToList()
     {
         Vigor vigor = new Vigor(0);
         AvailableFeats.Add(vigor);
-        AvailableFeats.Add(vigor);
-        AvailableFeats.Add(vigor);
         Nimble nimble = new Nimble(0);
-        AvailableFeats.Add(nimble);
-        AvailableFeats.Add(nimble);
         AvailableFeats.Add(nimble);
         ShieldTraining shieldTraining = new ShieldTraining(0);
         AvailableFeats.Add(shieldTraining);
@@ -47,6 +62,8 @@ public class FeatsController : MonoBehaviour
         AvailableFeats.Add(twoHandedMastery);
         ArmorMastery armorMastery = new ArmorMastery(3);
         AvailableFeats.Add(armorMastery);
+        Cyclone cyclone = new Cyclone(cycloneData, 0);
+        AvailableFeats.Add(cyclone);
     }
 
 }

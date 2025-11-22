@@ -13,9 +13,10 @@ public class SpinAttack : BaseAbility
         this.resourceController = resourceController;
     }
 
-    public override void OnEnter()
+    public override void OnEnter(NewPlayerController controller)
     {
-        instantiatedHitbox = Instantiate(SpinAttackHitbox, player.transform.position, Quaternion.identity, player.transform);
+        player = controller;
+        instantiatedHitbox = Instantiate(SpinAttackHitbox, controller.transform.position, Quaternion.identity, controller.transform);
         instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.2f);
     }
 
@@ -25,7 +26,7 @@ public class SpinAttack : BaseAbility
         Destroy(instantiatedHitbox.gameObject);
     }
 
-    public override bool CanUse()
+    public override bool CanUse(ResourceController resourceController)
     {
         if (resourceController.resource.resourceType == abilityData.ResourceType && resourceController.resource.RemoveResource(abilityData.ResourceAmount)) return true;
 

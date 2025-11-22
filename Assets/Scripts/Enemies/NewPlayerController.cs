@@ -20,6 +20,7 @@ public class NewPlayerController : Entity
     public AnimationStatusTracker AnimationStatusTracker { get; private set; }
     public PotionController PotionController { get; private set; }
     public InventoryController InventoryController { get; private set; }
+    public PlayerUserInterfaceController PlayerUserInterfaceController { get; private set; }
     public PlayerStatsBlackboard PlayerStatsBlackboard { get; private set; }
     public PlayerHealthController PlayerHealthController { get; private set; }
     public FeatsController FeatsController { get; private set; }
@@ -203,8 +204,8 @@ public class NewPlayerController : Entity
         At(idleState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
         At(blockState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
 
-        At(idleState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && AbilityController.equippedAbility1.CanUse()));
-        At(blockState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && AbilityController.equippedAbility1.CanUse()));
+        At(idleState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && PlayerUserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed()));
+        At(blockState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && PlayerUserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed()));
 
         //Any(attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
 
@@ -387,6 +388,7 @@ public class NewPlayerController : Entity
         while (InventoryController == null)
         {
             InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
+            PlayerUserInterfaceController = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(PlayerInputController.playerIndex);
             yield return new WaitForSeconds(0.1f);
         }
         yield return null;

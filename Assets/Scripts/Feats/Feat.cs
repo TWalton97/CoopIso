@@ -1,14 +1,15 @@
 using System;
 
-public abstract class Feat : IFeat
+[Serializable]
+public class Feat : IFeat
 {
-    public abstract string FeatName { get; set; }
-    public abstract string FeatDescription { get; set; }
-    public abstract int StartingFeatLevel { get; set; }
-    public abstract int CurrentFeatLevel { get; set; }
-    public abstract int MaximumFeatLevel { get; set; }
-    public abstract int SkillPointsCostPerLevel { get; set; }
-    public abstract int SkillPointsCostIncreasePerLevel { get; set; }
+    public virtual string FeatName { get; set; }
+    public virtual string FeatDescription { get; set; }
+    public virtual int StartingFeatLevel { get; set; }
+    public virtual int CurrentFeatLevel { get; set; }
+    public virtual int MaximumFeatLevel { get; set; }
+    public virtual int SkillPointsCostPerLevel { get; set; }
+    public virtual int SkillPointsCostIncreasePerLevel { get; set; }
     public virtual void OnActivate(FeatsController controller, Action activatedSuccess)
     {
 

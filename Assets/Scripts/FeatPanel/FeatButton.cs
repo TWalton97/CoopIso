@@ -16,11 +16,13 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
     private PlayerFeatsPanelController playerFeatsPanelController;
     public int FeatIndex;
     public Button selectable;
-    public Feat feat { get; private set; }
+    public FeatSO feat { get; private set; }
     public Color DeactiveColor;
     public Color ActiveColor;
 
-    public void InitializeButton(Feat _feat, FeatsController _controller, PlayerFeatsPanelController _playerFeatsPanelController, int _featIndex)
+    public int currentFeatLevel;
+
+    public void InitializeButton(FeatSO _feat, FeatsController _controller, PlayerFeatsPanelController _playerFeatsPanelController, int _featIndex)
     {
         FeatIndex = _featIndex;
         controller = _controller;
@@ -52,6 +54,12 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 
     public void CheckIfPlayerHasEnoughSkillpoints()
     {
+        if (currentFeatLevel == feat.MaximumFeatLevel)
+        {
+            FeatName.color = DeactiveColor;
+            return;
+        }
+
         if (experienceController.SkillPoints >= feat.SkillPointsCostPerLevel)
         {
             FeatName.color = ActiveColor;
@@ -64,20 +72,23 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 
     public void ActivateButton()
     {
-        controller.ActivateFeat(FeatIndex, FillNextBubble);
+        //controller.ActivateFeat(FeatIndex, FillNextBubble);
+        controller.Unlock(currentFeatLevel, FeatIndex, FillNextBubble);
     }
 
     public void ActivateButton(bool bypassReqs = false)
     {
-        controller.ActivateFeat(FeatIndex, FillNextBubble, bypassReqs);
+        //controller.ActivateFeat(FeatIndex, FillNextBubble, bypassReqs);
+        controller.Unlock(currentFeatLevel, FeatIndex, FillNextBubble);
     }
 
     private void FillNextBubble()
     {
+        currentFeatLevel++;
         CheckIfPlayerHasEnoughSkillpoints();
-        playerFeatsPanelController.UpdateFeatPreviewWindow(feat);
+        playerFeatsPanelController.UpdateFeatPreviewWindow(currentFeatLevel, feat);
 
-        for (int i = 0; i < controller.AvailableFeats[FeatIndex].CurrentFeatLevel; i++)
+        for (int i = 0; i < currentFeatLevel; i++)
         {
             FeatBubbles[i].FillBubble();
         }
@@ -85,7 +96,7 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 
     public void OnSelect(BaseEventData eventData)
     {
-        playerFeatsPanelController.UpdateFeatPreviewWindow(feat);
+        playerFeatsPanelController.UpdateFeatPreviewWindow(currentFeatLevel, feat);
         playerFeatsPanelController.UpdateViewPosition(rectTransform);
     }
 

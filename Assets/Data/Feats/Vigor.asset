@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ead421b314637b47befea67ea679503, type: 3}
+  m_Name: Vigor
+  m_EditorClassIdentifier: 
+  <FeatName>k__BackingField: Vigor
+  <FeatUnlockDescription>k__BackingField: 'Increases Maximum Health by '
+  <FeatUpgradeDescription>k__BackingField: 'Increases Maximum Health by '
+  <FeatStatDescription>k__BackingField: Increases Maximum Health
+  <StartingFeatLevel>k__BackingField: 0
+  <MaximumFeatLevel>k__BackingField: 5
+  <SkillPointsCostPerLevel>k__BackingField: 1
+  <SkillPointsCostIncreasePerLevel>k__BackingField: 0
+  statToIncrease: 0
+  ValueIncreasePerLevel:
+  - 5
+  - 10
+  - 15
+  - 20
+  - 25

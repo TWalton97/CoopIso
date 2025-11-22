@@ -1,6 +1,6 @@
 public interface IAbility
 {
-    void OnEnter();
+    void OnEnter(NewPlayerController controller);
     void OnExit();
-    bool CanUse();
+    bool CanUse(ResourceController resourceController);
 }

@@ -5,6 +5,7 @@ using static UnityEngine.InputSystem.InputAction;
 using System.Linq;
 using System.Collections.Generic;
 using Utilities;
+using UnityEditor.Timeline.Actions;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class PlayerInputController : MonoBehaviour
     public Action<CallbackContext> OnInteractPerformed;
     public Action<CallbackContext> OnDrinkPotionOnePerformed;
     public Action<CallbackContext> OnDrinkPotionTwoPerformed;
+    public Action<CallbackContext> OnCycleAbilityListLeftPerformed;
+    public Action<CallbackContext> OnCycleAbilityListRightPerformed;
 
     //Stored dictionary for unsubscribing from all events
     private Dictionary<InputAction, Action<CallbackContext>> subscribedInputActions = new Dictionary<InputAction, Action<CallbackContext>>();
@@ -80,6 +83,9 @@ public class PlayerInputController : MonoBehaviour
         SubscribeToInputAction(playerInputActions.Player.Interact.id.ToString(), OnInteract, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.DrinkPotionOne.id.ToString(), OnDrinkPotionOne, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.DrinkPotionTwo.id.ToString(), OnDrinkPotionTwo, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.CycleAbilityListRight.id.ToString(), OnCycleAbilityListRight, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.CycleAbilityListLeft.id.ToString(), OnCycleAbilityListLeft, gameplayMap);
+
         SubscribeToInputAction(playerInputActions.UI.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, UIMap);
         SubscribeToInputAction(playerInputActions.UI.DropItem.id.ToString(), OnDropItem, UIMap);
         SubscribeToInputAction(playerInputActions.UI.MoveMenuLeft.id.ToString(), OnMoveMenuLeft, UIMap);
@@ -211,6 +217,18 @@ public class PlayerInputController : MonoBehaviour
     public void OnDrinkPotionTwo(CallbackContext context)
     {
         OnDrinkPotionTwoPerformed?.Invoke(context);
+    }
+
+    public void OnCycleAbilityListRight(CallbackContext context)
+    {
+        PlayerUserInterfaceController controller = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(playerIndex);
+        controller.AbilityScrollController.CycleRight();
+    }
+
+    public void OnCycleAbilityListLeft(CallbackContext context)
+    {
+        PlayerUserInterfaceController controller = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(playerIndex);
+        controller.AbilityScrollController.CycleLeft();
     }
     #endregion
 

@@ -25,19 +25,12 @@ public class AbilityController : MonoBehaviour
 
     void Start()
     {
-        EquipAbility1();
         newPlayerController.AnimationStatusTracker.OnAbilityCompleted += ExitActivatedAbility;
     }
 
     void OnDestroy()
     {
         newPlayerController.AnimationStatusTracker.OnAbilityCompleted -= ExitActivatedAbility;
-    }
-
-    [ContextMenu("EquipAbility1")]
-    public void EquipAbility1()
-    {
-        EquipAbility(0, AbilityToEquip);
     }
 
     public void EquipAbility(int slot, BaseAbility ability)
@@ -47,13 +40,13 @@ public class AbilityController : MonoBehaviour
         equippedAbility1.Init(newPlayerController, newPlayerController.ResourceController);
     }
 
-    [ContextMenu("Use Ability 1")]
-    public void UseAbility1()
+    public void UseAbility(BaseAbility ability)
     {
-        if (equippedAbility1 == null) return;
+        if (ability == null) return;
 
-        ActivatedAbility = equippedAbility1;
-        equippedAbility1.OnEnter();
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName($"Ability_Default_Slot{1}", ability.abilityData.AnimationClip);
+        ActivatedAbility = ability;
+        ability.OnEnter(newPlayerController);
         playerAnimator.SetInteger("AbilityIndex", 0);
         playerAnimator.SetTrigger("Cast");
     }
@@ -63,5 +56,11 @@ public class AbilityController : MonoBehaviour
         if (ActivatedAbility == null) return;
         ActivatedAbility.OnExit();
         ActivatedAbility = null;
+    }
+
+    public void UnlockAbility(BaseAbility ability)
+    {
+        UnlockedAbilities.Add(ability);
+        InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(newPlayerController.PlayerInputController.playerIndex).AddAbility(ability);
     }
 }
