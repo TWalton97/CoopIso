@@ -13,6 +13,8 @@ public class AbilityController : MonoBehaviour
     public Action OnAbilityStarted;
     public Action OnAbilityFinished;
 
+    public List<BaseAbility> UnlockedAbilities;
+
     public BaseAbility AbilityToEquip;
 
     public BaseAbility equippedAbility1;

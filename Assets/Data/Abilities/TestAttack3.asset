@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 320b1e0d1cabaa44bacc7493339dc7f3, type: 3}
-  m_Name: SpinAttack
+  m_Name: TestAttack3
   m_EditorClassIdentifier: 
-  AbilityName: Spin Attack
-  AbilityIcon: {fileID: 21300000, guid: 82e232c4b7118c044b006d312574bb11, type: 3}
-  AnimationClip: {fileID: 7400000, guid: 63b3d9ed541af004bbdf824144fb5459, type: 2}
+  AbilityName: Test Attack
+  AbilityIcon: {fileID: 21300000, guid: 12ecca8998715824f822cd52d4152545, type: 3}
+  AnimationClip: {fileID: 7400000, guid: 75cdaa2b322c6f84f86f8930caacbd33, type: 2}
   ResourceType: 1
-  ResourceAmount: 25
-  WeaponDamagePercentage: 0.2
+  ResourceAmount: 15
+  WeaponDamagePercentage: 15
