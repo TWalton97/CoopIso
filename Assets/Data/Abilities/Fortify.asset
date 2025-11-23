@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e643c011fefc2e348a2e930d0d363307, type: 3}
+  m_Name: Fortify
+  m_EditorClassIdentifier: 
+  AbilityName: Fortify
+  AbilityIcon: {fileID: 21300000, guid: 06d02d07843f570469ba6d32b0806d13, type: 3}
+  AnimationClip: {fileID: 7400000, guid: cde254593a06ece499a384a4aad12219, type: 2}
+  ResourceType: 1
+  ResourceAmount: 15
+  MovementSpeedMultiplierWhileUsing: 0
+  statusSO: {fileID: 11400000, guid: 0ae180700c5b45747a904b6df15b9584, type: 2}
+  buffBehaviourPrefab: {fileID: 1356468606317954617, guid: 11f246e1c9f17ca4f8e0a7269aa64ad3, type: 3}

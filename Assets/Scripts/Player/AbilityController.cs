@@ -76,6 +76,9 @@ public class AbilityController : MonoBehaviour
         if (so is WeaponAbility weaponAbility)
             return Instantiate(weaponAbility.abilityBehaviourPrefab, transform);
 
+        if (so is BuffAbility buffAbility)
+            return Instantiate(buffAbility.buffBehaviourPrefab, transform);
+
         throw new Exception($"No behaviour prefab assigned for ability type: {so.GetType()}");
     }
 

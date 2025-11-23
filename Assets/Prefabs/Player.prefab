@@ -14988,6 +14988,7 @@ GameObject:
   - component: {fileID: 1963507904449709706}
   - component: {fileID: 5462929516163145740}
   - component: {fileID: 1154131606781797226}
+  - component: {fileID: 3897780724938492040}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -15233,6 +15234,7 @@ MonoBehaviour:
   PlayerAnimationController: {fileID: 1154131606781797226}
   AbilityController: {fileID: 5462929516163145740}
   ResourceController: {fileID: 6695485961067399900}
+  StatusController: {fileID: 3897780724938492040}
   _movementSpeed: 4
   _maximumMovementSpeed: 0
   _jumpForce: 7
@@ -15311,6 +15313,7 @@ MonoBehaviour:
   TwoHandedMastery: 0
   DualWieldMastery: 0
   BowMastery: 0
+  ClassName: 
 --- !u!114 &6695485961067399900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15416,7 +15419,8 @@ MonoBehaviour:
   newPlayerController: {fileID: 7230535324818502119}
   experienceController: {fileID: 9155891904063514100}
   playerHealthController: {fileID: 6810012523319174219}
-  AllFeats: []
+  AllFeats:
+  - {fileID: 11400000, guid: 71fc59681dde3654c81e29b8d3acf16a, type: 2}
   UnlockedFeats: []
 --- !u!114 &1963507904449709706
 MonoBehaviour:
@@ -15488,6 +15492,18 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 011722f6d8551204e9046c37c5ebb172, type: 2}
   - {fileID: 7400000, guid: 11e42c6bc697fc849b34161ac728a651, type: 2}
   - {fileID: 7400000, guid: 14ef156f788f8bd4f92511daf3e7707a, type: 2}
+--- !u!114 &3897780724938492040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013222344262508588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328b214ff7b4ff04b8562d96661030e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5016090182544120206
 GameObject:
   m_ObjectHideFlags: 0

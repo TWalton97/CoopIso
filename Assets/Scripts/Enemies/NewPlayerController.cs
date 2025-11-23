@@ -28,6 +28,7 @@ public class NewPlayerController : Entity
     public PlayerAnimationController PlayerAnimationController;
     public AbilityController AbilityController;
     public ResourceController ResourceController;
+    public StatusController StatusController;
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
