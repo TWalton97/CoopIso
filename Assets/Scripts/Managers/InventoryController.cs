@@ -12,6 +12,7 @@ public class InventoryController : MonoBehaviour
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;
 
+    [SerializeField] private TMP_Text PlayerClassText;
     [SerializeField] private TMP_Text PlayerHealthText;
     [SerializeField] private TMP_Text PlayerMovementSpeedText;
     [SerializeField] private TMP_Text PlayerAttacksPerSecondText;
@@ -21,7 +22,7 @@ public class InventoryController : MonoBehaviour
     public List<ItemSlot> selectedItemSlots = new();
     public ItemSlot CurrentlySelectedItemSlot;
 
-    public NewPlayerController controller { get; private set; }
+    public NewPlayerController controller;
     public Action OnMenuOpened;
     public Action OnMenuClosed;
     private void Awake()
@@ -31,10 +32,10 @@ public class InventoryController : MonoBehaviour
 
     void OnEnable()
     {
-        controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(playerIndex);
         controller.WeaponController.OnWeaponUpdated += UpdatePlayerStats;
         controller.PlayerHealthController.OnMaximumHealthChanged += UpdatePlayerStats;
         controller.PlayerHealthController.OnArmorAmountChanged += UpdatePlayerStats;
+        OnMenuOpened += controller.PlayerStatsBlackboard.UpdateArmorStats;
         OnMenuOpened += UpdatePlayerStats;
     }
 
@@ -43,6 +44,7 @@ public class InventoryController : MonoBehaviour
         controller.WeaponController.OnWeaponUpdated -= UpdatePlayerStats;
         controller.PlayerHealthController.OnMaximumHealthChanged -= UpdatePlayerStats;
         controller.PlayerHealthController.OnArmorAmountChanged -= UpdatePlayerStats;
+        OnMenuOpened -= controller.PlayerStatsBlackboard.UpdateArmorStats;
         OnMenuOpened -= UpdatePlayerStats;
         ResetButtonSelection();
         if (CurrentlySelectedItemSlot != null)
@@ -51,6 +53,7 @@ public class InventoryController : MonoBehaviour
 
     public void UpdatePlayerStats()
     {
+        PlayerClassText.text = controller.PlayerStatsBlackboard.ClassName;
         PlayerHealthText.text = controller.healthController.CurrentHealth.ToString() + "/" + controller.healthController.MaximumHealth.ToString();
         PlayerMovementSpeedText.text = controller._maximumMovementSpeed.ToString();
         PlayerAttacksPerSecondText.text = controller.PlayerStatsBlackboard.AttacksPerSecond.ToString("0.00");
@@ -171,7 +174,7 @@ public class InventoryController : MonoBehaviour
                         {
                             ItemData itemData = selectedItemSlots[0].itemData;
                             selectedItemSlots[0].EmptySlot();
-                            mainSlot.EquipGear(itemData);
+                            mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
                         }
                         else if (mainSlot.equippedWeaponType == ItemType.TwoHanded)
                         {
@@ -180,19 +183,19 @@ public class InventoryController : MonoBehaviour
                                 ItemData itemData = selectedItemSlots[0].itemData;
                                 selectedItemSlots[0].EmptySlot();
                                 equippedSlot.UnequipGear();
-                                mainSlot.EquipGear(itemData);
+                                mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
                             }
                             else if (selectedItemSlots[0].itemData.itemType == ItemType.TwoHanded)
                             {
                                 ItemData itemData = selectedItemSlots[0].itemData;
                                 selectedItemSlots[0].EmptySlot();
-                                equippedSlot.EquipGear(itemData);
+                                equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
                             }
                             else if (selectedItemSlots[0].itemData.itemType == ItemType.Bow)
                             {
                                 ItemData itemData = selectedItemSlots[0].itemData;
                                 selectedItemSlots[0].EmptySlot();
-                                mainSlot.EquipGear(itemData);
+                                mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
                             }
                         }
                         else if (mainSlot.equippedWeaponType == ItemType.OneHanded)
@@ -202,19 +205,19 @@ public class InventoryController : MonoBehaviour
                                 ItemData itemData = selectedItemSlots[0].itemData;
                                 selectedItemSlots[0].EmptySlot();
                                 equippedSlot.UnequipGear();
-                                mainSlot.EquipGear(itemData);
+                                mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
                             }
                             else if (selectedItemSlots[0].itemData.itemType == ItemType.OneHanded)
                             {
                                 ItemData itemData = selectedItemSlots[0].itemData;
                                 selectedItemSlots[0].EmptySlot();
-                                equippedSlot.EquipGear(itemData);
+                                equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
                             }
                             else if (selectedItemSlots[0].itemData.itemType == ItemType.Bow)
                             {
                                 ItemData itemData = selectedItemSlots[0].itemData;
                                 selectedItemSlots[0].EmptySlot();
-                                equippedSlot.EquipGear(itemData);
+                                equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
                             }
                         }
                         else if (mainSlot.equippedWeaponType == ItemType.Bow)
@@ -222,13 +225,13 @@ public class InventoryController : MonoBehaviour
                             ItemData itemData = selectedItemSlots[0].itemData;
                             selectedItemSlots[0].EmptySlot();
                             equippedSlot.UnequipGear();
-                            mainSlot.EquipGear(itemData);
+                            mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
                         }
                         else
                         {
                             ItemData itemData = selectedItemSlots[0].itemData;
                             selectedItemSlots[0].EmptySlot();
-                            equippedSlot.EquipGear(itemData, selectedItemSlots[0].slotIndex);
+                            equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController, selectedItemSlots[0].slotIndex);
                         }
                     }
                     else if (equippedSlot.slotType == Slot.MainHand)
@@ -236,7 +239,7 @@ public class InventoryController : MonoBehaviour
                         EquippedSlot offhandSlot = FindEquippedSlotOfType(Slot.OffHand)[0];
                         ItemData itemData = selectedItemSlots[0].itemData;
                         selectedItemSlots[0].EmptySlot();
-                        equippedSlot.EquipGear(itemData);
+                        equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
                         if (offhandSlot.slotInUse)
                         {
                             if (itemData.itemType == ItemType.OneHanded && offhandSlot.equippedWeaponType == ItemType.TwoHanded)
@@ -257,7 +260,7 @@ public class InventoryController : MonoBehaviour
                     {
                         ItemData itemData = selectedItemSlots[0].itemData;
                         selectedItemSlots[0].EmptySlot();
-                        equippedSlot.EquipGear(itemData, selectedItemSlots[0].slotIndex);
+                        equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController, selectedItemSlots[0].slotIndex);
                     }
                 }
             }
@@ -274,7 +277,7 @@ public class InventoryController : MonoBehaviour
                     {
                         ItemData itemData = selectedItemSlots[1].itemData;
                         selectedItemSlots[1].EmptySlot();
-                        equippedSlot.EquipGear(itemData, selectedItemSlots[1].slotIndex);
+                        equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController, selectedItemSlots[1].slotIndex);
                     }
                 }
             }
@@ -289,8 +292,8 @@ public class InventoryController : MonoBehaviour
                     {
                         ItemData itemData = equippedSlot2.itemData;
                         equippedSlot2.UnequipGear(0, true);
-                        equippedSlot2.EquipGear(equippedSlot1.itemData);
-                        equippedSlot1.EquipGear(itemData, 0, true);
+                        equippedSlot2.EquipGear(equippedSlot1.itemData, playerUserInterfaceController.playerContext.PlayerController);
+                        equippedSlot1.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController, 0, true);
                     }
                 }
                 else
@@ -298,7 +301,7 @@ public class InventoryController : MonoBehaviour
                     if (equippedSlot2.ItemTypeValidForSlot(equippedSlot1.itemData.itemType))
                     {
                         equippedSlot1.UnequipGear(0, true);
-                        equippedSlot2.EquipGear(equippedSlot1.itemData);
+                        equippedSlot2.EquipGear(equippedSlot1.itemData, playerUserInterfaceController.playerContext.PlayerController);
                     }
                 }
             }

@@ -14,14 +14,13 @@ public class FeatsController : MonoBehaviour
     public List<FeatSO> AllFeats;
     public List<RuntimeFeat> UnlockedFeats;
 
-    public ClassFeatConfig classFeatConfig;
-
     public Action<FeatSO, int> OnFeatLevelChanged;
 
-    private void Start()
+    public void SetupClassPreset(ClassFeatConfig classFeatConfig)
     {
-        SetupClassConfig();
+        SetupClassConfig(classFeatConfig);
     }
+
 
     public RuntimeFeat GetRuntimeFeat(FeatSO feat)
     {
@@ -122,10 +121,11 @@ public class FeatsController : MonoBehaviour
         }
     }
 
-    private void SetupClassConfig()
+    private void SetupClassConfig(ClassFeatConfig classFeatConfig)
     {
         foreach (ClassFeatConfig.StartingFeat startingFeat in classFeatConfig.startingFeats)
         {
+            AllFeats.Add(startingFeat.feat);
             for (int i = 0; i < startingFeat.startingLevel; i++)
             {
                 UnlockFeatBypassReqs(startingFeat.feat);

@@ -22,12 +22,12 @@ public class NewPlayerController : Entity
     public PotionController PotionController { get; private set; }
     public InventoryController InventoryController { get; private set; }
     public PlayerUserInterfaceController PlayerUserInterfaceController { get; private set; }
-    public PlayerStatsBlackboard PlayerStatsBlackboard { get; private set; }
-    public PlayerHealthController PlayerHealthController { get; private set; }
+    public PlayerStatsBlackboard PlayerStatsBlackboard;
+    public PlayerHealthController PlayerHealthController;
     public FeatsController FeatsController;
-    public PlayerAnimationController PlayerAnimationController { get; private set; }
-    public AbilityController AbilityController { get; private set; }
-    public ResourceController ResourceController { get; private set; }
+    public PlayerAnimationController PlayerAnimationController;
+    public AbilityController AbilityController;
+    public ResourceController ResourceController;
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
@@ -63,20 +63,14 @@ public class NewPlayerController : Entity
         base.Awake();
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
-        WeaponController = GetComponent<NewWeaponController>();
         PlayerInputController = GetComponent<PlayerInputController>();
         GroundCheck = GetComponent<GroundCheck>();
         Interactor = GetComponentInChildren<Interactor>();
         AnimationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
         PotionController = GetComponent<PotionController>();
         InventoryController = PlayerContext.InventoryManager.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
-        PlayerStatsBlackboard = GetComponent<PlayerStatsBlackboard>();
-        PlayerHealthController = GetComponent<PlayerHealthController>();
-        FeatsController = GetComponent<FeatsController>();
-        PlayerAnimationController = GetComponent<PlayerAnimationController>();
-        AbilityController = GetComponent<AbilityController>();
-        ResourceController = GetComponent<ResourceController>();
     }
+
     void Start()
     {
         SetupMovementStateMachine();
@@ -343,7 +337,7 @@ public class NewPlayerController : Entity
     {
         if (attackStateMachine.current.State == idleState || attackStateMachine.current.State == blockState)
         {
-            if (PlayerUserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed())
+            if (PlayerContext.UserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed())
                 attackStateMachine.ChangeState(castState);
         }
     }

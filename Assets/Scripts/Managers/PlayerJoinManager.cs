@@ -10,6 +10,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     public InteractionManager interactionManager;
     public InventoryManager inventoryManager;
     public SpawnedItemDataBase spawnedItemDatabase;
+    public PlayerPreviewManager playerPreviewManager;
 
     public static Action<GameObject> OnPlayerJoinedEvent;
     public static Action<GameObject> OnPlayerLeftEvent;
@@ -18,6 +19,9 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     public GameObject player1UI;
     public GameObject player2UI;
+
+    public List<ClassPresetSO> classPresets;
+
 
     protected override void Awake()
     {
@@ -75,9 +79,26 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.InventoryManager = inventoryManager;
         playerContext.InteractionManager = interactionManager;
         playerContext.SpawnedItemDatabase = spawnedItemDatabase;
+        playerContext.PlayerPreviewManager = playerPreviewManager;
+
+        playerContext.UserInterfaceController.inventoryController.controller = playerContext.PlayerController;
 
         playerContext.PlayerController.PlayerContext = playerContext;
+
+        ClassPresetSO classPresetSO = ChooseRandomClassPreset();
+        playerContext.PlayerController.FeatsController.SetupClassPreset(classPresetSO.classFeatConfig);
+        playerContext.PlayerController.WeaponController.EquipStarterItems(classPresetSO.StartingMainHandWeapon, classPresetSO.StartingOffhandWeapon);
+        playerContext.PlayerController.ArmorController.EquipStarterItems(classPresetSO.StartingHelmet, classPresetSO.StartingBodyArmor, classPresetSO.StartingLegArmor);
+        playerContext.PlayerController.PlayerStatsBlackboard.ClassName = classPresetSO.PresetName;
+
         playerUserInterfaceController.Init(playerInput, playerContext);
+    }
+
+    private ClassPresetSO ChooseRandomClassPreset()
+    {
+        if (classPresets.Count == 0) return null;
+
+        return classPresets[UnityEngine.Random.Range(0, classPresets.Count)];
     }
 }
 
@@ -92,4 +113,5 @@ public class PlayerContext
     public InventoryManager InventoryManager;
     public InteractionManager InteractionManager;
     public SpawnedItemDataBase SpawnedItemDatabase;
+    public PlayerPreviewManager PlayerPreviewManager;
 }

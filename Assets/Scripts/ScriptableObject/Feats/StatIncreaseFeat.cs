@@ -13,7 +13,7 @@ public class StatIncreaseFeat : FeatSO
 
     public void IncreaseStat(int CurrentFeatLevel, FeatsController controller)
     {
-        int safeIndex = Mathf.Clamp(CurrentFeatLevel, 0, ValueIncreasePerLevel.Length - 1);
+        int safeIndex = Mathf.Clamp(CurrentFeatLevel - 1, 0, ValueIncreasePerLevel.Length - 1);
         switch (statToIncrease)
         {
             case StatToIncrease.Health:

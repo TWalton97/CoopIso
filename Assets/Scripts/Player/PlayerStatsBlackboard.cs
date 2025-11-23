@@ -43,6 +43,8 @@ public class PlayerStatsBlackboard : MonoBehaviour
     public bool DualWieldMastery = false;
     public bool BowMastery = false;
 
+    public string ClassName;
+
     private void Start()
     {
         UpdateHealthStats(0, null);
@@ -83,7 +85,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         CurrentHealth = HealthController.CurrentHealth;
     }
 
-    private void UpdateArmorStats()
+    public void UpdateArmorStats()
     {
         if (HealthController == null) return;
         ArmorAmount = HealthController.ArmorAmount;

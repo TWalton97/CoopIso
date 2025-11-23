@@ -19,7 +19,6 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
     private InventoryManager inventoryManager;
     public int PlayerIndex { get; private set; }
-    private PlayerInput playerInput;
     public bool IsMenuOpened { get; private set; }
 
     private EventSystem eventSystem;
@@ -29,11 +28,6 @@ public class PlayerUserInterfaceController : MonoBehaviour
         eventSystem = GetComponent<EventSystem>();
     }
 
-    void Start()
-    {
-        SetupInventoryMenu(playerInput);
-        resourcePanelController.Init(playerContext.PlayerController);
-    }
 
     public void OpenInventoryPanel()
     {
@@ -71,14 +65,15 @@ public class PlayerUserInterfaceController : MonoBehaviour
         }
     }
 
-    public void Init(PlayerInput _playerInput, PlayerContext context)
+    public void Init(PlayerInput playerInput, PlayerContext context)
     {
-        PlayerIndex = _playerInput.playerIndex;
-        playerInput = _playerInput;
+        PlayerIndex = context.PlayerIndex;
         playerContext = context;
         inventoryManager = playerContext.InventoryManager;
         inventoryController.playerUserInterfaceController = this;
 
+        resourcePanelController.Init(playerContext.PlayerController);
+        SetupInventoryMenu(playerInput);
         SetupFeatsMenu();
     }
 

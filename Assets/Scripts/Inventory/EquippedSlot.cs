@@ -37,7 +37,7 @@ public class EquippedSlot : ItemSlot
         HidePreview();
     }
 
-    public void EquipGear(ItemData itemData, int index = 0, bool deleteItemInSlot = false)
+    public void EquipGear(ItemData itemData, NewPlayerController playerController, int index = 0, bool deleteItemInSlot = false)
     {
         if (slotInUse)
             UnequipGear(index, deleteItemInSlot);
@@ -47,7 +47,6 @@ public class EquippedSlot : ItemSlot
         slotImage.enabled = true;
         slotName.enabled = false;
         equippedWeaponType = itemData.itemType;
-        NewPlayerController playerController = PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex);
 
         if (itemData.itemType == ItemType.OneHanded)
         {

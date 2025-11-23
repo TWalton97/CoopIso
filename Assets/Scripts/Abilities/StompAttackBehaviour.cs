@@ -30,7 +30,7 @@ public class StompAttackBehaviour : WeaponAbilityBehaviour
     private IEnumerator SpawnHitboxAfterDelay()
     {
         yield return new WaitForSeconds(HitboxSpawnDelay);
-        instantiatedHitbox = Instantiate(SpinAttackHitbox, player.transform.position, Quaternion.identity, player.transform);
+        instantiatedHitbox = Instantiate(SpinAttackHitbox, player.transform.position, Quaternion.identity);
         instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.2f, false);
         yield return null;
     }

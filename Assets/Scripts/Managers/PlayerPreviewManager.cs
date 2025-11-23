@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPreviewManager : Singleton<PlayerPreviewManager>
+public class PlayerPreviewManager : MonoBehaviour
 {
     public PreviewPlayerController playerOneObject;
     public PreviewPlayerController playerTwoObject;

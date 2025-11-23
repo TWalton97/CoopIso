@@ -15223,10 +15223,16 @@ MonoBehaviour:
     InventoryManager: {fileID: 0}
     InteractionManager: {fileID: 0}
     SpawnedItemDatabase: {fileID: 0}
+    PlayerPreviewManager: {fileID: 0}
   WeaponController: {fileID: 7874169709706284734}
   ArmorController: {fileID: 1963507904449709706}
   ExperienceController: {fileID: 9155891904063514100}
+  PlayerStatsBlackboard: {fileID: 7241770228590873990}
+  PlayerHealthController: {fileID: 6810012523319174219}
   FeatsController: {fileID: 90509361737073914}
+  PlayerAnimationController: {fileID: 1154131606781797226}
+  AbilityController: {fileID: 5462929516163145740}
+  ResourceController: {fileID: 6695485961067399900}
   _movementSpeed: 4
   _maximumMovementSpeed: 0
   _jumpForce: 7
@@ -15262,8 +15268,6 @@ MonoBehaviour:
   primaryWeaponAttackCompleted: 0
   canAttack: 1
   HasShieldEquipped: 0
-  StartingMainHandWeapon: {fileID: 7507621691804293595, guid: 0d892f2c0381e594bbef46287f1e97dc, type: 3}
-  StartingOffHandWeapon: {fileID: 0}
   oneHandedAttackProfile: {fileID: 11400000, guid: ca170934416f2e540a8ccc28c4c603df, type: 2}
   twoHandedAttackProfile: {fileID: 11400000, guid: f0ec3d025e2dfc246b8eca57f5442245, type: 2}
   dualWieldAttackProfile: {fileID: 11400000, guid: b5e01b42ab1bd224b8a87e7f620e02a1, type: 2}
@@ -15412,13 +15416,8 @@ MonoBehaviour:
   newPlayerController: {fileID: 7230535324818502119}
   experienceController: {fileID: 9155891904063514100}
   playerHealthController: {fileID: 6810012523319174219}
-  AllFeats:
-  - {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
+  AllFeats: []
   UnlockedFeats: []
-  classFeatConfig:
-    startingFeats:
-    - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
-      startingLevel: 3
 --- !u!114 &1963507904449709706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15435,11 +15434,8 @@ MonoBehaviour:
   playerHealthController: {fileID: 6810012523319174219}
   skinnedMeshRendererBoneRef: {fileID: 5716145673506366617}
   bodyArmorTransform: {fileID: 3877442105456433360}
-  StartingBodyArmor: {fileID: 671674740870320807, guid: 04478f353a783e74e89e6cec6e03b9e4, type: 3}
   helmetTransform: {fileID: 598264786547000333}
-  StartingHelmet: {fileID: 4845004349861385238, guid: 0ba85ec1da2ebd441ad77e5178783e47, type: 3}
   legsTransform: {fileID: 1900913105297275281}
-  StartingLegs: {fileID: 6325581541471828504, guid: d96448a32dc0e2c4cbe4993438dccba1, type: 3}
 --- !u!114 &5462929516163145740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27599,8 +27595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f04c9ced2cb19f4e99fdf2107fe8fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RootBone: {fileID: 0}
-  Bones: []
+  skinnedMeshRenderer: {fileID: 6995841783712099753}
 --- !u!1 &8986008747953279725
 GameObject:
   m_ObjectHideFlags: 0

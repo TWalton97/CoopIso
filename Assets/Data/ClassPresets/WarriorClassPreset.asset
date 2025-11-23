@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5f5c5c88f44794eb3c11566ba6fb10, type: 3}
+  m_Name: WarriorClassPreset
+  m_EditorClassIdentifier: 
+  PresetName: Warrior
+  StartingMainHandWeapon: {fileID: 7244810151996339239, guid: fee8c54116d6d05409bc9cd4b23960a6, type: 3}
+  StartingOffhandWeapon: {fileID: 0}
+  StartingHelmet: {fileID: 7985580861925192519, guid: 19074bbd346371443ad9ca2acc7efacd, type: 3}
+  StartingBodyArmor: {fileID: 3687732309643741796, guid: 8e5fb974f09f06c42b47716e367d6e23, type: 3}
+  StartingLegArmor: {fileID: 1223344451551807704, guid: b7683252bebe81f4c93e176b88f0a486, type: 3}
+  classFeatConfig:
+    startingFeats:
+    - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
+      startingLevel: 1
+    - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
+      startingLevel: 2
+    - feat: {fileID: 11400000, guid: c29d650f74cff0241a27fa5cc33bd85d, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: ae6b9c3edd34adb438fd3c81aafbe495, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 0e4d047c9f357444fb30b9deb71369eb, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
+      startingLevel: 0

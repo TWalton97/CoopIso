@@ -13,8 +13,17 @@ public class PlayerAnimationController : MonoBehaviour
     // quick lookup: placeholder clip -> index in overridesList
     private Dictionary<AnimationClip, int> indexMap;
 
+    private bool Initialized = false;
+
     void Awake()
     {
+        Init();
+    }
+
+    private void Init()
+    {
+        if (Initialized) return;
+        Initialized = true;
         animator = GetComponentInChildren<Animator>();
 
         // create per-player instance of the AOC
@@ -71,6 +80,11 @@ public class PlayerAnimationController : MonoBehaviour
     /// </summary>
     public void SetOverrideByPlaceholderName(string placeholderName, AnimationClip newClip)
     {
+        if (overridesList == null)
+        {
+            Init();
+        }
+
         int idx = overridesList.FindIndex(kv => kv.Key != null && kv.Key.name == placeholderName);
         if (idx == -1)
         {

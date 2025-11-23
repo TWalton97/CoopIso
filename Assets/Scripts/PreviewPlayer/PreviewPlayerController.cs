@@ -33,8 +33,8 @@ public class PreviewPlayerController : MonoBehaviour
                 }
                 instantiatedHelmet = Instantiate(prefab, HelmetTransform.position, Quaternion.identity, HelmetTransform);
                 skinnedMeshRenderer = instantiatedHelmet.GetComponent<SkinnedMeshRenderer>();
-                skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.RootBone;
-                skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.Bones;
+                skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.GetRootBone();
+                skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.GetBones();
                 break;
             case ItemType.Body:
                 if (instantiatedBody != null)
@@ -43,8 +43,8 @@ public class PreviewPlayerController : MonoBehaviour
                 }
                 instantiatedBody = Instantiate(prefab, BodyTransform.position, Quaternion.identity, BodyTransform);
                 skinnedMeshRenderer = instantiatedBody.GetComponent<SkinnedMeshRenderer>();
-                skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.RootBone;
-                skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.Bones;
+                skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.GetRootBone();
+                skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.GetBones();
                 break;
             case ItemType.Legs:
                 if (instantiatedLegs != null)
@@ -53,8 +53,8 @@ public class PreviewPlayerController : MonoBehaviour
                 }
                 instantiatedLegs = Instantiate(prefab, LegsTransform.position, Quaternion.identity, LegsTransform);
                 skinnedMeshRenderer = instantiatedLegs.GetComponent<SkinnedMeshRenderer>();
-                skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.RootBone;
-                skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.Bones;
+                skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.GetRootBone();
+                skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.GetBones();
                 break;
         }
     }

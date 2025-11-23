@@ -31,7 +31,6 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         feat = _feat;
         FeatName.text = feat.FeatName;
         button.onClick.AddListener(ActivateButton);
-
         controller.OnFeatLevelChanged += UpdateUI;
 
         for (int i = 0; i < feat.MaximumFeatLevel; i++)
@@ -51,8 +50,6 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         {
             ActivateButton(true);
         }
-
-
     }
 
     private void OnDisable()
@@ -98,6 +95,7 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         if (changedFeat != feat) return;
 
         currentFeatLevel = newLevel;
+        playerFeatsPanelController.UpdateFeatPreviewWindow(currentFeatLevel, feat);
         CheckIfPlayerHasEnoughSkillpoints();
 
         for (int i = 0; i < currentFeatLevel; i++)

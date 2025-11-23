@@ -48,25 +48,25 @@ public class EquipmentSlot : ItemSlot
         if (!itemData.data.CheckItemRequirements(inventoryController.controller.PlayerStatsBlackboard)) return;
 
         if (itemData.itemType == ItemType.Consumable)
-            potionSlotOne.EquipGear(itemData);
+            potionSlotOne.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
         if (itemData.itemType == ItemType.Head)
-            headSlot.EquipGear(itemData);
+            headSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
         if (itemData.itemType == ItemType.Body)
-            bodySlot.EquipGear(itemData);
+            bodySlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
         if (itemData.itemType == ItemType.Legs)
-            legSlot.EquipGear(itemData);
+            legSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
         if (itemData.itemType == ItemType.TwoHanded)
         {
             if (!inventoryController.controller.PlayerStatsBlackboard.TwoHandedMastery)
             {
                 offHandSlot.UnequipGear();
-                mainHandSlot.EquipGear(itemData);
+                mainHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
             }
             else
             {
                 if (!mainHandSlot.slotInUse)
                 {
-                    mainHandSlot.EquipGear(itemData);
+                    mainHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
                     if (offHandSlot.slotInUse && offHandSlot.equippedWeaponType == ItemType.OneHanded)
                     {
                         offHandSlot.UnequipGear();
@@ -75,15 +75,15 @@ public class EquipmentSlot : ItemSlot
                 else if (mainHandSlot.equippedWeaponType == ItemType.OneHanded || mainHandSlot.equippedWeaponType == ItemType.Bow)
                 {
                     offHandSlot.UnequipGear();
-                    mainHandSlot.EquipGear(itemData);
+                    mainHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
                 }
                 else if (!offHandSlot.slotInUse)
                 {
-                    offHandSlot.EquipGear(itemData);
+                    offHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
                 }
                 else
                 {
-                    mainHandSlot.EquipGear(itemData);
+                    mainHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
                 }
             }
         }
@@ -92,7 +92,7 @@ public class EquipmentSlot : ItemSlot
         {
             if (!mainHandSlot.slotInUse)
             {
-                mainHandSlot.EquipGear(itemData);
+                mainHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
             }
             else if (mainHandSlot.equippedWeaponType == ItemType.TwoHanded)
             {
@@ -100,19 +100,19 @@ public class EquipmentSlot : ItemSlot
                 {
                     offHandSlot.UnequipGear();
                 }
-                mainHandSlot.EquipGear(itemData);
+                mainHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
             }
             else if (mainHandSlot.equippedWeaponType == ItemType.Bow)
             {
-                mainHandSlot.EquipGear(itemData);
+                mainHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
             }
             else if (!offHandSlot.slotInUse)
             {
-                offHandSlot.EquipGear(itemData);
+                offHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
             }
             else
             {
-                mainHandSlot.EquipGear(itemData);
+                mainHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
             }
         }
         if (itemData.itemType == ItemType.Offhand)
@@ -121,7 +121,7 @@ public class EquipmentSlot : ItemSlot
             {
                 mainHandSlot.UnequipGear();
             }
-            offHandSlot.EquipGear(itemData);
+            offHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
         }
 
         if (itemData.itemType == ItemType.Bow)
@@ -130,7 +130,7 @@ public class EquipmentSlot : ItemSlot
             {
                 offHandSlot.UnequipGear();
             }
-            mainHandSlot.EquipGear(itemData);
+            mainHandSlot.EquipGear(itemData, inventoryController.playerUserInterfaceController.playerContext.PlayerController);
         }
         HidePreview();
         inventoryController.DeselectAllSlots();

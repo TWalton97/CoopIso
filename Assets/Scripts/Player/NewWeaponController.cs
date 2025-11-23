@@ -27,8 +27,6 @@ public class NewWeaponController : MonoBehaviour
     public bool HasShieldEquipped;
     private Action OnActionCompleted;
 
-    public Item StartingMainHandWeapon;
-    public Item StartingOffHandWeapon;
     private bool StarterWeaponsEquipped = false;
 
     public AttackProfile oneHandedAttackProfile;
@@ -46,7 +44,6 @@ public class NewWeaponController : MonoBehaviour
     void Start()
     {
         newPlayerController.AnimationStatusTracker.OnAttackCompleted += ResetAttack;
-        EquipStarterItems();
     }
 
     void OnEnable()
@@ -65,24 +62,24 @@ public class NewWeaponController : MonoBehaviour
         comboCounter.Tick(Time.deltaTime);
     }
 
-    public void EquipStarterItems()
+    public void EquipStarterItems(Item mainHand, Item offHand)
     {
         if (StarterWeaponsEquipped) return;
         StarterWeaponsEquipped = true;
 
-        if (StartingMainHandWeapon != null)
+        if (mainHand != null)
         {
-            Item starterSword = Instantiate(StartingMainHandWeapon);
+            Item starterSword = Instantiate(mainHand);
             starterSword.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterSword.itemData);
-            newPlayerController.PlayerContext.UserInterfaceController.inventoryController.FindEquippedSlotOfType(Slot.MainHand)[0].EquipGear(starterSword.itemData);
+            newPlayerController.PlayerContext.UserInterfaceController.inventoryController.FindEquippedSlotOfType(Slot.MainHand)[0].EquipGear(starterSword.itemData, newPlayerController);
             Destroy(starterSword.gameObject);
         }
 
-        if (StartingOffHandWeapon != null)
+        if (offHand != null)
         {
-            Item starterShield = Instantiate(StartingOffHandWeapon);
+            Item starterShield = Instantiate(offHand);
             starterShield.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterShield.itemData);
-            newPlayerController.PlayerContext.UserInterfaceController.inventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].EquipGear(starterShield.itemData);
+            newPlayerController.PlayerContext.UserInterfaceController.inventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].EquipGear(starterShield.itemData, newPlayerController);
             Destroy(starterShield.gameObject);
         }
     }
@@ -150,7 +147,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
             instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData);
-            PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
+            newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.TwoHanded && !newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
@@ -160,7 +157,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
             instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData);
-            PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
+            newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
         else if (instantiatedSecondaryWeapon == null)
@@ -169,7 +166,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedSecondaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
             instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, itemData);
-            PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
+            newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
             UpdateAnimator();
         }
         else
@@ -179,7 +176,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
             instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData);
-            PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
+            newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
         CalculateWeaponDamage();
@@ -197,7 +194,7 @@ public class NewWeaponController : MonoBehaviour
         instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
         instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
         instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData);
-        PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
+        newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
         UpdateAnimator();
         CalculateWeaponDamage();
         OnWeaponUpdated?.Invoke();
@@ -216,7 +213,7 @@ public class NewWeaponController : MonoBehaviour
             newPlayerController.PlayerHealthController.UpdateArmorAmount(spawnedShieldData.armorAmount);
             HasShieldEquipped = true;
         }
-        PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
+        newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
         UpdateAnimator();
         CalculateWeaponDamage();
         OnWeaponUpdated?.Invoke();
@@ -328,7 +325,7 @@ public class NewWeaponController : MonoBehaviour
             case Weapon.WeaponHand.MainHand:
                 if (instantiatedPrimaryWeapon != null)
                 {
-                    PlayerPreviewManager.Instance.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand);
+                    newPlayerController.PlayerContext.PlayerPreviewManager.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand);
                     Destroy(instantiatedPrimaryWeapon.gameObject);
                     instantiatedPrimaryWeapon = null;
                 }
@@ -336,7 +333,7 @@ public class NewWeaponController : MonoBehaviour
             case Weapon.WeaponHand.OffHand:
                 if (instantiatedSecondaryWeapon != null)
                 {
-                    PlayerPreviewManager.Instance.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand);
+                    newPlayerController.PlayerContext.PlayerPreviewManager.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand);
                     if (HasShieldEquipped)
                     {
                         SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;

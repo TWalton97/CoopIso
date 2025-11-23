@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class SkinnedMeshRendererBoneRef : MonoBehaviour
 {
-    private SkinnedMeshRenderer skinnedMeshRenderer;
-    public Transform RootBone;
-    public Transform[] Bones;
+    public SkinnedMeshRenderer skinnedMeshRenderer;
 
-    void Awake()
+    public Transform GetRootBone()
     {
-        skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
-        CopyBones();
+        return skinnedMeshRenderer.rootBone;
     }
 
-    private void CopyBones()
+    public Transform[] GetBones()
     {
-        RootBone = skinnedMeshRenderer.rootBone;
-        Bones = skinnedMeshRenderer.bones;
+        return skinnedMeshRenderer.bones;
     }
-
 }
