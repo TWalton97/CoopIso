@@ -18,8 +18,7 @@ MonoBehaviour:
   <FeatStatDescription>k__BackingField: Increases Movement Speed
   <StartingFeatLevel>k__BackingField: 0
   <MaximumFeatLevel>k__BackingField: 3
-  <SkillPointsCostPerLevel>k__BackingField: 1
-  <SkillPointsCostIncreasePerLevel>k__BackingField: 1
+  <SkillPointCostPerLevel>k__BackingField: 010000000200000003000000
   statToIncrease: 1
   ValueIncreasePerLevel:
   - 0.2

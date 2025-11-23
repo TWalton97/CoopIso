@@ -100,7 +100,7 @@ public class PlayerFeatsPanelController : MonoBehaviour
     public void UpdateFeatPreviewWindow(int currentFeatLevel, FeatSO feat)
     {
         FeatPreviewTitle.text = feat.FeatName;
-        FeatPreviewCost.text = "Cost: " + feat.SkillPointsCostPerLevel.ToString();
+        FeatPreviewCost.text = "Cost: " + feat.GetCostPerLevel(currentFeatLevel).ToString();
 
         if (feat is StatIncreaseFeat statIncreaseFeat)
         {
@@ -111,10 +111,10 @@ public class PlayerFeatsPanelController : MonoBehaviour
             else
             {
                 int safeIndex = Mathf.Clamp(currentFeatLevel, 0, statIncreaseFeat.ValueIncreasePerLevel.Length - 1);
-                FeatPreviewStats.text = feat.FeatUpgradeDescription + statIncreaseFeat.ValueIncreasePerLevel[safeIndex];
+                FeatPreviewStats.text = "Next Level: " + feat.FeatUpgradeDescription + statIncreaseFeat.ValueIncreasePerLevel[safeIndex];
             }
         }
-        else
+        else if (feat is AbilityUnlockFeat abilityUnlockFeat)
         {
             if (currentFeatLevel == 0)
             {
@@ -126,7 +126,7 @@ public class PlayerFeatsPanelController : MonoBehaviour
             }
             else
             {
-                FeatPreviewStats.text = "Next Level: " + feat.FeatUpgradeDescription;
+                FeatPreviewStats.text = abilityUnlockFeat.GenerateStatDescriptionString(currentFeatLevel);
             }
         }
 

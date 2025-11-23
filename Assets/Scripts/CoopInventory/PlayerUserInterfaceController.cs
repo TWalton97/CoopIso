@@ -106,9 +106,9 @@ public class PlayerUserInterfaceController : MonoBehaviour
         PlayerResourcePanel.SetActive(value);
     }
 
-    public void AddAbility(BaseAbility ability)
+    public void AddAbility(AbilitySO ability, AbilityBehaviourBase behaviour)
     {
-        AbilityScrollController.AddAbility(ability);
+        AbilityScrollController.AddAbility(ability, behaviour);
     }
 
 }

@@ -4,18 +4,58 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FeatData", menuName = "Data/Feat Data/Ability Unlock Feat")]
 public class AbilityUnlockFeat : FeatSO
 {
-    public BaseAbility AbilityToUnlock;
+    public AbilitySO AbilityToUnlock;
 
-    public override void OnActivate(int CurrentFeatLevel, FeatsController controller, Action activatedSuccess)
+    public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller, Action activatedSuccess)
     {
-        if (CurrentFeatLevel == MaximumFeatLevel) return;
+        controller.AbilityController.UnlockAbility(AbilityToUnlock);
 
-        if (controller.experienceController.TrySpendSkillpoints(SkillPointsCostPerLevel))
+        activatedSuccess?.Invoke();
+    }
+
+    public override string GenerateStatDescriptionString(int currentFeatLevel)
+    {
+        if (currentFeatLevel == 0)
         {
-            controller.newPlayerController.AbilityController.UnlockAbility(AbilityToUnlock);
-            CurrentFeatLevel++;
-            SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
-            activatedSuccess?.Invoke();
+            return $"Next Level: {FeatUnlockDescription}";
+        }
+        else if (currentFeatLevel == MaximumFeatLevel)
+        {
+            return $"Maximum Level Reached";
+        }
+        else
+        {
+            if (AbilityToUnlock is WeaponAbility weaponAbility)
+            {
+                return $"Next Level: {FeatUpgradeDescription} from {((weaponAbility.WeaponDamagePercentage + (weaponAbility.WeaponDamageIncreasePerLevel * (currentFeatLevel - 1))) * 100f).ToString("0")}% to {((weaponAbility.WeaponDamagePercentage + (weaponAbility.WeaponDamageIncreasePerLevel * currentFeatLevel)) * 100f).ToString("0")}%";
+            }
+            else
+            {
+                return $"Next Level: {FeatUpgradeDescription}";
+            }
+        }
+    }
+
+    public override string GenerateNextLevelString(int currentFeatLevel)
+    {
+        if (currentFeatLevel == 0)
+        {
+            return $"Next Level: {FeatUnlockDescription}";
+        }
+        else if (currentFeatLevel == MaximumFeatLevel)
+        {
+            return $"Maximum Level Reached";
+        }
+        else
+        {
+            if (AbilityToUnlock is WeaponAbility weaponAbility)
+            {
+                return $"Next Level: {FeatUpgradeDescription} from {((weaponAbility.WeaponDamagePercentage + (weaponAbility.WeaponDamageIncreasePerLevel * (currentFeatLevel - 1))) * 100f).ToString("0")}% to {((weaponAbility.WeaponDamagePercentage + (weaponAbility.WeaponDamageIncreasePerLevel * currentFeatLevel)) * 100f).ToString("0")}%";
+            }
+            else
+            {
+                return $"Next Level: {FeatUpgradeDescription}";
+            }
         }
     }
 }

@@ -1,11 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AbilityData", menuName = "Data/Ability Data")]
-public class AbilitySO : ScriptableObject
+public abstract class AbilitySO : ScriptableObject
 {
     public string AbilityName;
     public Sprite AbilityIcon;
     public AnimationClip AnimationClip;
     public Resources.ResourceType ResourceType;
     public float ResourceAmount;
+    public float MovementSpeedMultiplierWhileUsing = 1;
+
+    public abstract RuntimeAbility CreateRuntimeAbility();
 }

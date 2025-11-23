@@ -44,7 +44,8 @@ public class Item : MonoBehaviour, IInteractable
     private void CollectItem(int playerIndex)
     {
         inventoryManager.AddItemToCorrectPlayerInventory(itemData, playerIndex);
-        Destroy(gameObject);
+        if (gameObject != null)
+            Destroy(gameObject);
     }
 
     public void OnInteract(int playerIndex)

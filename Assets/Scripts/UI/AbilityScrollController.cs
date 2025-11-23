@@ -11,8 +11,7 @@ public class AbilityScrollController : MonoBehaviour
     public List<AbilityCell> iconCells;           // Always size 5
 
     [Header("Ability Data")]
-    public List<BaseAbility> abilities = new List<BaseAbility>();
-    public BaseAbility ActiveAbility;
+    public AbilityData ActiveAbility;
 
     [Header("Settings")]
     public float slotSpacing = 125f;
@@ -22,6 +21,20 @@ public class AbilityScrollController : MonoBehaviour
 
     private int centerIndex = 0;   // Index in abilities list
     private bool isAnimating = false;
+
+    public List<AbilityData> Abilities = new();
+
+    public class AbilityData
+    {
+        public AbilitySO AbilitySO;
+        public AbilityBehaviourBase AbilityBehaviour;
+
+        public AbilityData(AbilitySO _abilitySO, AbilityBehaviourBase _abilityBehaviour)
+        {
+            AbilitySO = _abilitySO;
+            AbilityBehaviour = _abilityBehaviour;
+        }
+    }
 
     // ================================
     // INIT
@@ -37,7 +50,7 @@ public class AbilityScrollController : MonoBehaviour
     // Rebuild the whole thing when abilities change
     public void RebuildCarousel()
     {
-        centerIndex = Mathf.Clamp(centerIndex, 0, abilities.Count - 1);
+        centerIndex = Mathf.Clamp(centerIndex, 0, Abilities.Count - 1);
         RefreshIcons();
         ApplyInstantScales();
     }
@@ -61,7 +74,7 @@ public class AbilityScrollController : MonoBehaviour
     // ================================
     void RefreshIcons()
     {
-        if (abilities.Count == 0) return;
+        if (Abilities.Count == 0) return;
 
         int half = iconSlots.Count / 2;
 
@@ -70,9 +83,9 @@ public class AbilityScrollController : MonoBehaviour
             int offset = slot - half;
 
             // Wrap ability index
-            int abilityIndex = (centerIndex + offset + abilities.Count) % abilities.Count;
+            int abilityIndex = (centerIndex + offset + Abilities.Count) % Abilities.Count;
 
-            iconCells[slot].icon.sprite = abilities[abilityIndex].abilityData.AbilityIcon;
+            iconCells[slot].icon.sprite = Abilities[abilityIndex].AbilitySO.AbilityIcon;
         }
     }
 
@@ -99,14 +112,14 @@ public class AbilityScrollController : MonoBehaviour
     [ContextMenu("CycleRight")]
     public void CycleRight()
     {
-        if (!isAnimating && abilities.Count > 1)
+        if (!isAnimating && Abilities.Count > 1)
             StartCoroutine(SlideIcons(+1));
     }
 
     [ContextMenu("CycleLeft")]
     public void CycleLeft()
     {
-        if (!isAnimating && abilities.Count > 1)
+        if (!isAnimating && Abilities.Count > 1)
             StartCoroutine(SlideIcons(-1));
     }
 
@@ -141,12 +154,12 @@ public class AbilityScrollController : MonoBehaviour
         }
 
         // Update selected ability
-        centerIndex = (centerIndex + direction + abilities.Count) % abilities.Count;
+        centerIndex = (centerIndex + direction + Abilities.Count) % Abilities.Count;
 
         LayoutSlots();
         RefreshIcons();
         ApplyInstantScales();
-        ActiveAbility = abilities[centerIndex];
+        ActiveAbility = Abilities[centerIndex];
 
         isAnimating = false;
     }
@@ -173,19 +186,23 @@ public class AbilityScrollController : MonoBehaviour
         }
     }
 
-    public void AddAbility(BaseAbility ability)
+    public void AddAbility(AbilitySO ability, AbilityBehaviourBase abilityBehaviour)
     {
-        if (abilities.Count == 0)
-            ActiveAbility = ability;
-        abilities.Add(ability);
+        AbilityData abilityData = new AbilityData(ability, abilityBehaviour);
+        if (Abilities.Count == 0)
+            ActiveAbility = abilityData;
+        Abilities.Add(abilityData);
+
         RebuildCarousel();
     }
+
+
 
     public bool AbilityReadyToBeUsed()
     {
         if (ActiveAbility == null) return false;
 
-        if (!ActiveAbility.CanUse(controller.featsPanelController.playerController.ResourceController)) return false;
+        if (!ActiveAbility.AbilityBehaviour.CanUse(controller.featsPanelController.playerController.ResourceController)) return false;
 
         return true;
     }

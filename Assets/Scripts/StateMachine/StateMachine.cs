@@ -62,7 +62,6 @@ public class StateMachine
                 return transition;
             }
         }
-
         return null;
     }
 

@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 320b1e0d1cabaa44bacc7493339dc7f3, type: 3}
-  m_Name: Slam
+  m_Name: Stomp
   m_EditorClassIdentifier: 
-  AbilityName: Slam
+  AbilityName: Stomp
   AbilityIcon: {fileID: 21300000, guid: 1f4a0aae86ebe3a4abe7d92019f422cb, type: 3}
-  AnimationClip: {fileID: 7400000, guid: cde254593a06ece499a384a4aad12219, type: 2}
+  AnimationClip: {fileID: 7400000, guid: 9db63ae14ef45d440ad15f07e788d887, type: 2}
   ResourceType: 1
-  ResourceAmount: 40
-  WeaponDamagePercentage: 0.5
+  ResourceAmount: 15
+  MovementSpeedMultiplierWhileUsing: 0
+  abilityBehaviourPrefab: {fileID: 6815367309087051014, guid: 9690472dc5a261742a840848cae20e45, type: 3}
+  WeaponDamagePercentage: 1.3
+  WeaponDamageIncreasePerLevel: 0

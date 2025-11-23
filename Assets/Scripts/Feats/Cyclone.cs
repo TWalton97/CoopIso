@@ -8,9 +8,9 @@ public class Cyclone : Feat
     public override int MaximumFeatLevel { get; set; } = 4;
     public override int SkillPointsCostPerLevel { get; set; } = 2;
     public override int SkillPointsCostIncreasePerLevel { get; set; } = 0;
-    public BaseAbility ability;
+    public AbilitySO ability;
 
-    public Cyclone(BaseAbility ability, int startingLevel = 0)
+    public Cyclone(AbilitySO ability, int startingLevel = 0)
     {
         StartingFeatLevel = startingLevel;
         this.ability = ability;

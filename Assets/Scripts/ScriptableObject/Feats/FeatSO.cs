@@ -10,16 +10,33 @@ public class FeatSO : ScriptableObject
     [field: SerializeField] public virtual string FeatStatDescription { get; set; }
     [field: SerializeField] public virtual int StartingFeatLevel { get; set; }
     [field: SerializeField] public virtual int MaximumFeatLevel { get; set; }
-    [field: SerializeField] public int SkillPointsCostPerLevel { get; set; }
-    [field: SerializeField] public int SkillPointsCostIncreasePerLevel { get; set; }
+    [field: SerializeField] public int[] SkillPointCostPerLevel { get; set; }
 
-    public virtual void OnActivate(int CurrentFeatLevel, FeatsController controller, Action activatedSuccess)
+    public virtual void OnActivate(int CurrentFeatLevel, NewPlayerController controller, Action activatedSuccess)
     {
 
     }
 
-    public virtual string GenerateStatString()
+    public int GetCostPerLevel(int level)
     {
-        return FeatStatDescription;
+        level = Mathf.Clamp(level, 0, MaximumFeatLevel - 1);
+        return SkillPointCostPerLevel[level];
     }
+
+    public virtual string GenerateUnlockString(int currentFeatLevel)
+    {
+        return "";
+    }
+
+    public virtual string GenerateNextLevelString(int currentFeatLevel)
+    {
+        return "";
+    }
+
+    public virtual string GenerateStatDescriptionString(int currentFeatLevel)
+    {
+        return "";
+    }
+
+
 }

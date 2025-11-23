@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FeatName>k__BackingField: Cyclone
   <FeatUnlockDescription>k__BackingField: Unlock ability Cyclone
-  <FeatUpgradeDescription>k__BackingField: 
-  <FeatStatDescription>k__BackingField: Spin rapidly, damaging nearby enemies multiple
-    times based on your weapon damage.
+  <FeatUpgradeDescription>k__BackingField: Increases damage per tick
+  <FeatStatDescription>k__BackingField: Damages nearby enemies every 0.2s based on
+    your weapon damage.
   <StartingFeatLevel>k__BackingField: 0
-  <MaximumFeatLevel>k__BackingField: 1
-  <SkillPointsCostPerLevel>k__BackingField: 2
-  <SkillPointsCostIncreasePerLevel>k__BackingField: 0
-  AbilityToUnlock: {fileID: 6577518296069191898, guid: 05965a6704d41234c9af534cc5169e17, type: 3}
+  <MaximumFeatLevel>k__BackingField: 3
+  <SkillPointCostPerLevel>k__BackingField: 020000000200000002000000
+  AbilityToUnlock: {fileID: 11400000, guid: 76a485bb44ef31842b618276d472b89b, type: 2}

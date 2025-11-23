@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64ee4eca2fa83f84e9560c11e68baf1c, type: 3}
-  m_Name: Slam
+  m_Name: Stomp
   m_EditorClassIdentifier: 
-  <FeatName>k__BackingField: Slam
-  <FeatUnlockDescription>k__BackingField: Unlock ability Slam
-  <FeatUpgradeDescription>k__BackingField: 
-  <FeatStatDescription>k__BackingField: Slam
+  <FeatName>k__BackingField: Stomp
+  <FeatUnlockDescription>k__BackingField: Unlock ability Stomp
+  <FeatUpgradeDescription>k__BackingField: Increases damage
+  <FeatStatDescription>k__BackingField: Stomps the ground, damaging all nearby enemies
   <StartingFeatLevel>k__BackingField: 0
   <MaximumFeatLevel>k__BackingField: 1
-  <SkillPointsCostPerLevel>k__BackingField: 2
-  <SkillPointsCostIncreasePerLevel>k__BackingField: 0
-  AbilityToUnlock: {fileID: 6577518296069191898, guid: a536b6285281c3d4b9d7772a8e7fa064, type: 3}
+  <SkillPointCostPerLevel>k__BackingField: 02000000
+  AbilityToUnlock: {fileID: 11400000, guid: 37e7c57e2311d6f45b8dca5e58a67585, type: 2}

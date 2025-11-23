@@ -314,12 +314,7 @@ public class NewPlayerController : Entity
 
     private void Ability(CallbackContext context)
     {
-        //AbilityController.UseAbility1();
-
-        //We check if we can cast the ability
-        //If we can, try to transition to cast state
-
-        abilityButtonPressed = true;
+        TryCastAbility();
     }
 
     private void Attack(CallbackContext context)
@@ -341,6 +336,15 @@ public class NewPlayerController : Entity
         if (context.canceled)
         {
             blockButtonPressed = false;
+        }
+    }
+
+    private void TryCastAbility()
+    {
+        if (attackStateMachine.current.State == idleState || attackStateMachine.current.State == blockState)
+        {
+            if (PlayerUserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed())
+                attackStateMachine.ChangeState(castState);
         }
     }
 

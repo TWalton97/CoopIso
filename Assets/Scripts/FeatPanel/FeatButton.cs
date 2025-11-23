@@ -16,7 +16,7 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
     private PlayerFeatsPanelController playerFeatsPanelController;
     public int FeatIndex;
     public Button selectable;
-    public FeatSO feat { get; private set; }
+    public FeatSO feat;
     public Color DeactiveColor;
     public Color ActiveColor;
 
@@ -60,7 +60,7 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
             return;
         }
 
-        if (experienceController.SkillPoints >= feat.SkillPointsCostPerLevel)
+        if (experienceController.SkillPoints >= feat.GetCostPerLevel(currentFeatLevel))
         {
             FeatName.color = ActiveColor;
         }
@@ -73,13 +73,13 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
     public void ActivateButton()
     {
         //controller.ActivateFeat(FeatIndex, FillNextBubble);
-        controller.Unlock(currentFeatLevel, FeatIndex, FillNextBubble);
+        controller.UnlockFeat(feat, FillNextBubble);
     }
 
     public void ActivateButton(bool bypassReqs = false)
     {
         //controller.ActivateFeat(FeatIndex, FillNextBubble, bypassReqs);
-        controller.Unlock(currentFeatLevel, FeatIndex, FillNextBubble);
+        controller.UnlockFeat(feat, FillNextBubble);
     }
 
     private void FillNextBubble()

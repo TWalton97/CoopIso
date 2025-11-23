@@ -13,15 +13,15 @@ public class AbilityController : MonoBehaviour
     public Action OnAbilityStarted;
     public Action OnAbilityFinished;
 
-    public List<BaseAbility> UnlockedAbilities;
+    public List<AbilitySO> UnlockedAbilities;
 
-    public BaseAbility AbilityToEquip;
+    public AbilityScrollController.AbilityData ActivatedAbility;
 
-    public BaseAbility equippedAbility1;
-    public BaseAbility equippedAbility2;
-    public BaseAbility equippedAbility3;
+    public WeaponAbilityBehaviour weaponAbilityPrefab;
 
-    public BaseAbility ActivatedAbility;
+    private Dictionary<AbilitySO, RuntimeAbility> activeAbilities = new();
+    private Dictionary<AbilitySO, AbilityBehaviourBase> behaviours = new();
+
 
     void Start()
     {
@@ -33,20 +33,59 @@ public class AbilityController : MonoBehaviour
         newPlayerController.AnimationStatusTracker.OnAbilityCompleted -= ExitActivatedAbility;
     }
 
-    public void EquipAbility(int slot, BaseAbility ability)
+    public RuntimeAbility GetRuntime(AbilitySO so)
     {
-        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName($"Ability_Default_Slot{slot + 1}", ability.abilityData.AnimationClip);
-        equippedAbility1 = ability;
-        equippedAbility1.Init(newPlayerController, newPlayerController.ResourceController);
+        activeAbilities.TryGetValue(so, out var runtime);
+        return runtime;
     }
 
-    public void UseAbility(BaseAbility ability)
+    public AbilityBehaviourBase GetBehaviour(AbilitySO so)
     {
-        if (ability == null) return;
+        behaviours.TryGetValue(so, out var behaviour);
+        return behaviour;
+    }
 
-        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName($"Ability_Default_Slot{1}", ability.abilityData.AnimationClip);
-        ActivatedAbility = ability;
-        ability.OnEnter(newPlayerController);
+    public void UnlockAbility(AbilitySO abilitySO)
+    {
+
+        if (!activeAbilities.TryGetValue(abilitySO, out var runtime))
+        {
+            runtime = abilitySO.CreateRuntimeAbility();
+            activeAbilities.Add(abilitySO, runtime);
+
+            var behaviour = InstantiateBehaviourForAbility(abilitySO);
+
+            behaviour.Initialize(newPlayerController, runtime);
+
+            behaviours.Add(abilitySO, behaviour);
+
+            InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(newPlayerController.PlayerInputController.playerIndex).AddAbility(abilitySO, behaviour);
+
+            UnlockedAbilities.Add(abilitySO);
+            Debug.Log($"Unlocked ability {abilitySO.AbilityName}");
+        }
+        else
+        {
+            runtime.Upgrade();
+            Debug.Log($"Upgraded ability {abilitySO.AbilityName} to level {runtime.currentLevel}");
+        }
+    }
+
+    private AbilityBehaviourBase InstantiateBehaviourForAbility(AbilitySO so)
+    {
+        if (so is WeaponAbility weaponAbility)
+            return Instantiate(weaponAbility.abilityBehaviourPrefab, transform);
+
+        throw new Exception($"No behaviour prefab assigned for ability type: {so.GetType()}");
+    }
+
+    public void UseAbility(AbilityScrollController.AbilityData abilityData)
+    {
+        if (abilityData == null) return;
+
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName($"Ability_Default_Slot{1}", abilityData.AbilitySO.AnimationClip);
+        ActivatedAbility = abilityData;
+        abilityData.AbilityBehaviour.OnEnter();
         playerAnimator.SetInteger("AbilityIndex", 0);
         playerAnimator.SetTrigger("Cast");
     }
@@ -54,13 +93,7 @@ public class AbilityController : MonoBehaviour
     private void ExitActivatedAbility()
     {
         if (ActivatedAbility == null) return;
-        ActivatedAbility.OnExit();
+        ActivatedAbility.AbilityBehaviour.OnExit();
         ActivatedAbility = null;
-    }
-
-    public void UnlockAbility(BaseAbility ability)
-    {
-        UnlockedAbilities.Add(ability);
-        InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(newPlayerController.PlayerInputController.playerIndex).AddAbility(ability);
     }
 }
