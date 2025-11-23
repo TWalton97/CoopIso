@@ -12,7 +12,7 @@ public class FeatSO : ScriptableObject
     [field: SerializeField] public virtual int MaximumFeatLevel { get; set; }
     [field: SerializeField] public int[] SkillPointCostPerLevel { get; set; }
 
-    public virtual void OnActivate(int CurrentFeatLevel, NewPlayerController controller, Action activatedSuccess)
+    public virtual void OnActivate(int CurrentFeatLevel, NewPlayerController controller)
     {
 
     }

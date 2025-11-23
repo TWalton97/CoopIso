@@ -9,6 +9,7 @@ using UnityEditor.Timeline.Actions;
 
 public class PlayerInputController : MonoBehaviour
 {
+    public NewPlayerController playerController;
     public PlayerInput playerInput { get; private set; }
     public PlayerInputActions playerInputActions { get; private set; }
 
@@ -221,14 +222,12 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnCycleAbilityListRight(CallbackContext context)
     {
-        PlayerUserInterfaceController controller = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(playerIndex);
-        controller.AbilityScrollController.CycleRight();
+        playerController.PlayerContext.UserInterfaceController.AbilityScrollController.CycleRight();
     }
 
     public void OnCycleAbilityListLeft(CallbackContext context)
     {
-        PlayerUserInterfaceController controller = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(playerIndex);
-        controller.AbilityScrollController.CycleLeft();
+        playerController.PlayerContext.UserInterfaceController.AbilityScrollController.CycleLeft();
     }
     #endregion
 
@@ -285,25 +284,24 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnDropItem(CallbackContext context)
     {
-        InventoryController controller = InventoryManager.Instance.GetInventoryControllerByIndex(playerIndex);
-        controller.CurrentlySelectedItemSlot.OnRightClick();
+        playerController.PlayerContext.UserInterfaceController.inventoryController.CurrentlySelectedItemSlot.OnRightClick();
     }
 
     public void OnMoveMenuLeft(CallbackContext context)
     {
-        InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(playerIndex).GoToNextMenu();
+        playerController.PlayerContext.UserInterfaceController.GoToNextMenu();
     }
 
     public void OnMoveMenuRight(CallbackContext context)
     {
-        InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(playerIndex).GoToNextMenu();
+        playerController.PlayerContext.UserInterfaceController.GoToNextMenu();
     }
     #endregion
 
     #region Shared Input Actions
     public void OnEquipmentMenu(CallbackContext context)
     {
-        InventoryManager.Instance.OpenInventory(playerIndex);
+        playerController.PlayerContext.InventoryManager.OpenInventory(playerIndex);
     }
     #endregion
 

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
+    public PlayerUserInterfaceController playerUserInterfaceController;
     public int playerIndex;
 
     public EquipmentSlot[] equipmentSlot;
@@ -23,8 +24,9 @@ public class InventoryController : MonoBehaviour
     public NewPlayerController controller { get; private set; }
     public Action OnMenuOpened;
     public Action OnMenuClosed;
-    private void Start()
+    private void Awake()
     {
+        SetEquipmentSlotIndexes();
     }
 
     void OnEnable()
@@ -34,7 +36,6 @@ public class InventoryController : MonoBehaviour
         controller.PlayerHealthController.OnMaximumHealthChanged += UpdatePlayerStats;
         controller.PlayerHealthController.OnArmorAmountChanged += UpdatePlayerStats;
         OnMenuOpened += UpdatePlayerStats;
-        SetEquipmentSlotIndexes();
     }
 
     private void OnDisable()

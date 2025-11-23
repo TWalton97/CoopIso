@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     public NewPlayerController newPlayerController { get; private set; }
     private bool active = false;
     private Hitbox hitbox;
+    public WeaponRangeType weaponRangeType;
 
     public WeaponHand weaponHand;
     public enum WeaponHand
@@ -31,12 +32,13 @@ public class Weapon : MonoBehaviour
         hitbox = GetComponent<Hitbox>();
     }
 
-    public void Init(WeaponHand weaponHand, string itemID)
+    public void Init(WeaponHand weaponHand, ItemData itemData)
     {
         this.weaponHand = weaponHand;
-        this.itemID = itemID;
+        this.itemID = itemData.itemID;
+        weaponRangeType = itemData.weaponRangeType;
 
-        spawnedWeaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemID);// as SpawnedItemDataBase.SpawnedWeaponsData;
+        spawnedWeaponData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemID);// as SpawnedItemDataBase.SpawnedWeaponsData;
 
         if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedWeaponsData))
         {

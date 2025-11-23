@@ -21,6 +21,8 @@ public class PlayerFeatsPanelController : MonoBehaviour
     public TMP_Text FeatPreviewCost;
     public TMP_Text FeatPreviewStats;
     public TMP_Text FeatPreviewDescription;
+    public TMP_Text FeatPreviewWeaponRequirement;
+    public TMP_Text FeatPreviewResourceCost;
 
     public ScrollRect scrollRect;
     public RectTransform contentPanel;
@@ -29,28 +31,21 @@ public class PlayerFeatsPanelController : MonoBehaviour
 
     public NewPlayerController playerController { get; private set; }
 
-    public void CreateFeatButtons(FeatsController controller)
+    public void CreateFeatButtons(NewPlayerController controller)
     {
-        playerController = controller.newPlayerController;
-        experienceController = controller.GetComponent<NewPlayerController>().ExperienceController;
+        playerController = controller;
+        experienceController = controller.ExperienceController;
+
         experienceController.OnLevelUp += UpdateSkillPointText;
         experienceController.OnSkillPointUsed += UpdateSkillPointText;
+
         UpdateSkillPointText();
         int index = 0;
 
-        // foreach (Feat feat in controller.AvailableFeats)
-        // {
-        //     FeatButton featButton = Instantiate(FeatButtonPrefab, FeatBubbleParent);
-        //     featButton.InitializeButton(feat, controller, this, index);
-        //     featButtons.Add(featButton);
-
-        //     index++;
-        // }
-
-        foreach (FeatSO feat in controller.AllFeats)
+        foreach (FeatSO feat in controller.FeatsController.AllFeats)
         {
             FeatButton featButton = Instantiate(FeatButtonPrefab, FeatBubbleParent);
-            featButton.InitializeButton(feat, controller, this, index);
+            featButton.InitializeButton(feat, controller.FeatsController, this, index);
             featButtons.Add(featButton);
 
             index++;
@@ -113,6 +108,8 @@ public class PlayerFeatsPanelController : MonoBehaviour
                 int safeIndex = Mathf.Clamp(currentFeatLevel, 0, statIncreaseFeat.ValueIncreasePerLevel.Length - 1);
                 FeatPreviewStats.text = "Next Level: " + feat.FeatUpgradeDescription + statIncreaseFeat.ValueIncreasePerLevel[safeIndex];
             }
+            FeatPreviewResourceCost.text = "";
+            FeatPreviewWeaponRequirement.text = "";
         }
         else if (feat is AbilityUnlockFeat abilityUnlockFeat)
         {
@@ -128,9 +125,34 @@ public class PlayerFeatsPanelController : MonoBehaviour
             {
                 FeatPreviewStats.text = abilityUnlockFeat.GenerateStatDescriptionString(currentFeatLevel);
             }
+
+            if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility)
+            {
+                FeatPreviewWeaponRequirement.text = weaponAbility.RequiredWeaponRangeType.ToString();
+            }
+            else
+            {
+                FeatPreviewWeaponRequirement.text = "";
+            }
+
+            FeatPreviewResourceCost.text = abilityUnlockFeat.AbilityToUnlock.ResourceAmount.ToString() + " " + abilityUnlockFeat.AbilityToUnlock.ResourceType.ToString();
+        }
+        else if (feat is PassiveUnlockFeat)
+        {
+            if (currentFeatLevel == feat.MaximumFeatLevel)
+            {
+                FeatPreviewStats.text = "Maximum Level Reached";
+            }
+            else
+            {
+                FeatPreviewStats.text = "Next Level: " + feat.FeatUnlockDescription;
+            }
+            FeatPreviewResourceCost.text = "";
+            FeatPreviewWeaponRequirement.text = "";
         }
 
         FeatPreviewDescription.text = feat.FeatStatDescription;
+
 
     }
 

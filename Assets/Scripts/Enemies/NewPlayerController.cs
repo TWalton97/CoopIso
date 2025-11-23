@@ -8,12 +8,13 @@ using System.Collections;
 
 public class NewPlayerController : Entity
 {
+    public PlayerContext PlayerContext;
     //Object references
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public NewWeaponController WeaponController;
     public ArmorController ArmorController;
-    public ExperienceController ExperienceController { get; private set; }
+    public ExperienceController ExperienceController;
     public PlayerInputController PlayerInputController { get; private set; }
     public GroundCheck GroundCheck { get; private set; }
     public Interactor Interactor { get; private set; }
@@ -23,7 +24,7 @@ public class NewPlayerController : Entity
     public PlayerUserInterfaceController PlayerUserInterfaceController { get; private set; }
     public PlayerStatsBlackboard PlayerStatsBlackboard { get; private set; }
     public PlayerHealthController PlayerHealthController { get; private set; }
-    public FeatsController FeatsController { get; private set; }
+    public FeatsController FeatsController;
     public PlayerAnimationController PlayerAnimationController { get; private set; }
     public AbilityController AbilityController { get; private set; }
     public ResourceController ResourceController { get; private set; }
@@ -63,13 +64,12 @@ public class NewPlayerController : Entity
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
         WeaponController = GetComponent<NewWeaponController>();
-        ExperienceController = GetComponent<ExperienceController>();
         PlayerInputController = GetComponent<PlayerInputController>();
         GroundCheck = GetComponent<GroundCheck>();
         Interactor = GetComponentInChildren<Interactor>();
         AnimationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
         PotionController = GetComponent<PotionController>();
-        InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
+        InventoryController = PlayerContext.InventoryManager.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
         PlayerStatsBlackboard = GetComponent<PlayerStatsBlackboard>();
         PlayerHealthController = GetComponent<PlayerHealthController>();
         FeatsController = GetComponent<FeatsController>();
@@ -82,7 +82,7 @@ public class NewPlayerController : Entity
         SetupMovementStateMachine();
         SetupAttackStateMachine();
         SubscribeToInputEvents();
-        StartCoroutine(WaitForSetup());
+        // StartCoroutine(WaitForSetup());
 
         _maximumMovementSpeed = _movementSpeed;
         PlayerInputController.attackCountdownTimer.OnTimerStop += () => attackButtonPressed = true;
@@ -242,7 +242,7 @@ public class NewPlayerController : Entity
 
         Rigidbody.velocity = newVel;
 
-        if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState)
+        if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState || attackStateMachine.current.State == castState)
         {
             if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME && PlayerInputController.LookStickVal != Vector2.zero)
             {
@@ -387,15 +387,15 @@ public class NewPlayerController : Entity
         Debug.Log(animationClip.length);
     }
 
-    private IEnumerator WaitForSetup()
-    {
-        while (InventoryController == null)
-        {
-            InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
-            PlayerUserInterfaceController = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(PlayerInputController.playerIndex);
-            yield return new WaitForSeconds(0.1f);
-        }
-        yield return null;
-    }
+    // private IEnumerator WaitForSetup()
+    // {
+    //     while (InventoryController == null)
+    //     {
+    //         InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
+    //         PlayerUserInterfaceController = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(PlayerInputController.playerIndex);
+    //         yield return new WaitForSeconds(0.1f);
+    //     }
+    //     yield return null;
+    // }
 
 }

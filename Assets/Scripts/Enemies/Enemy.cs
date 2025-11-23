@@ -6,6 +6,7 @@ using Utilities;
 
 public class Enemy : Entity
 {
+    public SpawnedItemDataBase spawnedItemDataBase;
     public int ExpValue;
     public float ExpRange;
     [SerializeField] protected NavMeshAgent agent;

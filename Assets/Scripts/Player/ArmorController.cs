@@ -41,7 +41,7 @@ public class ArmorController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(WaitForSetup());
+        EquipStarterItems();
     }
 
     public void EquipBodyArmor(GameObject bodyArmorPrefab, ItemData itemData)
@@ -53,7 +53,7 @@ public class ArmorController : MonoBehaviour
             skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.RootBone;
             skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.Bones;
             instantiatedBodyArmor = new EquippedArmor(obj, itemData);
-            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
             playerHealthController.UpdateArmorAmount(spawnedArmorData.armorAmount);
             PlayerPreviewManager.Instance.EquipArmorToPlayer(newPlayerController.PlayerInputController.playerIndex, ItemType.Body, bodyArmorPrefab);
         }
@@ -63,7 +63,7 @@ public class ArmorController : MonoBehaviour
     {
         if (instantiatedBodyArmor != null)
         {
-            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(instantiatedBodyArmor.itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedBodyArmor.itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
             playerHealthController.UpdateArmorAmount(-spawnedArmorData.armorAmount);
             Destroy(instantiatedBodyArmor.instantiatedObject);
             instantiatedBodyArmor = null;
@@ -80,7 +80,7 @@ public class ArmorController : MonoBehaviour
             skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.RootBone;
             skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.Bones;
             instantiatedHelmet = new EquippedArmor(obj, itemData);
-            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
             playerHealthController.UpdateArmorAmount(spawnedArmorData.armorAmount);
             PlayerPreviewManager.Instance.EquipArmorToPlayer(newPlayerController.PlayerInputController.playerIndex, ItemType.Head, helmetPrefab);
         }
@@ -90,7 +90,7 @@ public class ArmorController : MonoBehaviour
     {
         if (instantiatedHelmet != null)
         {
-            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(instantiatedHelmet.itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedHelmet.itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
             playerHealthController.UpdateArmorAmount(-spawnedArmorData.armorAmount);
             Destroy(instantiatedHelmet.instantiatedObject);
             instantiatedHelmet = null;
@@ -107,7 +107,7 @@ public class ArmorController : MonoBehaviour
             skinnedMeshRenderer.rootBone = skinnedMeshRendererBoneRef.RootBone;
             skinnedMeshRenderer.bones = skinnedMeshRendererBoneRef.Bones;
             instantiatedLegs = new EquippedArmor(obj, itemData);
-            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
             playerHealthController.UpdateArmorAmount(spawnedArmorData.armorAmount);
             PlayerPreviewManager.Instance.EquipArmorToPlayer(newPlayerController.PlayerInputController.playerIndex, ItemType.Legs, legsPrefab);
         }
@@ -117,7 +117,7 @@ public class ArmorController : MonoBehaviour
     {
         if (instantiatedLegs != null)
         {
-            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(instantiatedLegs.itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            SpawnedItemDataBase.SpawnedArmorData spawnedArmorData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedLegs.itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
             playerHealthController.UpdateArmorAmount(-spawnedArmorData.armorAmount);
             Destroy(instantiatedLegs.instantiatedObject);
             instantiatedLegs = null;
@@ -134,36 +134,26 @@ public class ArmorController : MonoBehaviour
         if (StartingBodyArmor != null)
         {
             Item starterBodyArmor = Instantiate(StartingBodyArmor);
-            starterBodyArmor.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(starterBodyArmor.itemData);
-            newPlayerController.InventoryController.FindEquippedSlotOfType(Slot.Body)[0].EquipGear(starterBodyArmor.itemData);
+            starterBodyArmor.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterBodyArmor.itemData);
+            newPlayerController.PlayerContext.UserInterfaceController.inventoryController.FindEquippedSlotOfType(Slot.Body)[0].EquipGear(starterBodyArmor.itemData);
             Destroy(starterBodyArmor.gameObject);
         }
 
         if (StartingHelmet != null)
         {
             Item starterHelmet = Instantiate(StartingHelmet);
-            starterHelmet.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(starterHelmet.itemData);
-            newPlayerController.InventoryController.FindEquippedSlotOfType(Slot.Head)[0].EquipGear(starterHelmet.itemData);
+            starterHelmet.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterHelmet.itemData);
+            newPlayerController.PlayerContext.UserInterfaceController.inventoryController.FindEquippedSlotOfType(Slot.Head)[0].EquipGear(starterHelmet.itemData);
             Destroy(starterHelmet.gameObject);
         }
 
         if (StartingLegs != null)
         {
             Item starterLegs = Instantiate(StartingLegs);
-            starterLegs.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(starterLegs.itemData);
-            newPlayerController.InventoryController.FindEquippedSlotOfType(Slot.Legs)[0].EquipGear(starterLegs.itemData);
+            starterLegs.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterLegs.itemData);
+            newPlayerController.PlayerContext.UserInterfaceController.inventoryController.FindEquippedSlotOfType(Slot.Legs)[0].EquipGear(starterLegs.itemData);
             Destroy(starterLegs.gameObject);
         }
-    }
-
-    private IEnumerator WaitForSetup()
-    {
-        while (newPlayerController.InventoryController == null)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
-        EquipStarterItems();
-        yield return null;
     }
 }
 

@@ -24,31 +24,31 @@ public class Chest : MonoBehaviour, IInteractable
         animator = GetComponent<Animator>();
     }
 
-    public void OnInteract(int playerIndex)
+    public void OnInteract(PlayerContext playerContext, int playerIndex)
     {
-        OpenChest();
+        OpenChest(playerContext);
     }
 
-    private void OpenChest()
+    private void OpenChest(PlayerContext playerContext)
     {
         isInteractable = false;
         animator.SetTrigger("Open");
-        StartCoroutine(SpawnItems());
+        StartCoroutine(SpawnItems(playerContext.SpawnedItemDatabase));
     }
 
-    private IEnumerator SpawnItems()
+    private IEnumerator SpawnItems(SpawnedItemDataBase spawnedItemDataBase)
     {
-        int numItemsToSpawn = SpawnedItemDataBase.Instance.GetAffixCount(Rarity);
+        int numItemsToSpawn = spawnedItemDataBase.GetAffixCount(Rarity);
         for (int i = 0; i < numItemsToSpawn; i++)
         {
-            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(Rarity);
+            Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity);
             instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }
 
         for (int i = 0; i < itemsToSpawn.Count; i++)
         {
-            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(Rarity, itemsToSpawn[i]);
+            Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity, itemsToSpawn[i]);
             instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }

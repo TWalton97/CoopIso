@@ -66,7 +66,7 @@ public class ItemSlot : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     {
         if (slotInUse && previewObject != null)
         {
-            previewWindow.FillPreviewWindow(itemData);
+            previewWindow.FillPreviewWindow(itemData, inventoryController);
             previewObject.SetActive(true);
         }
     }

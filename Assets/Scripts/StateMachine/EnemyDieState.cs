@@ -30,10 +30,10 @@ public class EnemyDieState : EnemyBaseState
 
     private IEnumerator SpawnItems()
     {
-        int numItemsToSpawn = SpawnedItemDataBase.Instance.GetAffixCount(enemy.healthController.MaximumHealth);
+        int numItemsToSpawn = enemy.spawnedItemDataBase.GetAffixCount(enemy.healthController.MaximumHealth);
         for (int i = 0; i < numItemsToSpawn; i++)
         {
-            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(enemy.healthController.MaximumHealth);
+            Item instantiatedItem = enemy.spawnedItemDataBase.SpawnRandomItem(enemy.healthController.MaximumHealth);
             instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }

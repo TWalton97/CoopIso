@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler
 {
@@ -30,6 +31,9 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         feat = _feat;
         FeatName.text = feat.FeatName;
         button.onClick.AddListener(ActivateButton);
+
+        controller.OnFeatLevelChanged += UpdateUI;
+
         for (int i = 0; i < feat.MaximumFeatLevel; i++)
         {
             FeatBubbles[i].gameObject.SetActive(true);
@@ -39,17 +43,26 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         experienceController.OnSkillPointUsed += CheckIfPlayerHasEnoughSkillpoints;
         CheckIfPlayerHasEnoughSkillpoints();
 
+        UpdateUI(_feat, _controller.GetCurrentFeatLevel(_feat));
+
         if (feat.StartingFeatLevel == 0) return;
 
         for (int i = 0; i < feat.StartingFeatLevel; i++)
         {
             ActivateButton(true);
         }
+
+
     }
 
     private void OnDisable()
     {
         experienceController.OnSkillPointUsed -= CheckIfPlayerHasEnoughSkillpoints;
+    }
+
+    void OnDestroy()
+    {
+        controller.OnFeatLevelChanged -= UpdateUI;
     }
 
     public void CheckIfPlayerHasEnoughSkillpoints()
@@ -72,21 +85,20 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 
     public void ActivateButton()
     {
-        //controller.ActivateFeat(FeatIndex, FillNextBubble);
-        controller.UnlockFeat(feat, FillNextBubble);
+        controller.UnlockFeat(feat);
     }
 
     public void ActivateButton(bool bypassReqs = false)
     {
-        //controller.ActivateFeat(FeatIndex, FillNextBubble, bypassReqs);
-        controller.UnlockFeat(feat, FillNextBubble);
+        controller.UnlockFeat(feat);
     }
 
-    private void FillNextBubble()
+    private void UpdateUI(FeatSO changedFeat, int newLevel)
     {
-        currentFeatLevel++;
+        if (changedFeat != feat) return;
+
+        currentFeatLevel = newLevel;
         CheckIfPlayerHasEnoughSkillpoints();
-        playerFeatsPanelController.UpdateFeatPreviewWindow(currentFeatLevel, feat);
 
         for (int i = 0; i < currentFeatLevel; i++)
         {

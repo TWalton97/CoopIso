@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7166044936409910270
+--- !u!1 &8633409809437865329
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1267916367519270435}
-  - component: {fileID: 6577518296069191898}
+  - component: {fileID: 6980498549238560618}
+  - component: {fileID: 1777890230724462431}
   m_Layer: 0
-  m_Name: Slam
+  m_Name: RainOfArrowBehaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1267916367519270435
+--- !u!4 &6980498549238560618
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7166044936409910270}
+  m_GameObject: {fileID: 8633409809437865329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,17 +32,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6577518296069191898
+--- !u!114 &1777890230724462431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7166044936409910270}
+  m_GameObject: {fileID: 8633409809437865329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3fd1926ced64674abddcddd4db5c3a9, type: 3}
+  m_Script: {fileID: 11500000, guid: b008991744141fa43881c0382e73c37c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityData: {fileID: 11400000, guid: 37e7c57e2311d6f45b8dca5e58a67585, type: 2}
-  SpinAttackHitbox: {fileID: 3241475286754911866, guid: 9c17ea41df339ac498a4981ef29df4be, type: 3}
+  weaponRangeType: 1
+  SpinAttackHitbox: {fileID: 2911535206415080141, guid: 2c35ba8aa56f47d469f098de25508dc5, type: 3}
+  CurrentWeaponDamagePercentage: 0
+  HitboxSpawnDelay: 1
+  HitboxDuration: 3
+  ObstructionLayers:
+    serializedVersion: 2
+    m_Bits: 768

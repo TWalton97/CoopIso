@@ -7,13 +7,12 @@ public class PassiveUnlockFeat : FeatSO
 {
     public PassiveUnlock passiveUnlock;
 
-    public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller, Action activatedSuccess)
+    public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller)
     {
-        UnlockPassive(controller);
-        activatedSuccess?.Invoke();
+        UnlockPassive(controller, CurrentFeatLevel);
     }
 
-    private void UnlockPassive(NewPlayerController controller)
+    private void UnlockPassive(NewPlayerController controller, int currentFeatLevel)
     {
         switch (passiveUnlock)
         {
@@ -35,6 +34,20 @@ public class PassiveUnlockFeat : FeatSO
             case PassiveUnlock.BowMastery:
                 controller.PlayerStatsBlackboard.BowMastery = true;
                 break;
+            case PassiveUnlock.ArmorMastery:
+                if (currentFeatLevel == 1)
+                {
+                    controller.PlayerStatsBlackboard.armorType = ArmorType.Light;
+                }
+                else if (currentFeatLevel == 2)
+                {
+                    controller.PlayerStatsBlackboard.armorType = ArmorType.Medium;
+                }
+                else if (currentFeatLevel == 3)
+                {
+                    controller.PlayerStatsBlackboard.armorType = ArmorType.Heavy;
+                }
+                break;
         }
     }
 }
@@ -46,5 +59,6 @@ public enum PassiveUnlock
     OneHandedMastery,
     TwoHandedMastery,
     DualWieldMastery,
-    BowMastery
+    BowMastery,
+    ArmorMastery
 }

@@ -5,6 +5,7 @@ using System.Collections;
 
 public class ResourceController : MonoBehaviour
 {
+    public NewPlayerController newPlayerController;
     public Resource resource;
 
     void Start()

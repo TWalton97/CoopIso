@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class InteractionManager : Singleton<InteractionManager>
+public class InteractionManager : MonoBehaviour
 {
     public InteractionUI Player1UI;
     public InteractionUI Player2UI;

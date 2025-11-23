@@ -12302,6 +12302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a4d3f543624af4f9b5e4fe1ca09fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newPlayerController: {fileID: 7230535324818502119}
   interactionRange: 1.25
 --- !u!1 &3902795751068299338
 GameObject:
@@ -15161,6 +15162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeef6400d7616be4eaf9a8c7b3be0b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 7230535324818502119}
   AttackButtonHeldDown: 0
 --- !u!136 &4776015412995186482
 CapsuleCollider:
@@ -15213,8 +15215,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c9d4b62f5cc1f143a5e85187f250e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerContext:
+    PlayerIndex: 0
+    UserInterfaceController: {fileID: 0}
+    PlayerController: {fileID: 0}
+    PlayerInput: {fileID: 0}
+    InventoryManager: {fileID: 0}
+    InteractionManager: {fileID: 0}
+    SpawnedItemDatabase: {fileID: 0}
   WeaponController: {fileID: 7874169709706284734}
   ArmorController: {fileID: 1963507904449709706}
+  ExperienceController: {fileID: 9155891904063514100}
+  FeatsController: {fileID: 90509361737073914}
   _movementSpeed: 4
   _maximumMovementSpeed: 0
   _jumpForce: 7
@@ -15307,6 +15319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b107f17fb691aa4caec7cfc4c1c07b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newPlayerController: {fileID: 7230535324818502119}
   resource:
     resourceType: 1
     resourceMax: 100
@@ -15400,17 +15413,12 @@ MonoBehaviour:
   experienceController: {fileID: 9155891904063514100}
   playerHealthController: {fileID: 6810012523319174219}
   AllFeats:
-  - {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
-  - {fileID: 11400000, guid: 0e4d047c9f357444fb30b9deb71369eb, type: 2}
-  - {fileID: 11400000, guid: 93097580943abb044bfd719000317c7b, type: 2}
-  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
-  - {fileID: 11400000, guid: e6a2bea3350b04a44bf2148717f5de67, type: 2}
-  - {fileID: 11400000, guid: ae6b9c3edd34adb438fd3c81aafbe495, type: 2}
-  - {fileID: 11400000, guid: 7cff8d1b8bb094a47b2724b682682c17, type: 2}
-  - {fileID: 11400000, guid: e2781a446ce6d28439b763ed8aa35b43, type: 2}
-  - {fileID: 11400000, guid: c29d650f74cff0241a27fa5cc33bd85d, type: 2}
-  - {fileID: 11400000, guid: f19cf7bed70c8d5478636990455e9df8, type: 2}
+  - {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
   UnlockedFeats: []
+  classFeatConfig:
+    startingFeats:
+    - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
+      startingLevel: 3
 --- !u!114 &1963507904449709706
 MonoBehaviour:
   m_ObjectHideFlags: 0

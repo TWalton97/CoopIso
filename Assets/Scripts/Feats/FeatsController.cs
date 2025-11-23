@@ -14,6 +14,15 @@ public class FeatsController : MonoBehaviour
     public List<FeatSO> AllFeats;
     public List<RuntimeFeat> UnlockedFeats;
 
+    public ClassFeatConfig classFeatConfig;
+
+    public Action<FeatSO, int> OnFeatLevelChanged;
+
+    private void Start()
+    {
+        SetupClassConfig();
+    }
+
     public RuntimeFeat GetRuntimeFeat(FeatSO feat)
     {
         return UnlockedFeats.FirstOrDefault(f => f.BaseFeatSO == feat);
@@ -39,7 +48,7 @@ public class FeatsController : MonoBehaviour
         return experienceController.SkillPoints >= runtime.GetNextLevelCost();
     }
 
-    public bool UnlockFeat(FeatSO feat, Action activatedSuccess)
+    public bool UnlockFeat(FeatSO feat)
     {
         var runtime = GetRuntimeFeat(feat);
 
@@ -52,8 +61,8 @@ public class FeatsController : MonoBehaviour
             runtime = new RuntimeFeat(feat);
             UnlockedFeats.Add(runtime);
 
-            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController, activatedSuccess);
-
+            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController);
+            OnFeatLevelChanged?.Invoke(feat, runtime.CurrentFeatLevel);
             return true;
         }
         else
@@ -67,9 +76,60 @@ public class FeatsController : MonoBehaviour
 
             runtime.CurrentFeatLevel++;
 
-            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController, activatedSuccess);
+            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController);
+            OnFeatLevelChanged?.Invoke(feat, runtime.CurrentFeatLevel);
+            return true;
+        }
+    }
+
+    public int GetCurrentFeatLevel(FeatSO feat)
+    {
+        var runtime = GetRuntimeFeat(feat);
+        if (runtime == null) return 0;
+
+        return runtime.CurrentFeatLevel;
+    }
+
+    public bool UnlockFeatBypassReqs(FeatSO feat)
+    {
+        var runtime = GetRuntimeFeat(feat);
+
+        if (runtime == null)
+        {
+            int cost = feat.GetCostPerLevel(0);
+
+            runtime = new RuntimeFeat(feat);
+            UnlockedFeats.Add(runtime);
+
+            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController);
+            OnFeatLevelChanged?.Invoke(feat, runtime.CurrentFeatLevel);
 
             return true;
+        }
+        else
+        {
+            if (runtime.IsMaxLevel)
+                return false;
+
+            int cost = runtime.GetNextLevelCost();
+
+            runtime.CurrentFeatLevel++;
+
+            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController);
+            OnFeatLevelChanged?.Invoke(feat, runtime.CurrentFeatLevel);
+
+            return true;
+        }
+    }
+
+    private void SetupClassConfig()
+    {
+        foreach (ClassFeatConfig.StartingFeat startingFeat in classFeatConfig.startingFeats)
+        {
+            for (int i = 0; i < startingFeat.startingLevel; i++)
+            {
+                UnlockFeatBypassReqs(startingFeat.feat);
+            }
         }
     }
 }
@@ -92,4 +152,17 @@ public class RuntimeFeat
     {
         return BaseFeatSO.GetCostPerLevel(CurrentFeatLevel);
     }
+}
+
+[Serializable]
+public class ClassFeatConfig
+{
+    [Serializable]
+    public struct StartingFeat
+    {
+        public FeatSO feat;
+        public int startingLevel;
+    }
+
+    public List<StartingFeat> startingFeats;
 }

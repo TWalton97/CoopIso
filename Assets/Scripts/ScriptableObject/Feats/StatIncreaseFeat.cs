@@ -6,10 +6,9 @@ public class StatIncreaseFeat : FeatSO
 {
     public StatToIncrease statToIncrease;
     public float[] ValueIncreasePerLevel;
-    public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller, Action activatedSuccess)
+    public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller)
     {
         IncreaseStat(CurrentFeatLevel, controller.FeatsController);
-        activatedSuccess?.Invoke();
     }
 
     public void IncreaseStat(int CurrentFeatLevel, FeatsController controller)

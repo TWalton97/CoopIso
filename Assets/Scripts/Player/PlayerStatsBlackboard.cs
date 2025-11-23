@@ -109,21 +109,21 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
         if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(BowSO))
         {
-            SpawnedItemDataBase.SpawnedBowData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID) as SpawnedItemDataBase.SpawnedBowData;
+            SpawnedItemDataBase.SpawnedBowData spawnedWeaponsData = PlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID) as SpawnedItemDataBase.SpawnedBowData;
             attacksPerSecond += spawnedWeaponsData.attacksPerSecond;
             numWeapons++;
         }
 
         if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
         {
-            SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
+            SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = PlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
             attacksPerSecond += spawnedWeaponsData.attacksPerSecond;
             numWeapons++;
         }
 
         if (WeaponController.instantiatedSecondaryWeapon != null && WeaponController.instantiatedSecondaryWeapon.Data.GetType() == typeof(WeaponDataSO))
         {
-            SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
+            SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = PlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
             attacksPerSecond += spawnedWeaponsData.attacksPerSecond;
             numWeapons++;
         }

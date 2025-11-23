@@ -5,7 +5,6 @@ using UnityEngine;
 public class Item : MonoBehaviour, IInteractable
 {
     public ItemData itemData;
-    public InventoryManager inventoryManager;
     private Quaternion targetRotation;
     private Vector3 targetPosition;
     private bool _isInteractable = false;
@@ -17,7 +16,6 @@ public class Item : MonoBehaviour, IInteractable
 
     void Start()
     {
-        inventoryManager = InventoryManager.Instance;
         if (itemData.vfxPrefab != null)
             Instantiate(itemData.vfxPrefab, transform);
         targetRotation = transform.rotation;
@@ -41,16 +39,16 @@ public class Item : MonoBehaviour, IInteractable
         yield return null;
     }
 
-    private void CollectItem(int playerIndex)
+    private void CollectItem(InventoryManager inventoryManager, int playerIndex)
     {
         inventoryManager.AddItemToCorrectPlayerInventory(itemData, playerIndex);
         if (gameObject != null)
             Destroy(gameObject);
     }
 
-    public void OnInteract(int playerIndex)
+    public void OnInteract(PlayerContext context, int playerIndex)
     {
-        CollectItem(playerIndex);
+        CollectItem(context.InventoryManager, playerIndex);
     }
 }
 
@@ -66,6 +64,7 @@ public class ItemData
     public GameObject floorObjectPrefab;
     public GameObject vfxPrefab;
     public ItemType itemType;
+    public WeaponRangeType weaponRangeType;
     public ItemSO data;
     public List<Affix> affixes;
 }

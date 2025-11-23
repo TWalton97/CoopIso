@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerUserInterfaceController : MonoBehaviour
 {
+    public PlayerContext playerContext;
+
     public GameObject PlayerInventoryPanel;
     public GameObject PlayerFeatsPanel;
     public GameObject PlayerResourcePanel;
@@ -29,7 +31,8 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(WaitForSetup());
+        SetupInventoryMenu(playerInput);
+        resourcePanelController.Init(playerContext.PlayerController);
     }
 
     public void OpenInventoryPanel()
@@ -68,10 +71,15 @@ public class PlayerUserInterfaceController : MonoBehaviour
         }
     }
 
-    public void Init(PlayerInput _playerInput)
+    public void Init(PlayerInput _playerInput, PlayerContext context)
     {
         PlayerIndex = _playerInput.playerIndex;
         playerInput = _playerInput;
+        playerContext = context;
+        inventoryManager = playerContext.InventoryManager;
+        inventoryController.playerUserInterfaceController = this;
+
+        SetupFeatsMenu();
     }
 
     public void SetupInventoryMenu(PlayerInput playerInput)
@@ -84,21 +92,7 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
     public void SetupFeatsMenu()
     {
-        NewPlayerController controller = PlayerJoinManager.Instance.GetPlayerControllerByIndex(playerInput.playerIndex);
-        featsPanelController.CreateFeatButtons(controller.FeatsController);
-    }
-
-    private IEnumerator WaitForSetup()
-    {
-        while (inventoryManager == null)
-        {
-            inventoryManager = InventoryManager.Instance;
-            yield return new WaitForSeconds(0.1f);
-        }
-        SetupInventoryMenu(playerInput);
-        SetupFeatsMenu();
-        resourcePanelController.Init(PlayerJoinManager.Instance.GetPlayerControllerByIndex(playerInput.playerIndex));
-        yield return null;
+        featsPanelController.CreateFeatButtons(playerContext.PlayerController);
     }
 
     public void DisplayPlayerResourcePanel(bool value)

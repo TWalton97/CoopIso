@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : MonoBehaviour
 {
     public static Action OnMenuOpened;
     public static Action OnMenuClosed;

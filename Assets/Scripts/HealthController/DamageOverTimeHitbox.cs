@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DamageOverTimeHitbox : Hitbox
 {
-    public float DamageTickDuration = 0.2f;    //We empty the damagedColliders list every tick
+    public float DamageTickDuration = 0.2f;
     public List<IDamageable> damagedColliders = new();
 
     public bool DamageOnTriggerStay;
@@ -17,6 +17,9 @@ public class DamageOverTimeHitbox : Hitbox
         DestroyHitboxOnHit = destroyHitboxOnHit;
         this.DamageTickDuration = DamageTickDuration;
         this.DamageOnTriggerStay = DamageOnTriggerStay;
+
+        if (DamageOnTriggerStay)
+            StartCoroutine(EmptyDamageablesList());
     }
 
     public override void OnTriggerEnter(Collider other)
@@ -38,9 +41,6 @@ public class DamageOverTimeHitbox : Hitbox
     public override void Start()
     {
         base.Start();
-
-        if (DamageOnTriggerStay)
-            StartCoroutine(EmptyDamageablesList());
     }
 
     public virtual void OnTriggerStay(Collider other)

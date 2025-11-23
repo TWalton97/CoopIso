@@ -6,11 +6,10 @@ public class AbilityUnlockFeat : FeatSO
 {
     public AbilitySO AbilityToUnlock;
 
-    public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller, Action activatedSuccess)
+    public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller)
     {
         controller.AbilityController.UnlockAbility(AbilityToUnlock);
 
-        activatedSuccess?.Invoke();
     }
 
     public override string GenerateStatDescriptionString(int currentFeatLevel)

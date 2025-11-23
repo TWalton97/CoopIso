@@ -9,7 +9,7 @@ public class PlayerCastState : PlayerBaseState
 
     public override void OnEnter()
     {
-        PlayerUserInterfaceController controller = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(player.PlayerInputController.playerIndex);
+        PlayerUserInterfaceController controller = player.PlayerContext.UserInterfaceController;
         AbilityScrollController.AbilityData selectedAbility = controller.AbilityScrollController.ActiveAbility;
         player.AbilityController.UseAbility(selectedAbility);
         player._movementSpeed = player._maximumMovementSpeed * selectedAbility.AbilitySO.MovementSpeedMultiplierWhileUsing;

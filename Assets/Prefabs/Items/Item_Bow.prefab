@@ -56,6 +56,7 @@ MonoBehaviour:
     floorObjectPrefab: {fileID: 0}
     vfxPrefab: {fileID: 0}
     itemType: 7
+    weaponRangeType: 1
     data: {fileID: 11400000, guid: 886e9b3c35b94ab4a9885384a3bbf2b0, type: 2}
     affixes: []
   inventoryManager: {fileID: 0}

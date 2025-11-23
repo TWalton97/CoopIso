@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
+    public NewPlayerController newPlayerController;
     [SerializeField] private float interactionRange;
     private PlayerInputController playerInputController;
     private int playerIndex;
@@ -25,21 +26,22 @@ public class Interactor : MonoBehaviour
     {
         StartCoroutine(InteractablesLoop());
     }
+
     private void DisplayInteractUI()
     {
-        InteractionManager.Instance.EnableInteractionUI(playerIndex, nearestInteractable.interactionType, nearestInteractable.interactableName, GetInteractionKeyString());
+        newPlayerController.PlayerContext.InteractionManager.EnableInteractionUI(playerIndex, nearestInteractable.interactionType, nearestInteractable.interactableName, GetInteractionKeyString());
     }
 
     private void HideInteractUI()
     {
-        InteractionManager.Instance.DisableInteractionUI(playerIndex);
+        newPlayerController.PlayerContext.InteractionManager.DisableInteractionUI(playerIndex);
     }
 
     public void Interact()
     {
         if (nearestInteractable != null)
         {
-            nearestInteractable.OnInteract(playerIndex);
+            nearestInteractable.OnInteract(newPlayerController.PlayerContext, playerIndex);
         }
     }
 

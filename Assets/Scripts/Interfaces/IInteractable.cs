@@ -7,5 +7,5 @@ public interface IInteractable
     InteractionType interactionType { get; set; }
     bool isInteractable { get; set; }
     string interactableName { get; set; }
-    public void OnInteract(int playerIndex);
+    public void OnInteract(PlayerContext playerContext, int playerIndex);
 }

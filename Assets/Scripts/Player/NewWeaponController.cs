@@ -46,7 +46,7 @@ public class NewWeaponController : MonoBehaviour
     void Start()
     {
         newPlayerController.AnimationStatusTracker.OnAttackCompleted += ResetAttack;
-        StartCoroutine(WaitForSetup());
+        EquipStarterItems();
     }
 
     void OnEnable()
@@ -73,16 +73,16 @@ public class NewWeaponController : MonoBehaviour
         if (StartingMainHandWeapon != null)
         {
             Item starterSword = Instantiate(StartingMainHandWeapon);
-            starterSword.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(starterSword.itemData);
-            newPlayerController.InventoryController.FindEquippedSlotOfType(Slot.MainHand)[0].EquipGear(starterSword.itemData);
+            starterSword.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterSword.itemData);
+            newPlayerController.PlayerContext.UserInterfaceController.inventoryController.FindEquippedSlotOfType(Slot.MainHand)[0].EquipGear(starterSword.itemData);
             Destroy(starterSword.gameObject);
         }
 
         if (StartingOffHandWeapon != null)
         {
             Item starterShield = Instantiate(StartingOffHandWeapon);
-            starterShield.itemData.itemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(starterShield.itemData);
-            newPlayerController.InventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].EquipGear(starterShield.itemData);
+            starterShield.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterShield.itemData);
+            newPlayerController.PlayerContext.UserInterfaceController.inventoryController.FindEquippedSlotOfType(Slot.OffHand)[0].EquipGear(starterShield.itemData);
             Destroy(starterShield.gameObject);
         }
     }
@@ -149,7 +149,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
+            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData);
             PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
@@ -159,7 +159,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
+            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData);
             PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
@@ -168,7 +168,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedSecondaryWeapon = Instantiate(weaponPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
             instantiatedSecondaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
-            instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, itemData.itemID);
+            instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, itemData);
             PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
             UpdateAnimator();
         }
@@ -178,7 +178,7 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
             instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
             instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
+            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData);
             PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
             UpdateAnimator();
         }
@@ -196,7 +196,7 @@ public class NewWeaponController : MonoBehaviour
         instantiatedPrimaryWeapon = Instantiate(weaponPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
         instantiatedPrimaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
         instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-        instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData.itemID);
+        instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, itemData);
         PlayerPreviewManager.Instance.EquipWeaponToPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
         UpdateAnimator();
         CalculateWeaponDamage();
@@ -209,10 +209,10 @@ public class NewWeaponController : MonoBehaviour
         instantiatedSecondaryWeapon = Instantiate(weaponPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
         instantiatedSecondaryWeapon.transform.localRotation = weaponPrefab.transform.rotation;
         instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
-        instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, itemData.itemID);
+        instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, itemData);
         if (instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.Shield)
         {
-            SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
+            SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
             newPlayerController.PlayerHealthController.UpdateArmorAmount(spawnedShieldData.armorAmount);
             HasShieldEquipped = true;
         }
@@ -339,7 +339,7 @@ public class NewWeaponController : MonoBehaviour
                     PlayerPreviewManager.Instance.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand);
                     if (HasShieldEquipped)
                     {
-                        SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
+                        SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
                         newPlayerController.PlayerHealthController.UpdateArmorAmount(-spawnedShieldData.armorAmount);
                     }
                     Destroy(instantiatedSecondaryWeapon.gameObject);
@@ -404,7 +404,7 @@ public class NewWeaponController : MonoBehaviour
     public AnimatorOverrideController TwoHandedAnimator;
     public AnimatorOverrideController BowAnimator;
 
-    [System.Serializable]
+    [Serializable]
     public enum WeaponAttackTypes
     {
         OneHanded,
@@ -413,16 +413,12 @@ public class NewWeaponController : MonoBehaviour
         Shield,
         Bow
     }
+}
 
-    private IEnumerator WaitForSetup()
-    {
-        while (newPlayerController.InventoryController == null)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
-        EquipStarterItems();
-        yield return null;
-    }
+public enum WeaponRangeType
+{
+    Melee,
+    Ranged
 }
 
 
