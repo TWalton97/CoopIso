@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Fortify
   AbilityIcon: {fileID: 21300000, guid: 06d02d07843f570469ba6d32b0806d13, type: 3}
-  AnimationClip: {fileID: 7400000, guid: cde254593a06ece499a384a4aad12219, type: 2}
+  AnimationClip: {fileID: 7400000, guid: d099426be33a89a439044a267d8c09b7, type: 2}
   ResourceType: 1
   ResourceAmount: 15
   MovementSpeedMultiplierWhileUsing: 0
+  CanRotateDuringCast: 0
+  RequiredWeaponRangeType: 3
   statusSO: {fileID: 11400000, guid: 0ae180700c5b45747a904b6df15b9584, type: 2}
   buffBehaviourPrefab: {fileID: 1356468606317954617, guid: 11f246e1c9f17ca4f8e0a7269aa64ad3, type: 3}

@@ -54,11 +54,12 @@ MonoBehaviour:
     itemDescription: A one-handed hatchet. In the right hands this could do some
       serious damage.
     objectPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+    floorObjectPrefab: {fileID: 0}
     vfxPrefab: {fileID: 0}
     itemType: 4
+    weaponRangeType: 1
     data: {fileID: 11400000, guid: 45c62f986883fb847b8787a00fd7be64, type: 2}
     affixes: []
-  inventoryManager: {fileID: 0}
   InteractionType: 0
 --- !u!135 &3677078007523840295
 SphereCollider:

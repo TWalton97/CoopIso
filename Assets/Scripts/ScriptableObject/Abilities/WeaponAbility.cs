@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AbilityData", menuName = "Data/Ability Data/Weapon Ability")]
 public class WeaponAbility : AbilitySO
 {
+    public List<StatusSO> AppliedStatuses;
     public WeaponRangeType RequiredWeaponRangeType;
     public WeaponAbilityBehaviour abilityBehaviourPrefab;
     [Tooltip("Weapon abilities deal damage based on equipped weapons")] public float WeaponDamagePercentage;

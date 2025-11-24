@@ -13,7 +13,7 @@ public class SpinAttackBehaviour : WeaponAbilityBehaviour
     {
         CurrentWeaponDamagePercentage = runtime.WeaponDamagePercentage;
         instantiatedHitbox = Instantiate(SpinAttackHitbox, player.transform.position, Quaternion.identity, player.transform);
-        instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.2f, true);
+        instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.2f, true, statuses);
     }
 
     public override void OnExit()

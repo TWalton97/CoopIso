@@ -10,12 +10,14 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
     public GameObject PlayerInventoryPanel;
     public GameObject PlayerFeatsPanel;
+    public GameObject PlayerGlossary;
     public GameObject PlayerResourcePanel;
 
     public InventoryController inventoryController;
     public PlayerFeatsPanelController featsPanelController;
     public ResourcePanelController resourcePanelController;
     public AbilityScrollController AbilityScrollController;
+    public GlossaryController glossaryController;
 
     private InventoryManager inventoryManager;
     public int PlayerIndex { get; private set; }
@@ -34,6 +36,7 @@ public class PlayerUserInterfaceController : MonoBehaviour
         eventSystem.SetSelectedGameObject(inventoryController.equipmentSlot[0].gameObject);
         PlayerInventoryPanel.SetActive(true);
         PlayerFeatsPanel.SetActive(false);
+        PlayerGlossary.SetActive(false);
         IsMenuOpened = true;
     }
 
@@ -42,6 +45,16 @@ public class PlayerUserInterfaceController : MonoBehaviour
         eventSystem.SetSelectedGameObject(featsPanelController.featButtons[0].gameObject);
         PlayerInventoryPanel.SetActive(false);
         PlayerFeatsPanel.SetActive(true);
+        PlayerGlossary.SetActive(false);
+        IsMenuOpened = true;
+    }
+
+    public void OpenGlossaryPanel()
+    {
+        eventSystem.SetSelectedGameObject(glossaryController.glossaryButtonOne.gameObject);
+        PlayerInventoryPanel.SetActive(false);
+        PlayerFeatsPanel.SetActive(false);
+        PlayerGlossary.SetActive(true);
         IsMenuOpened = true;
     }
 
@@ -49,6 +62,7 @@ public class PlayerUserInterfaceController : MonoBehaviour
     {
         PlayerInventoryPanel.SetActive(false);
         PlayerFeatsPanel.SetActive(false);
+        PlayerGlossary.SetActive(false);
         IsMenuOpened = false;
     }
 
@@ -61,7 +75,28 @@ public class PlayerUserInterfaceController : MonoBehaviour
         else if (PlayerFeatsPanel.activeSelf)
         {
             inventoryController.UpdatePlayerStats();
+            OpenGlossaryPanel();
+        }
+        else if (PlayerGlossary.activeSelf)
+        {
             OpenInventoryPanel();
+        }
+    }
+
+    public void GoToPreviousMenu()
+    {
+        if (PlayerInventoryPanel.activeSelf)
+        {
+            OpenGlossaryPanel();
+        }
+        else if (PlayerFeatsPanel.activeSelf)
+        {
+            inventoryController.UpdatePlayerStats();
+            OpenInventoryPanel();
+        }
+        else if (PlayerGlossary.activeSelf)
+        {
+            OpenFeatsPanel();
         }
     }
 

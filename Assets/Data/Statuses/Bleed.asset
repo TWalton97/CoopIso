@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec964d346a10f7438a569710098ed6e, type: 3}
+  m_Name: Bleed
+  m_EditorClassIdentifier: 
+  statusID: Bleed
+  statusDescription: Deals 100% of initial hit as damage over time over 5 seconds
+  baseDuration: 5
+  isStackable: 0
+  refreshDurationOnReapply: 1
+  debuffVFX: {fileID: 2944396702758532163, guid: e16ed319c7b11ec4482ccbd610fe2e6c, type: 3}
+  tickRate: 1
+  percentPerTick: 0.2

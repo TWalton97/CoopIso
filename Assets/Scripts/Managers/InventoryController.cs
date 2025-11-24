@@ -37,6 +37,7 @@ public class InventoryController : MonoBehaviour
         controller.PlayerHealthController.OnArmorAmountChanged += UpdatePlayerStats;
         OnMenuOpened += controller.PlayerStatsBlackboard.UpdateArmorStats;
         OnMenuOpened += UpdatePlayerStats;
+        UpdatePlayerStats();
     }
 
     private void OnDisable()

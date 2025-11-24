@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 5327276164323173073}
   - component: {fileID: 5392661975958701476}
   - component: {fileID: 6720411467710495853}
+  - component: {fileID: 3782912644071027179}
   m_Layer: 8
   m_Name: Skeleton1
   m_TagString: Cull
@@ -157,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43502b20a77518645b1d5d671a533854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnedItemDataBase: {fileID: 0}
   ExpValue: 90
   ExpRange: 15
   agent: {fileID: 656917702489987130}
@@ -310,6 +312,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b33541b9157ffdb41b5417924dc1e3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3782912644071027179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643943140788604249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328b214ff7b4ff04b8562d96661030e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1107785775626915473

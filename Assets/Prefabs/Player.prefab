@@ -15249,6 +15249,7 @@ MonoBehaviour:
   - {fileID: 9106999442041791226}
   - {fileID: 822495680235394498}
   lookPoint: {x: 0, y: 0, z: 0}
+  AbilityBeingUsed: {fileID: 0}
 --- !u!114 &7874169709706284734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15420,7 +15421,8 @@ MonoBehaviour:
   experienceController: {fileID: 9155891904063514100}
   playerHealthController: {fileID: 6810012523319174219}
   AllFeats:
-  - {fileID: 11400000, guid: 71fc59681dde3654c81e29b8d3acf16a, type: 2}
+  - {fileID: 11400000, guid: 0e4d047c9f357444fb30b9deb71369eb, type: 2}
+  - {fileID: 11400000, guid: b5bda621ae842664e868e8c36964058b, type: 2}
   UnlockedFeats: []
 --- !u!114 &1963507904449709706
 MonoBehaviour:
@@ -15504,6 +15506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328b214ff7b4ff04b8562d96661030e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeStatuses: []
 --- !u!1 &5016090182544120206
 GameObject:
   m_ObjectHideFlags: 0

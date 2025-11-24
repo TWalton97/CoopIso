@@ -73,6 +73,7 @@ MonoBehaviour:
   DestroyHitboxOnHit: 0
   DamageTickDuration: 0.2
   DamageOnTriggerStay: 0
+  statusToApply: {fileID: 0}
 --- !u!54 &890803463317838884
 Rigidbody:
   m_ObjectHideFlags: 0

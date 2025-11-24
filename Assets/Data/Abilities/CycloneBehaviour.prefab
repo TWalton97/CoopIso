@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20c735de2a9c734e8970ee92b438782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponRangeType: 1
   SpinAttackHitbox: {fileID: 3241475286754911866, guid: 9c17ea41df339ac498a4981ef29df4be, type: 3}
+  CurrentWeaponDamagePercentage: 0

@@ -8,8 +8,9 @@ public class DamageOverTimeHitbox : Hitbox
     public List<IDamageable> damagedColliders = new();
 
     public bool DamageOnTriggerStay;
+    public List<StatusSO> statusesToApply;
 
-    public void Init(int damage, LayerMask targetLayer, Entity controller, bool destroyHitboxOnHit = false, float DamageTickDuration = 0.2f, bool DamageOnTriggerStay = false)
+    public void Init(int damage, LayerMask targetLayer, Entity controller, bool destroyHitboxOnHit = false, float DamageTickDuration = 0.2f, bool DamageOnTriggerStay = false, List<StatusSO> status = null)
     {
         _damage = damage;
         _targetLayer = targetLayer;
@@ -17,6 +18,7 @@ public class DamageOverTimeHitbox : Hitbox
         DestroyHitboxOnHit = destroyHitboxOnHit;
         this.DamageTickDuration = DamageTickDuration;
         this.DamageOnTriggerStay = DamageOnTriggerStay;
+        statusesToApply = status;
 
         if (DamageOnTriggerStay)
             StartCoroutine(EmptyDamageablesList());
@@ -31,6 +33,13 @@ public class DamageOverTimeHitbox : Hitbox
             if (damagedColliders.Contains(damageable)) return;
             damagedColliders.Add(damageable);
             damageable.TakeDamage(_damage, _controller);
+            if (other.gameObject.TryGetComponent(out StatusController statusController) && statusesToApply != null)
+            {
+                foreach (StatusSO status in statusesToApply)
+                {
+                    statusController.ApplyStatus(status, _controller, _damage);
+                }
+            }
             damagedColliders.Add(damageable);
             OnTargetDamaged?.Invoke();
         }
@@ -52,6 +61,13 @@ public class DamageOverTimeHitbox : Hitbox
             if (damagedColliders.Contains(damageable)) return;
             damagedColliders.Add(damageable);
             damageable.TakeDamage(_damage, _controller);
+            if (other.gameObject.TryGetComponent(out StatusController statusController) && statusesToApply != null)
+            {
+                foreach (StatusSO status in statusesToApply)
+                {
+                    statusController.ApplyStatus(status, _controller, _damage);
+                }
+            }
             damagedColliders.Add(damageable);
             OnTargetDamaged?.Invoke();
         }

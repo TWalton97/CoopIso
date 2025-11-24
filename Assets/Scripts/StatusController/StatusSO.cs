@@ -5,6 +5,7 @@ public abstract class StatusSO : ScriptableObject
 {
     [Header("General")]
     public string statusID;
+    public string statusDescription;
     public float baseDuration = 5f;
     public bool isStackable = false;
     public bool refreshDurationOnReapply = true;

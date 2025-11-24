@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AbilityData", menuName = "Data/Ability Data/Spell Ability")]
 public class SpellAbility : AbilitySO
 {
+    public WeaponRangeType RequiredWeaponRangeType;
     public int AbilityDamage;
     public int AbilityDamageIncreasePerLevel;
     public override RuntimeAbility CreateRuntimeAbility()

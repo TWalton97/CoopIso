@@ -57,6 +57,8 @@ public class NewPlayerController : Entity
 
     public Vector3 lookPoint;
 
+    public AbilitySO AbilityBeingUsed;
+
     #region MonoBehaviour
 
     public override void Awake()
@@ -237,7 +239,7 @@ public class NewPlayerController : Entity
 
         Rigidbody.velocity = newVel;
 
-        if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState || attackStateMachine.current.State == castState)
+        if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState || (attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast))
         {
             if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME && PlayerInputController.LookStickVal != Vector2.zero)
             {
@@ -248,7 +250,7 @@ public class NewPlayerController : Entity
                 transform.LookAt(transform.position + lookPoint);
             }
         }
-        else
+        else if (!(attackStateMachine.current.State == castState && !AbilityBeingUsed.CanRotateDuringCast))
         {
             RotateToFaceDir(_moveInput);
         }
@@ -339,7 +341,10 @@ public class NewPlayerController : Entity
         if (attackStateMachine.current.State == idleState || attackStateMachine.current.State == blockState)
         {
             if (PlayerContext.UserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed())
+            {
                 attackStateMachine.ChangeState(castState);
+                AbilityBeingUsed = PlayerContext.UserInterfaceController.AbilityScrollController.ActiveAbility.AbilitySO;
+            }
         }
     }
 

@@ -46,7 +46,7 @@ public class RainOfArrowBehaviour : WeaponAbilityBehaviour
         }
 
         instantiatedHitbox = Instantiate(SpinAttackHitbox, spawnPos, Quaternion.identity, null);
-        instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.5f, true);
+        instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.5f, true, statuses);
         Destroy(instantiatedHitbox.gameObject, HitboxDuration);
         yield return null;
     }

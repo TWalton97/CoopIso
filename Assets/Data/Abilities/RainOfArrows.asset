@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Rain of Arrows
   AbilityIcon: {fileID: 21300000, guid: 9867e2715a85c6345a93f98353a7799d, type: 3}
-  AnimationClip: {fileID: 7400000, guid: 764c938931c22a34ab8007072fe148e7, type: 2}
+  AnimationClip: {fileID: 7400000, guid: d3230f9aeade20a4ab13025fa142e20c, type: 2}
   ResourceType: 1
   ResourceAmount: 20
   MovementSpeedMultiplierWhileUsing: 0
-  RequiredWeaponRangeType: 1
+  CanRotateDuringCast: 1
+  RequiredWeaponRangeType: 2
   abilityBehaviourPrefab: {fileID: 1777890230724462431, guid: 193fb4ea80567b34aa22fe2aa2564992, type: 3}
   WeaponDamagePercentage: 0.4
   WeaponDamageIncreasePerLevel: 0

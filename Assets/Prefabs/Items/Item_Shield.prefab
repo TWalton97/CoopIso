@@ -57,9 +57,9 @@ MonoBehaviour:
     floorObjectPrefab: {fileID: 0}
     vfxPrefab: {fileID: 0}
     itemType: 6
+    weaponRangeType: 3
     data: {fileID: 11400000, guid: 0f96e0b32566fe441b7fe0a89432a3d8, type: 2}
     affixes: []
-  inventoryManager: {fileID: 0}
   InteractionType: 0
 --- !u!135 &6623880556442527337
 SphereCollider:

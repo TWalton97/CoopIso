@@ -8,6 +8,7 @@ public abstract class AbilitySO : ScriptableObject
     public Resources.ResourceType ResourceType;
     public float ResourceAmount;
     public float MovementSpeedMultiplierWhileUsing = 1;
+    public bool CanRotateDuringCast = true;
 
     public abstract RuntimeAbility CreateRuntimeAbility();
 }

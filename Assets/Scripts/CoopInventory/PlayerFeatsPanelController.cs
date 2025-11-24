@@ -126,16 +126,22 @@ public class PlayerFeatsPanelController : MonoBehaviour
                 FeatPreviewStats.text = abilityUnlockFeat.GenerateStatDescriptionString(currentFeatLevel);
             }
 
-            if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility)
+            if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility && weaponAbility.RequiredWeaponRangeType != WeaponRangeType.None)
             {
                 FeatPreviewWeaponRequirement.text = weaponAbility.RequiredWeaponRangeType.ToString();
+            }
+            else if (abilityUnlockFeat.AbilityToUnlock is BuffAbility buffAbility && buffAbility.RequiredWeaponRangeType != WeaponRangeType.None)
+            {
+                FeatPreviewWeaponRequirement.text = buffAbility.RequiredWeaponRangeType.ToString();
             }
             else
             {
                 FeatPreviewWeaponRequirement.text = "";
             }
 
+            FeatPreviewDescription.text = GetFullDescription(abilityUnlockFeat);
             FeatPreviewResourceCost.text = abilityUnlockFeat.AbilityToUnlock.ResourceAmount.ToString() + " " + abilityUnlockFeat.AbilityToUnlock.ResourceType.ToString();
+            return;
         }
         else if (feat is PassiveUnlockFeat)
         {
@@ -152,8 +158,6 @@ public class PlayerFeatsPanelController : MonoBehaviour
         }
 
         FeatPreviewDescription.text = feat.FeatStatDescription;
-
-
     }
 
     public void UpdateViewPosition(RectTransform target)
@@ -173,5 +177,27 @@ public class PlayerFeatsPanelController : MonoBehaviour
             0 - (viewportLocalPosition.y + childLocalPosition.y)
         );
         return result;
+    }
+
+    public string GetFullDescription(AbilityUnlockFeat abilityUnlockFeat)
+    {
+        string text = abilityUnlockFeat.FeatStatDescription; // “Performs a melee slash, damaging all hit enemies for 100% of weapon damage”
+
+        if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility)
+        {
+            if (weaponAbility.AppliedStatuses != null && weaponAbility.AppliedStatuses.Count > 0)
+            {
+                text += " and applying ";
+                for (int i = 0; i < weaponAbility.AppliedStatuses.Count; i++)
+                {
+                    var status = weaponAbility.AppliedStatuses[i];
+                    // Wrap with TMP <link> instead of <status>
+                    text += $"<link=\"{status.statusID}\"><color=#FF0000>{status.statusID}</color></link>";
+                    if (i < weaponAbility.AppliedStatuses.Count - 1)
+                        text += ", ";
+                }
+            }
+        }
+        return text + ".";
     }
 }

@@ -13,8 +13,8 @@ public class StatusController : MonoBehaviour
         for (int i = activeStatuses.Count - 1; i >= 0; i--)
         {
             var instance = activeStatuses[i];
-            instance.remainingDuration -= dt;
 
+            instance.remainingDuration -= dt;
             instance.tickTimer += dt;
 
             instance.data.OnTick(instance, this, dt);
@@ -27,7 +27,7 @@ public class StatusController : MonoBehaviour
         }
     }
 
-    public void ApplyStatus(StatusSO statusData)
+    public void ApplyStatus(StatusSO statusData, Entity source)
     {
         var existing = activeStatuses.Find(s => s.data.statusID == statusData.statusID);
 
@@ -48,7 +48,35 @@ public class StatusController : MonoBehaviour
             return;
         }
 
-        StatusInstance newInstance = new StatusInstance(statusData);
+        StatusInstance newInstance = new StatusInstance(statusData, source);
+        activeStatuses.Add(newInstance);
+
+        statusData.OnEnter(newInstance, this);
+    }
+
+    public void ApplyStatus(StatusSO statusData, Entity source, int initialHitDamage)
+    {
+        var existing = activeStatuses.Find(s => s.data.statusID == statusData.statusID);
+
+        if (existing != null)
+        {
+            if (statusData.isStackable)
+            {
+                existing.stacks++;
+            }
+
+            if (statusData.refreshDurationOnReapply)
+            {
+                existing.remainingDuration = statusData.baseDuration;
+            }
+
+            existing.tickTimer = 0f;
+
+            return;
+        }
+
+        StatusInstance newInstance = new StatusInstance(statusData, source);
+        newInstance.initialHitDamage = initialHitDamage;
         activeStatuses.Add(newInstance);
 
         statusData.OnEnter(newInstance, this);

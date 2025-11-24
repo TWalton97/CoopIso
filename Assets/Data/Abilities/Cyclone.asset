@@ -18,6 +18,10 @@ MonoBehaviour:
   ResourceType: 1
   ResourceAmount: 25
   MovementSpeedMultiplierWhileUsing: 0.8
+  CanRotateDuringCast: 1
+  AppliedStatuses:
+  - {fileID: 11400000, guid: 216ce27acdc885b4cb1a9a4da3a2fb4f, type: 2}
+  RequiredWeaponRangeType: 1
   abilityBehaviourPrefab: {fileID: 6781247649196018336, guid: 7e2dfb14afeaffd478477dc8ba98da32, type: 3}
   WeaponDamagePercentage: 0.2
   WeaponDamageIncreasePerLevel: 0.1

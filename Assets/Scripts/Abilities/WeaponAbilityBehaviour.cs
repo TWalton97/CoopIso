@@ -17,10 +17,20 @@ public class WeaponAbilityBehaviour : AbilityBehaviour<WeaponRuntimeAbility>
 
     public override bool CanUse(ResourceController resourceController)
     {
-        if (resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon != null && resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon.weaponRangeType == weaponRangeType)
+        if (weaponRangeType == WeaponRangeType.Melee || weaponRangeType == WeaponRangeType.Ranged)
         {
-            return resourceController.resource.resourceType == runtime.resourceType && resourceController.resource.RemoveResource(runtime.resourceAmount);
+            if (resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon == null || resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon.weaponRangeType != weaponRangeType)
+            {
+                return false;
+            }
         }
-        return false;
+        else if (weaponRangeType == WeaponRangeType.Shield)
+        {
+            if (resourceController.newPlayerController.WeaponController.instantiatedSecondaryWeapon == null || resourceController.newPlayerController.WeaponController.instantiatedSecondaryWeapon.weaponRangeType != weaponRangeType)
+            {
+                return false;
+            }
+        }
+        return resourceController.resource.resourceType == runtime.resourceType && resourceController.resource.RemoveResource(runtime.resourceAmount);
     }
 }

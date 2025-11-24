@@ -55,7 +55,14 @@ public class AbilityController : MonoBehaviour
 
             var behaviour = InstantiateBehaviourForAbility(abilitySO);
 
-            behaviour.Initialize(newPlayerController, runtime);
+            if (abilitySO is WeaponAbility weaponAbility)
+            {
+                behaviour.Initialize(newPlayerController, runtime, weaponAbility.AppliedStatuses);
+            }
+            else
+            {
+                behaviour.Initialize(newPlayerController, runtime);
+            }
 
             behaviours.Add(abilitySO, behaviour);
 

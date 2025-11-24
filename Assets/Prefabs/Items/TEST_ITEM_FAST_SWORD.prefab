@@ -136,11 +136,12 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: c4df26f72f7ef544ebecdafb3b35eb0d, type: 3}
     itemDescription: This sword is really, really fast. That's about it.
     objectPrefab: {fileID: 9079547992211365241, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
+    floorObjectPrefab: {fileID: 0}
     vfxPrefab: {fileID: 165858437583528537, guid: c96cdb5aeb6db8145aa538add18cf648, type: 3}
     itemType: 4
+    weaponRangeType: 1
     data: {fileID: 11400000, guid: 01b25b5be7c5dc64aa620c1691242498, type: 2}
     affixes: []
-  inventoryManager: {fileID: 0}
   InteractionType: 0
 --- !u!135 &8693469821792893953
 SphereCollider:

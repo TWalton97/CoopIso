@@ -118,5 +118,5 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
     public void OnPointerEnter(PointerEventData eventData)
     {
         selectable.Select();
-    }
+    } 
 }

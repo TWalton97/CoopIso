@@ -414,8 +414,10 @@ public class NewWeaponController : MonoBehaviour
 
 public enum WeaponRangeType
 {
+    None,
     Melee,
-    Ranged
+    Ranged,
+    Shield
 }
 
 
