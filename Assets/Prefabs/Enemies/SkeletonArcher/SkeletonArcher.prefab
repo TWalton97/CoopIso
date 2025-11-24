@@ -3048,7 +3048,7 @@ MonoBehaviour:
   chaseSpeed: 2.5
   rotationSpeed: 240
   wanderRadius: 1
-  timeBetweenAttacks: 1
+  timeBetweenAttacks: 0.5
   IsStaggered: 0
   StateName: 
   animationStatusTracker: {fileID: 0}
@@ -3148,6 +3148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328b214ff7b4ff04b8562d96661030e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeStatuses: []
 --- !u!1 &8550524380966310095
 GameObject:
   m_ObjectHideFlags: 0

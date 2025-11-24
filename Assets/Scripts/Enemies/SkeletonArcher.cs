@@ -20,7 +20,7 @@ public class SkeletonArcher : Enemy
 
         At(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
         At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
-        At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
+        At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer() && !attackOnCooldown));
         At(attackState, chaseState, new FuncPredicate(() => attackState.AttackCompleted));
 
         Any(deathState, new FuncPredicate(() => IsDead));

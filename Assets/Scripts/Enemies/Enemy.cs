@@ -39,6 +39,8 @@ public class Enemy : Entity
 
     public AnimationStatusTracker animationStatusTracker;
 
+    protected bool attackOnCooldown = false;
+
     public override void Awake()
     {
         base.Awake();
@@ -63,7 +65,7 @@ public class Enemy : Entity
 
         At(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
         At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
-        At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
+        At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer() && !attackOnCooldown));
         At(attackState, chaseState, new FuncPredicate(() => attackState.AttackCompleted));
 
         Any(deathState, new FuncPredicate(() => IsDead));
@@ -143,6 +145,14 @@ public class Enemy : Entity
         {
             playerController.ExperienceController.AddExperience(ExpValue);
         }
+    }
+
+    public IEnumerator AttackCooldown()
+    {
+        attackOnCooldown = true;
+        yield return new WaitForSeconds(timeBetweenAttacks);
+        attackOnCooldown = false;
+        yield return null;
     }
 
     private IEnumerator WaitForNavMeshAndSpawn()

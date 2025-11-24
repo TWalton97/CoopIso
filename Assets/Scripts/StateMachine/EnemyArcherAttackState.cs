@@ -21,11 +21,13 @@ public class EnemyArcherAttackState : EnemyBaseState
 
     public override void OnEnter()
     {
+        agent.speed = 0;
         attackCoroutine = enemy.StartCoroutine(WaitForEndOfAttack());
     }
 
     public override void OnExit()
     {
+        enemy.StartCoroutine(enemy.AttackCooldown());
         if (attackCoroutine != null)
         {
             enemy.StopCoroutine(attackCoroutine);
@@ -58,7 +60,7 @@ public class EnemyArcherAttackState : EnemyBaseState
 
     private IEnumerator WaitForEndOfAttack()
     {
-        while (!CheckAngleToAttacker(enemy.playerDetector.Player.gameObject, 5f))
+        while (!CheckAngleToAttacker(enemy.playerDetector.Player.gameObject, 10f))
         {
             RotateTowardsTarget(GetRotationTowardsTarget());
             yield return null;
@@ -68,7 +70,7 @@ public class EnemyArcherAttackState : EnemyBaseState
         animator.CrossFade(AttackHash, crossFadeDuration, 1);
         AttackCompleted = false;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
 
         while (actualNormalizedTime < 0.99f)
         {

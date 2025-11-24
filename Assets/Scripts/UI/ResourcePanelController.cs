@@ -12,6 +12,7 @@ public class ResourcePanelController : MonoBehaviour
     public Slider HealthBarFill;
     public Slider ResourceBarFill;
     public Slider ExperienceBarFill;
+    public GameObject SkillPointNotification;
 
     public void Init(NewPlayerController playerController)
     {
@@ -24,6 +25,7 @@ public class ResourcePanelController : MonoBehaviour
         ResourceController.resource.OnResourceValueChanged += UpdateResourceBarFill;
         ExperienceController.OnExperienceGained += UpdateExperienceBarFill;
         ExperienceController.OnLevelUp += UpdateExperienceBarFill;
+        ExperienceController.OnSkillPointUsed += CheckToEnableSkillPointNotification;
 
         UpdateHealthBarFill(0);
         UpdateResourceBarFill();
@@ -57,5 +59,18 @@ public class ResourcePanelController : MonoBehaviour
     private void UpdateExperienceBarFill()
     {
         ExperienceBarFill.value = (float)ExperienceController.experience / ExperienceController.levelExperienceRequirements[ExperienceController.level];
+        CheckToEnableSkillPointNotification();
+    }
+
+    private void CheckToEnableSkillPointNotification()
+    {
+        if (ExperienceController.SkillPoints == 0)
+        {
+            SkillPointNotification.SetActive(false);
+        }
+        else
+        {
+            SkillPointNotification.SetActive(true);
+        }
     }
 }

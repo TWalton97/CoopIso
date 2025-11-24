@@ -19,6 +19,14 @@ public class EnemyChaseState : EnemyBaseState
 
     public override void Update()
     {
-        agent.SetDestination(enemy.playerDetector.Player.position);
+        if (enemy.playerDetector.CanAttackPlayer())
+        {
+            agent.SetDestination(enemy.transform.position);
+        }
+        else
+        {
+            agent.SetDestination(enemy.playerDetector.Player.position);
+        }
+
     }
 }
