@@ -45,7 +45,6 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        Debug.Log($"Player {playerInput.playerIndex} joined");
         playerControllers.Add(playerInput.playerIndex, playerInput.GetComponent<NewPlayerController>());
         CreatePlayerCanvas(playerInput);
         OnPlayerJoinedEvent?.Invoke(playerInput.gameObject);
