@@ -31,9 +31,10 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     {
         base.Awake();
 
-        mainMenuController = FindObjectOfType<MainMenuController>();
         playerInputManager = GetComponent<PlayerInputManager>();
-        SpawnPlayers();
+        mainMenuController = FindObjectOfType<MainMenuController>();
+        if (mainMenuController != null)
+            SpawnPlayers();
     }
 
     public NewPlayerController GetPlayerControllerByIndex(int index)
@@ -66,7 +67,8 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
             InputDevice device = data.Selections[i].PlayerDevices;
             string scheme = data.Selections[i].PlayerControlSchemes;
 
-            playerInputManager.JoinPlayer(i, -1, scheme, device);
+            PlayerInput playerInput = playerInputManager.JoinPlayer(i, -1, scheme, device);
+            playerInput.gameObject.transform.position = NavMeshUtils.ReturnRandomPointOnXZ(Vector3.zero, 4f);
         }
     }
 
@@ -108,7 +110,16 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
         playerContext.PlayerController.Init();
 
-        ClassPresetSO classPresetSO = mainMenuController.gameSetupData.chosenClassPresets[playerInput.playerIndex];
+        ClassPresetSO classPresetSO;
+        if (mainMenuController != null)
+        {
+            classPresetSO = mainMenuController.gameSetupData.chosenClassPresets[playerInput.playerIndex];
+        }
+        else
+        {
+            classPresetSO = ChooseRandomClassPreset();
+        }
+
 
         playerContext.PlayerController.FeatsController.SetupClassPreset(classPresetSO.classFeatConfig);
         playerContext.PlayerController.WeaponController.EquipStarterItems(classPresetSO.StartingMainHandWeapon, classPresetSO.StartingOffhandWeapon);

@@ -6200,13 +6200,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455326350}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.034, y: 1.65, z: 0.515}
+  m_LocalRotation: {x: 0, y: 0.9961947, z: 0.08715578, w: 0}
+  m_LocalPosition: {x: 0, y: 1.55, z: 0.515}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1942649322}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -10, y: 180, z: 0}
 --- !u!114 &455326352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6285,8 +6285,8 @@ Camera:
   near clip plane: 0.01
   far clip plane: 1
   field of view: 60
-  orthographic: 0
-  orthographic size: 2
+  orthographic: 1
+  orthographic size: 0.2
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -22157,7 +22157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8146656275737929616, guid: c519f64e3163084489760c0dbe424918, type: 3}
       propertyPath: m_JoinBehavior
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8146656275737929616, guid: c519f64e3163084489760c0dbe424918, type: 3}
       propertyPath: m_PlayerPrefab
@@ -25209,13 +25209,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911615131}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.034, y: 1.65, z: 0.515}
+  m_LocalRotation: {x: 0, y: 0.9961947, z: 0.08715578, w: 0}
+  m_LocalPosition: {x: 0, y: 1.55, z: 0.515}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 553467323}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -10, y: 180, z: 0}
 --- !u!114 &1911615133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25294,8 +25294,8 @@ Camera:
   near clip plane: 0.01
   far clip plane: 1
   field of view: 60
-  orthographic: 0
-  orthographic size: 2
+  orthographic: 1
+  orthographic size: 0.2
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
