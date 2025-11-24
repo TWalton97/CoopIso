@@ -289,7 +289,7 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnMoveMenuLeft(CallbackContext context)
     {
-        playerController.PlayerContext.UserInterfaceController.GoToNextMenu();
+        playerController.PlayerContext.UserInterfaceController.GoToPreviousMenu();
     }
 
     public void OnMoveMenuRight(CallbackContext context)

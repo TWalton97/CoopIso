@@ -12,16 +12,7 @@ public class PlayerAveragePositionTracker : MonoBehaviour
         CalculateAveragePosition();
     }
 
-    private void Start()
-    {
-        PlayerJoinManager.OnPlayerJoinedEvent += AddPlayer;
-    }
-    void OnDisable()
-    {
-        PlayerJoinManager.OnPlayerJoinedEvent -= AddPlayer;
-    }
-
-    private void AddPlayer(GameObject obj)
+    public void AddPlayer(GameObject obj)
     {
         playerObjects.Add(obj);
     }

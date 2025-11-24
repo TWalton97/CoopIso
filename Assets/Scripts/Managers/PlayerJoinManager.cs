@@ -3,9 +3,11 @@ using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.InputSystem.Users;
 
 public class PlayerJoinManager : Singleton<PlayerJoinManager>
 {
+    public PlayerAveragePositionTracker playerAveragePositionTracker;
     public PlayerInputManager playerInputManager;
     public InteractionManager interactionManager;
     public InventoryManager inventoryManager;
@@ -22,12 +24,16 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     public List<ClassPresetSO> classPresets;
 
+    public MainMenuController mainMenuController;
+
 
     protected override void Awake()
     {
         base.Awake();
 
+        mainMenuController = FindObjectOfType<MainMenuController>();
         playerInputManager = GetComponent<PlayerInputManager>();
+        SpawnPlayers();
     }
 
     public NewPlayerController GetPlayerControllerByIndex(int index)
@@ -38,6 +44,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
+        Debug.Log($"Player {playerInput.playerIndex} joined");
         playerControllers.Add(playerInput.playerIndex, playerInput.GetComponent<NewPlayerController>());
         CreatePlayerCanvas(playerInput);
         OnPlayerJoinedEvent?.Invoke(playerInput.gameObject);
@@ -47,6 +54,20 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     {
         playerControllers.Remove(playerInput.playerIndex);
         OnPlayerLeftEvent?.Invoke(playerInput.gameObject);
+    }
+
+    public void SpawnPlayers()
+    {
+        var data = mainMenuController.gameSetupData;
+        int playerCount = data.PlayerCount;
+
+        for (int i = 0; i < playerCount; i++)
+        {
+            InputDevice device = data.Selections[i].PlayerDevices;
+            string scheme = data.Selections[i].PlayerControlSchemes;
+
+            playerInputManager.JoinPlayer(i, -1, scheme, device);
+        }
     }
 
     private void CreatePlayerCanvas(PlayerInput playerInput)
@@ -85,13 +106,18 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
         playerContext.PlayerController.PlayerContext = playerContext;
 
-        ClassPresetSO classPresetSO = ChooseRandomClassPreset();
+        playerContext.PlayerController.Init();
+
+        ClassPresetSO classPresetSO = mainMenuController.gameSetupData.chosenClassPresets[playerInput.playerIndex];
+
         playerContext.PlayerController.FeatsController.SetupClassPreset(classPresetSO.classFeatConfig);
         playerContext.PlayerController.WeaponController.EquipStarterItems(classPresetSO.StartingMainHandWeapon, classPresetSO.StartingOffhandWeapon);
         playerContext.PlayerController.ArmorController.EquipStarterItems(classPresetSO.StartingHelmet, classPresetSO.StartingBodyArmor, classPresetSO.StartingLegArmor);
         playerContext.PlayerController.PlayerStatsBlackboard.ClassName = classPresetSO.PresetName;
 
         playerUserInterfaceController.Init(playerInput, playerContext);
+
+        playerAveragePositionTracker.AddPlayer(playerInput.gameObject);
     }
 
     private ClassPresetSO ChooseRandomClassPreset()

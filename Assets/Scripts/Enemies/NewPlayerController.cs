@@ -61,9 +61,8 @@ public class NewPlayerController : Entity
 
     #region MonoBehaviour
 
-    public override void Awake()
+    public void Init()
     {
-        base.Awake();
         Rigidbody = GetComponent<Rigidbody>();
         Animator = GetComponentInChildren<Animator>();
         PlayerInputController = GetComponent<PlayerInputController>();
