@@ -20,7 +20,6 @@ public class NewPlayerController : Entity
     public Interactor Interactor { get; private set; }
     public AnimationStatusTracker AnimationStatusTracker { get; private set; }
     public PotionController PotionController { get; private set; }
-    public InventoryController InventoryController { get; private set; }
     public PlayerUserInterfaceController PlayerUserInterfaceController { get; private set; }
     public PlayerStatsBlackboard PlayerStatsBlackboard;
     public PlayerHealthController PlayerHealthController;
@@ -70,7 +69,6 @@ public class NewPlayerController : Entity
         Interactor = GetComponentInChildren<Interactor>();
         AnimationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
         PotionController = GetComponent<PotionController>();
-        InventoryController = PlayerContext.InventoryManager.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
     }
 
     void Start()
@@ -362,7 +360,7 @@ public class NewPlayerController : Entity
         //Get the data from that potion
         //Send it to the potion controller
 
-        List<EquippedSlot> potionSlots = InventoryController.FindEquippedSlotOfType(Slot.Potion);
+        List<EquippedSlot> potionSlots = PlayerContext.InventoryController.FindEquippedSlotOfType(Slot.Potion);
         if (!potionSlots[0].slotInUse) return;
 
         PotionSO itemData = potionSlots[0].itemData.data as PotionSO;
@@ -371,7 +369,7 @@ public class NewPlayerController : Entity
 
     private void DrinkPotionTwo(CallbackContext context)
     {
-        List<EquippedSlot> potionSlots = InventoryController.FindEquippedSlotOfType(Slot.Potion);
+        List<EquippedSlot> potionSlots = PlayerContext.InventoryController.FindEquippedSlotOfType(Slot.Potion);
         if (!potionSlots[1].slotInUse) return;
 
         PotionSO itemData = potionSlots[1].itemData.data as PotionSO;

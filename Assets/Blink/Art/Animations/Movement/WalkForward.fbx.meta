@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 7d569195caea6364689fa56fa5f0e7c5
 ModelImporter:
-  serializedVersion: 19301
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       74: 416870459326255563
@@ -20,8 +20,10 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Copied Avatar Rig Configuration mis-match. Transform hierarchy
+      does not match:\n\tTransform 'spine_01' for human bone 'Hips' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -29,7 +31,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 0
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -103,27 +105,35 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -136,832 +146,1267 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human:
-    - boneName: Root_M
-      humanName: Hips
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Hip_L
-      humanName: LeftUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Hip_R
-      humanName: RightUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Knee_L
-      humanName: LeftLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Knee_R
-      humanName: RightLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Ankle_L
-      humanName: LeftFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Ankle_R
-      humanName: RightFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Spine1_M
-      humanName: Spine
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Spine2_M
-      humanName: Chest
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Neck_M
-      humanName: Neck
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Head_M
-      humanName: Head
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Scapula_L
-      humanName: LeftShoulder
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Scapula_R
-      humanName: RightShoulder
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Shoulder_L
-      humanName: LeftUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Shoulder_R
-      humanName: RightUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Elbow_L
-      humanName: LeftLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Elbow_R
-      humanName: RightLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Wrist_L
-      humanName: LeftHand
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Wrist_R
-      humanName: RightHand
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Toes_L
-      humanName: LeftToes
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Toes_R
-      humanName: RightToes
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Eye_L
-      humanName: LeftEye
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Eye_R
-      humanName: RightEye
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Jaw_M
-      humanName: Jaw
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: ThumbFinger1_L
-      humanName: Left Thumb Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: ThumbFinger2_L
-      humanName: Left Thumb Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: ThumbFinger3_L
-      humanName: Left Thumb Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: IndexFinger1_L
-      humanName: Left Index Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: IndexFinger2_L
-      humanName: Left Index Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: IndexFinger3_L
-      humanName: Left Index Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: MiddleFinger1_L
-      humanName: Left Middle Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: MiddleFinger2_L
-      humanName: Left Middle Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: MiddleFinger3_L
-      humanName: Left Middle Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: RingFinger1_L
-      humanName: Left Ring Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: RingFinger2_L
-      humanName: Left Ring Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: RingFinger3_L
-      humanName: Left Ring Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: PinkyFinger1_L
-      humanName: Left Little Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: PinkyFinger2_L
-      humanName: Left Little Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: PinkyFinger3_L
-      humanName: Left Little Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: ThumbFinger1_R
-      humanName: Right Thumb Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: ThumbFinger2_R
-      humanName: Right Thumb Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: ThumbFinger3_R
-      humanName: Right Thumb Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: IndexFinger1_R
-      humanName: Right Index Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: IndexFinger2_R
-      humanName: Right Index Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: IndexFinger3_R
-      humanName: Right Index Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: MiddleFinger1_R
-      humanName: Right Middle Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: MiddleFinger2_R
-      humanName: Right Middle Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: MiddleFinger3_R
-      humanName: Right Middle Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: RingFinger1_R
-      humanName: Right Ring Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: RingFinger2_R
-      humanName: Right Ring Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: RingFinger3_R
-      humanName: Right Ring Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: PinkyFinger1_R
-      humanName: Right Little Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: PinkyFinger2_R
-      humanName: Right Little Intermediate
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: PinkyFinger3_R
-      humanName: Right Little Distal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Chest_M
-      humanName: UpperChest
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
+    human: []
     skeleton:
-    - name: WalkForward(Clone)
+    - name: Free Low Poly Modular Character(Clone)
       parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base Character Root
+      parentName: Free Low Poly Modular Character(Clone)
       position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Armature
-      parentName: WalkForward(Clone)
+    - name: spine_01
+      parentName: Base Character Root
+      position: {x: -0, y: 0.8225829, z: -0.037934843}
+      rotation: {x: -0.011156965, y: -0.00000023840377, z: 0.0000000026600275, w: 0.9999378}
+      scale: {x: 1, y: 1, z: 1}
+    - name: spine_02
+      parentName: spine_01
+      position: {x: -0, y: 0.19929595, z: 0}
+      rotation: {x: 0.00047107693, y: 0.00000011920926, z: -1.684699e-10, w: 0.9999999}
+      scale: {x: 1, y: 0.99998796, z: 0.99998796}
+    - name: spine_03
+      parentName: spine_02
+      position: {x: -4.440892e-16, y: 0.14707974, z: 0}
+      rotation: {x: -0.011558325, y: 9.237056e-14, z: 0.0000000027557192, w: 0.99993324}
+      scale: {x: 1, y: 1.0000072, z: 1.0000072}
+    - name: spine_04
+      parentName: spine_03
+      position: {x: -8.881784e-16, y: 0.14694723, z: 0.0000000037252903}
+      rotation: {x: 0.046873957, y: -3.5466347e-14, z: -0.000000011175618, w: 0.9989009}
+      scale: {x: 1, y: 0.99999154, z: 0.9999915}
+    - name: neck
+      parentName: spine_04
+      position: {x: 1.7763568e-15, y: 0.11612259, z: 0.000000007450581}
+      rotation: {x: 0.14257963, y: -0.00000011799142, z: -0.00000005099047, w: 0.9897834}
+      scale: {x: 1, y: 0.9999989, z: 0.9999989}
+    - name: head
+      parentName: neck
+      position: {x: 6.661338e-15, y: 0.11892877, z: 0.000000013969839}
+      rotation: {x: -0.09722846, y: 9.947596e-14, z: 0.000000046362157, w: 0.9952621}
+      scale: {x: 1, y: 0.9999963, z: 1.0000014}
+    - name: shoulder_l
+      parentName: spine_04
+      position: {x: -0.033419076, y: 0.10506582, z: -0.0017722803}
+      rotation: {x: -0.007407897, y: 0.012145782, z: 0.79239655, w: 0.60984045}
+      scale: {x: 1.0000459, y: 1.000034, z: 1.0000026}
+    - name: upperarm_l
+      parentName: shoulder_l
+      position: {x: 0.00000006926712, y: 0.19172417, z: -0.000000008090865}
+      rotation: {x: 0.0016361196, y: 0.0134942, z: -0.12264392, w: 0.9923576}
+      scale: {x: 1.0001209, y: 0.99977106, z: 0.9999998}
+    - name: forearm_l
+      parentName: upperarm_l
+      position: {x: -0.00000016024569, y: 0.28870583, z: -6.9849193e-10}
+      rotation: {x: 0.0150547465, y: -0.0028723318, z: -0.017800996, w: 0.9997241}
+      scale: {x: 1.0000067, y: 0.9999653, z: 0.9999974}
+    - name: hand_l
+      parentName: forearm_l
+      position: {x: -0.0000000696964, y: 0.28997856, z: 0.000000004307367}
+      rotation: {x: -0.10065567, y: 0.00019219746, z: -0.041364733, w: 0.994061}
+      scale: {x: 1.000194, y: 0.99999106, z: 0.99984735}
+    - name: middle_01_l
+      parentName: hand_l
+      position: {x: -0.0074595646, y: 0.10856315, z: 0.02138814}
+      rotation: {x: 0.07633523, y: 0.019832335, z: 0.11585648, w: 0.9901298}
+      scale: {x: 0.9984148, y: 1.0023725, z: 0.9992731}
+    - name: middle_02_l
+      parentName: middle_01_l
+      position: {x: -0.000000055180863, y: 0.04062192, z: -0.0000000037252903}
+      rotation: {x: 0.00078023196, y: 0.004080985, z: 0.010404862, w: 0.99993724}
+      scale: {x: 1.0003339, y: 0.99980575, z: 0.9999828}
+    - name: middle_03_l
+      parentName: middle_02_l
+      position: {x: -0.00000009662472, y: 0.038088817, z: 0}
+      rotation: {x: -0.01706042, y: -0.000041108575, z: 0.101275474, w: 0.9947122}
+      scale: {x: 1.0012394, y: 0.9987185, z: 1.0001801}
+    - name: index_01_l
+      parentName: hand_l
+      position: {x: -0.008769784, y: 0.09878627, z: 0.05638305}
+      rotation: {x: 0.09487978, y: 0.017592488, z: 0.11785206, w: 0.9883316}
+      scale: {x: 0.99835044, y: 1.002593, z: 0.99907136}
+    - name: index_02_l
+      parentName: index_01_l
+      position: {x: 0.000000071879185, y: 0.04358953, z: 0.0000000015133992}
+      rotation: {x: -0.012409737, y: -0.0015494141, z: 0.04053438, w: 0.99909985}
+      scale: {x: 1.0010514, y: 0.99881333, z: 1.0000983}
+    - name: index_03_l
+      parentName: index_02_l
+      position: {x: 0.00000016214472, y: 0.039852004, z: -0.0000000040745363}
+      rotation: {x: 0.0023237732, y: 0.010731886, z: 0.041764915, w: 0.9990672}
+      scale: {x: 0.99881905, y: 1.0013916, z: 0.9999466}
+    - name: thumb_01_l
+      parentName: hand_l
+      position: {x: -0.00616038, y: 0.01213095, z: 0.05084381}
+      rotation: {x: 0.42741036, y: 0.016839808, z: 0.103179984, w: 0.8979927}
+      scale: {x: 0.99821436, y: 1.004195, z: 0.99762815}
+    - name: thumb_02_l
+      parentName: thumb_01_l
+      position: {x: 0.000000092200935, y: 0.07378465, z: -0.000000007450581}
+      rotation: {x: -0.033015866, y: 0.0008198383, z: 0.0228158, w: 0.9991941}
+      scale: {x: 1.0021377, y: 0.99851173, z: 0.9993847}
+    - name: thumb_03_l
+      parentName: thumb_02_l
+      position: {x: 0.00000013504177, y: 0.027061805, z: 0.000000033527613}
+      rotation: {x: -0.060277775, y: 0.010185853, z: 0.036591347, w: 0.99745876}
+      scale: {x: 0.9985434, y: 1.0132133, z: 0.9885064}
+    - name: ring_01_l
+      parentName: hand_l
+      position: {x: -0.008116323, y: 0.1100646, z: -0.009917848}
+      rotation: {x: 0.05082281, y: 0.01478825, z: 0.102327846, w: 0.99334157}
+      scale: {x: 0.9983494, y: 1.0019919, z: 0.99975544}
+    - name: ring_02_l
+      parentName: ring_01_l
+      position: {x: 0.000000027008355, y: 0.041021764, z: 0.000000007450581}
+      rotation: {x: -0.018686844, y: 0.0025168417, z: 0.029606398, w: 0.99938375}
+      scale: {x: 1.0008183, y: 0.9989375, z: 1.000199}
+    - name: ring_03_l
+      parentName: ring_02_l
+      position: {x: 0.00000010384247, y: 0.03251716, z: 0.0000000037252903}
+      rotation: {x: -0.004960354, y: -0.0075315647, z: 0.081276186, w: 0.9966509}
+      scale: {x: 0.9995551, y: 1.000592, z: 0.99997586}
+    - name: pinky_01_l
+      parentName: hand_l
+      position: {x: -0.01522913, y: 0.1121372, z: -0.03833192}
+      rotation: {x: 0.043694764, y: 0.009981557, z: 0.09152217, w: 0.9947939}
+      scale: {x: 0.99793494, y: 1.0016559, z: 1.0004132}
+    - name: pinky_02_l
+      parentName: pinky_01_l
+      position: {x: -0.000000056345016, y: 0.034417927, z: -0.0000000088475645}
+      rotation: {x: 0.028904814, y: 0.0019537236, z: 0.029439015, w: 0.9991467}
+      scale: {x: 1.0013899, y: 0.9991129, z: 0.9995896}
+    - name: pinky_03_l
+      parentName: pinky_02_l
+      position: {x: -0.00000008195639, y: 0.028005796, z: -0.0000000037252903}
+      rotation: {x: -0.017190358, y: -0.009191759, z: 0.068741806, w: 0.997444}
+      scale: {x: 0.9997543, y: 0.99991274, z: 1.0003822}
+    - name: shoulder_r
+      parentName: spine_04
+      position: {x: 0.033419076, y: 0.10506582, z: -0.0017722961}
+      rotation: {x: -0.0074080843, y: -0.012145645, z: -0.7923966, w: 0.6098404}
+      scale: {x: 1.0000876, y: 1.000078, z: 1.0000026}
+    - name: upperarm_r
+      parentName: shoulder_r
+      position: {x: -0.00000006961636, y: 0.19172414, z: -2.910383e-10}
+      rotation: {x: 0.001636548, y: -0.013494143, z: 0.12264401, w: 0.9923576}
+      scale: {x: 1.0001053, y: 0.9997557, z: 0.9999984}
+    - name: forearm_r
+      parentName: upperarm_r
+      position: {x: -0.00000007043127, y: 0.28870583, z: -3.4924597e-10}
+      rotation: {x: 0.015054194, y: 0.0028723378, z: 0.017800953, w: 0.9997241}
+      scale: {x: 1.0000496, y: 1.0000086, z: 0.99998945}
+    - name: hand_r
+      parentName: forearm_r
+      position: {x: 0.00000007316339, y: 0.28997862, z: 0.000000002590241}
+      rotation: {x: -0.100655586, y: -0.00019220189, z: 0.041364785, w: 0.9940611}
+      scale: {x: 1.000218, y: 0.99998695, z: 0.99987906}
+    - name: middle_01_r
+      parentName: hand_r
+      position: {x: 0.0074595646, y: 0.108563155, z: 0.021388136}
+      rotation: {x: 0.07633557, y: -0.019832691, z: -0.11585423, w: 0.99013}
+      scale: {x: 0.9984887, y: 1.002012, z: 0.9996745}
+    - name: middle_02_r
+      parentName: middle_01_r
+      position: {x: -0.0000000034924597, y: 0.040621903, z: -0.0000000037252903}
+      rotation: {x: 0.00078015745, y: -0.0040810243, z: -0.01040504, w: 0.99993724}
+      scale: {x: 1.000336, y: 0.9997361, z: 0.99996644}
+    - name: middle_03_r
+      parentName: middle_02_r
+      position: {x: 0.00000021560118, y: 0.038088832, z: 0.000000009313226}
+      rotation: {x: -0.017060393, y: 0.000041121148, z: -0.10127539, w: 0.9947122}
+      scale: {x: 1.0017275, y: 0.99824935, z: 1.0001234}
+    - name: index_01_r
+      parentName: hand_r
+      position: {x: 0.008769784, y: 0.09878621, z: 0.056383055}
+      rotation: {x: 0.09487989, y: -0.017592702, z: -0.11785037, w: 0.9883318}
+      scale: {x: 0.9984285, y: 1.0020869, z: 0.99959296}
+    - name: index_02_r
+      parentName: index_01_r
+      position: {x: 0.000000076921424, y: 0.043589454, z: -0.0000000024447218}
+      rotation: {x: -0.012409759, y: 0.0015493274, z: -0.040534418, w: 0.9990999}
+      scale: {x: 1.0012664, y: 0.998822, z: 1.0000625}
+    - name: index_03_r
+      parentName: index_02_r
+      position: {x: -0.00000016215199, y: 0.039852004, z: -0.0000000045401976}
+      rotation: {x: 0.0023238203, y: -0.010731868, z: -0.041764934, w: 0.9990672}
+      scale: {x: 0.9994453, y: 1.0007615, z: 0.9999306}
+    - name: thumb_01_r
+      parentName: hand_r
+      position: {x: 0.00616038, y: 0.01213089, z: 0.050843805}
+      rotation: {x: 0.42742008, y: -0.016844492, z: -0.10317207, w: 0.8979888}
+      scale: {x: 0.99801475, y: 1.0029905, z: 0.9990882}
+    - name: thumb_02_r
+      parentName: thumb_01_r
+      position: {x: 0.00000007916242, y: 0.07378462, z: -0.000000028871}
+      rotation: {x: -0.032853223, y: -0.00081730855, z: -0.02273788, w: 0.9992012}
+      scale: {x: 1.0023793, y: 0.997722, z: 0.999986}
+    - name: thumb_03_r
+      parentName: thumb_02_r
+      position: {x: 0.000000037252903, y: 0.027061662, z: 0.000000014901161}
+      rotation: {x: -0.060277842, y: -0.010186009, z: -0.036591373, w: 0.9974587}
+      scale: {x: 0.9993339, y: 1.0064131, z: 0.99447256}
+    - name: ring_01_r
+      parentName: hand_r
+      position: {x: 0.008116323, y: 0.110064544, z: -0.009917855}
+      rotation: {x: 0.050823037, y: -0.014789245, z: -0.102323905, w: 0.9933419}
+      scale: {x: 0.99836606, y: 1.0018902, z: 0.9998801}
+    - name: ring_02_r
+      parentName: ring_01_r
+      position: {x: -0.000000070780516, y: 0.041021824, z: 0.0000000037252903}
+      rotation: {x: -0.018686892, y: -0.0025168716, z: -0.029606381, w: 0.99938375}
+      scale: {x: 1.0009254, y: 0.9989163, z: 1.0000889}
+    - name: ring_03_r
+      parentName: ring_02_r
+      position: {x: -0.00000019697472, y: 0.03251716, z: -0.0000000037252903}
+      rotation: {x: -0.004960373, y: 0.007531546, z: -0.08127609, w: 0.9966508}
+      scale: {x: 0.99990207, y: 1.000284, z: 0.9999896}
+    - name: pinky_01_r
+      parentName: hand_r
+      position: {x: 0.01522913, y: 0.11213715, z: -0.038331926}
+      rotation: {x: 0.043692067, y: -0.009983947, z: -0.09151691, w: 0.9947945}
+      scale: {x: 0.99799377, y: 1.0019037, z: 1.0002023}
+    - name: pinky_02_r
+      parentName: pinky_01_r
+      position: {x: 0.00000006845221, y: 0.034417868, z: 0.000000013038516}
+      rotation: {x: 0.028922362, y: -0.0019537313, z: -0.029456463, w: 0.9991457}
+      scale: {x: 1.0015212, y: 0.99871224, z: 0.99982935}
+    - name: pinky_03_r
+      parentName: pinky_02_r
+      position: {x: -0.00000028405339, y: 0.028005853, z: 0}
+      rotation: {x: -0.01719039, y: 0.009191832, z: -0.06874183, w: 0.99744403}
+      scale: {x: 0.9997153, y: 0.99986017, z: 1.0005037}
+    - name: upperleg_l
+      parentName: spine_01
+      position: {x: -0.101722084, y: -0.033220023, z: -0.0025924947}
+      rotation: {x: 0.017185442, y: -0.0014759159, z: 0.99971247, w: 0.016660161}
+      scale: {x: 1.0000246, y: 1.0000544, z: 0.99999994}
+    - name: shin_l
+      parentName: upperleg_l
+      position: {x: -0.0000000027939677, y: 0.3526473, z: -9.313226e-10}
+      rotation: {x: -0.025500666, y: 0.0035024183, z: 0.013136586, w: 0.9995824}
+      scale: {x: 1.0001009, y: 1.0001055, z: 0.99998295}
+    - name: foot_l
+      parentName: shin_l
+      position: {x: -0.000000009837095, y: 0.33116716, z: 4.656613e-10}
+      rotation: {x: 0.3887978, y: 0.00773401, z: 0.0029470073, w: 0.921286}
+      scale: {x: 1.0000974, y: 0.99980295, z: 1.0002941}
+    - name: toes_l
+      parentName: foot_l
+      position: {x: 0.000000005798938, y: 0.11984194, z: 0.000000004773028}
+      rotation: {x: 0.36198184, y: -0.004528286, z: 0.009182819, w: 0.93212897}
+      scale: {x: 1.0000031, y: 1.0088917, z: 0.9911966}
+    - name: upperleg_r
+      parentName: spine_01
+      position: {x: 0.101722084, y: -0.033220083, z: -0.0025925916}
+      rotation: {x: -0.017185023, y: -0.0014759259, z: 0.99971247, w: -0.016660163}
+      scale: {x: 1.0000286, y: 1.0000547, z: 0.99999994}
+    - name: shin_r
+      parentName: upperleg_r
+      position: {x: 0.0000000038417056, y: 0.35264736, z: -2.3283064e-10}
+      rotation: {x: -0.025500659, y: -0.0035024881, z: -0.013136584, w: 0.9995824}
+      scale: {x: 1.0001013, y: 1.0001165, z: 0.9999828}
+    - name: foot_r
+      parentName: shin_r
+      position: {x: 0.000000009546056, y: 0.33116716, z: -2.3283064e-10}
+      rotation: {x: 0.38879782, y: -0.007734011, z: -0.0029470136, w: 0.921286}
+      scale: {x: 1.0001432, y: 0.9998056, z: 1.0003078}
+    - name: toes_r
+      parentName: foot_r
+      position: {x: -0.0000000059153535, y: 0.11984192, z: -0.000000004132744}
+      rotation: {x: 0.36198178, y: 0.0045282855, z: -0.009182812, w: 0.9321289}
+      scale: {x: 0.9999619, y: 1.0096024, z: 0.99047}
+    - name: Base Character Mesh
+      parentName: Free Low Poly Modular Character(Clone)
       position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Root_M
-      parentName: Armature
-      position: {x: -1.9709482e-17, y: 1.058651, z: -0.013022041}
-      rotation: {x: 0.49653503, y: -0.50344115, z: -0.49653503, w: 0.50344115}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Spine1_M
-      parentName: Root_M
-      position: {x: -0.089181095, y: -1.9428903e-18, z: -2.9367784e-17}
-      rotation: {x: 0, y: 0, z: 0.0066279764, w: 0.99997807}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Spine2_M
-      parentName: Spine1_M
-      position: {x: -0.082807876, y: -2.2870594e-16, z: 5.0726497e-17}
-      rotation: {x: 0, y: 0, z: 0.079270974, w: 0.9968531}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Chest_M
-      parentName: Spine2_M
-      position: {x: -0.08937383, y: 2.4868996e-16, z: -4.179388e-16}
-      rotation: {x: 0, y: 0, z: 0.06512629, w: 0.99787706}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Neck_M
-      parentName: Chest_M
-      position: {x: -0.19118701, y: -2.1316282e-16, z: -1.7222175e-15}
-      rotation: {x: 0, y: -0, z: -0.15584205, w: 0.987782}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Head_M
-      parentName: Neck_M
-      position: {x: -0.08531064, y: -5.3290704e-17, z: 2.381367e-16}
-      rotation: {x: 5.5211407e-13, y: 3.4922437e-10, z: -0.0015809697, w: 0.99999875}
-      scale: {x: 1, y: 1, z: 1}
-    - name: HeadEnd_M
-      parentName: Head_M
-      position: {x: -0.22605701, y: 3.5527136e-17, z: -1.00509e-16}
-      rotation: {x: 0, y: 0, z: 3.4924516e-10, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Eye_R
-      parentName: Head_M
-      position: {x: -0.101624, y: 0.12445482, z: -0.033407878}
-      rotation: {x: 0.000001933631, y: 1.2750902e-10, z: -0.7071068, w: 0.7071068}
-      scale: {x: 1, y: 1, z: 1}
-    - name: EyeEnd_R
-      parentName: Eye_R
-      position: {x: -0.0189992, y: 1.2988437e-11, z: -0.00000010390231}
-      rotation: {x: 0.0000013671934, y: -0.0000033004692, z: -0.000000022196689, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Jaw_M
-      parentName: Head_M
-      position: {x: -0.046136267, y: 0.04787166, z: 1.936097e-15}
-      rotation: {x: 0, y: 0, z: 0.8865343, w: -0.4626629}
-      scale: {x: 1, y: 1, z: 1}
-    - name: JawEnd_M
-      parentName: Jaw_M
-      position: {x: -0.14859758, y: 1.0379608e-10, z: 4.9913847e-15}
-      rotation: {x: 0, y: -0, z: -3.4924533e-10, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Eye_L
-      parentName: Head_M
-      position: {x: -0.101624, y: 0.12445482, z: 0.033407878}
-      rotation: {x: -8.979509e-14, y: 0.0000019335034, z: -0.7071068, w: 0.7071068}
-      scale: {x: 1, y: 1, z: 1}
-    - name: EyeEnd_L
-      parentName: Eye_L
-      position: {x: -0.0189992, y: -2.8222756e-13, z: 0.00000010390231}
-      rotation: {x: -0.0000027343867, y: -0.0000038670064, z: 3.4240913e-10, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Scapula_R
-      parentName: Chest_M
-      position: {x: -0.12699814, y: -0.0067863856, z: -0.04252337}
-      rotation: {x: -0.129753, y: -0.6981803, z: -0.12680888, w: 0.69255173}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Shoulder_R
-      parentName: Scapula_R
-      position: {x: -0.1601757, y: 0.0012366166, z: -0.00081219285}
-      rotation: {x: -0.08808103, y: -0.006167589, z: -0.040111616, w: 0.99528635}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Elbow_R
-      parentName: Shoulder_R
-      position: {x: -0.30623648, y: 1.22923895e-14, z: -1.4210854e-15}
-      rotation: {x: 0.00046304602, y: 0.005092301, z: 0.0029496602, w: 0.9999826}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Wrist_R
-      parentName: Elbow_R
-      position: {x: -0.25598785, y: 1.0018652e-14, z: 3.410605e-15}
-      rotation: {x: 0.109141774, y: -0.039109286, z: -0.04858389, w: 0.99206764}
-      scale: {x: 1, y: 1, z: 1}
-    - name: MiddleFinger1_R
-      parentName: Wrist_R
-      position: {x: -0.14000352, y: 5.471179e-15, z: -2.842171e-16}
-      rotation: {x: 0.014125142, y: -0.06579292, z: 0.04894861, w: 0.9965319}
-      scale: {x: 1, y: 1, z: 1}
-    - name: MiddleFinger2_R
-      parentName: MiddleFinger1_R
-      position: {x: -0.040953893, y: 1.6164847e-15, z: 0}
-      rotation: {x: 0.0345801, y: -0.038819756, z: -0.005917931, w: 0.9986302}
-      scale: {x: 1, y: 1, z: 1}
-    - name: MiddleFinger3_R
-      parentName: MiddleFinger2_R
-      position: {x: -0.031892635, y: 1.3211654e-15, z: 2.842171e-16}
-      rotation: {x: 0.0018635677, y: -0.03850352, z: -0.0012085758, w: 0.9992561}
-      scale: {x: 1, y: 1, z: 1}
-    - name: MiddleFinger4_R
-      parentName: MiddleFinger3_R
-      position: {x: -0.031721506, y: 1.0558221e-15, z: 5.684342e-16}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ThumbFinger1_R
-      parentName: Wrist_R
-      position: {x: -0.04548474, y: 0.038080018, z: -0.0040672245}
-      rotation: {x: -0.5431359, y: 0.15111382, z: -0.32465947, w: 0.75944996}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ThumbFinger2_R
-      parentName: ThumbFinger1_R
-      position: {x: -0.045604885, y: -5.684342e-16, z: 1.9184653e-15}
-      rotation: {x: 0.06803889, y: -0.039687157, z: 0.009567097, w: 0.9968471}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ThumbFinger3_R
-      parentName: ThumbFinger2_R
-      position: {x: -0.04170536, y: 1.4210854e-15, z: 1.1368684e-15}
-      rotation: {x: 0.045144968, y: -0.03902385, z: 0.01063101, w: 0.9981614}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ThumbFinger4_R
-      parentName: ThumbFinger3_R
-      position: {x: -0.035577085, y: 8.5265126e-16, z: 4.973799e-16}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: IndexFinger1_R
-      parentName: Wrist_R
-      position: {x: -0.1411456, y: 0.026662817, z: -0.0031974677}
-      rotation: {x: -0.017751614, y: -0.032954216, z: -0.04944753, w: 0.99807507}
-      scale: {x: 1, y: 1, z: 1}
-    - name: IndexFinger2_R
-      parentName: IndexFinger1_R
-      position: {x: -0.034328487, y: 1.2789769e-15, z: -1.7053025e-15}
-      rotation: {x: 0.0061553535, y: -0.024685794, z: 0.019591654, w: 0.99948436}
-      scale: {x: 1, y: 1, z: 1}
-    - name: IndexFinger3_R
-      parentName: IndexFinger2_R
-      position: {x: -0.033007883, y: 7.4606985e-16, z: -3.410605e-15}
-      rotation: {x: 0.0012820225, y: -0.037508942, z: -0.015516499, w: 0.9991751}
-      scale: {x: 1, y: 1, z: 1}
-    - name: IndexFinger4_R
-      parentName: IndexFinger3_R
-      position: {x: -0.028339995, y: 1.4921397e-15, z: 8.5265126e-16}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: RingFinger1_R
-      parentName: Wrist_R
-      position: {x: -0.13536735, y: -0.028893998, z: -0.006604448}
-      rotation: {x: 0.059383333, y: -0.0403202, z: 0.06699628, w: 0.99516803}
-      scale: {x: 1, y: 1, z: 1}
-    - name: RingFinger2_R
-      parentName: RingFinger1_R
-      position: {x: -0.037358366, y: 1.438849e-15, z: 1.4210854e-15}
-      rotation: {x: 0.0060659386, y: -0.0369356, z: -0.0056134337, w: 0.99928355}
-      scale: {x: 1, y: 1, z: 1}
-    - name: RingFinger3_R
-      parentName: RingFinger2_R
-      position: {x: -0.031519532, y: 1.0125234e-15, z: -3.694822e-15}
-      rotation: {x: 0.033849046, y: -0.03896732, z: -0.0043980675, w: 0.99865735}
-      scale: {x: 1, y: 1, z: 1}
-    - name: RingFinger4_R
-      parentName: RingFinger3_R
-      position: {x: -0.025418354, y: 1.1368684e-15, z: 2.8421708e-15}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: PinkyFinger1_R
-      parentName: Wrist_R
-      position: {x: -0.122941434, y: -0.05385284, z: -0.008027577}
-      rotation: {x: 0.0937344, y: -0.045903537, z: 0.055547856, w: 0.99298596}
-      scale: {x: 1, y: 1, z: 1}
-    - name: PinkyFinger2_R
-      parentName: PinkyFinger1_R
-      position: {x: -0.023912242, y: 1.065814e-15, z: 8.5265126e-16}
-      rotation: {x: 0.033622887, y: -0.039830737, z: 0.0031399752, w: 0.9986357}
-      scale: {x: 1, y: 1, z: 1}
-    - name: PinkyFinger3_R
-      parentName: PinkyFinger2_R
-      position: {x: -0.029992871, y: 7.105427e-16, z: -3.410605e-15}
-      rotation: {x: 0.022663694, y: -0.03910231, z: -0.0043504033, w: 0.9989687}
-      scale: {x: 1, y: 1, z: 1}
-    - name: PinkyFinger4_R
-      parentName: PinkyFinger3_R
-      position: {x: -0.026642095, y: 9.947598e-16, z: -5.684342e-16}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: jnt_shoulder_R
-      parentName: Scapula_R
-      position: {x: -0.12850574, y: -0.016258905, z: 0.04279993}
-      rotation: {x: 0.6558028, y: 0.46923745, z: -0.30153418, w: 0.5087397}
-      scale: {x: 1, y: 1, z: 1}
-    - name: jnt_shoulderEnd_R
-      parentName: jnt_shoulder_R
-      position: {x: -0.09760509, y: -2.842171e-16, z: 7.8870245e-15}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Scapula_L
-      parentName: Chest_M
-      position: {x: -0.12699814, y: -0.0067863856, z: 0.04252337}
-      rotation: {x: 0.6981804, y: -0.1297529, z: 0.69255173, w: 0.12680879}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Shoulder_L
-      parentName: Scapula_L
-      position: {x: 0.1601757, y: -0.0012366166, z: 0.00081219285}
-      rotation: {x: -0.08808094, y: -0.0061676176, z: -0.04011162, w: 0.9952863}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Elbow_L
-      parentName: Shoulder_L
-      position: {x: 0.30623648, y: 1.11555205e-14, z: 7.389644e-15}
-      rotation: {x: 0.00046303862, y: 0.005092543, z: 0.0029497207, w: 0.99998254}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Wrist_L
-      parentName: Elbow_L
-      position: {x: 0.25598785, y: 1.0160761e-14, z: -5.684342e-16}
-      rotation: {x: 0.109141774, y: -0.039109286, z: -0.04858389, w: 0.99206764}
-      scale: {x: 1, y: 1, z: 1}
-    - name: MiddleFinger1_L
-      parentName: Wrist_L
-      position: {x: 0.14000352, y: 5.435652e-15, z: 2.842171e-16}
-      rotation: {x: 0.014125117, y: -0.06579269, z: 0.04894842, w: 0.99653196}
-      scale: {x: 1, y: 1, z: 1}
-    - name: MiddleFinger2_L
-      parentName: MiddleFinger1_L
-      position: {x: 0.040953893, y: 1.3500312e-15, z: 0}
-      rotation: {x: 0.034580115, y: -0.03882114, z: -0.0059179007, w: 0.9986301}
-      scale: {x: 1, y: 1, z: 1}
-    - name: MiddleFinger3_L
-      parentName: MiddleFinger2_L
-      position: {x: 0.031892635, y: 8.504308e-16, z: 5.684342e-16}
-      rotation: {x: 0.00186362, y: -0.03850387, z: -0.0012086409, w: 0.9992561}
-      scale: {x: 1, y: 1, z: 1}
-    - name: MiddleFinger4_L
-      parentName: MiddleFinger3_L
-      position: {x: 0.031721506, y: 8.21565e-16, z: -8.5265126e-16}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ThumbFinger1_L
-      parentName: Wrist_L
-      position: {x: 0.04548474, y: -0.038080018, z: 0.0040672245}
-      rotation: {x: -0.5431356, y: 0.15111446, z: -0.3246593, w: 0.7594502}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ThumbFinger2_L
-      parentName: ThumbFinger1_L
-      position: {x: 0.045604885, y: 1.1368684e-15, z: 9.681145e-16}
-      rotation: {x: 0.06803898, y: -0.039687507, z: 0.0095674805, w: 0.9968471}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ThumbFinger3_L
-      parentName: ThumbFinger2_L
-      position: {x: 0.04170536, y: -5.684342e-16, z: 9.237055e-16}
-      rotation: {x: 0.04514493, y: -0.039024554, z: 0.010631034, w: 0.9981614}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ThumbFinger4_L
-      parentName: ThumbFinger3_L
-      position: {x: 0.035577085, y: 0, z: 1.2789769e-15}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: IndexFinger1_L
-      parentName: Wrist_L
-      position: {x: 0.1411456, y: -0.026662817, z: 0.0031974677}
-      rotation: {x: -0.017751614, y: -0.032954216, z: -0.04944753, w: 0.99807507}
-      scale: {x: 1, y: 1, z: 1}
-    - name: IndexFinger2_L
-      parentName: IndexFinger1_L
-      position: {x: 0.034328487, y: 1.3145041e-15, z: 1.4210854e-15}
-      rotation: {x: 0.0061553535, y: -0.024685794, z: 0.019591654, w: 0.99948436}
-      scale: {x: 1, y: 1, z: 1}
-    - name: IndexFinger3_L
-      parentName: IndexFinger2_L
-      position: {x: 0.033007883, y: 1.9895197e-15, z: 2.2737367e-15}
-      rotation: {x: 0.0012820261, y: -0.037507445, z: -0.015515618, w: 0.9991751}
-      scale: {x: 1, y: 1, z: 1}
-    - name: IndexFinger4_L
-      parentName: IndexFinger3_L
-      position: {x: 0.028339995, y: 5.684342e-16, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: RingFinger1_L
-      parentName: Wrist_L
-      position: {x: 0.13536735, y: 0.028893998, z: 0.006604448}
-      rotation: {x: 0.059383288, y: -0.04032022, z: 0.06699708, w: 0.99516803}
-      scale: {x: 1, y: 1, z: 1}
-    - name: RingFinger2_L
-      parentName: RingFinger1_L
-      position: {x: 0.037358366, y: 1.3233859e-15, z: -2.842171e-16}
-      rotation: {x: 0.0060660043, y: -0.036934126, z: -0.005613954, w: 0.9992835}
-      scale: {x: 1, y: 1, z: 1}
-    - name: RingFinger3_L
-      parentName: RingFinger2_L
-      position: {x: 0.031519532, y: 1.0302869e-15, z: 4.263256e-15}
-      rotation: {x: 0.033849135, y: -0.03897224, z: -0.004397647, w: 0.99865717}
-      scale: {x: 1, y: 1, z: 1}
-    - name: RingFinger4_L
-      parentName: RingFinger3_L
-      position: {x: 0.025418354, y: 1.7763567e-16, z: -3.9790393e-15}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: PinkyFinger1_L
-      parentName: Wrist_L
-      position: {x: 0.122941434, y: 0.05385284, z: 0.008027577}
-      rotation: {x: 0.093734965, y: -0.045901988, z: 0.055549055, w: 0.992986}
-      scale: {x: 1, y: 1, z: 1}
-    - name: PinkyFinger2_L
-      parentName: PinkyFinger1_L
-      position: {x: 0.023912242, y: 4.440892e-16, z: 0}
-      rotation: {x: 0.033622846, y: -0.039828032, z: 0.0031386684, w: 0.99863577}
-      scale: {x: 1, y: 1, z: 1}
-    - name: PinkyFinger3_L
-      parentName: PinkyFinger2_L
-      position: {x: 0.029992871, y: 1.0302869e-15, z: 3.126388e-15}
-      rotation: {x: 0.022663731, y: -0.039107863, z: -0.0043495856, w: 0.9989685}
-      scale: {x: 1, y: 1, z: 1}
-    - name: PinkyFinger4_L
-      parentName: PinkyFinger3_L
-      position: {x: 0.026642095, y: 2.842171e-16, z: 1.1368684e-15}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: jnt_shoulder_L
-      parentName: Scapula_L
-      position: {x: 0.12850574, y: 0.016258905, z: -0.04279993}
-      rotation: {x: 0.6558028, y: 0.46923745, z: -0.30153418, w: 0.5087397}
-      scale: {x: 1, y: 1, z: 1}
-    - name: jnt_shoulderEnd_L
-      parentName: jnt_shoulder_L
-      position: {x: 0.09760509, y: 7.105427e-17, z: -8.419931e-15}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Hip_R
-      parentName: Root_M
-      position: {x: 0.07434409, y: 0.004153891, z: -0.11123792}
-      rotation: {x: 0.04650543, y: 0.9966707, z: -0.06083464, w: -0.027998144}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Knee_R
-      parentName: Hip_R
-      position: {x: -0.40340132, y: 2.5401902e-15, z: 1.7443824e-14}
-      rotation: {x: 0, y: 0, z: 0.013608819, w: 0.99990743}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Ankle_R
-      parentName: Knee_R
-      position: {x: -0.45655176, y: 1.1368684e-15, z: 5.286438e-14}
-      rotation: {x: 0.072271325, y: -0.033610385, z: -0.049135033, w: 0.99560684}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Toes_R
-      parentName: Ankle_R
-      position: {x: -0.103843875, y: 0.14396112, z: 0.0000000044194177}
-      rotation: {x: -0.0009220308, y: 0.002468193, z: -0.7016648, w: 0.7125024}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ToesEnd_R
-      parentName: Toes_R
-      position: {x: -0.062128127, y: 9.7699626e-17, z: 6.2174654e-11}
-      rotation: {x: 0, y: 5.0037635e-10, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Hip_L
-      parentName: Root_M
-      position: {x: 0.07434409, y: 0.004153891, z: 0.11123792}
-      rotation: {x: 0.9966707, y: -0.046505414, z: 0.02799811, w: -0.060834642}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Knee_L
-      parentName: Hip_L
-      position: {x: 0.40340132, y: 2.9398705e-15, z: -2.6671287e-12}
-      rotation: {x: 0, y: 0, z: 0.013608819, w: 0.99990743}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Ankle_L
-      parentName: Knee_L
-      position: {x: 0.45655176, y: 1.0480505e-15, z: -3.0496849e-12}
-      rotation: {x: 0.07227133, y: -0.033610385, z: -0.049135037, w: 0.99560684}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Toes_L
-      parentName: Ankle_L
-      position: {x: 0.103843875, y: -0.14396112, z: -0.000000005838595}
-      rotation: {x: -0.00092203537, y: 0.0024681976, z: -0.7016648, w: 0.7125024}
-      scale: {x: 1, y: 1, z: 1}
-    - name: ToesEnd_L
-      parentName: Toes_L
-      position: {x: 0.062128127, y: -9.325873e-17, z: -7.578151e-11}
-      rotation: {x: 0, y: 6.098816e-10, z: -0, w: 1}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs Armor Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head Armor Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Feet Armor Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest Armor Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Belt Armor Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm Armor Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 5 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 5 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 4 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 4 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 3 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 3 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 2 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 2 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 1 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 1 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 5 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 5 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 4 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 4 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 3 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 3 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 2 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 2 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 1 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 1 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 5 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 5 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 4 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 4 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 3 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 3 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 2 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 2 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 1 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 1 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrow Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nose Type 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nose Type 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nose Type 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nose Type 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nose Type 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ears Type 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ears Type 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 5 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 5 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 5 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 5 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 5 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 4 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 4 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 4 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 4 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 4 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 3 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 3 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 3 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 3 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 3 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 2 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 2 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 2 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 2 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 2 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 1 Color 5
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 1 Color 4
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 1 Color 3
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 1 Color 2
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Face Hair Type 1 Color 1
+      parentName: Free Low Poly Modular Character(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
@@ -973,13 +1418,16 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

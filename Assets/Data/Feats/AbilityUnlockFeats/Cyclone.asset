@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ee4eca2fa83f84e9560c11e68baf1c, type: 3}
   m_Name: Cyclone
   m_EditorClassIdentifier: 
-  <FeatName>k__BackingField: Cyclone
-  <FeatUnlockDescription>k__BackingField: Unlock ability Cyclone
-  <FeatUpgradeDescription>k__BackingField: Increases damage per tick
-  <FeatStatDescription>k__BackingField: Damages nearby enemies every 0.2s based on
-    your weapon damage.
-  <StartingFeatLevel>k__BackingField: 0
-  <MaximumFeatLevel>k__BackingField: 3
-  <SkillPointCostPerLevel>k__BackingField: 020000000200000002000000
+  FeatName: Cyclone
+  SkillPointCostPerLevel: 020000000300000004000000
   AbilityToUnlock: {fileID: 11400000, guid: 76a485bb44ef31842b618276d472b89b, type: 2}

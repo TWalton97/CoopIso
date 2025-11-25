@@ -95,69 +95,99 @@ public class PlayerFeatsPanelController : MonoBehaviour
     public void UpdateFeatPreviewWindow(int currentFeatLevel, FeatSO feat)
     {
         FeatPreviewTitle.text = feat.FeatName;
-        FeatPreviewCost.text = "Cost: " + feat.GetCostPerLevel(currentFeatLevel).ToString();
+        FeatPreviewCost.text = "Cost:" + feat.GetCost(currentFeatLevel).ToString();
+        FeatPreviewStats.text = feat.GetNextLevelEffect(currentFeatLevel);
+        // if (currentFeatLevel == 0)
+        // {
+        //     FeatPreviewStats.text = feat.GetNextLevelEffect(currentFeatLevel);
+        // }
+        // else
+        // {
+        //     FeatPreviewStats.text = feat.GetCurrentEffect(currentFeatLevel) + "\n" + feat.GetNextLevelEffect(currentFeatLevel);
+        // }
 
-        if (feat is StatIncreaseFeat statIncreaseFeat)
-        {
-            if (currentFeatLevel == feat.MaximumFeatLevel)
-            {
-                FeatPreviewStats.text = "Maximum Level Reached";
-            }
-            else
-            {
-                int safeIndex = Mathf.Clamp(currentFeatLevel, 0, statIncreaseFeat.ValueIncreasePerLevel.Length - 1);
-                FeatPreviewStats.text = "Next Level: " + feat.FeatUpgradeDescription + statIncreaseFeat.ValueIncreasePerLevel[safeIndex];
-            }
-            FeatPreviewResourceCost.text = "";
-            FeatPreviewWeaponRequirement.text = "";
-        }
-        else if (feat is AbilityUnlockFeat abilityUnlockFeat)
-        {
-            if (currentFeatLevel == 0)
-            {
-                FeatPreviewStats.text = "Next Level: " + feat.FeatUnlockDescription;
-            }
-            else if (currentFeatLevel == feat.MaximumFeatLevel)
-            {
-                FeatPreviewStats.text = "Maximum level reached";
-            }
-            else
-            {
-                FeatPreviewStats.text = abilityUnlockFeat.GenerateStatDescriptionString(currentFeatLevel);
-            }
+        FeatPreviewDescription.text = feat.GetCurrentEffect(currentFeatLevel);
 
-            if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility && weaponAbility.RequiredWeaponRangeType != WeaponRangeType.None)
+        if (feat is AbilityUnlockFeat abilityUnlockFeat)
+        {
+            FeatPreviewResourceCost.text = "Mana: " + abilityUnlockFeat.AbilityToUnlock.ResourceAmount.ToString();
+            if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility)
             {
                 FeatPreviewWeaponRequirement.text = weaponAbility.RequiredWeaponRangeType.ToString();
-            }
-            else if (abilityUnlockFeat.AbilityToUnlock is BuffAbility buffAbility && buffAbility.RequiredWeaponRangeType != WeaponRangeType.None)
-            {
-                FeatPreviewWeaponRequirement.text = buffAbility.RequiredWeaponRangeType.ToString();
             }
             else
             {
                 FeatPreviewWeaponRequirement.text = "";
             }
-
-            FeatPreviewDescription.text = GetFullDescription(abilityUnlockFeat);
-            FeatPreviewResourceCost.text = abilityUnlockFeat.AbilityToUnlock.ResourceAmount.ToString() + " " + abilityUnlockFeat.AbilityToUnlock.ResourceType.ToString();
-            return;
         }
-        else if (feat is PassiveUnlockFeat)
+        else
         {
-            if (currentFeatLevel == feat.MaximumFeatLevel)
-            {
-                FeatPreviewStats.text = "Maximum Level Reached";
-            }
-            else
-            {
-                FeatPreviewStats.text = "Next Level: " + feat.FeatUnlockDescription;
-            }
             FeatPreviewResourceCost.text = "";
-            FeatPreviewWeaponRequirement.text = "";
         }
+        // FeatPreviewTitle.text = feat.FeatName;
+        // FeatPreviewCost.text = "Cost: " + feat.GetCostPerLevel(currentFeatLevel).ToString();
 
-        FeatPreviewDescription.text = feat.FeatStatDescription;
+        // if (feat is StatIncreaseFeat statIncreaseFeat)
+        // {
+        //     if (currentFeatLevel == feat.MaximumFeatLevel)
+        //     {
+        //         FeatPreviewStats.text = "Maximum Level Reached";
+        //     }
+        //     else
+        //     {
+        //         int safeIndex = Mathf.Clamp(currentFeatLevel, 0, statIncreaseFeat.ValueIncreasePerLevel.Length - 1);
+        //         FeatPreviewStats.text = "Next Level: " + feat.FeatUpgradeDescription + statIncreaseFeat.ValueIncreasePerLevel[safeIndex];
+        //     }
+        //     FeatPreviewResourceCost.text = "";
+        //     FeatPreviewWeaponRequirement.text = "";
+        // }
+        // else if (feat is AbilityUnlockFeat abilityUnlockFeat)
+        // {
+        //     if (currentFeatLevel == 0)
+        //     {
+        //         FeatPreviewStats.text = "Next Level: " + feat.FeatUnlockDescription;
+        //     }
+        //     else if (currentFeatLevel == feat.MaximumFeatLevel)
+        //     {
+        //         FeatPreviewStats.text = "Maximum level reached";
+        //     }
+        //     else
+        //     {
+        //         FeatPreviewStats.text = abilityUnlockFeat.GenerateStatDescriptionString(currentFeatLevel);
+        //     }
+
+        //     if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility && weaponAbility.RequiredWeaponRangeType != WeaponRangeType.None)
+        //     {
+        //         FeatPreviewWeaponRequirement.text = weaponAbility.RequiredWeaponRangeType.ToString();
+        //     }
+        //     else if (abilityUnlockFeat.AbilityToUnlock is BuffAbility buffAbility && buffAbility.RequiredWeaponRangeType != WeaponRangeType.None)
+        //     {
+        //         FeatPreviewWeaponRequirement.text = buffAbility.RequiredWeaponRangeType.ToString();
+        //     }
+        //     else
+        //     {
+        //         FeatPreviewWeaponRequirement.text = "";
+        //     }
+
+        //     FeatPreviewDescription.text = GetFullDescription(abilityUnlockFeat);
+        //     FeatPreviewResourceCost.text = abilityUnlockFeat.AbilityToUnlock.ResourceAmount.ToString() + " " + abilityUnlockFeat.AbilityToUnlock.ResourceType.ToString();
+        //     return;
+        // }
+        // else if (feat is PassiveUnlockFeat)
+        // {
+        //     if (currentFeatLevel == feat.MaximumFeatLevel)
+        //     {
+        //         FeatPreviewStats.text = "Maximum Level Reached";
+        //     }
+        //     else
+        //     {
+        //         FeatPreviewStats.text = "Next Level: " + feat.FeatUnlockDescription;
+        //     }
+        //     FeatPreviewResourceCost.text = "";
+        //     FeatPreviewWeaponRequirement.text = "";
+        // }
+
+        // FeatPreviewDescription.text = feat.FeatStatDescription;
     }
 
     public void UpdateViewPosition(RectTransform target)
@@ -179,25 +209,25 @@ public class PlayerFeatsPanelController : MonoBehaviour
         return result;
     }
 
-    public string GetFullDescription(AbilityUnlockFeat abilityUnlockFeat)
-    {
-        string text = abilityUnlockFeat.FeatStatDescription; // “Performs a melee slash, damaging all hit enemies for 100% of weapon damage”
+    // public string GetFullDescription(AbilityUnlockFeat abilityUnlockFeat)
+    // {
+    //     string text = abilityUnlockFeat.FeatStatDescription; // “Performs a melee slash, damaging all hit enemies for 100% of weapon damage”
 
-        if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility)
-        {
-            if (weaponAbility.AppliedStatuses != null && weaponAbility.AppliedStatuses.Count > 0)
-            {
-                text += " and applying ";
-                for (int i = 0; i < weaponAbility.AppliedStatuses.Count; i++)
-                {
-                    var status = weaponAbility.AppliedStatuses[i];
-                    // Wrap with TMP <link> instead of <status>
-                    text += $"<link=\"{status.statusID}\"><color=#FF0000>{status.statusID}</color></link>";
-                    if (i < weaponAbility.AppliedStatuses.Count - 1)
-                        text += ", ";
-                }
-            }
-        }
-        return text + ".";
-    }
+    //     if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility)
+    //     {
+    //         if (weaponAbility.AppliedStatuses != null && weaponAbility.AppliedStatuses.Count > 0)
+    //         {
+    //             text += " and applying ";
+    //             for (int i = 0; i < weaponAbility.AppliedStatuses.Count; i++)
+    //             {
+    //                 var status = weaponAbility.AppliedStatuses[i];
+    //                 // Wrap with TMP <link> instead of <status>
+    //                 text += $"<link=\"{status.statusID}\"><color=#FF0000>{status.statusID}</color></link>";
+    //                 if (i < weaponAbility.AppliedStatuses.Count - 1)
+    //                     text += ", ";
+    //             }
+    //         }
+    //     }
+    //     return text + ".";
+    // }
 }

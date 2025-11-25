@@ -20,12 +20,10 @@ MonoBehaviour:
   StartingLegArmor: {fileID: 6325581541471828504, guid: d96448a32dc0e2c4cbe4993438dccba1, type: 3}
   classFeatConfig:
     startingFeats:
-    - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
-      startingLevel: 0
     - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
       startingLevel: 3
-    - feat: {fileID: 11400000, guid: e2781a446ce6d28439b763ed8aa35b43, type: 2}
-      startingLevel: 1
+    - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
+      startingLevel: 0
     - feat: {fileID: 11400000, guid: 7cff8d1b8bb094a47b2724b682682c17, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}

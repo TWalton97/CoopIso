@@ -17,11 +17,12 @@ public abstract class DamageOverTimeSO : StatusSO
             spawnedVFX = vfxRoot.GetComponentsInChildren<ParticleSystem>(true);
             instance.spawnedVFX = vfxRoot;
         }
+        instance.nextTickTime = instance.data.baseDuration - tickRate;
     }
 
     public override void OnTick(StatusInstance instance, StatusController target, float deltaTime)
     {
-        if (instance.tickTimer >= tickRate)
+        if (instance.remainingDuration <= instance.nextTickTime)
         {
             instance.tickTimer = 0;
 
@@ -38,7 +39,9 @@ public abstract class DamageOverTimeSO : StatusSO
                     }
                 }
             }
+            instance.nextTickTime -= tickRate;
         }
+
         if (instance.spawnedVFX != null)
             instance.spawnedVFX.transform.position = target.transform.position;
     }

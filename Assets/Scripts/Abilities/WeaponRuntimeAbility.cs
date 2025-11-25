@@ -1,18 +1,25 @@
 public class WeaponRuntimeAbility : RuntimeAbility
 {
-    public float WeaponDamagePercentage;
-    public float WeaponDamageIncreasePerLevel;
+    private WeaponAbility data;
+    public float WeaponDamage;
+    public bool DealsDamageOverTime = false;
+    public float TickRate;
 
     public WeaponRuntimeAbility(WeaponAbility data) : base(data)
     {
-        WeaponDamagePercentage = data.WeaponDamagePercentage;
-        WeaponDamageIncreasePerLevel = data.WeaponDamageIncreasePerLevel;
+        this.data = data;
+        WeaponDamage = data.DamagePercentPerLevel[currentLevel - 1];
+        DealsDamageOverTime = data.DealsDamageOverTime;
+        if (DealsDamageOverTime)
+            TickRate = data.TickRatePerLevel[currentLevel - 1];
     }
 
     public override void Upgrade()
     {
         currentLevel++;
-        //We need to c hange this based on the weaponAbility
-        WeaponDamagePercentage += WeaponDamageIncreasePerLevel;
+        WeaponDamage = data.DamagePercentPerLevel[currentLevel - 1];
+        DealsDamageOverTime = data.DealsDamageOverTime;
+        if (DealsDamageOverTime)
+            TickRate = data.TickRatePerLevel[currentLevel - 1];
     }
 }

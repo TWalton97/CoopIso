@@ -9,8 +9,8 @@ public class SpinAttack : AbilityBehaviour<WeaponRuntimeAbility>
 
     public override void OnEnter()
     {
-        instantiatedHitbox = Instantiate(SpinAttackHitbox, player.transform.position, Quaternion.identity, player.transform);
-        instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.2f);
+        // instantiatedHitbox = Instantiate(SpinAttackHitbox, player.transform.position, Quaternion.identity, player.transform);
+        // instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.2f);
     }
 
     public override void OnExit()
@@ -26,7 +26,7 @@ public class SpinAttack : AbilityBehaviour<WeaponRuntimeAbility>
 
     public int CalculateDamagePerTick()
     {
-        return Mathf.CeilToInt(player.WeaponController.CombinedWeaponDamage * runtime.WeaponDamagePercentage);
+        return Mathf.CeilToInt(player.WeaponController.CombinedWeaponDamage * runtime.WeaponDamage);
     }
 
     public override void OnUse()

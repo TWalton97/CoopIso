@@ -9,6 +9,17 @@ public abstract class AbilitySO : ScriptableObject
     public float ResourceAmount;
     public float MovementSpeedMultiplierWhileUsing = 1;
     public bool CanRotateDuringCast = true;
+    public int MaxLevel;
+    [TextArea] public string AbilityDescription;
+
+    [TextArea] public string LevelDescriptionTemplate;
+    [TextArea] public string UpgradeDescriptionTemplate;
 
     public abstract RuntimeAbility CreateRuntimeAbility();
+
+    public abstract string GetLevelDescription(int currentLevel);
+    public abstract string GetCalculatedLevelDescription(int currentLevel, int damage);
+
+    public abstract string GetUpgradeDescription(int currentLevel);
+
 }

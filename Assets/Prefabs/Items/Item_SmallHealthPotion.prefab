@@ -50,14 +50,15 @@ MonoBehaviour:
     itemID: bd9a8dd4-ac72-4a46-9a43-95943a1734d1
     itemName: Small Health Potion
     quantity: 1
-    sprite: {fileID: 21300000, guid: 1d130991a81017b4a9b4046ef0302b0b, type: 3}
+    sprite: {fileID: 86130299, guid: 82ce900d7ae797b43ba3509fda3ca0f6, type: 3}
     itemDescription: A small health potion.
     objectPrefab: {fileID: 6630030280338927896, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    floorObjectPrefab: {fileID: 0}
     vfxPrefab: {fileID: 0}
     itemType: 0
+    weaponRangeType: 0
     data: {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
     affixes: []
-  inventoryManager: {fileID: 0}
   InteractionType: 0
 --- !u!135 &8928048899272951523
 SphereCollider:

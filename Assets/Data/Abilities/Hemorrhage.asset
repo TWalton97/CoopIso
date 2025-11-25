@@ -19,9 +19,19 @@ MonoBehaviour:
   ResourceAmount: 25
   MovementSpeedMultiplierWhileUsing: 0
   CanRotateDuringCast: 1
+  MaxLevel: 3
+  AbilityDescription: Performs a short range slash, applying bleed to all enemies
+    hit.
+  LevelDescriptionTemplate: Deals {DMG} weapon damage to nearby enemies, applying
+    bleed.
+  UpgradeDescriptionTemplate: Increases weapon damage from {DMG_CURR} to {DMG_NEXT}.
   AppliedStatuses:
   - {fileID: 11400000, guid: 837ab8a5f9560354c80d1f39b78edcfd, type: 2}
   RequiredWeaponRangeType: 1
   abilityBehaviourPrefab: {fileID: 465124582816337510, guid: 9949500098f8bde4faa21e8f0d07108d, type: 3}
-  WeaponDamagePercentage: 1
-  WeaponDamageIncreasePerLevel: 0
+  DamagePercentPerLevel:
+  - 0.8
+  - 1
+  - 1.2
+  DealsDamageOverTime: 0
+  TickRatePerLevel: []

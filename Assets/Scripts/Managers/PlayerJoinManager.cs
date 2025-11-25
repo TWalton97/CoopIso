@@ -102,6 +102,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.InteractionManager = interactionManager;
         playerContext.SpawnedItemDatabase = spawnedItemDatabase;
         playerContext.PlayerPreviewManager = playerPreviewManager;
+        playerContext.InventoryController = playerUserInterfaceController.inventoryController;
 
         playerContext.UserInterfaceController.inventoryController.controller = playerContext.PlayerController;
 
@@ -150,4 +151,5 @@ public class PlayerContext
     public InteractionManager InteractionManager;
     public SpawnedItemDataBase SpawnedItemDatabase;
     public PlayerPreviewManager PlayerPreviewManager;
+    public InventoryController InventoryController;
 }

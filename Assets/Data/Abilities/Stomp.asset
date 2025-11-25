@@ -19,7 +19,16 @@ MonoBehaviour:
   ResourceAmount: 15
   MovementSpeedMultiplierWhileUsing: 0
   CanRotateDuringCast: 0
+  MaxLevel: 3
+  AbilityDescription: Stomps the ground, dealing damage to all nearby enemies.
+  LevelDescriptionTemplate: Deals {DMG} weapon damage nearby enemies.
+  UpgradeDescriptionTemplate: Increases weapon damage from {DMG_CURR} to {DMG_NEXT}.
+  AppliedStatuses: []
   RequiredWeaponRangeType: 1
   abilityBehaviourPrefab: {fileID: 6815367309087051014, guid: 9690472dc5a261742a840848cae20e45, type: 3}
-  WeaponDamagePercentage: 1.3
-  WeaponDamageIncreasePerLevel: 0
+  DamagePercentPerLevel:
+  - 1
+  - 1.2
+  - 1.4
+  DealsDamageOverTime: 0
+  TickRatePerLevel: []

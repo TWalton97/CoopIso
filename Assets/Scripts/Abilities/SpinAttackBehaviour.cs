@@ -11,9 +11,9 @@ public class SpinAttackBehaviour : WeaponAbilityBehaviour
     }
     public override void OnEnter()
     {
-        CurrentWeaponDamagePercentage = runtime.WeaponDamagePercentage;
+        CurrentWeaponDamagePercentage = runtime.WeaponDamage;
         instantiatedHitbox = Instantiate(SpinAttackHitbox, player.transform.position, Quaternion.identity, player.transform);
-        instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.2f, true, statuses);
+        instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, runtime.TickRate, runtime.DealsDamageOverTime, statuses);
     }
 
     public override void OnExit()
@@ -22,8 +22,8 @@ public class SpinAttackBehaviour : WeaponAbilityBehaviour
         Destroy(instantiatedHitbox.gameObject);
     }
 
-    public int CalculateDamagePerTick()
+    public override int CalculateDamagePerTick()
     {
-        return Mathf.CeilToInt(player.WeaponController.CombinedWeaponDamage * runtime.WeaponDamagePercentage);
+        return Mathf.CeilToInt(player.WeaponController.CombinedWeaponDamage * runtime.WeaponDamage);
     }
 }

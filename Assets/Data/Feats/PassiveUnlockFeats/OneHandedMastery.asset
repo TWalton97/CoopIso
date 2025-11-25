@@ -12,13 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae3e092c8e57fd45a9ee039c29de0a8, type: 3}
   m_Name: OneHandedMastery
   m_EditorClassIdentifier: 
-  <FeatName>k__BackingField: One-Handed Mastery
-  <FeatUnlockDescription>k__BackingField: Improves your ability to fight with one-handed
-    weapons.
-  <FeatUpgradeDescription>k__BackingField: 
-  <FeatStatDescription>k__BackingField: Improves your ability to fight with one-handed
-    weapons.
-  <StartingFeatLevel>k__BackingField: 0
-  <MaximumFeatLevel>k__BackingField: 1
-  <SkillPointCostPerLevel>k__BackingField: 03000000
-  passiveUnlock: 2
+  FeatName: One Handed Mastery
+  SkillPointCostPerLevel: 03000000
+  passiveUnlock: 1
+  FeatDescription: Improves your ability to use one-handed weapons
+  FeatUpgradeDescriptionPerLevel:
+  - Improves your ability to use one-handed weapons

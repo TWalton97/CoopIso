@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ee4eca2fa83f84e9560c11e68baf1c, type: 3}
   m_Name: Hemorrhage
   m_EditorClassIdentifier: 
-  <FeatName>k__BackingField: Hemorrhage
-  <FeatUnlockDescription>k__BackingField: Unlock ability Hemorrhage
-  <FeatUpgradeDescription>k__BackingField: 
-  <FeatStatDescription>k__BackingField: Perform a close range swipe, dealing 100%
-    of weapon damage
-  <StartingFeatLevel>k__BackingField: 0
-  <MaximumFeatLevel>k__BackingField: 1
-  <SkillPointCostPerLevel>k__BackingField: 02000000
+  FeatName: Hemorrhage
+  SkillPointCostPerLevel: 030000000200000002000000
   AbilityToUnlock: {fileID: 11400000, guid: 9af9f22e91b85b4428acf421490cb585, type: 2}

@@ -12,17 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ead421b314637b47befea67ea679503, type: 3}
   m_Name: Vigor
   m_EditorClassIdentifier: 
-  <FeatName>k__BackingField: Vigor
-  <FeatUnlockDescription>k__BackingField: 'Increases Maximum Health by '
-  <FeatUpgradeDescription>k__BackingField: 'Increases Maximum Health by '
-  <FeatStatDescription>k__BackingField: Increases Maximum Health
-  <StartingFeatLevel>k__BackingField: 0
-  <MaximumFeatLevel>k__BackingField: 5
-  <SkillPointCostPerLevel>k__BackingField: 0100000001000000010000000100000001000000
-  statToIncrease: 0
-  ValueIncreasePerLevel:
+  FeatName: Vigor
+  SkillPointCostPerLevel: 0100000001000000010000000100000001000000
+  Stat: 0
+  ValuePerLevel:
   - 5
   - 10
   - 15
   - 20
   - 25
+  FeatDescription: Increases your maximum health

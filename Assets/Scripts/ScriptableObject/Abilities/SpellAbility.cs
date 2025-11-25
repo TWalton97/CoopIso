@@ -10,4 +10,19 @@ public class SpellAbility : AbilitySO
     {
         return new SpellRuntimeAbility(this);
     }
+
+    public override string GetCalculatedLevelDescription(int currentLevel, int damage)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override string GetLevelDescription(int currentLevel)
+    {
+        return LevelDescriptionTemplate;
+    }
+
+    public override string GetUpgradeDescription(int currentLevel)
+    {
+        return UpgradeDescriptionTemplate;
+    }
 }

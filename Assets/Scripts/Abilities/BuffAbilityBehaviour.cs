@@ -4,7 +4,7 @@ using UnityEngine;
 public class BuffAbilityBehaviour : AbilityBehaviour<BuffRuntimeAbility>
 {
     public WeaponRangeType weaponRangeType;
-    public LayerMask PlayerLayer;
+    public LayerMask TargetLayer;
     public float radius;
     public StatusSO Status;
 
@@ -12,12 +12,16 @@ public class BuffAbilityBehaviour : AbilityBehaviour<BuffRuntimeAbility>
 
     public override void OnEnter()
     {
-
+        if (Status is ArmorBuffSO armorBuffSO)
+        {
+            armorBuffSO.baseDuration = runtime.Duration;
+            armorBuffSO.armorIncrease = (int)runtime.BuffAmount;
+        }
     }
 
     public override void OnExit()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, PlayerLayer);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, TargetLayer);
         foreach (Collider coll in colliders)
         {
             if (coll.TryGetComponent(out StatusController statusController))

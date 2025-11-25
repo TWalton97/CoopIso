@@ -38,7 +38,7 @@ public class FeatsController : MonoBehaviour
 
         if (runtime == null)
         {
-            return experienceController.SkillPoints >= feat.GetCostPerLevel(0);
+            return experienceController.SkillPoints >= feat.GetCost(0);
         }
 
         if (runtime.IsMaxLevel)
@@ -53,7 +53,7 @@ public class FeatsController : MonoBehaviour
 
         if (runtime == null)
         {
-            int cost = feat.GetCostPerLevel(0);
+            int cost = feat.GetCost(0);
             if (!experienceController.TrySpendSkillpoints(cost))
                 return false;
 
@@ -95,7 +95,7 @@ public class FeatsController : MonoBehaviour
 
         if (runtime == null)
         {
-            int cost = feat.GetCostPerLevel(0);
+            int cost = feat.GetCost(0);
 
             runtime = new RuntimeFeat(feat);
             UnlockedFeats.Add(runtime);
@@ -146,11 +146,11 @@ public class RuntimeFeat
         CurrentFeatLevel = 1;
     }
 
-    public bool IsMaxLevel => CurrentFeatLevel >= BaseFeatSO.MaximumFeatLevel;
+    public bool IsMaxLevel => CurrentFeatLevel >= BaseFeatSO.SkillPointCostPerLevel.Length;
 
     public int GetNextLevelCost()
     {
-        return BaseFeatSO.GetCostPerLevel(CurrentFeatLevel);
+        return BaseFeatSO.GetCost(CurrentFeatLevel);
     }
 }
 

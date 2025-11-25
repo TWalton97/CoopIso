@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace Utilities
 {
@@ -88,5 +89,15 @@ namespace Utilities
 
         public float GetTime() => Time;
     }
+
+    public static class EnumExtension
+    {
+        public static string ConvertToDisplayName(this Enum e)
+        {
+            string input = e.ToString();
+            return Regex.Replace(input, "(\\B[A-Z])", " $1");
+        }
+    }
+
 
 }

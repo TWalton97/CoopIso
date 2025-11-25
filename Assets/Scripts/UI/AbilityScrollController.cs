@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class AbilityScrollController : MonoBehaviour
@@ -7,11 +8,19 @@ public class AbilityScrollController : MonoBehaviour
     public PlayerUserInterfaceController controller;
 
     [Header("References")]
-    public List<RectTransform> iconSlots;         // Always size 5
-    public List<AbilityCell> iconCells;           // Always size 5
+    public List<RectTransform> iconSlots;
+    public List<AbilityCell> iconCells;
 
     [Header("Ability Data")]
     public AbilityData ActiveAbility;
+
+    [Header("Ability Description")]
+    public GameObject AbilityDescriptionParent;
+    public TMP_Text AbilityName;
+    public TMP_Text AbilityCost;
+    public TMP_Text AbilityDescription;
+    public float DisplayDuration;
+    private float currentDuration;
 
     [Header("Settings")]
     public float slotSpacing = 125f;
@@ -19,7 +28,7 @@ public class AbilityScrollController : MonoBehaviour
     public float centerScale = 1.0f;
     public float sideScale = 0.75f;
 
-    private int centerIndex = 0;   // Index in abilities list
+    private int centerIndex = 0;
     private bool isAnimating = false;
 
     public List<AbilityData> Abilities = new();
@@ -45,6 +54,20 @@ public class AbilityScrollController : MonoBehaviour
         LayoutSlots();
         RefreshIcons();
         ApplyInstantScales();
+    }
+
+    void Update()
+    {
+        if (currentDuration <= 0)
+        {
+            if (AbilityDescriptionParent.activeSelf)
+            {
+                ToggleAbilityDescription(false);
+            }
+            return;
+        }
+
+        currentDuration -= Time.deltaTime;
     }
 
     // Rebuild the whole thing when abilities change
@@ -114,6 +137,12 @@ public class AbilityScrollController : MonoBehaviour
     {
         if (!isAnimating && Abilities.Count > 1)
             StartCoroutine(SlideIcons(+1));
+
+        if (Abilities.Count > 0)
+        {
+            AbilityData nextAbility = Abilities[(centerIndex + 1 + Abilities.Count) % Abilities.Count];
+            UpdateAbilityDescription(nextAbility);
+        }
     }
 
     [ContextMenu("CycleLeft")]
@@ -121,6 +150,13 @@ public class AbilityScrollController : MonoBehaviour
     {
         if (!isAnimating && Abilities.Count > 1)
             StartCoroutine(SlideIcons(-1));
+
+        if (Abilities.Count > 0)
+        {
+            AbilityData nextAbility = Abilities[(centerIndex + -1 + Abilities.Count) % Abilities.Count];
+
+            UpdateAbilityDescription(nextAbility);
+        }
     }
 
     // ================================
@@ -190,7 +226,10 @@ public class AbilityScrollController : MonoBehaviour
     {
         AbilityData abilityData = new AbilityData(ability, abilityBehaviour);
         if (Abilities.Count == 0)
+        {
             ActiveAbility = abilityData;
+            UpdateAbilityDescription(abilityData);
+        }
         Abilities.Add(abilityData);
 
         RebuildCarousel();
@@ -205,5 +244,30 @@ public class AbilityScrollController : MonoBehaviour
         if (!ActiveAbility.AbilityBehaviour.CanUse(controller.featsPanelController.playerController.ResourceController)) return false;
 
         return true;
+    }
+
+    public void UpdateAbilityDescription(AbilityData ability)
+    {
+        AbilityName.text = ability.AbilitySO.AbilityName;
+        AbilityCost.text = ability.AbilitySO.ResourceAmount.ToString() + " " + ability.AbilitySO.ResourceType.ToString();
+        RuntimeAbility runtime = controller.playerContext.PlayerController.AbilityController.GetRuntime(ability.AbilitySO);
+
+        if (ability.AbilityBehaviour is WeaponAbilityBehaviour weaponAbilityBehaviour)
+        {
+            int damage = weaponAbilityBehaviour.CalculateDamagePerTick();
+            AbilityDescription.text = ability.AbilitySO.GetCalculatedLevelDescription(runtime.currentLevel, damage);
+        }
+        else
+        {
+            AbilityDescription.text = ability.AbilitySO.GetLevelDescription(runtime.currentLevel);
+        }
+
+        ToggleAbilityDescription(true);
+    }
+
+    public void ToggleAbilityDescription(bool toggle)
+    {
+        AbilityDescriptionParent.SetActive(toggle);
+        currentDuration = DisplayDuration;
     }
 }

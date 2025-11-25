@@ -10,6 +10,7 @@ public class StatusInstance
     public GameObject spawnedVFX;
 
     public float tickTimer;
+    public float nextTickTime;
 
     public int initialHitDamage;
 

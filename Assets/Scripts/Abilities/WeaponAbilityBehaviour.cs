@@ -33,4 +33,9 @@ public class WeaponAbilityBehaviour : AbilityBehaviour<WeaponRuntimeAbility>
         }
         return resourceController.resource.resourceType == runtime.resourceType && resourceController.resource.RemoveResource(runtime.resourceAmount);
     }
+
+    public virtual int CalculateDamagePerTick()
+    {
+        return Mathf.CeilToInt(player.WeaponController.CombinedWeaponDamage * runtime.WeaponDamage);
+    }
 }

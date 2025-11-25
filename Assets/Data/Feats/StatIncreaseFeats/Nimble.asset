@@ -12,15 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ead421b314637b47befea67ea679503, type: 3}
   m_Name: Nimble
   m_EditorClassIdentifier: 
-  <FeatName>k__BackingField: Nimble
-  <FeatUnlockDescription>k__BackingField: 'Increases Movement Speed by '
-  <FeatUpgradeDescription>k__BackingField: 'Increases Movement Speed by '
-  <FeatStatDescription>k__BackingField: Increases Movement Speed
-  <StartingFeatLevel>k__BackingField: 0
-  <MaximumFeatLevel>k__BackingField: 3
-  <SkillPointCostPerLevel>k__BackingField: 010000000200000003000000
-  statToIncrease: 1
-  ValueIncreasePerLevel:
+  FeatName: Nimble
+  SkillPointCostPerLevel: 010000000200000003000000
+  Stat: 1
+  ValuePerLevel:
   - 0.2
   - 0.4
   - 0.6
+  FeatDescription: Increases your movement speed

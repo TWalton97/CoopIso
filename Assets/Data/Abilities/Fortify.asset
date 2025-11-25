@@ -19,6 +19,23 @@ MonoBehaviour:
   ResourceAmount: 15
   MovementSpeedMultiplierWhileUsing: 0
   CanRotateDuringCast: 0
+  MaxLevel: 5
+  AbilityDescription: Increases the armor of all nearby allies
+  LevelDescriptionTemplate: Increases armor of nearby allies by {VAL} for {DUR}s.
+  UpgradeDescriptionTemplate: Increases armor from {VAL_CURR} to {VAL_NEXT} and duration
+    from {DUR_CURR} to {DUR_NEXT}.
   RequiredWeaponRangeType: 3
   statusSO: {fileID: 11400000, guid: 0ae180700c5b45747a904b6df15b9584, type: 2}
   buffBehaviourPrefab: {fileID: 1356468606317954617, guid: 11f246e1c9f17ca4f8e0a7269aa64ad3, type: 3}
+  BuffValuePerLevel:
+  - 6
+  - 8
+  - 10
+  - 12
+  - 14
+  BuffDurationPerLevel:
+  - 10
+  - 14
+  - 18
+  - 22
+  - 26

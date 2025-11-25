@@ -20,17 +20,17 @@ MonoBehaviour:
   StartingLegArmor: {fileID: 4630488950179993611, guid: b0cd6b04a9adaf746be0764bfd4b1953, type: 3}
   classFeatConfig:
     startingFeats:
+    - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
+      startingLevel: 1
+    - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
+      startingLevel: 1
+    - feat: {fileID: 11400000, guid: 93097580943abb044bfd719000317c7b, type: 2}
+      startingLevel: 1
     - feat: {fileID: 11400000, guid: e6a2bea3350b04a44bf2148717f5de67, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: ae6b9c3edd34adb438fd3c81aafbe495, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 7cff8d1b8bb094a47b2724b682682c17, type: 2}
       startingLevel: 0
-    - feat: {fileID: 11400000, guid: 93097580943abb044bfd719000317c7b, type: 2}
-      startingLevel: 1
-    - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
-      startingLevel: 1
     - feat: {fileID: 11400000, guid: 882299f3b6bbe0f468f6003502ec5b7e, type: 2}
       startingLevel: 0
-    - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
-      startingLevel: 1

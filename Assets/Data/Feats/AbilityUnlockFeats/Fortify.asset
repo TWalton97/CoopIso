@@ -12,11 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ee4eca2fa83f84e9560c11e68baf1c, type: 3}
   m_Name: Fortify
   m_EditorClassIdentifier: 
-  <FeatName>k__BackingField: Fortify
-  <FeatUnlockDescription>k__BackingField: Unlocks ability Fortify
-  <FeatUpgradeDescription>k__BackingField: 
-  <FeatStatDescription>k__BackingField: Temporarily increases your Armor
-  <StartingFeatLevel>k__BackingField: 0
-  <MaximumFeatLevel>k__BackingField: 1
-  <SkillPointCostPerLevel>k__BackingField: 02000000
+  FeatName: Fortify
+  SkillPointCostPerLevel: 0200000002000000030000000400000005000000
   AbilityToUnlock: {fileID: 11400000, guid: d1af874b22eef914baaef8e130bcbdb0, type: 2}

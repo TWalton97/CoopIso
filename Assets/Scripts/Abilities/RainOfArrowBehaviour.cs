@@ -16,7 +16,7 @@ public class RainOfArrowBehaviour : WeaponAbilityBehaviour
     }
     public override void OnEnter()
     {
-        CurrentWeaponDamagePercentage = runtime.WeaponDamagePercentage;
+        CurrentWeaponDamagePercentage = runtime.WeaponDamage;
         StartCoroutine(SpawnHitboxAfterDelay());
     }
 
@@ -25,9 +25,9 @@ public class RainOfArrowBehaviour : WeaponAbilityBehaviour
 
     }
 
-    public int CalculateDamagePerTick()
+    public override int CalculateDamagePerTick()
     {
-        return Mathf.CeilToInt(player.WeaponController.CombinedWeaponDamage * runtime.WeaponDamagePercentage);
+        return Mathf.CeilToInt(player.WeaponController.CombinedWeaponDamage * runtime.WeaponDamage);
     }
 
     private IEnumerator SpawnHitboxAfterDelay()
@@ -46,7 +46,7 @@ public class RainOfArrowBehaviour : WeaponAbilityBehaviour
         }
 
         instantiatedHitbox = Instantiate(SpinAttackHitbox, spawnPos, Quaternion.identity, null);
-        instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, 0.5f, true, statuses);
+        instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, runtime.TickRate, runtime.DealsDamageOverTime, statuses);
         Destroy(instantiatedHitbox.gameObject, HitboxDuration);
         yield return null;
     }

@@ -19,9 +19,19 @@ MonoBehaviour:
   ResourceAmount: 25
   MovementSpeedMultiplierWhileUsing: 0.8
   CanRotateDuringCast: 1
-  AppliedStatuses:
-  - {fileID: 11400000, guid: 216ce27acdc885b4cb1a9a4da3a2fb4f, type: 2}
+  MaxLevel: 3
+  AbilityDescription: Spins around, rapidly dealing damage to all nearby enemies.
+  LevelDescriptionTemplate: Deals {DMG} weapon damage to nearby enemies every {TICK}s.
+  UpgradeDescriptionTemplate: Increases damage from {DMG_CURR} to {DMG_NEXT}.
+  AppliedStatuses: []
   RequiredWeaponRangeType: 1
   abilityBehaviourPrefab: {fileID: 6781247649196018336, guid: 7e2dfb14afeaffd478477dc8ba98da32, type: 3}
-  WeaponDamagePercentage: 0.2
-  WeaponDamageIncreasePerLevel: 0.1
+  DamagePercentPerLevel:
+  - 0.2
+  - 0.3
+  - 0.4
+  DealsDamageOverTime: 1
+  TickRatePerLevel:
+  - 0.4
+  - 0.4
+  - 0.4

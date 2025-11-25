@@ -33,7 +33,7 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         button.onClick.AddListener(ActivateButton);
         controller.OnFeatLevelChanged += UpdateUI;
 
-        for (int i = 0; i < feat.MaximumFeatLevel; i++)
+        for (int i = 0; i < feat.SkillPointCostPerLevel.Length; i++)
         {
             FeatBubbles[i].gameObject.SetActive(true);
         }
@@ -43,13 +43,6 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         CheckIfPlayerHasEnoughSkillpoints();
 
         UpdateUI(_feat, _controller.GetCurrentFeatLevel(_feat));
-
-        if (feat.StartingFeatLevel == 0) return;
-
-        for (int i = 0; i < feat.StartingFeatLevel; i++)
-        {
-            ActivateButton(true);
-        }
     }
 
     private void OnDisable()
@@ -64,13 +57,13 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 
     public void CheckIfPlayerHasEnoughSkillpoints()
     {
-        if (currentFeatLevel == feat.MaximumFeatLevel)
+        if (currentFeatLevel == feat.SkillPointCostPerLevel.Length)
         {
             FeatName.color = DeactiveColor;
             return;
         }
 
-        if (experienceController.SkillPoints >= feat.GetCostPerLevel(currentFeatLevel))
+        if (experienceController.SkillPoints >= feat.SkillPointCostPerLevel[currentFeatLevel])
         {
             FeatName.color = ActiveColor;
         }
@@ -118,5 +111,5 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
     public void OnPointerEnter(PointerEventData eventData)
     {
         selectable.Select();
-    } 
+    }
 }

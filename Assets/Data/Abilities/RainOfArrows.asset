@@ -19,7 +19,19 @@ MonoBehaviour:
   ResourceAmount: 20
   MovementSpeedMultiplierWhileUsing: 0
   CanRotateDuringCast: 1
+  MaxLevel: 3
+  AbilityDescription: Fires a rain of arrows, damaging all enemies in the area.
+  LevelDescriptionTemplate: Deals {DMG} weapon damage to enemies every {TICK}s.
+  UpgradeDescriptionTemplate: Decreases tick rate from {TICK_CURR}s to {TICK_NEXT}s.
+  AppliedStatuses: []
   RequiredWeaponRangeType: 2
   abilityBehaviourPrefab: {fileID: 1777890230724462431, guid: 193fb4ea80567b34aa22fe2aa2564992, type: 3}
-  WeaponDamagePercentage: 0.4
-  WeaponDamageIncreasePerLevel: 0
+  DamagePercentPerLevel:
+  - 0.4
+  - 0.4
+  - 0.4
+  DealsDamageOverTime: 1
+  TickRatePerLevel:
+  - 0.4
+  - 0.3
+  - 0.2

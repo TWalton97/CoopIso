@@ -6,6 +6,27 @@ using UnityEngine;
 public class PassiveUnlockFeat : FeatSO
 {
     public PassiveUnlock passiveUnlock;
+    [TextArea] public string FeatDescription;
+    public string[] FeatUpgradeDescriptionPerLevel;
+
+    public override string GetCurrentEffect(int level)
+    {
+        if (level == 0) return "";
+
+        return FeatUpgradeDescriptionPerLevel[level - 1];
+    }
+
+    public override string GetNextLevelEffect(int level)
+    {
+        if (level >= FeatUpgradeDescriptionPerLevel.Length) return "Maximum level reached";
+
+        return "Next Level: " + FeatUpgradeDescriptionPerLevel[level];
+    }
+
+    public override string GetDescription()
+    {
+        return FeatDescription;
+    }
 
     public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller)
     {
@@ -16,9 +37,6 @@ public class PassiveUnlockFeat : FeatSO
     {
         switch (passiveUnlock)
         {
-            case PassiveUnlock.CanEquipShields:
-                controller.PlayerStatsBlackboard.CanEquipShields = true;
-                break;
             case PassiveUnlock.UnarmedMastery:
                 controller.PlayerStatsBlackboard.UnarmedMastery = true;
                 break;
@@ -42,6 +60,7 @@ public class PassiveUnlockFeat : FeatSO
                 else if (currentFeatLevel == 2)
                 {
                     controller.PlayerStatsBlackboard.armorType = ArmorType.Medium;
+                    controller.PlayerStatsBlackboard.CanEquipShields = true;
                 }
                 else if (currentFeatLevel == 3)
                 {
@@ -54,7 +73,6 @@ public class PassiveUnlockFeat : FeatSO
 
 public enum PassiveUnlock
 {
-    CanEquipShields,
     UnarmedMastery,
     OneHandedMastery,
     TwoHandedMastery,
