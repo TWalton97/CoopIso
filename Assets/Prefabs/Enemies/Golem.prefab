@@ -843,11 +843,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 613265988915514573, guid: ffee21ab564130d46be811cc973a669f, type: 3}
       propertyPath: CurrentHealth
-      value: 80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 613265988915514573, guid: ffee21ab564130d46be811cc973a669f, type: 3}
       propertyPath: MaximumHealth
-      value: 80
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 2892972251681915945, guid: ffee21ab564130d46be811cc973a669f, type: 3}
       propertyPath: m_Height
@@ -1008,6 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328b214ff7b4ff04b8562d96661030e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeStatuses: []
 --- !u!114 &2608580560073808237 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6150998468919678918, guid: ffee21ab564130d46be811cc973a669f, type: 3}

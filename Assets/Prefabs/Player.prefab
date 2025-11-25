@@ -15351,7 +15351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
-  SkillPoints: 0
+  SkillPoints: 3
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 412665536095753354}
 --- !u!114 &4202505148022750934
@@ -15423,7 +15423,8 @@ MonoBehaviour:
   newPlayerController: {fileID: 7230535324818502119}
   experienceController: {fileID: 9155891904063514100}
   playerHealthController: {fileID: 6810012523319174219}
-  AllFeats: []
+  AllFeats:
+  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
   UnlockedFeats: []
 --- !u!114 &1963507904449709706
 MonoBehaviour:

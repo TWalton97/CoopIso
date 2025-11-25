@@ -10,6 +10,9 @@ public class BuffAbilityBehaviour : AbilityBehaviour<BuffRuntimeAbility>
 
     private List<StatusController> statusControllers = new();
 
+    public int NumberOfTargets = -1;
+    public BuffApplicationTime buffApplicationTime = BuffApplicationTime.OnExit;
+
     public override void OnEnter()
     {
         if (Status is ArmorBuffSO armorBuffSO)
@@ -17,28 +20,25 @@ public class BuffAbilityBehaviour : AbilityBehaviour<BuffRuntimeAbility>
             armorBuffSO.baseDuration = runtime.Duration;
             armorBuffSO.armorIncrease = (int)runtime.BuffAmount;
         }
+
+        if (Status is BurnDotSO burnDotSO)
+        {
+            burnDotSO.damagePerTick = (int)runtime.BuffAmount;
+            NumberOfTargets = (int)runtime.Duration;
+        }
+
+        if (buffApplicationTime == BuffApplicationTime.OnEnter)
+        {
+            ApplyBuff();
+        }
     }
 
     public override void OnExit()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, TargetLayer);
-        foreach (Collider coll in colliders)
+        if (buffApplicationTime == BuffApplicationTime.OnExit)
         {
-            if (coll.TryGetComponent(out StatusController statusController))
-            {
-                if (!statusControllers.Contains(statusController))
-                {
-                    statusControllers.Add(statusController);
-                }
-            }
+            ApplyBuff();
         }
-
-        foreach (StatusController s in statusControllers)
-        {
-            s.ApplyStatus(Status, player);
-        }
-
-        statusControllers.Clear();
     }
 
     public override void OnUse()
@@ -64,4 +64,40 @@ public class BuffAbilityBehaviour : AbilityBehaviour<BuffRuntimeAbility>
 
         return resourceController.resource.resourceType == runtime.resourceType && resourceController.resource.RemoveResource(runtime.resourceAmount);
     }
+
+    public void ApplyBuff()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, TargetLayer);
+
+        int numTargets = colliders.Length;
+
+        if (NumberOfTargets != -1)
+        {
+            numTargets = Mathf.Clamp(NumberOfTargets, 0, colliders.Length);
+        }
+
+        for (int i = 0; i < numTargets; i++)
+        {
+            if (colliders[i].TryGetComponent(out StatusController statusController))
+            {
+                if (!statusControllers.Contains(statusController))
+                {
+                    statusControllers.Add(statusController);
+                }
+            }
+        }
+
+        foreach (StatusController s in statusControllers)
+        {
+            s.ApplyStatus(Status, player);
+        }
+
+        statusControllers.Clear();
+    }
+}
+
+public enum BuffApplicationTime
+{
+    OnEnter,
+    OnExit
 }

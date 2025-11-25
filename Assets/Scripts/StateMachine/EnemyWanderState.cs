@@ -19,12 +19,14 @@ public class EnemyWanderState : EnemyBaseState
 
     public override void OnEnter()
     {
-        agent.speed = enemy.wanderSpeed;
-        //animator.CrossFade(IdleHash, crossFadeDuration);
+        
     }
 
     public override void Update()
     {
+        agent.speed = enemy.wanderSpeed;
+        animator.SetFloat("MovementAnimationMultiplier", agent.speed / enemy.StartWanderSpeed);
+
         if (HasReachedDestination())
         {
             if (!IsWaiting)

@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponRangeType: 3
-  PlayerLayer:
+  TargetLayer:
     serializedVersion: 2
     m_Bits: 128
   radius: 5
   Status: {fileID: 11400000, guid: 0ae180700c5b45747a904b6df15b9584, type: 2}
+  NumberOfTargets: -1

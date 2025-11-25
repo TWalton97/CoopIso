@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
   m_Name: TwoHandedSword
   m_EditorClassIdentifier: 
-  <WeaponMinDamage>k__BackingField: 8
-  <WeaponMaxDamage>k__BackingField: 16
+  <WeaponMinDamage>k__BackingField: 6
+  <WeaponMaxDamage>k__BackingField: 14
   <AttacksPerSecond>k__BackingField: 1.15
   <NumberOfAttacksInCombo>k__BackingField: 3
-  <MovementSpeedMultiplierDuringAttack>k__BackingField: 0

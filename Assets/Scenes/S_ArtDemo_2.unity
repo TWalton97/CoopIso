@@ -18887,7 +18887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6435222113093039702, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7364630524549636734, guid: acd91032daec98c4fbcd54e29c8f189c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33807,6 +33807,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8401688365367484040, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+      propertyPath: MaximumHealth
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 8458699510939732860, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
       propertyPath: m_Name
       value: SkeletonArcher
@@ -37017,17 +37021,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ad7bf144749b04ab484a680630a040, type: 3}
---- !u!114 &951122146722979858 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7230535324818502119, guid: 872264858b12c5a4ea3992e755558f83, type: 3}
-  m_PrefabInstance: {fileID: 5994120498954353042}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c9d4b62f5cc1f143a5e85187f250e17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2931139173367579347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37387,10 +37380,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 90509361737073914, guid: 872264858b12c5a4ea3992e755558f83, type: 3}
-      propertyPath: UnlockedFeats.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1833144333380311706, guid: 872264858b12c5a4ea3992e755558f83, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -37431,23 +37420,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1963507904449709706, guid: 872264858b12c5a4ea3992e755558f83, type: 3}
-      propertyPath: playerController
-      value: 
-      objectReference: {fileID: 951122146722979858}
-    - target: {fileID: 3691733013924269106, guid: 872264858b12c5a4ea3992e755558f83, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5013222344262508588, guid: 872264858b12c5a4ea3992e755558f83, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5013222344262508588, guid: 872264858b12c5a4ea3992e755558f83, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5695402344025760639, guid: 872264858b12c5a4ea3992e755558f83, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

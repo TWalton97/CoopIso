@@ -51,7 +51,7 @@ public class StatusController : MonoBehaviour
 
             return;
         }
-
+        
         StatusInstance newInstance = new StatusInstance(statusData, source);
         activeStatuses.Add(newInstance);
 
@@ -113,5 +113,12 @@ public class StatusController : MonoBehaviour
             activeStatuses[i].data.OnExit(activeStatuses[i], this);
             activeStatuses.RemoveAt(i);
         }
+    }
+
+    public bool HasStatusApplied(StatusSO statusData)
+    {
+        var existing = activeStatuses.Find(s => s.data.statusID == statusData.statusID);
+
+        return statusData = null;
     }
 }

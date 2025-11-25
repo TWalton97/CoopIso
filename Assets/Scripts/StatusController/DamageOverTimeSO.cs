@@ -7,6 +7,8 @@ public abstract class DamageOverTimeSO : StatusSO
     private GameObject vfxRoot;
     private ParticleSystem[] spawnedVFX;
     public float tickRate;
+    public bool SpreadOnExit = false;
+    public LayerMask EnemyLayer;
 
     public override void OnEnter(StatusInstance instance, StatusController target)
     {
@@ -48,10 +50,26 @@ public abstract class DamageOverTimeSO : StatusSO
 
     public override void OnExit(StatusInstance instance, StatusController target)
     {
-
         if (instance.spawnedVFX != null)
         {
             Destroy(instance.spawnedVFX.gameObject);
+        }
+
+        if (SpreadOnExit && instance.remainingDuration > 0)
+        {
+            Collider[] colliders = Physics.OverlapSphere(target.transform.position, 8f, EnemyLayer);
+            if (colliders.Length == 0) return;
+            foreach (Collider coll in colliders)
+            {
+                if (coll.TryGetComponent(out StatusController controller))
+                {
+                    if (controller == target) return;
+                    if (!controller.HasStatusApplied(this))
+                    {
+                        controller.ApplyStatus(this, instance.source);
+                    }
+                }
+            }
         }
     }
 

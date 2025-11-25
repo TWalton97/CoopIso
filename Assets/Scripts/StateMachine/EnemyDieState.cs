@@ -22,7 +22,6 @@ public class EnemyDieState : EnemyBaseState
         enemy.coll.enabled = false;
         enemy.StartCoroutine(SpawnItems());
 
-
         if (enemy.statusController != null)
         {
             enemy.statusController.RemoveAllStatuses();
@@ -36,10 +35,10 @@ public class EnemyDieState : EnemyBaseState
 
     private IEnumerator SpawnItems()
     {
-        int numItemsToSpawn = enemy.spawnedItemDataBase.GetAffixCount(enemy.healthController.MaximumHealth);
+        int numItemsToSpawn = SpawnedItemDataBase.Instance.GetAffixCount(enemy.healthController.MaximumHealth);
         for (int i = 0; i < numItemsToSpawn; i++)
         {
-            Item instantiatedItem = enemy.spawnedItemDataBase.SpawnRandomItem(enemy.healthController.MaximumHealth);
+            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(enemy.healthController.MaximumHealth);
             instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }

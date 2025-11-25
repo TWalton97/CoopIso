@@ -1435,6 +1435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43502b20a77518645b1d5d671a533854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statusController: {fileID: 0}
   spawnedItemDataBase: {fileID: 0}
   ExpValue: 60
   ExpRange: 15
@@ -1531,8 +1532,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41478574a33e19148a568bce7ad1fde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaximumHealth: 32
-  CurrentHealth: 32
+  MaximumHealth: 56
+  CurrentHealth: 0
   PrintDamageTaken: 0
 --- !u!136 &7839878868582317200
 CapsuleCollider:
@@ -1603,6 +1604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328b214ff7b4ff04b8562d96661030e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeStatuses: []
 --- !u!1 &4141560499705226945
 GameObject:
   m_ObjectHideFlags: 0

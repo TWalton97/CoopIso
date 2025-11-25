@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class SpawnedItemDataBase : MonoBehaviour
+public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 {
     public Dictionary<string, SpawnedItemData> spawnedItemData = new Dictionary<string, SpawnedItemData>();
 

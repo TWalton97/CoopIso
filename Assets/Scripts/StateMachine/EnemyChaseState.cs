@@ -13,12 +13,13 @@ public class EnemyChaseState : EnemyBaseState
 
     public override void OnEnter()
     {
-        agent.speed = enemy.chaseSpeed;
-        //animator.CrossFade(RunHash, crossFadeDuration);
     }
 
     public override void Update()
     {
+        agent.speed = enemy.chaseSpeed;
+        animator.SetFloat("MovementAnimationMultiplier", agent.speed / enemy.StartChaseSpeed);
+
         if (enemy.playerDetector.CanAttackPlayer())
         {
             agent.SetDestination(enemy.transform.position);

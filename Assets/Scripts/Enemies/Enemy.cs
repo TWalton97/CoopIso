@@ -10,7 +10,7 @@ public class Enemy : Entity
     public SpawnedItemDataBase spawnedItemDataBase;
     public int ExpValue;
     public float ExpRange;
-    [SerializeField] protected NavMeshAgent agent;
+    public NavMeshAgent agent;
     public PlayerDetector playerDetector;
     [SerializeField] protected Animator animator;
     public Collider coll;
@@ -42,6 +42,9 @@ public class Enemy : Entity
 
     protected bool attackOnCooldown = false;
 
+    public float StartWanderSpeed { get; private set; }
+    public float StartChaseSpeed { get; private set; }
+
     public override void Awake()
     {
         base.Awake();
@@ -52,6 +55,8 @@ public class Enemy : Entity
             animationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
 
         statusController = GetComponent<StatusController>();
+        StartWanderSpeed = wanderSpeed;
+        StartChaseSpeed = chaseSpeed;
     }
 
     protected virtual void Start()

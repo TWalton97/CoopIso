@@ -9,7 +9,8 @@ public class RainOfArrowBehaviour : WeaponAbilityBehaviour
     public float CurrentWeaponDamagePercentage;
     public float HitboxSpawnDelay;
     public float HitboxDuration;
-    public LayerMask ObstructionLayers;
+    public LayerMask EnemyLayer;
+    public LayerMask WallLayer;
     public override void OnUse()
     {
 
@@ -35,7 +36,11 @@ public class RainOfArrowBehaviour : WeaponAbilityBehaviour
         yield return new WaitForSeconds(HitboxSpawnDelay);
         RaycastHit hit;
         Vector3 spawnPos;
-        if (Physics.SphereCast(player.transform.position + Vector3.up, 1f, player.transform.forward, out hit, 10f, ObstructionLayers))
+        if (Physics.SphereCast(player.transform.position + Vector3.up, 2f, player.transform.forward, out hit, 10f, EnemyLayer))
+        {
+            spawnPos = new Vector3(hit.point.x, 0f, hit.point.z);
+        }
+        else if (Physics.SphereCast(player.transform.position + Vector3.up, 1f, player.transform.forward, out hit, 10f, WallLayer))
         {
             spawnPos = new Vector3(hit.point.x, 0f, hit.point.z);
         }

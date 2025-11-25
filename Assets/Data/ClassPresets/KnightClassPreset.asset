@@ -30,3 +30,5 @@ MonoBehaviour:
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 71fc59681dde3654c81e29b8d3acf16a, type: 2}
       startingLevel: 0
+    - feat: {fileID: 11400000, guid: 86d4e2fcc63cf0e48b5ab2dff94db207, type: 2}
+      startingLevel: 0

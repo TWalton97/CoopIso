@@ -8,13 +8,13 @@ public class BuffRuntimeAbility : RuntimeAbility
     {
         this.data = data;
         BuffAmount = data.BuffValuePerLevel[currentLevel - 1];
-        Duration = data.BuffValuePerLevel[currentLevel - 1];
+        Duration = data.BuffDurationPerLevel[currentLevel - 1];
     }
 
     public override void Upgrade()
     {
         currentLevel++;
         BuffAmount = data.BuffValuePerLevel[currentLevel - 1];
-        Duration = data.BuffValuePerLevel[currentLevel - 1];
+        Duration = data.BuffDurationPerLevel[currentLevel - 1];
     }
 }
