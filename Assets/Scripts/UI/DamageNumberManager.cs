@@ -14,5 +14,16 @@ public class DamageNumberManager : Singleton<DamageNumberManager>
 
         num.Initialize(amount, isCritical);
     }
+
+    public void SpawnText(string text, Vector3 worldPosition)
+    {
+        DamageNumber num = Instantiate(
+            damageNumberPrefab,
+            worldPosition,
+            Quaternion.identity
+        );
+
+        num.Initialize(text);
+    }
 }
 

@@ -37,7 +37,8 @@ public abstract class DamageOverTimeSO : StatusSO
                 {
                     foreach (ParticleSystem ps in spawnedVFX)
                     {
-                        ps.Play();
+                        if (ps != null)
+                            ps.Play();
                     }
                 }
             }

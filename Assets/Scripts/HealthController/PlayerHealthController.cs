@@ -55,6 +55,7 @@ public class PlayerHealthController : HealthController
     private void Block(int damageAmount, Entity controller, SpawnedItemDataBase.SpawnedShieldData shieldData)
     {
         int newDamageAmount = Mathf.Clamp(damageAmount - shieldData.blockAmount, 0, damageAmount);
+        DamageNumberManager.Instance.SpawnText($"Blocked", transform.position + Vector3.up);
         TakeDamage(newDamageAmount, controller, true);
     }
 

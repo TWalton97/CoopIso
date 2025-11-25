@@ -35,6 +35,11 @@ public class DamageNumber : MonoBehaviour
             text.color = Color.red;
     }
 
+    public void Initialize(string _text)
+    {
+        text.text = _text;
+    }
+
     void Update()
     {
         // Always face the camera
