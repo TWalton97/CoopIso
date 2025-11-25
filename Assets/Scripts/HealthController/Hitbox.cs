@@ -44,7 +44,15 @@ public class Hitbox : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out IDamageable damageable))
         {
-            damageable.TakeDamage(_damage, _controller);
+            if (_controller is NewPlayerController newPlayerController && newPlayerController.PlayerStatsBlackboard.IsCritical())
+            {
+                damageable.TakeDamage(newPlayerController.PlayerStatsBlackboard.CalculateCritical(_damage), _controller, false, true);
+            }
+            else
+            {
+                damageable.TakeDamage(_damage, _controller);
+            }
+
             OnTargetDamaged?.Invoke();
         }
 

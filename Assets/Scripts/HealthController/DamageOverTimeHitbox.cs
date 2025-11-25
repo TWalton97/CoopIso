@@ -32,12 +32,24 @@ public class DamageOverTimeHitbox : Hitbox
         {
             if (damagedColliders.Contains(damageable)) return;
             damagedColliders.Add(damageable);
-            damageable.TakeDamage(_damage, _controller);
+
+            int damageToDeal = _damage;
+
+            if (_controller is NewPlayerController newPlayerController && newPlayerController.PlayerStatsBlackboard.IsCritical())
+            {
+                damageToDeal = newPlayerController.PlayerStatsBlackboard.CalculateCritical(_damage);
+                damageable.TakeDamage(damageToDeal, _controller, false, true);
+            }
+            else
+            {
+                damageable.TakeDamage(damageToDeal, _controller);
+            }
+
             if (other.gameObject.TryGetComponent(out StatusController statusController) && statusesToApply != null)
             {
                 foreach (StatusSO status in statusesToApply)
                 {
-                    statusController.ApplyStatus(status, _controller, _damage);
+                    statusController.ApplyStatus(status, _controller, damageToDeal);
                 }
             }
             damagedColliders.Add(damageable);
@@ -60,12 +72,24 @@ public class DamageOverTimeHitbox : Hitbox
         {
             if (damagedColliders.Contains(damageable)) return;
             damagedColliders.Add(damageable);
-            damageable.TakeDamage(_damage, _controller);
+
+            int damageToDeal = _damage;
+
+            if (_controller is NewPlayerController newPlayerController && newPlayerController.PlayerStatsBlackboard.IsCritical())
+            {
+                damageToDeal = newPlayerController.PlayerStatsBlackboard.CalculateCritical(_damage);
+                damageable.TakeDamage(damageToDeal, _controller, false, true);
+            }
+            else
+            {
+                damageable.TakeDamage(damageToDeal, _controller);
+            }
+
             if (other.gameObject.TryGetComponent(out StatusController statusController) && statusesToApply != null)
             {
                 foreach (StatusSO status in statusesToApply)
                 {
-                    statusController.ApplyStatus(status, _controller, _damage);
+                    statusController.ApplyStatus(status, _controller, damageToDeal);
                 }
             }
             damagedColliders.Add(damageable);

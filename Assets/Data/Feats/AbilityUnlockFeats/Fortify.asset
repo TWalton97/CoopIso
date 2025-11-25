@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fortify
   m_EditorClassIdentifier: 
   FeatName: Fortify
-  SkillPointCostPerLevel: 0200000002000000030000000400000005000000
+  SkillPointCostPerLevel: 0100000002000000030000000400000005000000
   AbilityToUnlock: {fileID: 11400000, guid: d1af874b22eef914baaef8e130bcbdb0, type: 2}

@@ -8,6 +8,8 @@ public class Chest : MonoBehaviour, IInteractable
     public Transform spawnPosition;
     private Animator animator;
 
+    public int minItems = 1;
+
     public List<Item> itemsToSpawn;
 
     private string itemName = "Chest";
@@ -38,7 +40,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     private IEnumerator SpawnItems(SpawnedItemDataBase spawnedItemDataBase)
     {
-        int numItemsToSpawn = spawnedItemDataBase.GetAffixCount(Rarity);
+        int numItemsToSpawn = Mathf.Clamp(spawnedItemDataBase.GetAffixCount(Rarity), minItems, 4);
         for (int i = 0; i < numItemsToSpawn; i++)
         {
             Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity);

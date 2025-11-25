@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RainOfArrows
   m_EditorClassIdentifier: 
   FeatName: Rain of Arrows
-  SkillPointCostPerLevel: 030000000200000003000000
+  SkillPointCostPerLevel: 010000000200000003000000
   AbilityToUnlock: {fileID: 11400000, guid: 4076df69b7e87f9419624a7dd3ac10c3, type: 2}

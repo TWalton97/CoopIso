@@ -15225,6 +15225,7 @@ MonoBehaviour:
     InteractionManager: {fileID: 0}
     SpawnedItemDatabase: {fileID: 0}
     PlayerPreviewManager: {fileID: 0}
+    InventoryController: {fileID: 0}
   WeaponController: {fileID: 7874169709706284734}
   ArmorController: {fileID: 1963507904449709706}
   ExperienceController: {fileID: 9155891904063514100}
@@ -15302,6 +15303,8 @@ MonoBehaviour:
   CurrentSpeed: 0
   WeaponController: {fileID: 7874169709706284734}
   AttacksPerSecond: 0
+  CriticalChance: 10
+  CriticalDamage: 50
   ResourceController: {fileID: 6695485961067399900}
   ResourceType: 0
   ResourceMax: 0
@@ -15348,7 +15351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
-  SkillPoints: 12
+  SkillPoints: 0
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 412665536095753354}
 --- !u!114 &4202505148022750934
@@ -15420,8 +15423,7 @@ MonoBehaviour:
   newPlayerController: {fileID: 7230535324818502119}
   experienceController: {fileID: 9155891904063514100}
   playerHealthController: {fileID: 6810012523319174219}
-  AllFeats:
-  - {fileID: 11400000, guid: b5bda621ae842664e868e8c36964058b, type: 2}
+  AllFeats: []
   UnlockedFeats: []
 --- !u!114 &1963507904449709706
 MonoBehaviour:

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Hemorrhage
   m_EditorClassIdentifier: 
   FeatName: Hemorrhage
-  SkillPointCostPerLevel: 030000000200000002000000
+  SkillPointCostPerLevel: 010000000200000002000000
   AbilityToUnlock: {fileID: 11400000, guid: 9af9f22e91b85b4428acf421490cb585, type: 2}

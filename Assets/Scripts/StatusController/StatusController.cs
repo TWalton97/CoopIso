@@ -41,6 +41,10 @@ public class StatusController : MonoBehaviour
             if (statusData.refreshDurationOnReapply)
             {
                 existing.remainingDuration = statusData.baseDuration;
+                if (statusData is DamageOverTimeSO dotSO)
+                {
+                    existing.nextTickTime = statusData.baseDuration - dotSO.tickRate;
+                }
             }
 
             existing.tickTimer = 0f;
@@ -68,6 +72,14 @@ public class StatusController : MonoBehaviour
             if (statusData.refreshDurationOnReapply)
             {
                 existing.remainingDuration = statusData.baseDuration;
+                if (statusData is DamageOverTimeSO dotSO)
+                {
+                    existing.nextTickTime = statusData.baseDuration - dotSO.tickRate;
+                    if (initialHitDamage > existing.initialHitDamage)
+                    {
+                        existing.initialHitDamage = initialHitDamage;
+                    }
+                }
             }
 
             existing.tickTimer = 0f;
@@ -91,6 +103,15 @@ public class StatusController : MonoBehaviour
                 activeStatuses[i].data.OnExit(activeStatuses[i], this);
                 activeStatuses.RemoveAt(i);
             }
+        }
+    }
+
+    public void RemoveAllStatuses()
+    {
+        for (int i = activeStatuses.Count - 1; i >= 0; i--)
+        {
+            activeStatuses[i].data.OnExit(activeStatuses[i], this);
+            activeStatuses.RemoveAt(i);
         }
     }
 }

@@ -21,6 +21,12 @@ public class EnemyDieState : EnemyBaseState
         enemy.ragdoll.SetActive(true);
         enemy.coll.enabled = false;
         enemy.StartCoroutine(SpawnItems());
+
+
+        if (enemy.statusController != null)
+        {
+            enemy.statusController.RemoveAllStatuses();
+        }
     }
 
     public override void Update()

@@ -8,9 +8,16 @@ public class StatIncreaseFeat : FeatSO
     public float[] ValuePerLevel;
     [TextArea] public string FeatDescription;
 
+    public bool isPercentage = false;
+
     public override string GetCurrentEffect(int level)
     {
         if (level == 0) return $"Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)}";
+
+        if (isPercentage)
+        {
+            return $"Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {CalculateCurrentValue(level)}" + "%";
+        }
 
         return $"Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {CalculateCurrentValue(level)}";
     }
@@ -18,6 +25,11 @@ public class StatIncreaseFeat : FeatSO
     public override string GetNextLevelEffect(int level)
     {
         if (level >= ValuePerLevel.Length) return "Maximum level reached";
+
+        if (isPercentage)
+        {
+            return $"Next Level: Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {ValuePerLevel[level]}" + "%";
+        }
 
         return $"Next Level: Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {ValuePerLevel[level]}";
     }
@@ -43,6 +55,12 @@ public class StatIncreaseFeat : FeatSO
             case StatToIncrease.MovementSpeed:
                 controller.newPlayerController.IncreaseMovementSpeed(ValuePerLevel[safeIndex]);
                 break;
+            case StatToIncrease.CriticalChance:
+                controller.newPlayerController.PlayerStatsBlackboard.CriticalChance += ValuePerLevel[safeIndex];
+                break;
+            case StatToIncrease.CriticalDamage:
+                controller.newPlayerController.PlayerStatsBlackboard.CriticalDamage += ValuePerLevel[safeIndex];
+                break;
         }
     }
 
@@ -61,5 +79,7 @@ public class StatIncreaseFeat : FeatSO
 public enum StatToIncrease
 {
     MaximumHealth,
-    MovementSpeed
+    MovementSpeed,
+    CriticalChance,
+    CriticalDamage,
 }

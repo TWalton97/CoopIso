@@ -20,11 +20,12 @@ public class HealthController : MonoBehaviour, IDamageable
         CurrentHealth = MaximumHealth;
     }
 
-    public virtual void TakeDamage(int damageAmount, Entity controller, bool bypassBlockCheck = false)
+    public virtual void TakeDamage(int damageAmount, Entity controller, bool bypassBlockCheck = false, bool isCritical = false)
     {
         if (IsDead) return;
 
         CurrentHealth = Mathf.Clamp(CurrentHealth - damageAmount, 0, MaximumHealth);
+        DamageNumberManager.Instance.SpawnNumber(damageAmount, transform.position + Vector3.up, isCritical);
         OnTakeDamage?.Invoke(damageAmount, controller);
 
         if (PrintDamageTaken)

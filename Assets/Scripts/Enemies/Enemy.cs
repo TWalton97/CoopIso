@@ -6,6 +6,7 @@ using Utilities;
 
 public class Enemy : Entity
 {
+    public StatusController statusController;
     public SpawnedItemDataBase spawnedItemDataBase;
     public int ExpValue;
     public float ExpRange;
@@ -49,6 +50,8 @@ public class Enemy : Entity
         animationStatusTracker = GetComponent<AnimationStatusTracker>();
         if (animationStatusTracker == null)
             animationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
+
+        statusController = GetComponent<StatusController>();
     }
 
     protected virtual void Start()

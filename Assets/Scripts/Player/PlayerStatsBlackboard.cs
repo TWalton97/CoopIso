@@ -22,8 +22,9 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
     [Header("Attack")]
     public NewWeaponController WeaponController;
-
     public float AttacksPerSecond;
+    public float CriticalChance = 10;
+    public float CriticalDamage = 50;
 
     [Header("Resources")]
     public ResourceController ResourceController;
@@ -145,5 +146,22 @@ public class PlayerStatsBlackboard : MonoBehaviour
         ResourceMax = ResourceController.resource.resourceMax;
         ResourceCurrent = ResourceController.resource.resourceCurrent;
         ResourceMin = ResourceController.resource.resourceMin;
+    }
+
+    public bool IsCritical()
+    {
+        int rand = UnityEngine.Random.Range(0, 101);
+        if (rand <= CriticalChance)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public int CalculateCritical(int damage)
+    {
+        float newDamage = damage;
+        newDamage = newDamage * (1 + CriticalDamage / 100);
+        return (int)newDamage;
     }
 }

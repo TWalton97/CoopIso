@@ -37,7 +37,7 @@ public class ExperienceController : MonoBehaviour
     {
         level += 1;
         LevelUpParticle.Play();
-        SkillPoints++;
+        SkillPoints += level;
         OnLevelUp?.Invoke();
     }
 

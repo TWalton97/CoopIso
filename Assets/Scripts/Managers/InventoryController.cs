@@ -18,6 +18,8 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private TMP_Text PlayerAttacksPerSecondText;
     [SerializeField] private TMP_Text PlayerManaText;
     [SerializeField] private TMP_Text PlayerArmorText;
+    [SerializeField] private TMP_Text PlayerCriticalChanceText;
+    [SerializeField] private TMP_Text PlayerCriticalDamageText;
 
     public List<ItemSlot> selectedItemSlots = new();
     public ItemSlot CurrentlySelectedItemSlot;
@@ -60,6 +62,8 @@ public class InventoryController : MonoBehaviour
         PlayerAttacksPerSecondText.text = controller.PlayerStatsBlackboard.AttacksPerSecond.ToString("0.00");
         PlayerManaText.text = controller.PlayerStatsBlackboard.ResourceCurrent.ToString("00") + "/" + controller.PlayerStatsBlackboard.ResourceMax.ToString("00");
         PlayerArmorText.text = controller.PlayerStatsBlackboard.ArmorAmount.ToString();
+        PlayerCriticalChanceText.text = controller.PlayerStatsBlackboard.CriticalChance.ToString() + "%";
+        PlayerCriticalDamageText.text = (controller.PlayerStatsBlackboard.CriticalDamage + 100).ToString() + "%";
     }
 
     private void SetEquipmentSlotIndexes()

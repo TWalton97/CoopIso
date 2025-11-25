@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Cyclone
   m_EditorClassIdentifier: 
   FeatName: Cyclone
-  SkillPointCostPerLevel: 020000000300000004000000
+  SkillPointCostPerLevel: 010000000200000003000000
   AbilityToUnlock: {fileID: 11400000, guid: 76a485bb44ef31842b618276d472b89b, type: 2}

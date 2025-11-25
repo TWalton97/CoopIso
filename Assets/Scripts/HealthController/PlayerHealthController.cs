@@ -12,7 +12,7 @@ public class PlayerHealthController : HealthController
         newPlayerController = GetComponent<NewPlayerController>();
     }
 
-    public override void TakeDamage(int damageAmount, Entity controller, bool bypassBlockCheck = false)
+    public override void TakeDamage(int damageAmount, Entity controller, bool bypassBlockCheck = false, bool isCritical = false)
     {
         if (!bypassBlockCheck)
         {
