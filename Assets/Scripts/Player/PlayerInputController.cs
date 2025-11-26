@@ -80,12 +80,13 @@ public class PlayerInputController : MonoBehaviour
         SubscribeToInputAction(playerInputActions.Player.Jump.id.ToString(), OnJump, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.LookMouse.id.ToString(), OnLookMouse, gameplayMap);
-        SubscribeToInputAction(playerInputActions.Player.LookStick.id.ToString(), OnLookStick, gameplayMap);
+        //SubscribeToInputAction(playerInputActions.Player.LookStick.id.ToString(), OnLookStick, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.Interact.id.ToString(), OnInteract, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.DrinkPotionOne.id.ToString(), OnDrinkPotionOne, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.DrinkPotionTwo.id.ToString(), OnDrinkPotionTwo, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.CycleAbilityListRight.id.ToString(), OnCycleAbilityListRight, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.CycleAbilityListLeft.id.ToString(), OnCycleAbilityListLeft, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.ResetCameraRotation.id.ToString(), OnResetCameraRotation, gameplayMap);
 
         SubscribeToInputAction(playerInputActions.UI.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, UIMap);
         SubscribeToInputAction(playerInputActions.UI.DropItem.id.ToString(), OnDropItem, UIMap);
@@ -106,6 +107,10 @@ public class PlayerInputController : MonoBehaviour
         action = playerInput.currentActionMap.FindAction(playerInputActions.Player.Ability.id);
         action.started += OnAbility;
         action.canceled -= OnAbility;
+
+        action = playerInput.currentActionMap.FindAction(playerInputActions.Player.LookStick.id);
+        action.started += OnLookStick;
+        action.canceled += OnLookStick;
 
         attackCountdownTimer.OnTimerStop += ResetAttackTimer;
     }
@@ -218,6 +223,11 @@ public class PlayerInputController : MonoBehaviour
     public void OnDrinkPotionTwo(CallbackContext context)
     {
         OnDrinkPotionTwoPerformed?.Invoke(context);
+    }
+
+    public void OnResetCameraRotation(CallbackContext context)
+    {
+        FreeLookCameraManager.Instance.OrientTowardsLookDirection(playerController.transform);
     }
 
     public void OnCycleAbilityListRight(CallbackContext context)

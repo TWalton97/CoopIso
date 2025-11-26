@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ResetCameraRotation",
+                    "type": "Button",
+                    "id": "eaf3a5e3-60eb-437f-944a-dc1fad4cc8e5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -473,6 +482,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "CycleAbilityListLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15e47f35-569d-48b8-b759-9a23187febfa",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ResetCameraRotation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

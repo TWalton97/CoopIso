@@ -58,6 +58,8 @@ public class NewPlayerController : Entity
 
     public AbilitySO AbilityBeingUsed;
 
+    private Camera mainCam;
+
     #region MonoBehaviour
 
     public void Init()
@@ -70,6 +72,7 @@ public class NewPlayerController : Entity
         AnimationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
         PotionController = GetComponent<PotionController>();
         BowAimLineController = GetComponentInChildren<BowAimLineController>();
+        mainCam = Camera.main;
     }
 
     public override void ApplyStats()
@@ -136,8 +139,8 @@ public class NewPlayerController : Entity
         InventoryManager.OnMenuClosed -= () => PlayerInputController.EnablePlayerActionMap();
         InventoryManager.OnMenuClosed -= () => attackStateMachine.ChangeState(idleState);
 
-        PlayerInputController.OnLookMousePerformed -= RotateTowardsMouse;
-        PlayerInputController.OnLookStickPerformed -= RotateTowardsStick;
+        //PlayerInputController.OnLookMousePerformed -= RotateTowardsMouse;
+        //PlayerInputController.OnLookStickPerformed -= RotateTowardsStick;
 
         PlayerInputController.OnAbilityPerformed -= Ability;
         PlayerInputController.OnAttackPerformed -= Attack;
@@ -236,37 +239,53 @@ public class NewPlayerController : Entity
         _moveInput = PlayerInputController.MoveVal;
         Vector3 inputDirection = new Vector3(_moveInput.x, 0, _moveInput.y);
 
-        Quaternion rotation = Quaternion.AngleAxis(225f, Vector3.up);
+        Vector3 camForward = mainCam.transform.forward;
+        Vector3 camRight = mainCam.transform.right;
 
-        Vector3 rotatedInputDirection = rotation * inputDirection;
+        camForward.y = 0;
+        camRight.y = 0f;
+
+        camForward.Normalize();
+        camRight.Normalize();
+
+        Vector3 rotatedInputDirection = camForward * _moveInput.y + camRight * _moveInput.x;
+
+        //Quaternion rotation = Quaternion.AngleAxis(225f, Vector3.up);
+
+        //Vector3 rotatedInputDirection = rotation * inputDirection;
 
         Vector3 newVel = rotatedInputDirection * _movementSpeed;
         newVel.y = Rigidbody.velocity.y;
 
         Rigidbody.velocity = newVel;
 
-        if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState || (attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast))
-        {
-            if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME)
-            {
-                if (PlayerInputController.LookStickVal != Vector2.zero)
-                {
-                    RotateToFaceDir(lookPoint);
-                }
-                else if (PlayerInputController.MoveVal != Vector2.zero)
-                {
-                    RotateToFaceDir(_moveInput);
-                }
-            }
-            else if (PlayerInputController.playerInput.currentControlScheme == KEYBOARD_SCHEME)
-            {
-                transform.LookAt(transform.position + lookPoint);
-            }
-        }
-        else if (!(attackStateMachine.current.State == castState && !AbilityBeingUsed.CanRotateDuringCast))
-        {
-            RotateToFaceDir(_moveInput);
-        }
+        if (_moveInput.sqrMagnitude > 0.01f)
+            transform.rotation = Quaternion.LookRotation(rotatedInputDirection);
+
+
+
+        // if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState || (attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast))
+        // {
+        //     if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME)
+        //     {
+        //         if (PlayerInputController.LookStickVal != Vector2.zero)
+        //         {
+        //             RotateToFaceDir(lookPoint);
+        //         }
+        //         else if (PlayerInputController.MoveVal != Vector2.zero)
+        //         {
+        //             RotateToFaceDir(rotatedInputDirection);
+        //         }
+        //     }
+        //     else if (PlayerInputController.playerInput.currentControlScheme == KEYBOARD_SCHEME)
+        //     {
+        //         transform.LookAt(transform.position + lookPoint);
+        //     }
+        // }
+        // else if (!(attackStateMachine.current.State == castState && !AbilityBeingUsed.CanRotateDuringCast))
+        // {
+        //     RotateToFaceDir(rotatedInputDirection);
+        // }
     }
 
     private void Jump(CallbackContext context)

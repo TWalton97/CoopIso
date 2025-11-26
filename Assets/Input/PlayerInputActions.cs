@@ -143,6 +143,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetCameraRotation"",
+                    ""type"": ""Button"",
+                    ""id"": ""eaf3a5e3-60eb-437f-944a-dc1fad4cc8e5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -495,6 +504,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""CycleAbilityListLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15e47f35-569d-48b8-b759-9a23187febfa"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""ResetCameraRotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1208,6 +1228,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_DrinkPotionTwo = m_Player.FindAction("DrinkPotionTwo", throwIfNotFound: true);
         m_Player_CycleAbilityListRight = m_Player.FindAction("CycleAbilityListRight", throwIfNotFound: true);
         m_Player_CycleAbilityListLeft = m_Player.FindAction("CycleAbilityListLeft", throwIfNotFound: true);
+        m_Player_ResetCameraRotation = m_Player.FindAction("ResetCameraRotation", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1304,6 +1325,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DrinkPotionTwo;
     private readonly InputAction m_Player_CycleAbilityListRight;
     private readonly InputAction m_Player_CycleAbilityListLeft;
+    private readonly InputAction m_Player_ResetCameraRotation;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1321,6 +1343,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DrinkPotionTwo => m_Wrapper.m_Player_DrinkPotionTwo;
         public InputAction @CycleAbilityListRight => m_Wrapper.m_Player_CycleAbilityListRight;
         public InputAction @CycleAbilityListLeft => m_Wrapper.m_Player_CycleAbilityListLeft;
+        public InputAction @ResetCameraRotation => m_Wrapper.m_Player_ResetCameraRotation;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1369,6 +1392,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CycleAbilityListLeft.started += instance.OnCycleAbilityListLeft;
             @CycleAbilityListLeft.performed += instance.OnCycleAbilityListLeft;
             @CycleAbilityListLeft.canceled += instance.OnCycleAbilityListLeft;
+            @ResetCameraRotation.started += instance.OnResetCameraRotation;
+            @ResetCameraRotation.performed += instance.OnResetCameraRotation;
+            @ResetCameraRotation.canceled += instance.OnResetCameraRotation;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1412,6 +1438,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CycleAbilityListLeft.started -= instance.OnCycleAbilityListLeft;
             @CycleAbilityListLeft.performed -= instance.OnCycleAbilityListLeft;
             @CycleAbilityListLeft.canceled -= instance.OnCycleAbilityListLeft;
+            @ResetCameraRotation.started -= instance.OnResetCameraRotation;
+            @ResetCameraRotation.performed -= instance.OnResetCameraRotation;
+            @ResetCameraRotation.canceled -= instance.OnResetCameraRotation;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1639,6 +1668,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDrinkPotionTwo(InputAction.CallbackContext context);
         void OnCycleAbilityListRight(InputAction.CallbackContext context);
         void OnCycleAbilityListLeft(InputAction.CallbackContext context);
+        void OnResetCameraRotation(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
