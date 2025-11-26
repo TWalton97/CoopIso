@@ -4,34 +4,53 @@ using System.Collections;
 
 public class HealthController : MonoBehaviour, IDamageable
 {
+    public Entity entity;
     public int MaximumHealth = 10;
     public int CurrentHealth;
+    public int ArmorAmount;
+    public int BlockAngle;
 
     public Action<int, Entity> OnTakeDamage;
     public Action<int> OnHeal;
     public Action OnDie;
     public Action OnMaximumHealthChanged;
+    public Action OnArmorAmountChanged;
 
     public bool PrintDamageTaken = false;
+    public bool DisplayDamageNumbers = true;
     protected bool IsDead = false;
 
     private void Awake()
     {
         CurrentHealth = MaximumHealth;
+        entity = GetComponent<Entity>();
     }
 
     public virtual void TakeDamage(int damageAmount, Entity controller, bool bypassBlockCheck = false, bool isCritical = false)
     {
+        if (!bypassBlockCheck)
+        {
+            if (entity != null && entity.IsBlocking)
+            {
+                if (CheckAngleToAttacker(controller.gameObject, BlockAngle))
+                {
+                    DamageNumberManager.Instance.SpawnText("Blocked", transform.position + Vector3.up);
+                    return;
+                }
+            }
+        }
+
         if (IsDead) return;
 
-        CurrentHealth = Mathf.Clamp(CurrentHealth - damageAmount, 0, MaximumHealth);
-        DamageNumberManager.Instance.SpawnNumber(damageAmount, transform.position + Vector3.up, isCritical);
+
+        CurrentHealth = Mathf.Clamp(CurrentHealth - ApplyArmorReduction(damageAmount), 0, MaximumHealth);
         OnTakeDamage?.Invoke(damageAmount, controller);
 
+        if (DisplayDamageNumbers)
+            DamageNumberManager.Instance.SpawnNumber(damageAmount, transform.position + Vector3.up, isCritical);
+
         if (PrintDamageTaken)
-        {
-            Debug.Log(gameObject.name + " took " + damageAmount + " damage from " + controller.gameObject.name);
-        }
+            Debug.Log($"{gameObject.name} has taken {damageAmount} from {controller.name}");
 
         if (CurrentHealth <= 0)
         {
@@ -82,5 +101,38 @@ public class HealthController : MonoBehaviour, IDamageable
         MaximumHealth += amountOfHealth;
         CurrentHealth += amountOfHealth;
         OnMaximumHealthChanged?.Invoke();
+    }
+
+    private bool CheckAngleToAttacker(GameObject attacker, float blockAngle)
+    {
+        var directionToPlayer = attacker.transform.position - transform.position;
+        var angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
+
+        if (!(angleToPlayer < blockAngle / 2f))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private void Block(int damageAmount, Entity controller, SpawnedItemDataBase.SpawnedShieldData shieldData)
+    {
+        int newDamageAmount = Mathf.Clamp(damageAmount - shieldData.blockAmount, 0, damageAmount);
+        DamageNumberManager.Instance.SpawnText($"Blocked", transform.position + Vector3.up);
+        TakeDamage(newDamageAmount, controller, true);
+    }
+
+    public void UpdateArmorAmount(int amount)
+    {
+        ArmorAmount += amount;
+        OnArmorAmountChanged?.Invoke();
+    }
+
+    private int ApplyArmorReduction(int baseDamage, int K = 12)
+    {
+        if (baseDamage <= 0) return 0;
+        if (ArmorAmount <= 0) return baseDamage;
+        int damage = Mathf.Clamp(baseDamage * K / (K + ArmorAmount), 1, baseDamage);
+        return damage;
     }
 }

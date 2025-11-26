@@ -5,6 +5,7 @@ using UnityEngine;
 [Serializable]
 public class AttackProfile : ScriptableObject
 {
+    public AnimationClip altAttack;
     public AnimationClip attack1;
     public AnimationClip attack2;
     public AnimationClip attack3;

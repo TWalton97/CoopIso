@@ -3,24 +3,37 @@ using UnityEngine;
 [RequireComponent(typeof(HealthController))]
 public class Entity : MonoBehaviour, IDamageable
 {
-    public HealthController healthController { get; private set; }
+    public EntityStatsSO EntityData;
+    public HealthController HealthController;
+
+    public bool IsBlocking;
 
     public virtual void Awake()
     {
-        healthController = GetComponent<HealthController>();
+        HealthController = GetComponent<HealthController>();
     }
+
     public virtual void Die()
     {
-        healthController.Die();
+        HealthController.Die();
     }
 
     public virtual void Heal(int healAmount, bool canOverHeal = false)
     {
-        healthController.Heal(healAmount);
+        HealthController.Heal(healAmount);
     }
 
     public virtual void TakeDamage(int damageAmount, Entity controller, bool bypassBlockCheck, bool isCritical = false)
     {
-        healthController.TakeDamage(damageAmount, controller, bypassBlockCheck, isCritical);
+        HealthController.TakeDamage(damageAmount, controller, bypassBlockCheck, isCritical);
+    }
+
+    public virtual void ApplyStats()
+    {
+        if (EntityData == null)
+        {
+            Debug.LogWarning($"{gameObject.name} is missing EntityData");
+        }
+        HealthController.IncreaseMaximumHealth(EntityData.MaximumHealth);
     }
 }

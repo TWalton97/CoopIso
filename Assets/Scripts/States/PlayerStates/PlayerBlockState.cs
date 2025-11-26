@@ -9,14 +9,26 @@ public class PlayerBlockState : PlayerBaseState
 
     public override void OnEnter()
     {
-        player._movementSpeed = 1.5f;
+        if (player.WeaponController.instantiatedPrimaryWeapon != null && player.WeaponController.instantiatedPrimaryWeapon.weaponAttackType == NewWeaponController.WeaponAttackTypes.Bow)
+        {
+            ToggleAimLine(true);
+        }
+        player.IsBlocking = true;
+        player._movementSpeed = 0f;
         animator.SetBool("Blocking", true);
         animator.CrossFade(Block_Hash, crossFadeDuration, (int)PlayerAnimatorLayers.UpperBody);
     }
 
     public override void OnExit()
     {
+        player.IsBlocking = false;
         player._movementSpeed = player._maximumMovementSpeed;
         animator.SetBool("Blocking", false);
+        ToggleAimLine(false);
+    }
+
+    private void ToggleAimLine(bool value)
+    {
+        player.BowAimLineController.ToggleLineRenderer(value);
     }
 }

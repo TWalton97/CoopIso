@@ -125,6 +125,8 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.PlayerController.WeaponController.EquipStarterItems(classPresetSO.StartingMainHandWeapon, classPresetSO.StartingOffhandWeapon);
         playerContext.PlayerController.ArmorController.EquipStarterItems(classPresetSO.StartingHelmet, classPresetSO.StartingBodyArmor, classPresetSO.StartingLegArmor);
         playerContext.PlayerController.PlayerStatsBlackboard.ClassName = classPresetSO.PresetName;
+        playerContext.PlayerController.EntityData = classPresetSO.PlayerStatsSO;
+        playerContext.PlayerController.ApplyStats();
 
         playerUserInterfaceController.Init(playerInput, playerContext);
 

@@ -12,7 +12,7 @@ public class ArmorBuffSO : StatusSO
         base.OnEnter(instance, target);
         if (target.TryGetComponent(out NewPlayerController controller))
         {
-            controller.PlayerHealthController.UpdateArmorAmount(armorIncrease);
+            controller.HealthController.UpdateArmorAmount(armorIncrease);
             if (armorBuffVFX != null)
             {
                 var vfx = Instantiate(armorBuffVFX, target.transform.position, Quaternion.identity);
@@ -31,7 +31,7 @@ public class ArmorBuffSO : StatusSO
     {
         if (target.TryGetComponent(out NewPlayerController controller))
         {
-            controller.PlayerHealthController.UpdateArmorAmount(-armorIncrease);
+            controller.HealthController.UpdateArmorAmount(-armorIncrease);
 
             if (instance.spawnedVFX != null)
             {

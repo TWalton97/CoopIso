@@ -21,8 +21,8 @@ public class DualWieldMastery : Feat
 
         if (controller.experienceController.TrySpendSkillpoints(SkillPointsCostPerLevel))
         {
-            controller.newPlayerController.PlayerStatsBlackboard.DualWieldMastery = true;
-            controller.newPlayerController.WeaponController.CheckForAppropriateMastery();
+            controller.PlayerController.PlayerStatsBlackboard.DualWieldMastery = true;
+            controller.PlayerController.WeaponController.CheckForAppropriateMastery();
             CurrentFeatLevel++;
             SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
             activatedSuccess?.Invoke();
@@ -33,7 +33,7 @@ public class DualWieldMastery : Feat
     {
         if (CurrentFeatLevel == MaximumFeatLevel) return;
 
-        controller.newPlayerController.PlayerStatsBlackboard.DualWieldMastery = true;
+        controller.PlayerController.PlayerStatsBlackboard.DualWieldMastery = true;
         CurrentFeatLevel++;
         SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
         activatedSuccess?.Invoke();

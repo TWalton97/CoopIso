@@ -57,6 +57,7 @@ public class Enemy : Entity
         statusController = GetComponent<StatusController>();
         StartWanderSpeed = wanderSpeed;
         StartChaseSpeed = chaseSpeed;
+        ApplyStats();
     }
 
     protected virtual void Start()
@@ -83,19 +84,29 @@ public class Enemy : Entity
         stateMachine.OnStateChanged += UpdateStateName;
     }
 
+    public override void ApplyStats()
+    {
+        base.ApplyStats();
+        chaseSpeed = EntityData.MovementSpeed;
+        if (EntityData is EnemyStatsSO enemyData)
+        {
+            wanderSpeed = enemyData.WanderSpeed;
+        }
+    }
+
     private void OnEnable()
     {
         if (wanderState != null) stateMachine.SetState(wanderState);
-        healthController.OnTakeDamage += Stagger;
-        healthController.OnDie += () => IsDead = true;
-        healthController.OnDie += Die;
+        HealthController.OnTakeDamage += Stagger;
+        HealthController.OnDie += () => IsDead = true;
+        HealthController.OnDie += Die;
     }
 
     private void OnDisable()
     {
-        healthController.OnTakeDamage -= Stagger;
-        healthController.OnDie -= () => IsDead = true;
-        healthController.OnDie -= Die;
+        HealthController.OnTakeDamage -= Stagger;
+        HealthController.OnDie -= () => IsDead = true;
+        HealthController.OnDie -= Die;
 
         stateMachine.OnStateChanged -= UpdateStateName;
     }

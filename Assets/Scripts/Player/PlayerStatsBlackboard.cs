@@ -5,8 +5,6 @@ using Unity.VisualScripting;
 public class PlayerStatsBlackboard : MonoBehaviour
 {
     [Header("Health")]
-    public PlayerHealthController HealthController;
-
     public float MaximumHealth;
     public float CurrentHealth;
 
@@ -56,40 +54,40 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
     private void OnEnable()
     {
-        HealthController.OnTakeDamage += UpdateHealthStats;
+        PlayerController.HealthController.OnTakeDamage += UpdateHealthStats;
         WeaponController.OnWeaponUpdated += UpdateAttackStats;
         ResourceController.resource.OnResourceValueChanged += UpdateResourceStats;
-        HealthController.OnMaximumHealthChanged += UpdateHealthStats;
-        HealthController.OnArmorAmountChanged += UpdateArmorStats;
+        PlayerController.HealthController.OnMaximumHealthChanged += UpdateHealthStats;
+        PlayerController.HealthController.OnArmorAmountChanged += UpdateArmorStats;
     }
 
     private void OnDisable()
     {
-        HealthController.OnTakeDamage -= UpdateHealthStats;
+        PlayerController.HealthController.OnTakeDamage -= UpdateHealthStats;
         WeaponController.OnWeaponUpdated -= UpdateAttackStats;
         ResourceController.resource.OnResourceValueChanged -= UpdateResourceStats;
-        HealthController.OnMaximumHealthChanged -= UpdateHealthStats;
-        HealthController.OnArmorAmountChanged -= UpdateArmorStats;
+        PlayerController.HealthController.OnMaximumHealthChanged -= UpdateHealthStats;
+        PlayerController.HealthController.OnArmorAmountChanged -= UpdateArmorStats;
     }
 
     private void UpdateHealthStats(int amount = 0, Entity controller = null)
     {
-        if (HealthController == null) return;
-        MaximumHealth = HealthController.MaximumHealth;
-        CurrentHealth = HealthController.CurrentHealth;
+        if (PlayerController.HealthController == null) return;
+        MaximumHealth = PlayerController.HealthController.MaximumHealth;
+        CurrentHealth = PlayerController.HealthController.CurrentHealth;
     }
 
     private void UpdateHealthStats()
     {
-        if (HealthController == null) return;
-        MaximumHealth = HealthController.MaximumHealth;
-        CurrentHealth = HealthController.CurrentHealth;
+        if (PlayerController.HealthController == null) return;
+        MaximumHealth = PlayerController.HealthController.MaximumHealth;
+        CurrentHealth = PlayerController.HealthController.CurrentHealth;
     }
 
     public void UpdateArmorStats()
     {
-        if (HealthController == null) return;
-        ArmorAmount = HealthController.ArmorAmount;
+        if (PlayerController.HealthController == null) return;
+        ArmorAmount = PlayerController.HealthController.ArmorAmount;
     }
 
     private void UpdateMovementSpeed()

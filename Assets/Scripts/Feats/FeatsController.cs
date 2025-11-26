@@ -6,10 +6,8 @@ using UnityEngine;
 
 public class FeatsController : MonoBehaviour
 {
-    public NewPlayerController newPlayerController;
+    public NewPlayerController PlayerController;
     public ExperienceController experienceController;
-    public PlayerHealthController playerHealthController;
-
 
     public List<FeatSO> AllFeats;
     public List<RuntimeFeat> UnlockedFeats;
@@ -60,7 +58,7 @@ public class FeatsController : MonoBehaviour
             runtime = new RuntimeFeat(feat);
             UnlockedFeats.Add(runtime);
 
-            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController);
+            feat.OnActivate(runtime.CurrentFeatLevel, PlayerController);
             OnFeatLevelChanged?.Invoke(feat, runtime.CurrentFeatLevel);
             return true;
         }
@@ -75,7 +73,7 @@ public class FeatsController : MonoBehaviour
 
             runtime.CurrentFeatLevel++;
 
-            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController);
+            feat.OnActivate(runtime.CurrentFeatLevel, PlayerController);
             OnFeatLevelChanged?.Invoke(feat, runtime.CurrentFeatLevel);
             return true;
         }
@@ -100,7 +98,7 @@ public class FeatsController : MonoBehaviour
             runtime = new RuntimeFeat(feat);
             UnlockedFeats.Add(runtime);
 
-            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController);
+            feat.OnActivate(runtime.CurrentFeatLevel, PlayerController);
             OnFeatLevelChanged?.Invoke(feat, runtime.CurrentFeatLevel);
 
             return true;
@@ -114,7 +112,7 @@ public class FeatsController : MonoBehaviour
 
             runtime.CurrentFeatLevel++;
 
-            feat.OnActivate(runtime.CurrentFeatLevel, newPlayerController);
+            feat.OnActivate(runtime.CurrentFeatLevel, PlayerController);
             OnFeatLevelChanged?.Invoke(feat, runtime.CurrentFeatLevel);
 
             return true;

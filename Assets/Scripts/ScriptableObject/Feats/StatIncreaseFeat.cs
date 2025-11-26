@@ -50,16 +50,16 @@ public class StatIncreaseFeat : FeatSO
         switch (Stat)
         {
             case StatToIncrease.MaximumHealth:
-                controller.playerHealthController.IncreaseMaximumHealth((int)ValuePerLevel[safeIndex]);
+                controller.PlayerController.HealthController.IncreaseMaximumHealth((int)ValuePerLevel[safeIndex]);
                 break;
             case StatToIncrease.MovementSpeed:
-                controller.newPlayerController.IncreaseMovementSpeed(ValuePerLevel[safeIndex]);
+                controller.PlayerController.IncreaseMovementSpeed(ValuePerLevel[safeIndex]);
                 break;
             case StatToIncrease.CriticalChance:
-                controller.newPlayerController.PlayerStatsBlackboard.CriticalChance += ValuePerLevel[safeIndex];
+                controller.PlayerController.PlayerStatsBlackboard.CriticalChance += ValuePerLevel[safeIndex];
                 break;
             case StatToIncrease.CriticalDamage:
-                controller.newPlayerController.PlayerStatsBlackboard.CriticalDamage += ValuePerLevel[safeIndex];
+                controller.PlayerController.PlayerStatsBlackboard.CriticalDamage += ValuePerLevel[safeIndex];
                 break;
         }
     }

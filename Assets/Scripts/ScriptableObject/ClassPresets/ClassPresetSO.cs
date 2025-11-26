@@ -14,4 +14,5 @@ public class ClassPresetSO : ScriptableObject
     public Item StartingLegArmor;
 
     [Tooltip("List of feats that will be added to this class's Feats Menu")] public ClassFeatConfig classFeatConfig;
+    public PlayerStatsSO PlayerStatsSO;
 }

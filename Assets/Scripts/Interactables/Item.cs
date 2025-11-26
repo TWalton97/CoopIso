@@ -14,6 +14,8 @@ public class Item : MonoBehaviour, IInteractable
     public bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
     public InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
 
+    public bool itemCollected { get; private set; }
+
     void Start()
     {
         if (itemData.vfxPrefab != null)
@@ -41,9 +43,10 @@ public class Item : MonoBehaviour, IInteractable
 
     private void CollectItem(InventoryManager inventoryManager, int playerIndex)
     {
+        if (itemCollected) return;
+        itemCollected = true;
         inventoryManager.AddItemToCorrectPlayerInventory(itemData, playerIndex);
-        if (gameObject != null)
-            Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     public void OnInteract(PlayerContext context, int playerIndex)

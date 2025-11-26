@@ -2923,10 +2923,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1101443617580340800}
+  - component: {fileID: 9138885414497719036}
   - component: {fileID: 198375892357967965}
   - component: {fileID: 8401688365367484040}
   - component: {fileID: 7433324669054062663}
-  - component: {fileID: 9138885414497719036}
   - component: {fileID: 5542632148025433312}
   - component: {fileID: 7893179272062647807}
   - component: {fileID: 8371414246281985758}
@@ -2961,6 +2961,47 @@ Transform:
   - {fileID: 7772174096851676817}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9138885414497719036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8458699510939732860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52b8235bb0a7cd4fb0f73243ef2d577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntityData: {fileID: 11400000, guid: fa0cb88e6ab6cfb4aaeea79e913733f5, type: 2}
+  HealthController: {fileID: 0}
+  IsBlocking: 0
+  statusController: {fileID: 0}
+  spawnedItemDataBase: {fileID: 0}
+  ExpValue: 90
+  ExpRange: 15
+  agent: {fileID: 7433324669054062663}
+  playerDetector: {fileID: 5542632148025433312}
+  animator: {fileID: 198375892357967965}
+  coll: {fileID: 7893179272062647807}
+  ragdoll: {fileID: 3643241346399685666}
+  body:
+  - {fileID: 1296096957024359430}
+  - {fileID: 2173569951065190373}
+  - {fileID: 8829721318290427134}
+  - {fileID: 9033092380839583032}
+  wanderSpeed: 1.5
+  chaseSpeed: 2.5
+  rotationSpeed: 240
+  wanderRadius: 1
+  timeBetweenAttacks: 0.5
+  IsStaggered: 0
+  StateName: 
+  animationStatusTracker: {fileID: 0}
+  projectile: {fileID: 5783461640622885472, guid: 778cb966ce47eab41b78642fd79408cc, type: 3}
+  projectileSpeed: 14
+  damage: 4
+  arrowSpawnPos: {fileID: 2679124445174203088}
 --- !u!95 &198375892357967965
 Animator:
   serializedVersion: 5
@@ -2994,8 +3035,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41478574a33e19148a568bce7ad1fde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaximumHealth: 48
+  MaximumHealth: 0
   CurrentHealth: 0
+  ArmorAmount: 0
   PrintDamageTaken: 0
 --- !u!195 &7433324669054062663
 NavMeshAgent:
@@ -3019,44 +3061,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &9138885414497719036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8458699510939732860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52b8235bb0a7cd4fb0f73243ef2d577, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statusController: {fileID: 0}
-  spawnedItemDataBase: {fileID: 0}
-  ExpValue: 90
-  ExpRange: 15
-  agent: {fileID: 7433324669054062663}
-  playerDetector: {fileID: 5542632148025433312}
-  animator: {fileID: 198375892357967965}
-  coll: {fileID: 7893179272062647807}
-  ragdoll: {fileID: 3643241346399685666}
-  body:
-  - {fileID: 1296096957024359430}
-  - {fileID: 2173569951065190373}
-  - {fileID: 8829721318290427134}
-  - {fileID: 9033092380839583032}
-  wanderSpeed: 1.5
-  chaseSpeed: 2.5
-  rotationSpeed: 240
-  wanderRadius: 1
-  timeBetweenAttacks: 0.5
-  IsStaggered: 0
-  StateName: 
-  animationStatusTracker: {fileID: 0}
-  projectile: {fileID: 5783461640622885472, guid: 778cb966ce47eab41b78642fd79408cc, type: 3}
-  projectileSpeed: 14
-  damage: 4
-  arrowSpawnPos: {fileID: 2679124445174203088}
 --- !u!114 &5542632148025433312
 MonoBehaviour:
   m_ObjectHideFlags: 0

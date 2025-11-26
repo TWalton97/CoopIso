@@ -847,7 +847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 613265988915514573, guid: ffee21ab564130d46be811cc973a669f, type: 3}
       propertyPath: MaximumHealth
-      value: 124
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2892972251681915945, guid: ffee21ab564130d46be811cc973a669f, type: 3}
       propertyPath: m_Height
@@ -913,6 +913,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 4639791813074721927}
+    - target: {fileID: 7671825740262623611, guid: ffee21ab564130d46be811cc973a669f, type: 3}
+      propertyPath: EntityData
+      value: 
+      objectReference: {fileID: 11400000, guid: 39316b7ad2a00644791a09dd898c9323, type: 2}
     - target: {fileID: 7671825740262623611, guid: ffee21ab564130d46be811cc973a669f, type: 3}
       propertyPath: chaseSpeed
       value: 2.5

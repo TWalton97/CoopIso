@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0adb5b75a8aa484197405a0f3daedae, type: 3}
   m_Name: BowAttackProfile
   m_EditorClassIdentifier: 
+  altAttack: {fileID: 7400000, guid: ae2386465475ab8449b1d1474393c06e, type: 2}
   attack1: {fileID: 7400000, guid: 794e593d4dd2d804bae77933d6498267, type: 2}
-  attack2: {fileID: 7400000, guid: 794e593d4dd2d804bae77933d6498267, type: 2}
+  attack2: {fileID: 7400000, guid: de214a13ce3576b4495eb4d32cbd9a6d, type: 2}
   attack3: {fileID: 7400000, guid: 794e593d4dd2d804bae77933d6498267, type: 2}
   comboAttack: {fileID: 7400000, guid: 794e593d4dd2d804bae77933d6498267, type: 2}

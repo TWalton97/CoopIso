@@ -24,7 +24,7 @@ public class Nimble : Feat
 
         if (controller.experienceController.TrySpendSkillpoints(SkillPointsCostPerLevel))
         {
-            controller.newPlayerController.IncreaseMovementSpeed(MovementSpeedIncreasePerLevel[CurrentFeatLevel]);
+            controller.PlayerController.IncreaseMovementSpeed(MovementSpeedIncreasePerLevel[CurrentFeatLevel]);
             CurrentFeatLevel++;
             SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
             activatedSuccess?.Invoke();
@@ -35,7 +35,7 @@ public class Nimble : Feat
     {
         if (CurrentFeatLevel == MaximumFeatLevel) return;
 
-        controller.newPlayerController.IncreaseMovementSpeed(MovementSpeedIncreasePerLevel[CurrentFeatLevel]);
+        controller.PlayerController.IncreaseMovementSpeed(MovementSpeedIncreasePerLevel[CurrentFeatLevel]);
         CurrentFeatLevel++;
         SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
         activatedSuccess?.Invoke();

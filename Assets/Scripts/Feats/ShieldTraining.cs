@@ -21,7 +21,7 @@ public class ShieldTraining : Feat
 
         if (controller.experienceController.TrySpendSkillpoints(SkillPointsCostPerLevel))
         {
-            controller.newPlayerController.PlayerStatsBlackboard.CanEquipShields = true;
+            controller.PlayerController.PlayerStatsBlackboard.CanEquipShields = true;
             CurrentFeatLevel++;
             SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
             activatedSuccess?.Invoke();
@@ -32,7 +32,7 @@ public class ShieldTraining : Feat
     {
         if (CurrentFeatLevel == MaximumFeatLevel) return;
 
-        controller.newPlayerController.PlayerStatsBlackboard.CanEquipShields = true;
+        controller.PlayerController.PlayerStatsBlackboard.CanEquipShields = true;
         CurrentFeatLevel++;
         SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
         activatedSuccess?.Invoke();

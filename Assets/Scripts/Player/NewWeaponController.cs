@@ -84,7 +84,7 @@ public class NewWeaponController : MonoBehaviour
         }
     }
 
-    public void Attack(Action OnActionCompleted)
+    public void Attack(Action OnActionCompleted, bool shootFromAiming = false)
     {
         this.OnActionCompleted = OnActionCompleted;
 
@@ -108,12 +108,24 @@ public class NewWeaponController : MonoBehaviour
             return;
         }
 
-        instantiatedPrimaryWeapon.Enter(OnActionCompleted, numAttacks);
-        newPlayerController.Animator.SetInteger("counter", numAttacks);
-        newPlayerController.Animator.SetTrigger("Attack");
-        numAttacks++;
-        canAttack = false;
-        comboCounter.Start();
+        if (shootFromAiming)
+        {
+            instantiatedPrimaryWeapon.Enter(OnActionCompleted, numAttacks);
+            newPlayerController.Animator.SetBool("ShootFromAiming", true);
+            numAttacks++;
+            canAttack = false;
+        }
+        else
+        {
+            instantiatedPrimaryWeapon.Enter(OnActionCompleted, numAttacks);
+            newPlayerController.Animator.SetInteger("counter", numAttacks);
+            newPlayerController.Animator.SetTrigger("Attack");
+            numAttacks++;
+            canAttack = false;
+            comboCounter.Start();
+        }
+
+
 
         if (instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
         {
@@ -210,7 +222,7 @@ public class NewWeaponController : MonoBehaviour
         if (instantiatedSecondaryWeapon.weaponAttackType == WeaponAttackTypes.Shield)
         {
             SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
-            newPlayerController.PlayerHealthController.UpdateArmorAmount(spawnedShieldData.armorAmount);
+            newPlayerController.HealthController.UpdateArmorAmount(spawnedShieldData.armorAmount);
             HasShieldEquipped = true;
         }
         newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
@@ -337,7 +349,7 @@ public class NewWeaponController : MonoBehaviour
                     if (HasShieldEquipped)
                     {
                         SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
-                        newPlayerController.PlayerHealthController.UpdateArmorAmount(-spawnedShieldData.armorAmount);
+                        newPlayerController.HealthController.UpdateArmorAmount(-spawnedShieldData.armorAmount);
                     }
                     Destroy(instantiatedSecondaryWeapon.gameObject);
                     HasShieldEquipped = false;
@@ -350,6 +362,7 @@ public class NewWeaponController : MonoBehaviour
 
     public void ApplyAttackProfile(AttackProfile attackProfile)
     {
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("BlockingLoop", attackProfile.altAttack);
         newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchLeft", attackProfile.attack1);
         newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchRight", attackProfile.attack2);
         newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchLeft", attackProfile.attack3);
@@ -358,8 +371,6 @@ public class NewWeaponController : MonoBehaviour
 
     private void CalculateWeaponDamage()
     {
-        //If the player only has one weapon, we just take the average damage of it
-        //If the player has two, we take 70% of each one and then average it
         int primaryWeaponDamage;
         int secondaryWeaponDamage;
 

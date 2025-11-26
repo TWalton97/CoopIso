@@ -12,7 +12,6 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnEnter()
     {
-        player.WeaponController.Attack(AttackCompleted);
         if (player.WeaponController.instantiatedPrimaryWeapon != null)
         {
             if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
@@ -23,9 +22,16 @@ public class PlayerAttackState : PlayerBaseState
             else if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(BowSO))
             {
                 BowSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as BowSO;
+                if (player.blockButtonPressed)
+                {
+                    player.WeaponController.Attack(AttackCompleted, true);
+                    player._movementSpeed = 0;
+                    return;
+                }
                 //ReduceSpeedCoroutine = player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedMultiplierDuringAttack));
             }
         }
+        player.WeaponController.Attack(AttackCompleted);
         player._movementSpeed = 0;
     }
 

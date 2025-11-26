@@ -22,7 +22,7 @@ public class Cyclone : Feat
 
         if (controller.experienceController.TrySpendSkillpoints(SkillPointsCostPerLevel))
         {
-            controller.newPlayerController.AbilityController.UnlockAbility(ability);
+            controller.PlayerController.AbilityController.UnlockAbility(ability);
             CurrentFeatLevel++;
             SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
             activatedSuccess?.Invoke();
@@ -33,7 +33,7 @@ public class Cyclone : Feat
     {
         if (CurrentFeatLevel == MaximumFeatLevel) return;
 
-        controller.newPlayerController.AbilityController.UnlockAbility(ability);
+        controller.PlayerController.AbilityController.UnlockAbility(ability);
         CurrentFeatLevel++;
         SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
         activatedSuccess?.Invoke();

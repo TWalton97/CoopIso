@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ResourcePanelController : MonoBehaviour
 {
-    public PlayerHealthController PlayerHealthController;
+    public HealthController HealthController;
     public ResourceController ResourceController;
     public ExperienceController ExperienceController;
 
@@ -16,12 +16,12 @@ public class ResourcePanelController : MonoBehaviour
 
     public void Init(NewPlayerController playerController)
     {
-        PlayerHealthController = playerController.PlayerHealthController;
+        HealthController = playerController.HealthController;
         ResourceController = playerController.ResourceController;
         ExperienceController = playerController.ExperienceController;
 
-        PlayerHealthController.OnTakeDamage += UpdateHealthBarFill;
-        PlayerHealthController.OnHeal += UpdateHealthBarFill;
+        HealthController.OnTakeDamage += UpdateHealthBarFill;
+        HealthController.OnHeal += UpdateHealthBarFill;
         ResourceController.resource.OnResourceValueChanged += UpdateResourceBarFill;
         ExperienceController.OnExperienceGained += UpdateExperienceBarFill;
         ExperienceController.OnLevelUp += UpdateExperienceBarFill;
@@ -34,8 +34,8 @@ public class ResourcePanelController : MonoBehaviour
 
     void OnDestroy()
     {
-        PlayerHealthController.OnTakeDamage -= UpdateHealthBarFill;
-        PlayerHealthController.OnHeal -= UpdateHealthBarFill;
+        HealthController.OnTakeDamage -= UpdateHealthBarFill;
+        HealthController.OnHeal -= UpdateHealthBarFill;
         ResourceController.resource.OnResourceValueChanged -= UpdateResourceBarFill;
         ExperienceController.OnExperienceGained -= UpdateExperienceBarFill;
         ExperienceController.OnLevelUp -= UpdateExperienceBarFill;
@@ -43,12 +43,12 @@ public class ResourcePanelController : MonoBehaviour
 
     private void UpdateHealthBarFill(int damage, Entity entity)
     {
-        HealthBarFill.value = (float)PlayerHealthController.CurrentHealth / PlayerHealthController.MaximumHealth;
+        HealthBarFill.value = (float)HealthController.CurrentHealth / HealthController.MaximumHealth;
     }
 
     private void UpdateHealthBarFill(int amount)
     {
-        HealthBarFill.value = (float)PlayerHealthController.CurrentHealth / PlayerHealthController.MaximumHealth;
+        HealthBarFill.value = (float)HealthController.CurrentHealth / HealthController.MaximumHealth;
     }
 
     private void UpdateResourceBarFill()

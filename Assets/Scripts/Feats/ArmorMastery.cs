@@ -64,13 +64,13 @@ public class ArmorMastery : Feat
         switch (CurrentFeatLevel)
         {
             case 0:
-                controller.newPlayerController.PlayerStatsBlackboard.armorType = ArmorType.Light;
+                controller.PlayerController.PlayerStatsBlackboard.armorType = ArmorType.Light;
                 break;
             case 1:
-                controller.newPlayerController.PlayerStatsBlackboard.armorType = ArmorType.Medium;
+                controller.PlayerController.PlayerStatsBlackboard.armorType = ArmorType.Medium;
                 break;
             case 2:
-                controller.newPlayerController.PlayerStatsBlackboard.armorType = ArmorType.Heavy;
+                controller.PlayerController.PlayerStatsBlackboard.armorType = ArmorType.Heavy;
                 break;
         }
     }

@@ -23327,9 +23327,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41478574a33e19148a568bce7ad1fde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entity: {fileID: 0}
   MaximumHealth: 1000
   CurrentHealth: 0
+  ArmorAmount: 0
+  BlockAngle: 0
   PrintDamageTaken: 1
+  DisplayDamageNumbers: 1
 --- !u!136 &1288645446
 CapsuleCollider:
   m_ObjectHideFlags: 0

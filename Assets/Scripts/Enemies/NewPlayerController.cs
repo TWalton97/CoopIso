@@ -22,12 +22,12 @@ public class NewPlayerController : Entity
     public PotionController PotionController { get; private set; }
     public PlayerUserInterfaceController PlayerUserInterfaceController { get; private set; }
     public PlayerStatsBlackboard PlayerStatsBlackboard;
-    public PlayerHealthController PlayerHealthController;
     public FeatsController FeatsController;
     public PlayerAnimationController PlayerAnimationController;
     public AbilityController AbilityController;
     public ResourceController ResourceController;
     public StatusController StatusController;
+    public BowAimLineController BowAimLineController { get; private set; }
 
     public float _movementSpeed;
     public float _maximumMovementSpeed;
@@ -69,6 +69,15 @@ public class NewPlayerController : Entity
         Interactor = GetComponentInChildren<Interactor>();
         AnimationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
         PotionController = GetComponent<PotionController>();
+        BowAimLineController = GetComponentInChildren<BowAimLineController>();
+    }
+
+    public override void ApplyStats()
+    {
+        base.ApplyStats();
+        _movementSpeed = EntityData.MovementSpeed;
+        PlayerStatsBlackboard.CriticalChance = EntityData.CriticalChance;
+        PlayerStatsBlackboard.CriticalDamage = EntityData.CriticalDamage;
     }
 
     void Start()
@@ -192,8 +201,8 @@ public class NewPlayerController : Entity
         blockState = new PlayerBlockState(this, Animator);
         castState = new PlayerCastState(this, Animator);
 
-        At(idleState, blockState, attackStateMachine, new FuncPredicate(() => blockButtonPressed && WeaponController.HasShieldEquipped));
-        At(blockState, idleState, attackStateMachine, new FuncPredicate(() => !blockButtonPressed && WeaponController.HasShieldEquipped));
+        At(idleState, blockState, attackStateMachine, new FuncPredicate(() => blockButtonPressed));
+        At(blockState, idleState, attackStateMachine, new FuncPredicate(() => !blockButtonPressed));
 
         At(idleState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
         At(blockState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
@@ -238,9 +247,16 @@ public class NewPlayerController : Entity
 
         if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState || (attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast))
         {
-            if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME && PlayerInputController.LookStickVal != Vector2.zero)
+            if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME)
             {
-                RotateToFaceDir(lookPoint);
+                if (PlayerInputController.LookStickVal != Vector2.zero)
+                {
+                    RotateToFaceDir(lookPoint);
+                }
+                else if (PlayerInputController.MoveVal != Vector2.zero)
+                {
+                    RotateToFaceDir(_moveInput);
+                }
             }
             else if (PlayerInputController.playerInput.currentControlScheme == KEYBOARD_SCHEME)
             {
@@ -320,8 +336,6 @@ public class NewPlayerController : Entity
 
     private void Block(CallbackContext context)
     {
-        if (!WeaponController.HasShieldEquipped) return;
-
         if (context.started)
         {
             blockButtonPressed = true;

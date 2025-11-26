@@ -24,7 +24,7 @@ public class Vigor : Feat
 
         if (controller.experienceController.TrySpendSkillpoints(SkillPointsCostPerLevel))
         {
-            controller.playerHealthController.IncreaseMaximumHealth(HealthIncreasePerLevel[CurrentFeatLevel]);
+            controller.PlayerController.HealthController.IncreaseMaximumHealth(HealthIncreasePerLevel[CurrentFeatLevel]);
             CurrentFeatLevel++;
             SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
             activatedSuccess?.Invoke();
@@ -35,7 +35,7 @@ public class Vigor : Feat
     {
         if (CurrentFeatLevel == MaximumFeatLevel) return;
 
-        controller.playerHealthController.IncreaseMaximumHealth(HealthIncreasePerLevel[CurrentFeatLevel]);
+        controller.PlayerController.HealthController.IncreaseMaximumHealth(HealthIncreasePerLevel[CurrentFeatLevel]);
         CurrentFeatLevel++;
         SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
         activatedSuccess?.Invoke();

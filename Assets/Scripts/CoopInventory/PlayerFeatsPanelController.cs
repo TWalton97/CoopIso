@@ -97,14 +97,6 @@ public class PlayerFeatsPanelController : MonoBehaviour
         FeatPreviewTitle.text = feat.FeatName;
         FeatPreviewCost.text = "Cost:" + feat.GetCost(currentFeatLevel).ToString();
         FeatPreviewStats.text = feat.GetNextLevelEffect(currentFeatLevel);
-        // if (currentFeatLevel == 0)
-        // {
-        //     FeatPreviewStats.text = feat.GetNextLevelEffect(currentFeatLevel);
-        // }
-        // else
-        // {
-        //     FeatPreviewStats.text = feat.GetCurrentEffect(currentFeatLevel) + "\n" + feat.GetNextLevelEffect(currentFeatLevel);
-        // }
 
         FeatPreviewDescription.text = feat.GetCurrentEffect(currentFeatLevel);
 

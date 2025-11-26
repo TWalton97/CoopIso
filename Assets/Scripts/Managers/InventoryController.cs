@@ -35,8 +35,8 @@ public class InventoryController : MonoBehaviour
     void OnEnable()
     {
         controller.WeaponController.OnWeaponUpdated += UpdatePlayerStats;
-        controller.PlayerHealthController.OnMaximumHealthChanged += UpdatePlayerStats;
-        controller.PlayerHealthController.OnArmorAmountChanged += UpdatePlayerStats;
+        controller.HealthController.OnMaximumHealthChanged += UpdatePlayerStats;
+        controller.HealthController.OnArmorAmountChanged += UpdatePlayerStats;
         OnMenuOpened += controller.PlayerStatsBlackboard.UpdateArmorStats;
         OnMenuOpened += UpdatePlayerStats;
         UpdatePlayerStats();
@@ -45,8 +45,8 @@ public class InventoryController : MonoBehaviour
     private void OnDisable()
     {
         controller.WeaponController.OnWeaponUpdated -= UpdatePlayerStats;
-        controller.PlayerHealthController.OnMaximumHealthChanged -= UpdatePlayerStats;
-        controller.PlayerHealthController.OnArmorAmountChanged -= UpdatePlayerStats;
+        controller.HealthController.OnMaximumHealthChanged -= UpdatePlayerStats;
+        controller.HealthController.OnArmorAmountChanged -= UpdatePlayerStats;
         OnMenuOpened -= controller.PlayerStatsBlackboard.UpdateArmorStats;
         OnMenuOpened -= UpdatePlayerStats;
         ResetButtonSelection();
@@ -57,7 +57,7 @@ public class InventoryController : MonoBehaviour
     public void UpdatePlayerStats()
     {
         PlayerClassText.text = controller.PlayerStatsBlackboard.ClassName;
-        PlayerHealthText.text = controller.healthController.CurrentHealth.ToString() + "/" + controller.healthController.MaximumHealth.ToString();
+        PlayerHealthText.text = controller.HealthController.CurrentHealth.ToString() + "/" + controller.HealthController.MaximumHealth.ToString();
         PlayerMovementSpeedText.text = controller._maximumMovementSpeed.ToString();
         PlayerAttacksPerSecondText.text = controller.PlayerStatsBlackboard.AttacksPerSecond.ToString("0.00");
         PlayerManaText.text = controller.PlayerStatsBlackboard.ResourceCurrent.ToString("00") + "/" + controller.PlayerStatsBlackboard.ResourceMax.ToString("00");

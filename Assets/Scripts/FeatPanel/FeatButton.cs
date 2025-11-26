@@ -63,7 +63,7 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
             return;
         }
 
-        if (experienceController.SkillPoints >= feat.SkillPointCostPerLevel[currentFeatLevel])
+        if (experienceController.SkillPoints >= feat.SkillPointCostPerLevel[Mathf.Clamp(currentFeatLevel - 1, 0, feat.SkillPointCostPerLevel.Length)])
         {
             FeatName.color = ActiveColor;
         }

@@ -21,8 +21,8 @@ public class TwoHandedMastery : Feat
 
         if (controller.experienceController.TrySpendSkillpoints(SkillPointsCostPerLevel))
         {
-            controller.newPlayerController.PlayerStatsBlackboard.TwoHandedMastery = true;
-            controller.newPlayerController.WeaponController.CheckForAppropriateMastery();
+            controller.PlayerController.PlayerStatsBlackboard.TwoHandedMastery = true;
+            controller.PlayerController.WeaponController.CheckForAppropriateMastery();
             CurrentFeatLevel++;
             SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
             activatedSuccess?.Invoke();
@@ -33,7 +33,7 @@ public class TwoHandedMastery : Feat
     {
         if (CurrentFeatLevel == MaximumFeatLevel) return;
 
-        controller.newPlayerController.PlayerStatsBlackboard.TwoHandedMastery = true;
+        controller.PlayerController.PlayerStatsBlackboard.TwoHandedMastery = true;
         CurrentFeatLevel++;
         SkillPointsCostPerLevel += SkillPointsCostIncreasePerLevel;
         activatedSuccess?.Invoke();

@@ -32,3 +32,4 @@ MonoBehaviour:
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
       startingLevel: 0
+  PlayerStatsSO: {fileID: 11400000, guid: b66c1b0fb33840b4fa545e0925ceb874, type: 2}

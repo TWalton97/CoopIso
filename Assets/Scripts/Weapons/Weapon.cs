@@ -92,6 +92,7 @@ public class Weapon : MonoBehaviour
     public void InvokeOnExit()
     {
         OnExit?.Invoke();
+        newPlayerController.Animator.SetBool("ShootFromAiming", false);
     }
 
     public virtual void Exit()
