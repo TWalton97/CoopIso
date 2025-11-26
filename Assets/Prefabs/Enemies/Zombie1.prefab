@@ -1496,6 +1496,7 @@ MonoBehaviour:
   innerDetectionRadius: 5
   detectionCooldown: 1
   attackRange: 0.8
+  leashRange: 20
   aggroRange: 10
   PlayerLayer:
     serializedVersion: 2
@@ -1535,10 +1536,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41478574a33e19148a568bce7ad1fde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entity: {fileID: 0}
   MaximumHealth: 0
   CurrentHealth: 0
   ArmorAmount: 0
+  BlockAngle: 0
   PrintDamageTaken: 0
+  DisplayDamageNumbers: 1
 --- !u!136 &7839878868582317200
 CapsuleCollider:
   m_ObjectHideFlags: 0

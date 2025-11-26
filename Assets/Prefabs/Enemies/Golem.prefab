@@ -878,6 +878,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6150998468919678918, guid: ffee21ab564130d46be811cc973a669f, type: 3}
+      propertyPath: leashRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150998468919678918, guid: ffee21ab564130d46be811cc973a669f, type: 3}
       propertyPath: attackCooldown
       value: 2
       objectReference: {fileID: 0}

@@ -3,11 +3,14 @@ using Utilities;
 
 public class PlayerDetector : MonoBehaviour
 {
+    private HealthController healthController;
+
     [SerializeField] float detectionAngle = 60f; // Cone in front of enemy
     [SerializeField] float detectionRadius = 10f; // Large circle around enemy
     [SerializeField] float innerDetectionRadius = 5f; // Small circle around enemy
     [SerializeField] float detectionCooldown = 1f; // Time between detections
     [SerializeField] float attackRange = 2f; // Distance from enemy to player to attack
+    [SerializeField] float leashRange;  //Distance the target needs be to stop chasing
     [SerializeField] float aggroRange;
     [SerializeField] private LayerMask PlayerLayer;
 
@@ -20,6 +23,12 @@ public class PlayerDetector : MonoBehaviour
 
     public bool DisplayGizmos = false;
 
+    private bool tookDamageFromTarget = false;
+
+    void Awake()
+    {
+        healthController = GetComponent<HealthController>();
+    }
 
     void Start()
     {
@@ -28,23 +37,47 @@ public class PlayerDetector : MonoBehaviour
         detectionStrategy = new ConeDetectionStrategy(detectionAngle, detectionRadius, innerDetectionRadius);
     }
 
+    void OnEnable()
+    {
+        healthController.OnTakeDamage += SetTargetToDamager;
+    }
+
+    void OnDisable()
+    {
+        healthController.OnTakeDamage -= SetTargetToDamager;
+    }
+
+    private void SetTargetToDamager(int damage, Entity damager)
+    {
+        if (Player != null) return;
+
+        Player = damager.transform;
+        tookDamageFromTarget = true;
+    }
 
     private void FindPlayer()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, aggroRange, PlayerLayer);
-        if (colliders.Length == 0)
+        if (Player == null)
         {
-            Player = null;
-            return;
-        }
-
-        foreach (Collider coll in colliders)
-        {
-            if (coll.GetComponent<NewPlayerController>() != null)
+            Collider[] colliders = Physics.OverlapSphere(transform.position, aggroRange, PlayerLayer);
+            if (colliders.Length == 0)
             {
-                Player = coll.transform;
+                Player = null;
                 return;
             }
+
+            foreach (Collider coll in colliders)
+            {
+                if (coll.GetComponent<NewPlayerController>() != null)
+                {
+                    Player = coll.transform;
+                    return;
+                }
+            }
+        }
+        else if (Vector3.Distance(transform.position, Player.transform.position) > leashRange)
+        {
+            Player = null;
         }
     }
 
@@ -71,6 +104,7 @@ public class PlayerDetector : MonoBehaviour
     public bool CanDetectPlayer()
     {
         if (Player == null) return false;
+        if (tookDamageFromTarget) return true;
         return detectionTimer.IsRunning || detectionStrategy.Execute(Player, transform, detectionTimer);
     }
 

@@ -3035,10 +3035,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41478574a33e19148a568bce7ad1fde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entity: {fileID: 0}
   MaximumHealth: 0
   CurrentHealth: 0
   ArmorAmount: 0
+  BlockAngle: 0
   PrintDamageTaken: 0
+  DisplayDamageNumbers: 1
 --- !u!195 &7433324669054062663
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3078,6 +3081,7 @@ MonoBehaviour:
   innerDetectionRadius: 6
   detectionCooldown: 1
   attackRange: 8
+  leashRange: 20
   aggroRange: 10
   PlayerLayer:
     serializedVersion: 2

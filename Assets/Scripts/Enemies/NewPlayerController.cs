@@ -263,25 +263,21 @@ public class NewPlayerController : Entity
             transform.rotation = Quaternion.LookRotation(rotatedInputDirection);
 
 
-
-        // if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState || (attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast))
-        // {
-        //     if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME)
-        //     {
-        //         if (PlayerInputController.LookStickVal != Vector2.zero)
-        //         {
-        //             RotateToFaceDir(lookPoint);
-        //         }
-        //         else if (PlayerInputController.MoveVal != Vector2.zero)
-        //         {
-        //             RotateToFaceDir(rotatedInputDirection);
-        //         }
-        //     }
-        //     else if (PlayerInputController.playerInput.currentControlScheme == KEYBOARD_SCHEME)
-        //     {
-        //         transform.LookAt(transform.position + lookPoint);
-        //     }
-        // }
+        if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState || (attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast))
+        {
+            if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME)
+            {
+                if (PlayerInputController.MoveVal != Vector2.zero)
+                {
+                    transform.LookAt(transform.position + rotatedInputDirection);
+                    //RotateToFaceDir(rotatedInputDirection);
+                }
+            }
+            else if (PlayerInputController.playerInput.currentControlScheme == KEYBOARD_SCHEME)
+            {
+                transform.LookAt(transform.position + lookPoint);
+            }
+        }
         // else if (!(attackStateMachine.current.State == castState && !AbilityBeingUsed.CanRotateDuringCast))
         // {
         //     RotateToFaceDir(rotatedInputDirection);
