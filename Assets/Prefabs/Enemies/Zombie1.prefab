@@ -1430,7 +1430,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4115870468328907784}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43502b20a77518645b1d5d671a533854, type: 3}
   m_Name: 
@@ -1456,6 +1456,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0.6
   IsStaggered: 0
   StateName: 
+  spawned: 0
   animationStatusTracker: {fileID: 0}
 --- !u!195 &2546661760642592051
 NavMeshAgent:

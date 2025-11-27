@@ -2968,7 +2968,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8458699510939732860}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e52b8235bb0a7cd4fb0f73243ef2d577, type: 3}
   m_Name: 
@@ -2997,6 +2997,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0.5
   IsStaggered: 0
   StateName: 
+  spawned: 0
   animationStatusTracker: {fileID: 0}
   projectile: {fileID: 5783461640622885472, guid: 778cb966ce47eab41b78642fd79408cc, type: 3}
   projectileSpeed: 14

@@ -28,7 +28,6 @@ public class InteractionManager : MonoBehaviour
                 Player2UI.InteractionGameObject.SetActive(true);
                 break;
         }
-
     }
 
     public void DisableInteractionUI(int playerIndex)
@@ -54,6 +53,8 @@ public class InteractionManager : MonoBehaviour
                 return "open ";
             case InteractionType.Close:
                 return "close ";
+            case InteractionType.Travel:
+                return "travel to ";
         }
         return "";
     }
@@ -63,5 +64,6 @@ public enum InteractionType
 {
     PickUp,
     Open,
-    Close
+    Close,
+    Travel
 }

@@ -42,7 +42,7 @@ public class MainMenuController : MonoBehaviour
         if (!CheckReadyStatus()) return;
 
         gameSetupData.PlayerCount = PlayerInputManager.playerCount;
-        SceneManager.LoadScene(GameplaySceneName);
+        SceneLoadingManager.Instance.LoadSceneGroup(1);
     }
 
     private bool CheckReadyStatus()

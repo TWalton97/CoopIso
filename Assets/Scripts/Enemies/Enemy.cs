@@ -36,7 +36,7 @@ public class Enemy : Entity
     public string StateName;
     protected EnemyWanderState wanderState;
 
-    protected bool spawned = false;
+    public bool spawned = false;
 
     public AnimationStatusTracker animationStatusTracker;
 
@@ -49,7 +49,6 @@ public class Enemy : Entity
     {
         base.Awake();
         hitbox = GetComponentInChildren<Hitbox>();
-        StartCoroutine(WaitForNavMeshAndSpawn());
         animationStatusTracker = GetComponent<AnimationStatusTracker>();
         if (animationStatusTracker == null)
             animationStatusTracker = GetComponentInChildren<AnimationStatusTracker>();
@@ -96,6 +95,7 @@ public class Enemy : Entity
 
     private void OnEnable()
     {
+        spawned = true;
         if (wanderState != null) stateMachine.SetState(wanderState);
         HealthController.OnTakeDamage += Stagger;
         HealthController.OnDie += () => IsDead = true;
@@ -172,15 +172,5 @@ public class Enemy : Entity
         yield return new WaitForSeconds(timeBetweenAttacks);
         attackOnCooldown = false;
         yield return null;
-    }
-
-    private IEnumerator WaitForNavMeshAndSpawn()
-    {
-        while (!NavMesh.SamplePosition(transform.position, out _, 1f, NavMesh.AllAreas))
-        {
-            yield return new WaitForSeconds(0.5f);
-        }
-        agent.enabled = true;
-        spawned = true;
     }
 }

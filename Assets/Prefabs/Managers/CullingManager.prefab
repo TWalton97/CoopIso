@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cullingCamera: {fileID: 0}
-  maxCullingDistance: 45
+  maxCullingDistance: 100
   cullableLayers:
     serializedVersion: 2
     m_Bits: 256

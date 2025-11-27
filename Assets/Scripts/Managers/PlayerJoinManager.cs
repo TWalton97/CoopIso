@@ -3,21 +3,22 @@ using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine.InputSystem.UI;
-using UnityEngine.InputSystem.Users;
 
 public class PlayerJoinManager : Singleton<PlayerJoinManager>
 {
-    public PlayerAveragePositionTracker playerAveragePositionTracker;
+    //public PlayerAveragePositionTracker playerAveragePositionTracker;
     public PlayerInputManager playerInputManager;
     public InteractionManager interactionManager;
     public InventoryManager inventoryManager;
     public SpawnedItemDataBase spawnedItemDatabase;
     public PlayerPreviewManager playerPreviewManager;
+    public SceneLoadingManager sceneLoadingManager;
+    public CullingManager cullingManager;
 
     public static Action<GameObject> OnPlayerJoinedEvent;
     public static Action<GameObject> OnPlayerLeftEvent;
 
-    private Dictionary<int, NewPlayerController> playerControllers = new();
+    public Dictionary<int, NewPlayerController> playerControllers = new();
 
     public GameObject player1UI;
     public GameObject player2UI;
@@ -26,15 +27,63 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     public MainMenuController mainMenuController;
 
-
+    public int TargetSpawnID;
     protected override void Awake()
     {
         base.Awake();
-
         playerInputManager = GetComponent<PlayerInputManager>();
         mainMenuController = FindObjectOfType<MainMenuController>();
+        sceneLoadingManager = SceneLoadingManager.Instance;
+        sceneLoadingManager.OnUnloadingStarted += DisablePlayerGravity;
+        sceneLoadingManager.OnSceneGroupLoaded += EnablePlayerGravity;
         if (mainMenuController != null)
             SpawnPlayers();
+    }
+
+    void OnEnable()
+    {
+
+    }
+
+    void OnDisable()
+    {
+        sceneLoadingManager.OnUnloadingStarted -= DisablePlayerGravity;
+        sceneLoadingManager.OnSceneGroupLoaded -= EnablePlayerGravity;
+    }
+
+    private void DisablePlayerGravity()
+    {
+        cullingManager.CanCull = false;
+        for (int i = 0; i < playerControllers.Count; i++)
+        {
+            playerControllers[i].GetComponent<Rigidbody>().useGravity = false;
+        }
+    }
+
+    private void EnablePlayerGravity()
+    {
+        SpawnPoint targetSpawnPoint = null;
+
+        SpawnPoint[] spawnPoints = FindObjectsOfType<SpawnPoint>();
+        foreach (SpawnPoint spawnPoint in spawnPoints)
+        {
+            if (spawnPoint.SpawnID == TargetSpawnID)
+            {
+                targetSpawnPoint = spawnPoint;
+            }
+        }
+
+        for (int i = 0; i < playerControllers.Count; i++)
+        {
+            if (targetSpawnPoint != null)
+                playerControllers[i].transform.SetPositionAndRotation(targetSpawnPoint.transform.GetChild(i).position, targetSpawnPoint.transform.GetChild(i).rotation);
+            else
+                playerControllers[i].transform.position = Vector3.zero;
+
+            playerControllers[i].GetComponent<Rigidbody>().useGravity = true;
+        }
+
+        cullingManager.CanCull = true;
     }
 
     public NewPlayerController GetPlayerControllerByIndex(int index)
@@ -130,7 +179,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
         playerUserInterfaceController.Init(playerInput, playerContext);
 
-        playerAveragePositionTracker.AddPlayer(playerInput.gameObject);
+        //playerAveragePositionTracker.AddPlayer(playerInput.gameObject);
     }
 
     private ClassPresetSO ChooseRandomClassPreset()

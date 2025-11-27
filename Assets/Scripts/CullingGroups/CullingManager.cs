@@ -20,6 +20,8 @@ public class CullingManager : Singleton<CullingManager>
     int[] tmp = new int[256];
     HashSet<string> tagSet;
 
+    public bool CanCull = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,6 +42,8 @@ public class CullingManager : Singleton<CullingManager>
 
     void Update()
     {
+        if (!CanCull) return;
+
         tPos += Time.deltaTime;
 
         if (tPos >= updateInterval)
@@ -93,6 +97,8 @@ public class CullingManager : Singleton<CullingManager>
 
     void OnStateChanged(CullingGroupEvent e)
     {
+        if (!CanCull) return;
+
         var cullingTarget = owners[e.index];
         if (!cullingTarget) return;
 

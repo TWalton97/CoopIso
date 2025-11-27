@@ -12,6 +12,7 @@ public class MainMenuJoinManager : MonoBehaviour
     public MainMenuController mainMenuController;
     public void OnPlayerJoined(PlayerInput playerInput)
     {
+        playerInput.transform.parent = transform;
         InputSystemUIInputModule inputModule;
         CharacterSelectUI ui = Instantiate(characterSelectionUI, characterSelectionCanvas.transform);
         ui.mainMenuController = mainMenuController;

@@ -7,6 +7,17 @@ public class PlayerAveragePositionTracker : MonoBehaviour
 {
     public List<GameObject> playerObjects;
 
+    public PlayerJoinManager playerJoinManager;
+
+    private void Start()
+    {
+        playerJoinManager = PlayerJoinManager.Instance;
+        for (int i = 0; i < playerJoinManager.playerControllers.Count; i++)
+        {
+            playerObjects.Add(playerJoinManager.GetPlayerControllerByIndex(i).gameObject);
+        }
+    }
+
     private void Update()
     {
         CalculateAveragePosition();
