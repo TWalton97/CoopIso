@@ -260,29 +260,11 @@ public class NewPlayerController : Entity
 
         Rigidbody.velocity = newVel;
 
+        if (attackStateMachine.current.State == attackState || (attackStateMachine.current.State == castState && !AbilityBeingUsed.CanRotateDuringCast))
+            return;
+
         if (_moveInput.sqrMagnitude > 0.01f)
             transform.rotation = Quaternion.LookRotation(rotatedInputDirection);
-
-
-        if (attackStateMachine.current.State == attackState || attackStateMachine.current.State == blockState || (attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast))
-        {
-            if (PlayerInputController.playerInput.currentControlScheme == GAMEPAD_SCHEME)
-            {
-                if (PlayerInputController.MoveVal != Vector2.zero)
-                {
-                    transform.LookAt(transform.position + rotatedInputDirection);
-                    //RotateToFaceDir(rotatedInputDirection);
-                }
-            }
-            else if (PlayerInputController.playerInput.currentControlScheme == KEYBOARD_SCHEME)
-            {
-                transform.LookAt(transform.position + lookPoint);
-            }
-        }
-        // else if (!(attackStateMachine.current.State == castState && !AbilityBeingUsed.CanRotateDuringCast))
-        // {
-        //     RotateToFaceDir(rotatedInputDirection);
-        // }
     }
 
     private void Jump(CallbackContext context)

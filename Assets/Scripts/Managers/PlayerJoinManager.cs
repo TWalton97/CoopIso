@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine.InputSystem.UI;
+using Cinemachine;
+using System.Collections;
 
 public class PlayerJoinManager : Singleton<PlayerJoinManager>
 {
@@ -83,7 +85,15 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
             playerControllers[i].GetComponent<Rigidbody>().useGravity = true;
         }
 
+        StartCoroutine(EnableCulling());
+    }
+
+    private IEnumerator EnableCulling()
+    {
+        yield return new WaitForSeconds(0.1f);
         cullingManager.CanCull = true;
+        cullingManager.InitialStateCheck();
+        yield return null;
     }
 
     public NewPlayerController GetPlayerControllerByIndex(int index)

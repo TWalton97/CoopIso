@@ -11,17 +11,15 @@ public class CullingManager : Singleton<CullingManager>
     public List<string> cullableTags = new List<string>();
     public float updateInterval = 0.1f;
 
-    CullingGroup group;
+    public CullingGroup group;
     BoundingSphere[] spheres = new BoundingSphere[64];
     List<CullingTarget> owners = new List<CullingTarget>(64);
     Dictionary<CullingTarget, int> map = new Dictionary<CullingTarget, int>(64);
     int count;
     float tPos;
-    int[] tmp = new int[256];
     HashSet<string> tagSet;
 
     public bool CanCull = false;
-
     protected override void Awake()
     {
         base.Awake();
@@ -125,6 +123,21 @@ public class CullingManager : Singleton<CullingManager>
             group.onStateChanged = null;
             group.Dispose();
             group = null;
+        }
+    }
+
+    public void InitialStateCheck()
+    {
+        for (int i = 0; i < owners.Count; i++)
+        {
+            if (group.IsVisible(i))
+            {
+                owners[i].ToggleOn();
+            }
+            else
+            {
+                owners[i].ToggleOff();
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
     public List<Item> spawnableItems;
 
-    public void SpawnItemAtPosition(string itemID, Vector3 worldPosition)
+    public void SpawnItemAtPosition(string itemID, Vector3 worldPosition, Quaternion worldRotation)
     {
         ItemData itemData = GetSpawnedItemDataFromDataBase(itemID).itemData;
 
@@ -27,7 +27,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         }
 
         SceneManager.MoveGameObjectToScene(itemToDrop, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
-        itemToDrop.transform.position = worldPosition;
+        itemToDrop.transform.SetPositionAndRotation(worldPosition, worldRotation);
 
         //Add collider
         itemToDrop.AddComponent<SphereCollider>().isTrigger = true;

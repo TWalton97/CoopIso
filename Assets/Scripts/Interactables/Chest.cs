@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable
 {
+    private EntityIdentity entityIdentity;
+    public ChestStatus ChestStatus;
+
     public int Rarity;
     public Transform spawnPosition;
-    private Animator animator;
+    public Animator animator;
 
     public int minItems = 1;
 
@@ -24,6 +27,8 @@ public class Chest : MonoBehaviour, IInteractable
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        entityIdentity = GetComponent<EntityIdentity>();
+        ChestStatus = new ChestStatus(entityIdentity.GUID, !_isInteractable);
     }
 
     public void OnInteract(PlayerContext playerContext, int playerIndex)
@@ -43,14 +48,14 @@ public class Chest : MonoBehaviour, IInteractable
         int numItemsToSpawn = Mathf.Clamp(spawnedItemDataBase.GetAffixCount(Rarity), minItems, 4);
         for (int i = 0; i < numItemsToSpawn; i++)
         {
-            Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity);
+            Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity, null, transform);
             instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }
 
         for (int i = 0; i < itemsToSpawn.Count; i++)
         {
-            Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity, itemsToSpawn[i]);
+            Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity, itemsToSpawn[i], transform);
             instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }
@@ -63,5 +68,24 @@ public class Chest : MonoBehaviour, IInteractable
         Vector3 insideUnitCircle = Random.insideUnitCircle;
         insideUnitCircle = new Vector3(insideUnitCircle.x, 0, insideUnitCircle.y);
         return spawnPosition.position + insideUnitCircle;
+    }
+
+    public ChestStatus ReturnChestStatus()
+    {
+        ChestStatus.IsOpened = !_isInteractable;
+        return ChestStatus;
+    }
+}
+
+[System.Serializable]
+public class ChestStatus
+{
+    public string GUID;
+    public bool IsOpened;
+
+    public ChestStatus(string _guid, bool _isOpened)
+    {
+        GUID = _guid;
+        IsOpened = _isOpened;
     }
 }

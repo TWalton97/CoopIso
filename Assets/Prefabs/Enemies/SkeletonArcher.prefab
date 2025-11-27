@@ -2976,6 +2976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: fa0cb88e6ab6cfb4aaeea79e913733f5, type: 2}
   EntityStatus:
+    GUID: 
     WorldPosition: {x: 0, y: 0, z: 0}
     IsDead: 0
   HealthController: {fileID: 0}
@@ -2999,10 +3000,12 @@ MonoBehaviour:
   rotationSpeed: 240
   wanderRadius: 1
   timeBetweenAttacks: 0.5
+  IsDead: 0
   IsStaggered: 0
   StateName: 
   spawned: 0
   animationStatusTracker: {fileID: 0}
+  HasSpawnedItems: 0
   projectile: {fileID: 5783461640622885472, guid: 778cb966ce47eab41b78642fd79408cc, type: 3}
   projectileSpeed: 14
   damage: 4
@@ -3986,6 +3989,10 @@ PrefabInstance:
     - target: {fileID: 328760788120272001, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
       propertyPath: m_Name
       value: HealthbarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 328760788120272001, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1812737107396415578, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
       propertyPath: HealthController

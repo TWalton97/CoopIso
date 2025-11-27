@@ -46,13 +46,13 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     void OnEnable()
     {
-        OnSceneLoaded += sceneName => Debug.Log("Loaded: " + sceneName);
+        //OnSceneLoaded += sceneName => Debug.Log("Loaded: " + sceneName);
         OnUnloadingCompleted += () => StartCoroutine(LoadSceneGroupCoroutine());
     }
 
     void OnDisable()
     {
-        OnSceneLoaded -= sceneName => Debug.Log("Loaded: " + sceneName);
+        //OnSceneLoaded -= sceneName => Debug.Log("Loaded: " + sceneName);
         OnUnloadingCompleted -= () => StartCoroutine(LoadSceneGroupCoroutine());
     }
 
@@ -109,7 +109,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
             var sceneData = activeSceneGroup.Scenes[i];
             if (loadedScenes.Contains(sceneData.Name)) continue;
             asyncOperationGroup.Operations.Add(SceneManager.LoadSceneAsync(sceneGroups[_indexToLoad].Scenes[i].SceneField, LoadSceneMode.Additive));
-            OnSceneLoaded.Invoke(sceneData.Name);
+            OnSceneLoaded?.Invoke(sceneData.Name);
         }
 
         Scene activeScene = SceneManager.GetSceneByName(sceneGroups[_indexToLoad].FindSceneNameByType(SceneType.ActiveScene));
@@ -176,7 +176,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
                 s = SceneManager.GetSceneByName(sceneData.Name);
             }
         }
-        
+
         return s;
     }
 

@@ -152,7 +152,7 @@ public class EquipmentSlot : ItemSlot
         if (!slotInUse) return;
 
         GameObject player = inventoryController.playerUserInterfaceController.playerContext.PlayerController.gameObject;
-        SpawnedItemDataBase.Instance.SpawnItemAtPosition(itemData.itemID, player.transform.position + (player.transform.forward * 2f));
+        SpawnedItemDataBase.Instance.SpawnItemAtPosition(itemData.itemID, player.transform.position + (player.transform.forward * 2f), Quaternion.identity);
 
         //Create a new item
         // GameObject itemToDrop = new GameObject(itemData.itemName);

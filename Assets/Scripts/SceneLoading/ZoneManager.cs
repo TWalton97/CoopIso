@@ -31,12 +31,14 @@ public class ZoneManager : MonoBehaviour
         public string ZoneName;
         private Dictionary<string, EntityStatus> EntityStatusDict = new Dictionary<string, EntityStatus>();
         public List<ItemStatus> ItemStatuses = new();
+        public Dictionary<string, ChestStatus> ChestStatuses = new();
 
-        public ZoneData(string _zoneName, Dictionary<string, EntityStatus> _entityStatusDict, List<ItemStatus> _itemStatuses)
+        public ZoneData(string _zoneName, Dictionary<string, EntityStatus> _entityStatusDict, List<ItemStatus> _itemStatuses, Dictionary<string, ChestStatus> _chestStatuses)
         {
             ZoneName = _zoneName;
             EntityStatusDict = _entityStatusDict;
             ItemStatuses = _itemStatuses;
+            ChestStatuses = _chestStatuses;
         }
 
         public void UpdateEntityStatus(EntityStatus newStatus)
@@ -54,6 +56,17 @@ public class ZoneManager : MonoBehaviour
             ItemStatuses.Clear();
             ItemStatuses = itemStatuses;
         }
+
+        public void UpdateChestStatus(ChestStatus newStatus)
+        {
+            ChestStatuses[newStatus.GUID] = newStatus;
+        }
+
+        public bool TryGetChestStatus(string guid, out ChestStatus status)
+        {
+            return ChestStatuses.TryGetValue(guid, out status);
+        }
+
     }
     void Awake()
     {
@@ -103,7 +116,7 @@ public class ZoneManager : MonoBehaviour
         Dictionary<string, EntityStatus> tempDict = new();
         if (enemies.Count == 0)
         {
-            Debug.Log($"Found no enemies in {sceneName}");
+
         }
         else
         {
@@ -118,7 +131,7 @@ public class ZoneManager : MonoBehaviour
         List<ItemStatus> tempList = new();
         if (items.Count == 0)
         {
-            Debug.Log($"Found no items in {sceneName}");
+
         }
         else
         {
@@ -128,7 +141,22 @@ public class ZoneManager : MonoBehaviour
             }
         }
 
-        ZoneDatas.Add(new ZoneData(sceneName, tempDict, tempList));
+        List<Chest> chests = GetObjectsOfTypeInScene<Chest>(sceneName);
+        Dictionary<string, ChestStatus> chestStatusDict = new();
+        if (chests.Count == 0)
+        {
+
+        }
+        else
+        {
+            foreach (Chest chest in chests)
+            {
+                ChestStatus status = chest.ReturnChestStatus();
+                chestStatusDict.Add(status.GUID, status);
+            }
+        }
+
+        ZoneDatas.Add(new ZoneData(sceneName, tempDict, tempList, chestStatusDict));
     }
     private void UpdateZoneData(string sceneName)
     {
@@ -152,7 +180,7 @@ public class ZoneManager : MonoBehaviour
         List<ItemStatus> tempList = new();
         if (items.Count == 0)
         {
-            Debug.Log($"Found no items in {sceneName}");
+
         }
         else
         {
@@ -163,6 +191,20 @@ public class ZoneManager : MonoBehaviour
         }
 
         zoneData.ReplaceItemStatuses(tempList);
+
+        List<Chest> chests = GetObjectsOfTypeInScene<Chest>(sceneName);
+
+        List<ChestStatus> tempChestStatuses = new();
+
+        foreach (Chest chest in chests)
+        {
+            tempChestStatuses.Add(chest.ReturnChestStatus());
+        }
+
+        foreach (ChestStatus status in tempChestStatuses)
+        {
+            zoneData.UpdateChestStatus(status);
+        }
     }
 
     private void CallWaitForScene(string sceneName)
@@ -174,7 +216,6 @@ public class ZoneManager : MonoBehaviour
         Scene scene = SceneManager.GetSceneByName(sceneName);
         while (!scene.IsValid() || !scene.isLoaded)
         {
-            Debug.Log($"Waiting for {sceneName} to be valid and loaded");
             yield return null;
         }
         DistributeEntityStatuses(sceneName);
@@ -184,7 +225,6 @@ public class ZoneManager : MonoBehaviour
     {
         if (!HasZoneDataForScene(sceneName))
         {
-            Debug.Log($"No zone data for {sceneName}");
             return;
         }
 
@@ -207,7 +247,24 @@ public class ZoneManager : MonoBehaviour
 
         foreach (ItemStatus itemStatus in zoneData.ItemStatuses)
         {
-            SpawnedItemDataBase.SpawnItemAtPosition(itemStatus.GUID, itemStatus.WorldPosition);
+            SpawnedItemDataBase.SpawnItemAtPosition(itemStatus.GUID, itemStatus.WorldPosition, itemStatus.WorldRotation);
+        }
+
+        List<Chest> chests = GetObjectsOfTypeInScene<Chest>(sceneName);
+
+        foreach (Chest chest in chests)
+        {
+            string guid = chest.ChestStatus.GUID;
+            if (zoneData.TryGetChestStatus(guid, out ChestStatus status))
+            {
+                chest.ChestStatus = status;
+                chest.isInteractable = !status.IsOpened;
+                if (status.IsOpened)
+                {
+                    chest.animator.Play("ChestOpen", 0, 1f);
+                    chest.animator.Update(0f);
+                }
+            }
         }
     }
     public List<T> GetObjectsOfTypeInScene<T>(string sceneName) where T : Component
@@ -218,9 +275,6 @@ public class ZoneManager : MonoBehaviour
         // Check if the scene is valid and loaded
         if (!scene.IsValid() || !scene.isLoaded)
         {
-            Debug.Log($"scene.IsValid: {scene.IsValid()}");
-            Debug.Log($"scene.isLoaded: {scene.isLoaded}");
-            Debug.LogWarning($"Scene '{sceneName}' is not loaded or is invalid.");
             return foundComponents;
         }
 

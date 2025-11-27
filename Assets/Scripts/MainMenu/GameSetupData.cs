@@ -18,21 +18,11 @@ public class GameSetupData
 
     public void SelectPlayerClass(int playerIndex, ClassPresetSO preset)
     {
-        Debug.Log($"Player {playerIndex} has selected the {preset.name} class");
         chosenClassPresets[playerIndex] = preset;
     }
 
     public void ReadyUp(int playerIndex, bool isReady)
     {
-        if (isReady)
-        {
-            Debug.Log($"Player {playerIndex} is ready");
-        }
-        else
-        {
-            Debug.Log($"Player {playerIndex} is not ready");
-        }
-
         Selections[playerIndex].isReady = isReady;
     }
 }

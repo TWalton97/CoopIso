@@ -3694,6 +3694,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1364516130}
   - component: {fileID: 1364516131}
+  - component: {fileID: 1364516135}
+  - component: {fileID: 1364516134}
+  - component: {fileID: 1364516133}
+  - component: {fileID: 1364516132}
   m_Layer: 0
   m_Name: PlayerAveragePosition
   m_TagString: Untagged
@@ -3730,6 +3734,90 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObjects: []
   playerJoinManager: {fileID: 1872936569}
+--- !u!65 &1364516132
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364516129}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 16247
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 10, z: 1}
+  m_Center: {x: 0, y: 0, z: -10}
+--- !u!65 &1364516133
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364516129}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 16247
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 10, z: 1}
+  m_Center: {x: 0, y: 0, z: 10}
+--- !u!65 &1364516134
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364516129}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 16247
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 10, z: 20}
+  m_Center: {x: -10, y: 0, z: 0}
+--- !u!65 &1364516135
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364516129}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 16247
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 10, z: 20}
+  m_Center: {x: 10, y: 0, z: 0}
 --- !u!1 &1377730501
 GameObject:
   m_ObjectHideFlags: 3
@@ -4967,6 +5055,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1907941608}
     - target: {fileID: 853945474819122787, guid: c519f64e3163084489760c0dbe424918, type: 3}
+      propertyPath: cinemachineBrain
+      value: 
+      objectReference: {fileID: 1536275711}
+    - target: {fileID: 853945474819122787, guid: c519f64e3163084489760c0dbe424918, type: 3}
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 1648323524}
@@ -4974,6 +5066,10 @@ PrefabInstance:
       propertyPath: interactionManager
       value: 
       objectReference: {fileID: 1457941399}
+    - target: {fileID: 853945474819122787, guid: c519f64e3163084489760c0dbe424918, type: 3}
+      propertyPath: cinemachineFreeLook
+      value: 
+      objectReference: {fileID: 137835464}
     - target: {fileID: 853945474819122787, guid: c519f64e3163084489760c0dbe424918, type: 3}
       propertyPath: spawnedItemDatabase
       value: 

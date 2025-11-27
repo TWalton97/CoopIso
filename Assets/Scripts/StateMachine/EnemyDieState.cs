@@ -14,15 +14,20 @@ public class EnemyDieState : EnemyBaseState
     public override void OnEnter()
     {
         agent.enabled = false;
-        animator.CrossFade(DieHash, crossFadeDuration);
-        // foreach (GameObject obj in enemy.body)
-        // {
-        //     obj.SetActive(false);
-        // }
-        // enemy.ragdoll.SetActive(true);
-        enemy.coll.enabled = false;
-        if (!enemy.HasSpawnedItems)
+
+        if (enemy.HasSpawnedItems)
+        {
+            animator.Play(DieHash, 0, 1f);
+            animator.Update(0f);
+        }
+        else
+        {
+            animator.CrossFade(DieHash, crossFadeDuration);
             enemy.StartCoroutine(SpawnItems());
+            enemy.HasSpawnedItems = true;
+        }
+
+        enemy.coll.enabled = false;
 
         if (enemy.statusController != null)
         {

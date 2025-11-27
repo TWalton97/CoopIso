@@ -19,7 +19,6 @@ public class MainMenuJoinManager : MonoBehaviour
         inputModule = ui.GetComponent<InputSystemUIInputModule>();
         playerInput.uiInputModule = inputModule;
         ui.PlayerIndex = playerInput.playerIndex;
-        Debug.Log($"Player input device is {playerInput.devices[0]}");
         mainMenuController.gameSetupData.Selections[playerInput.playerIndex].PlayerDevices = playerInput.devices[0];
         mainMenuController.gameSetupData.Selections[playerInput.playerIndex].PlayerControlSchemes = playerInput.currentControlScheme;
     }

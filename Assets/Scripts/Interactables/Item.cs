@@ -23,7 +23,7 @@ public class Item : MonoBehaviour, IInteractable
             Instantiate(itemData.vfxPrefab, transform);
         targetRotation = transform.rotation;
         targetPosition = transform.position;
-        ItemStatus = new ItemStatus(itemData.itemID, targetPosition);
+        ItemStatus = new ItemStatus(itemData.itemID, targetPosition, targetRotation);
         StartCoroutine(RotateRandomly());
     }
 
@@ -85,10 +85,12 @@ public class ItemStatus
 {
     public string GUID;
     public Vector3 WorldPosition;
+    public Quaternion WorldRotation;
 
-    public ItemStatus(string _guid, Vector3 _worldPosition)
+    public ItemStatus(string _guid, Vector3 _worldPosition, Quaternion _worldRotation)
     {
         GUID = _guid;
         WorldPosition = _worldPosition;
+        WorldRotation = _worldRotation;
     }
 }

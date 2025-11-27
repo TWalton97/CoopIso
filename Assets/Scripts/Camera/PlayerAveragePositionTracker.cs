@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerAveragePositionTracker : MonoBehaviour
 {
+    public float LeashRange = 10f;
+
     public List<GameObject> playerObjects;
 
     public PlayerJoinManager playerJoinManager;
@@ -21,6 +23,22 @@ public class PlayerAveragePositionTracker : MonoBehaviour
     private void Update()
     {
         CalculateAveragePosition();
+    }
+
+    private void LateUpdate()
+    {
+        foreach (var p in playerObjects)
+        {
+            Vector3 offset = p.transform.position - transform.position;
+            float distance = offset.magnitude;
+
+            if (distance > LeashRange)
+            {
+                // Bring player back to boundary
+                Vector3 newPos = transform.position + offset.normalized * LeashRange;
+                p.transform.position = newPos;
+            }
+        }
     }
 
     public void AddPlayer(GameObject obj)

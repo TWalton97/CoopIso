@@ -15374,6 +15374,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 0}
+  EntityStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    IsDead: 0
   HealthController: {fileID: 9157711023718106382}
   IsBlocking: 0
   PlayerContext:
@@ -15537,7 +15541,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5013222344262508588}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cd4d906fed6dfb4ab790d9167eee246, type: 3}
   m_Name: 

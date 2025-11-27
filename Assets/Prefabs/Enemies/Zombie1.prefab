@@ -1438,6 +1438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: 0eed2ceac2afaac459b648a5cd7f0333, type: 2}
   EntityStatus:
+    GUID: 
     WorldPosition: {x: 0, y: 0, z: 0}
     IsDead: 0
   HealthController: {fileID: 0}
@@ -1458,10 +1459,12 @@ MonoBehaviour:
   rotationSpeed: 80
   wanderRadius: 2
   timeBetweenAttacks: 0.6
+  IsDead: 0
   IsStaggered: 0
   StateName: 
   spawned: 0
   animationStatusTracker: {fileID: 0}
+  HasSpawnedItems: 0
 --- !u!195 &2546661760642592051
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3413,9 +3416,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1086107817556774945}
     m_Modifications:
+    - target: {fileID: 121527813351980289, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 328760788120272001, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
       propertyPath: m_Name
       value: HealthbarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 328760788120272001, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4178907810135180989, guid: 425e40b85bc856c4c9e3c3ee7f5d36b5, type: 3}
       propertyPath: m_Pivot.x
