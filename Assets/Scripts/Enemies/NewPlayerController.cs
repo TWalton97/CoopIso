@@ -78,6 +78,7 @@ public class NewPlayerController : Entity
     public override void ApplyStats()
     {
         base.ApplyStats();
+        HealthController.Init(EntityData.MaximumHealth);
         _movementSpeed = EntityData.MovementSpeed;
         PlayerStatsBlackboard.CriticalChance = EntityData.CriticalChance;
         PlayerStatsBlackboard.CriticalDamage = EntityData.CriticalDamage;

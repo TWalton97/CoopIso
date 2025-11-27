@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 
-public class ItemSlot : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler
+public class ItemSlot : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerClickHandler
 {
     [SerializeField] protected Sprite emptySprite;
     [SerializeField] protected Image slotImage;
@@ -75,5 +75,13 @@ public class ItemSlot : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
     {
         if (previewObject != null)
             previewObject.SetActive(false);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            OnRightClick();
+        }
     }
 }

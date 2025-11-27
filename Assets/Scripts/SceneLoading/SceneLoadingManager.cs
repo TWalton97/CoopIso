@@ -21,6 +21,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     public Action OnLoadingStarted;
     public Action<string> OnSceneLoaded;
     public Action OnSceneGroupLoaded;
+    public Action<string> OnSceneUnloadStarted;
     public Action OnUnloadingStarted;
     public Action OnUnloadingCompleted;
     private AsyncOperationGroup asyncOperationGroup;
@@ -151,6 +152,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
         foreach (var scene in scenes)
         {
+            OnSceneUnloadStarted?.Invoke(scene);
             var operation = SceneManager.UnloadSceneAsync(scene);
             if (operation == null) continue;
 
@@ -161,6 +163,21 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         OnUnloadingCompleted?.Invoke();
 
         yield return null;
+    }
+
+    public Scene ReturnActiveEnvironmentalScene()
+    {
+        Scene s = SceneManager.GetActiveScene();
+
+        foreach (SceneData sceneData in activeSceneGroup.Scenes)
+        {
+            if (sceneData.SceneType == SceneType.Environment)
+            {
+                s = SceneManager.GetSceneByName(sceneData.Name);
+            }
+        }
+        
+        return s;
     }
 
     #endregion

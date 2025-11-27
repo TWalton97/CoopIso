@@ -148,26 +148,32 @@ public class EquipmentSlot : ItemSlot
 
     public override void OnRightClick()
     {
+        Debug.Log($"Right clicked on {gameObject.name}");
+        if (!slotInUse) return;
+
+        GameObject player = inventoryController.playerUserInterfaceController.playerContext.PlayerController.gameObject;
+        SpawnedItemDataBase.Instance.SpawnItemAtPosition(itemData.itemID, player.transform.position + (player.transform.forward * 2f));
+
         //Create a new item
-        GameObject itemToDrop = new GameObject(itemData.itemName);
-        Item newItem = itemToDrop.AddComponent<Item>();
-        newItem.itemData = itemData;
+        // GameObject itemToDrop = new GameObject(itemData.itemName);
+        // Item newItem = itemToDrop.AddComponent<Item>();
+        // newItem.itemData = itemData;
 
-        if (itemData.floorObjectPrefab == null)
-        {
-            Instantiate(itemData.objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
-        }
-        else
-        {
-            Instantiate(itemData.floorObjectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
-        }
+        // if (itemData.floorObjectPrefab == null)
+        // {
+        //     Instantiate(itemData.objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
+        // }
+        // else
+        // {
+        //     Instantiate(itemData.floorObjectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
+        // }
 
 
-        //Add collider
-        itemToDrop.AddComponent<SphereCollider>().isTrigger = true;
+        // //Add collider
+        // itemToDrop.AddComponent<SphereCollider>().isTrigger = true;
 
-        GameObject player = PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).gameObject;
-        itemToDrop.transform.position = player.transform.position + (player.transform.forward * 2f);
+        // GameObject player = PlayerJoinManager.Instance.GetPlayerControllerByIndex(inventoryController.playerIndex).gameObject;
+        // itemToDrop.transform.position = player.transform.position + (player.transform.forward * 2f);
 
         EmptySlot();
         HidePreview();

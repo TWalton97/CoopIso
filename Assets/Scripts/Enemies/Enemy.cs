@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using Utilities;
 
+[RequireComponent(typeof(EntityIdentity))]
 public class Enemy : Entity
 {
+    private EntityIdentity entityIdentity;
     public StatusController statusController;
     public SpawnedItemDataBase spawnedItemDataBase;
     public int ExpValue;
@@ -30,7 +32,7 @@ public class Enemy : Entity
 
     protected CountdownTimer attackTimer;
 
-    protected bool IsDead = false;
+    public bool IsDead = false;
     [HideInInspector] public bool IsStaggered = false;
 
     public string StateName;
@@ -42,12 +44,19 @@ public class Enemy : Entity
 
     protected bool attackOnCooldown = false;
 
+    public bool HasSpawnedItems = false;
+
     public float StartWanderSpeed { get; private set; }
     public float StartChaseSpeed { get; private set; }
 
     public override void Awake()
     {
         base.Awake();
+
+        entityIdentity = GetComponent<EntityIdentity>();
+
+        EntityStatus = new EntityStatus(entityIdentity.GUID, transform.position, IsDead);
+
         hitbox = GetComponentInChildren<Hitbox>();
         animationStatusTracker = GetComponent<AnimationStatusTracker>();
         if (animationStatusTracker == null)
@@ -144,7 +153,7 @@ public class Enemy : Entity
     public override void Die()
     {
         DistributeExperience();
-        Destroy(gameObject, 5);
+        //Destroy(gameObject, 5);
     }
 
     private void Stagger(int damage, Entity controller)
@@ -172,5 +181,13 @@ public class Enemy : Entity
         yield return new WaitForSeconds(timeBetweenAttacks);
         attackOnCooldown = false;
         yield return null;
+    }
+
+    public EntityStatus ReturnEntityStatus()
+    {
+        EntityStatus.GUID = entityIdentity.GUID;
+        EntityStatus.WorldPosition = transform.position;
+        EntityStatus.IsDead = IsDead;
+        return EntityStatus;
     }
 }

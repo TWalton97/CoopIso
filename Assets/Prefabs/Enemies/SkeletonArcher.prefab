@@ -2932,6 +2932,7 @@ GameObject:
   - component: {fileID: 8371414246281985758}
   - component: {fileID: 1052276943576708563}
   - component: {fileID: 3588826832439326997}
+  - component: {fileID: 8048806835455225239}
   m_Layer: 8
   m_Name: SkeletonArcher
   m_TagString: Cull
@@ -2974,6 +2975,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: fa0cb88e6ab6cfb4aaeea79e913733f5, type: 2}
+  EntityStatus:
+    WorldPosition: {x: 0, y: 0, z: 0}
+    IsDead: 0
   HealthController: {fileID: 0}
   IsBlocking: 0
   statusController: {fileID: 0}
@@ -3159,6 +3163,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeStatuses: []
+--- !u!114 &8048806835455225239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8458699510939732860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c3021843b0e7c4dabe1f690b3b4ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: 
 --- !u!1 &8550524380966310095
 GameObject:
   m_ObjectHideFlags: 0

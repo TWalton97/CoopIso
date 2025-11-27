@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, IInteractable
 {
+    public ItemStatus ItemStatus;
     public ItemData itemData;
     private Quaternion targetRotation;
     private Vector3 targetPosition;
@@ -22,6 +23,7 @@ public class Item : MonoBehaviour, IInteractable
             Instantiate(itemData.vfxPrefab, transform);
         targetRotation = transform.rotation;
         targetPosition = transform.position;
+        ItemStatus = new ItemStatus(itemData.itemID, targetPosition);
         StartCoroutine(RotateRandomly());
     }
 
@@ -53,6 +55,12 @@ public class Item : MonoBehaviour, IInteractable
     {
         CollectItem(context.InventoryManager, playerIndex);
     }
+
+    public ItemStatus ReturnItemStatus()
+    {
+        ItemStatus.WorldPosition = targetPosition;
+        return ItemStatus;
+    }
 }
 
 [System.Serializable]
@@ -70,4 +78,17 @@ public class ItemData
     public WeaponRangeType weaponRangeType;
     public ItemSO data;
     public List<Affix> affixes;
+}
+
+[System.Serializable]
+public class ItemStatus
+{
+    public string GUID;
+    public Vector3 WorldPosition;
+
+    public ItemStatus(string _guid, Vector3 _worldPosition)
+    {
+        GUID = _guid;
+        WorldPosition = _worldPosition;
+    }
 }

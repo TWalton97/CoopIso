@@ -48,7 +48,7 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: 2
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -58,16 +58,32 @@ MonoBehaviour:
   m_JoinAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Join
       m_Type: 0
       m_ExpectedControlType: 
       m_Id: f6a4fa7a-aac1-4880-884e-9958936a9a10
       m_Processors: 
       m_Interactions: 
-      m_SingletonActionBindings: []
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 27bfec38-9fe9-45a5-a89c-d9b9aa285876
+        m_Path: <Gamepad>/buttonSouth
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 3e25a5e5-b699-4a9b-a38b-cb980f542e52
+        m_Path: <Keyboard>/space
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 655887787118595647, guid: a41ff838daff8d54e9ee2864383eab43, type: 3}
+  m_PlayerPrefab: {fileID: 5013222344262508588, guid: 872264858b12c5a4ea3992e755558f83, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -90,6 +106,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputManager: {fileID: 8146656275737929616}
+  interactionManager: {fileID: 0}
   inventoryManager: {fileID: 0}
-  player1UI: {fileID: 5826690465090489193, guid: ede7314586aca9946bb16cd28469caba, type: 3}
-  player2UI: {fileID: 5826690465090489193, guid: 18cbaab794f0d654ca13a7ffa5ff135c, type: 3}
+  spawnedItemDatabase: {fileID: 0}
+  playerPreviewManager: {fileID: 0}
+  sceneLoadingManager: {fileID: 0}
+  cullingManager: {fileID: 0}
+  player1UI: {fileID: 0}
+  player2UI: {fileID: 0}
+  classPresets:
+  - {fileID: 11400000, guid: 5846fe6c8a854c04d8d6e143d836bbba, type: 2}
+  - {fileID: 11400000, guid: 7a863c26fdcc42447ba45da5676652f4, type: 2}
+  - {fileID: 11400000, guid: 46d37ec87daed57489cd4eae5389be5b, type: 2}
+  - {fileID: 11400000, guid: 5ecad6e9a5e53b642a469a528786fc81, type: 2}
+  mainMenuController: {fileID: 0}
+  TargetSpawnID: 0

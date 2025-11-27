@@ -1397,6 +1397,7 @@ GameObject:
   - component: {fileID: 4735479504967847861}
   - component: {fileID: 9162978587876468743}
   - component: {fileID: 6323879630202322561}
+  - component: {fileID: 813415348330177655}
   m_Layer: 8
   m_Name: Zombie1
   m_TagString: Cull
@@ -1436,6 +1437,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: 0eed2ceac2afaac459b648a5cd7f0333, type: 2}
+  EntityStatus:
+    WorldPosition: {x: 0, y: 0, z: 0}
+    IsDead: 0
   HealthController: {fileID: 0}
   IsBlocking: 0
   statusController: {fileID: 0}
@@ -1614,6 +1618,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeStatuses: []
+--- !u!114 &813415348330177655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115870468328907784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c3021843b0e7c4dabe1f690b3b4ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: 
 --- !u!1 &4141560499705226945
 GameObject:
   m_ObjectHideFlags: 0

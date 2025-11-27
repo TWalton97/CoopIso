@@ -20,8 +20,8 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     public Dictionary<int, NewPlayerController> playerControllers = new();
 
-    public GameObject player1UI;
-    public GameObject player2UI;
+    public InputSystemUIInputModule player1UI;
+    public InputSystemUIInputModule player2UI;
 
     public List<ClassPresetSO> classPresets;
 
@@ -122,23 +122,26 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     private void CreatePlayerCanvas(PlayerInput playerInput)
     {
-        InputSystemUIInputModule inputModule;
+        //InputSystemUIInputModule inputModule;
         PlayerUserInterfaceController playerUserInterfaceController = null;
         PlayerContext playerContext;
         switch (playerInput.playerIndex)
         {
             case 0:
                 //Setting up the player input module and sending it to the player's player input component
-                inputModule = Instantiate(player1UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
-                playerInput.uiInputModule = inputModule;
-
-                playerUserInterfaceController = inputModule.GetComponent<PlayerUserInterfaceController>();
+                //inputModule = Instantiate(player1UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
+                playerInput.uiInputModule = player1UI;
+                player1UI.gameObject.SetActive(true);
+                playerUserInterfaceController = player1UI.GetComponent<PlayerUserInterfaceController>();
                 break;
             case 1:
-                inputModule = Instantiate(player2UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
-                playerInput.uiInputModule = inputModule;
+                playerInput.uiInputModule = player2UI;
+                player2UI.gameObject.SetActive(true);
+                playerUserInterfaceController = player2UI.GetComponent<PlayerUserInterfaceController>();
+                // inputModule = Instantiate(player2UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
+                // playerInput.uiInputModule = inputModule;
 
-                playerUserInterfaceController = inputModule.GetComponent<PlayerUserInterfaceController>();
+                // playerUserInterfaceController = inputModule.GetComponent<PlayerUserInterfaceController>();
                 break;
         }
 

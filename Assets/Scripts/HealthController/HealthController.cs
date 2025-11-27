@@ -22,8 +22,13 @@ public class HealthController : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        CurrentHealth = MaximumHealth;
         entity = GetComponent<Entity>();
+    }
+
+    public void Init(int MaximumHealth)
+    {
+        this.MaximumHealth = MaximumHealth;
+        CurrentHealth = MaximumHealth;
     }
 
     public virtual void TakeDamage(int damageAmount, Entity controller, bool bypassBlockCheck = false, bool isCritical = false)

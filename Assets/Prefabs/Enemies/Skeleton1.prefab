@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 5392661975958701476}
   - component: {fileID: 6720411467710495853}
   - component: {fileID: 3782912644071027179}
+  - component: {fileID: 3080901480681641159}
   m_Layer: 8
   m_Name: Skeleton1
   m_TagString: Cull
@@ -159,6 +160,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: f453833a4d516cc44af028c41d0ad3a4, type: 2}
+  EntityStatus:
+    WorldPosition: {x: 0, y: 0, z: 0}
+    IsDead: 0
   HealthController: {fileID: 0}
   IsBlocking: 0
   statusController: {fileID: 0}
@@ -337,6 +341,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeStatuses: []
+--- !u!114 &3080901480681641159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643943140788604249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c3021843b0e7c4dabe1f690b3b4ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: 
 --- !u!1 &1107785775626915473
 GameObject:
   m_ObjectHideFlags: 0

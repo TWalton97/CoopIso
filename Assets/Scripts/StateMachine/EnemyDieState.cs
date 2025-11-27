@@ -14,13 +14,15 @@ public class EnemyDieState : EnemyBaseState
     public override void OnEnter()
     {
         agent.enabled = false;
-        foreach (GameObject obj in enemy.body)
-        {
-            obj.SetActive(false);
-        }
-        enemy.ragdoll.SetActive(true);
+        animator.CrossFade(DieHash, crossFadeDuration);
+        // foreach (GameObject obj in enemy.body)
+        // {
+        //     obj.SetActive(false);
+        // }
+        // enemy.ragdoll.SetActive(true);
         enemy.coll.enabled = false;
-        enemy.StartCoroutine(SpawnItems());
+        if (!enemy.HasSpawnedItems)
+            enemy.StartCoroutine(SpawnItems());
 
         if (enemy.statusController != null)
         {
@@ -38,7 +40,7 @@ public class EnemyDieState : EnemyBaseState
         int numItemsToSpawn = SpawnedItemDataBase.Instance.GetAffixCount(enemy.HealthController.MaximumHealth);
         for (int i = 0; i < numItemsToSpawn; i++)
         {
-            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(enemy.HealthController.MaximumHealth);
+            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(enemy.HealthController.MaximumHealth, null, enemy.transform);
             instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }
