@@ -241,7 +241,7 @@ public class AbilityScrollController : MonoBehaviour
     {
         if (ActiveAbility == null) return false;
 
-        if (!ActiveAbility.AbilityBehaviour.CanUse(controller.featsPanelController.playerController.ResourceController)) return false;
+        if (!ActiveAbility.AbilityBehaviour.CanUse(controller.inventoryController.FeatsMenu.playerController.ResourceController)) return false;
 
         return true;
     }

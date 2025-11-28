@@ -1,317 +1,99 @@
-using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
-    public PlayerUserInterfaceController playerUserInterfaceController;
-    public int playerIndex;
+    public PlayerContext PlayerContext;
 
-    public EquipmentSlot[] equipmentSlot;
-    public EquippedSlot[] equippedSlot;
+    public GameObject InventoryObjectsParent;
 
-    [SerializeField] private TMP_Text PlayerClassText;
-    [SerializeField] private TMP_Text PlayerHealthText;
-    [SerializeField] private TMP_Text PlayerMovementSpeedText;
-    [SerializeField] private TMP_Text PlayerAttacksPerSecondText;
-    [SerializeField] private TMP_Text PlayerManaText;
-    [SerializeField] private TMP_Text PlayerArmorText;
-    [SerializeField] private TMP_Text PlayerCriticalChanceText;
-    [SerializeField] private TMP_Text PlayerCriticalDamageText;
+    public InventoryItemController WeaponInventory;
+    public InventoryItemController ArmorInventory;
+    public InventoryItemController ConsumablesInventory;
 
-    public List<ItemSlot> selectedItemSlots = new();
-    public ItemSlot CurrentlySelectedItemSlot;
+    public PlayerFeatsPanelController FeatsMenu;
+    public GameObject PlayerStatsMenu;
+    public GlossaryController GlossaryMenu;
 
-    public NewPlayerController controller;
-    public Action OnMenuOpened;
-    public Action OnMenuClosed;
-    private void Awake()
+    public GameObject[] inventoryPanelGameObjects;
+    private int currentIndex = 0;
+
+    public void Init(PlayerContext playerContext)
     {
-        SetEquipmentSlotIndexes();
+        PlayerContext = playerContext;
+        WeaponInventory.PlayerContext = PlayerContext;
+        ArmorInventory.PlayerContext = PlayerContext;
+        ConsumablesInventory.PlayerContext = PlayerContext;
     }
 
-    void OnEnable()
+    public void ToggleInventory(bool toggle)
     {
-        controller.WeaponController.OnWeaponUpdated += UpdatePlayerStats;
-        controller.HealthController.OnMaximumHealthChanged += UpdatePlayerStats;
-        controller.HealthController.OnArmorAmountChanged += UpdatePlayerStats;
-        OnMenuOpened += controller.PlayerStatsBlackboard.UpdateArmorStats;
-        OnMenuOpened += UpdatePlayerStats;
-        UpdatePlayerStats();
-    }
-
-    private void OnDisable()
-    {
-        controller.WeaponController.OnWeaponUpdated -= UpdatePlayerStats;
-        controller.HealthController.OnMaximumHealthChanged -= UpdatePlayerStats;
-        controller.HealthController.OnArmorAmountChanged -= UpdatePlayerStats;
-        OnMenuOpened -= controller.PlayerStatsBlackboard.UpdateArmorStats;
-        OnMenuOpened -= UpdatePlayerStats;
-        ResetButtonSelection();
-        if (CurrentlySelectedItemSlot != null)
-            CurrentlySelectedItemSlot.HidePreview();
-    }
-
-    public void UpdatePlayerStats()
-    {
-        PlayerClassText.text = controller.PlayerStatsBlackboard.ClassName;
-        PlayerHealthText.text = controller.HealthController.CurrentHealth.ToString() + "/" + controller.HealthController.MaximumHealth.ToString();
-        PlayerMovementSpeedText.text = controller._maximumMovementSpeed.ToString();
-        PlayerAttacksPerSecondText.text = controller.PlayerStatsBlackboard.AttacksPerSecond.ToString("0.00");
-        PlayerManaText.text = controller.PlayerStatsBlackboard.ResourceCurrent.ToString("00") + "/" + controller.PlayerStatsBlackboard.ResourceMax.ToString("00");
-        PlayerArmorText.text = controller.PlayerStatsBlackboard.ArmorAmount.ToString();
-        PlayerCriticalChanceText.text = controller.PlayerStatsBlackboard.CriticalChance.ToString() + "%";
-        PlayerCriticalDamageText.text = (controller.PlayerStatsBlackboard.CriticalDamage + 100).ToString() + "%";
-    }
-
-    private void SetEquipmentSlotIndexes()
-    {
-        for (int i = 0; i < equipmentSlot.Length; i++)
+        InventoryObjectsParent.SetActive(toggle);
+        if (toggle)
         {
-            equipmentSlot[i].slotIndex = i;
+            currentIndex = 0;
+            OpenMenu(0);
         }
     }
 
-    public List<EquippedSlot> FindEquippedSlotOfType(Slot slotType)
+    public void AddItemToInventory(ItemData itemData, bool isEquipped = false)
     {
-        List<EquippedSlot> equippedSlots = new List<EquippedSlot>();
-        foreach (EquippedSlot slot in equippedSlot)
-        {
-            if (slot.slotType == slotType)
-            {
-                equippedSlots.Add(slot);
-            }
-
-        }
-
-        return equippedSlots;
+        FindCorrectInventory(itemData).CreateButtonForItem(itemData, isEquipped);
     }
 
-    public void AddItemToFirstEmptySlot(ItemData itemData)
+    public void GoToNextMenu()
     {
-        for (int i = 0; i < equipmentSlot.Length; i++)
+        currentIndex++;
+        if (currentIndex == 6)
+            currentIndex = 0;
+        OpenMenu(currentIndex);
+    }
+
+    public void GoToPreviousMenu()
+    {
+        currentIndex--;
+        if (currentIndex == -1)
+            currentIndex = 5;
+        OpenMenu(currentIndex);
+    }
+
+    private void CloseMenus()
+    {
+        for (int i = 0; i < 6; i++)
         {
-            if (equipmentSlot[i].slotInUse == false)
-            {
-                equipmentSlot[i].ImportItemDataToEquipmentSlot(itemData);
-                return;
-            }
+            inventoryPanelGameObjects[i].SetActive(false);
         }
     }
 
-    public void AddItemToSelectedSlot(ItemData itemData, int index)
+    private void OpenMenu(int index)
     {
-        if (index >= equipmentSlot.Length || equipmentSlot[index].slotInUse)
-        {
-            AddItemToFirstEmptySlot(itemData);
-            return;
-        }
-        equipmentSlot[index].ImportItemDataToEquipmentSlot(itemData);
+        CloseMenus();
+        inventoryPanelGameObjects[index].SetActive(true);
     }
 
-    public void DeselectAllSlots()
+    private InventoryItemController FindCorrectInventory(ItemData itemData)
     {
-        for (int i = 0; i < equipmentSlot.Length; i++)
+        switch (itemData.itemType)
         {
-            if (equipmentSlot[i].isSelected)
-            {
-                equipmentSlot[i].DeselectButton();
-            }
-        }
+            case ItemType.OneHanded:
+                return WeaponInventory;
+            case ItemType.TwoHanded:
+                return WeaponInventory;
+            case ItemType.Bow:
+                return WeaponInventory;
 
-        for (int i = 0; i < equippedSlot.Length; i++)
-        {
-            if (equippedSlot[i].isSelected)
-            {
-                equippedSlot[i].DeselectButton();
-            }
-        }
+            case ItemType.Head:
+                return ArmorInventory;
+            case ItemType.Body:
+                return ArmorInventory;
+            case ItemType.Legs:
+                return ArmorInventory;
+            case ItemType.Offhand:
+                return ArmorInventory;
 
-        ResetButtonSelection();
-    }
-
-    public void ResetButtonSelection()
-    {
-        foreach (ItemSlot itemSlot in selectedItemSlots)
-        {
-            itemSlot.DeselectButton();
+            case ItemType.Consumable:
+                return ConsumablesInventory;
         }
-        selectedItemSlots.Clear();
-    }
-
-    public void RegisterButtonSelection(ItemSlot itemSlot)
-    {
-        if (selectedItemSlots.Contains(itemSlot))
-        {
-            ResetButtonSelection();
-            return;
-        }
-        selectedItemSlots.Add(itemSlot);
-        if (selectedItemSlots.Count == 2)
-        {
-            if (selectedItemSlots[0] is EquipmentSlot && selectedItemSlots[1] is EquipmentSlot)
-            {
-                if (selectedItemSlots[1].slotInUse)
-                {
-                    ItemData itemData = selectedItemSlots[1].itemData;
-                    selectedItemSlots[1].EmptySlot();
-                    AddItemToSelectedSlot(selectedItemSlots[0].itemData, selectedItemSlots[1].slotIndex);
-                    selectedItemSlots[0].EmptySlot();
-                    AddItemToSelectedSlot(itemData, selectedItemSlots[0].slotIndex);
-                }
-                else
-                {
-                    AddItemToSelectedSlot(selectedItemSlots[0].itemData, selectedItemSlots[1].slotIndex);
-                    selectedItemSlots[0].EmptySlot();
-                }
-            }
-            else if (selectedItemSlots[0] is EquipmentSlot && selectedItemSlots[1] is EquippedSlot)
-            {
-                EquippedSlot equippedSlot = selectedItemSlots[1] as EquippedSlot;
-                if (equippedSlot.ItemTypeValidForSlot(selectedItemSlots[0].itemData.itemType))
-                {
-                    if (equippedSlot.slotType == Slot.OffHand)
-                    {
-                        EquippedSlot mainSlot = FindEquippedSlotOfType(Slot.MainHand)[0];
-                        if (!mainSlot.slotInUse && mainSlot.ItemTypeValidForSlot(selectedItemSlots[0].itemData.itemType))
-                        {
-                            ItemData itemData = selectedItemSlots[0].itemData;
-                            selectedItemSlots[0].EmptySlot();
-                            mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
-                        }
-                        else if (mainSlot.equippedWeaponType == ItemType.TwoHanded)
-                        {
-                            if (selectedItemSlots[0].itemData.itemType == ItemType.OneHanded)
-                            {
-                                ItemData itemData = selectedItemSlots[0].itemData;
-                                selectedItemSlots[0].EmptySlot();
-                                equippedSlot.UnequipGear();
-                                mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
-                            }
-                            else if (selectedItemSlots[0].itemData.itemType == ItemType.TwoHanded)
-                            {
-                                ItemData itemData = selectedItemSlots[0].itemData;
-                                selectedItemSlots[0].EmptySlot();
-                                equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
-                            }
-                            else if (selectedItemSlots[0].itemData.itemType == ItemType.Bow)
-                            {
-                                ItemData itemData = selectedItemSlots[0].itemData;
-                                selectedItemSlots[0].EmptySlot();
-                                mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
-                            }
-                        }
-                        else if (mainSlot.equippedWeaponType == ItemType.OneHanded)
-                        {
-                            if (selectedItemSlots[0].itemData.itemType == ItemType.TwoHanded)
-                            {
-                                ItemData itemData = selectedItemSlots[0].itemData;
-                                selectedItemSlots[0].EmptySlot();
-                                equippedSlot.UnequipGear();
-                                mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
-                            }
-                            else if (selectedItemSlots[0].itemData.itemType == ItemType.OneHanded)
-                            {
-                                ItemData itemData = selectedItemSlots[0].itemData;
-                                selectedItemSlots[0].EmptySlot();
-                                equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
-                            }
-                            else if (selectedItemSlots[0].itemData.itemType == ItemType.Bow)
-                            {
-                                ItemData itemData = selectedItemSlots[0].itemData;
-                                selectedItemSlots[0].EmptySlot();
-                                equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
-                            }
-                        }
-                        else if (mainSlot.equippedWeaponType == ItemType.Bow)
-                        {
-                            ItemData itemData = selectedItemSlots[0].itemData;
-                            selectedItemSlots[0].EmptySlot();
-                            equippedSlot.UnequipGear();
-                            mainSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
-                        }
-                        else
-                        {
-                            ItemData itemData = selectedItemSlots[0].itemData;
-                            selectedItemSlots[0].EmptySlot();
-                            equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController, selectedItemSlots[0].slotIndex);
-                        }
-                    }
-                    else if (equippedSlot.slotType == Slot.MainHand)
-                    {
-                        EquippedSlot offhandSlot = FindEquippedSlotOfType(Slot.OffHand)[0];
-                        ItemData itemData = selectedItemSlots[0].itemData;
-                        selectedItemSlots[0].EmptySlot();
-                        equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController);
-                        if (offhandSlot.slotInUse)
-                        {
-                            if (itemData.itemType == ItemType.OneHanded && offhandSlot.equippedWeaponType == ItemType.TwoHanded)
-                            {
-                                offhandSlot.UnequipGear();
-                            }
-                            else if (itemData.itemType == ItemType.TwoHanded && offhandSlot.equippedWeaponType == ItemType.OneHanded)
-                            {
-                                offhandSlot.UnequipGear();
-                            }
-                            else if (itemData.itemType == ItemType.Bow)
-                            {
-                                offhandSlot.UnequipGear();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        ItemData itemData = selectedItemSlots[0].itemData;
-                        selectedItemSlots[0].EmptySlot();
-                        equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController, selectedItemSlots[0].slotIndex);
-                    }
-                }
-            }
-            else if (selectedItemSlots[0] is EquippedSlot && selectedItemSlots[1] is EquipmentSlot)
-            {
-                EquippedSlot equippedSlot = selectedItemSlots[0] as EquippedSlot;
-                if (!selectedItemSlots[1].slotInUse)
-                {
-                    equippedSlot.UnequipGear(selectedItemSlots[1].slotIndex);
-                }
-                else
-                {
-                    if (equippedSlot.ItemTypeValidForSlot(selectedItemSlots[1].itemData.itemType))
-                    {
-                        ItemData itemData = selectedItemSlots[1].itemData;
-                        selectedItemSlots[1].EmptySlot();
-                        equippedSlot.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController, selectedItemSlots[1].slotIndex);
-                    }
-                }
-            }
-            else if (selectedItemSlots[0] is EquippedSlot && selectedItemSlots[1] is EquippedSlot)
-            {
-                EquippedSlot equippedSlot1 = selectedItemSlots[0] as EquippedSlot;
-                EquippedSlot equippedSlot2 = selectedItemSlots[1] as EquippedSlot;
-
-                if (equippedSlot2.slotInUse)
-                {
-                    if (equippedSlot2.ItemTypeValidForSlot(equippedSlot1.itemData.itemType) && equippedSlot1.ItemTypeValidForSlot(equippedSlot2.itemData.itemType))
-                    {
-                        ItemData itemData = equippedSlot2.itemData;
-                        equippedSlot2.UnequipGear(0, true);
-                        equippedSlot2.EquipGear(equippedSlot1.itemData, playerUserInterfaceController.playerContext.PlayerController);
-                        equippedSlot1.EquipGear(itemData, playerUserInterfaceController.playerContext.PlayerController, 0, true);
-                    }
-                }
-                else
-                {
-                    if (equippedSlot2.ItemTypeValidForSlot(equippedSlot1.itemData.itemType))
-                    {
-                        equippedSlot1.UnequipGear(0, true);
-                        equippedSlot2.EquipGear(equippedSlot1.itemData, playerUserInterfaceController.playerContext.PlayerController);
-                    }
-                }
-            }
-            DeselectAllSlots();
-            selectedItemSlots.Clear();
-        }
+        return null;
     }
 }

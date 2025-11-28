@@ -8,126 +8,32 @@ public class PlayerUserInterfaceController : MonoBehaviour
 {
     public PlayerContext playerContext;
 
-    public GameObject PlayerInventoryPanel;
-    public GameObject PlayerFeatsPanel;
-    public GameObject PlayerGlossary;
-    public GameObject PlayerResourcePanel;
-
     public InventoryController inventoryController;
-    public PlayerFeatsPanelController featsPanelController;
     public ResourcePanelController resourcePanelController;
     public AbilityScrollController AbilityScrollController;
-    public GlossaryController glossaryController;
 
-    private InventoryManager inventoryManager;
-    public int PlayerIndex { get; private set; }
     public bool IsMenuOpened { get; private set; }
+    public EventSystem eventSystem;
 
-    private EventSystem eventSystem;
-
-    void Awake()
+    public void Init(PlayerContext context)
     {
         eventSystem = GetComponent<EventSystem>();
-    }
 
-
-    public void OpenInventoryPanel()
-    {
-        eventSystem.SetSelectedGameObject(inventoryController.equipmentSlot[0].gameObject);
-        PlayerInventoryPanel.SetActive(true);
-        PlayerFeatsPanel.SetActive(false);
-        PlayerGlossary.SetActive(false);
-        IsMenuOpened = true;
-    }
-
-    public void OpenFeatsPanel()
-    {
-        eventSystem.SetSelectedGameObject(featsPanelController.featButtons[0].gameObject);
-        PlayerInventoryPanel.SetActive(false);
-        PlayerFeatsPanel.SetActive(true);
-        PlayerGlossary.SetActive(false);
-        IsMenuOpened = true;
-    }
-
-    public void OpenGlossaryPanel()
-    {
-        eventSystem.SetSelectedGameObject(glossaryController.glossaryButtonOne.gameObject);
-        PlayerInventoryPanel.SetActive(false);
-        PlayerFeatsPanel.SetActive(false);
-        PlayerGlossary.SetActive(true);
-        IsMenuOpened = true;
-    }
-
-    public void CloseAllMenus()
-    {
-        PlayerInventoryPanel.SetActive(false);
-        PlayerFeatsPanel.SetActive(false);
-        PlayerGlossary.SetActive(false);
-        IsMenuOpened = false;
-    }
-
-    public void GoToNextMenu()
-    {
-        if (PlayerInventoryPanel.activeSelf)
-        {
-            OpenFeatsPanel();
-        }
-        else if (PlayerFeatsPanel.activeSelf)
-        {
-            inventoryController.UpdatePlayerStats();
-            OpenGlossaryPanel();
-        }
-        else if (PlayerGlossary.activeSelf)
-        {
-            OpenInventoryPanel();
-        }
-    }
-
-    public void GoToPreviousMenu()
-    {
-        if (PlayerInventoryPanel.activeSelf)
-        {
-            OpenGlossaryPanel();
-        }
-        else if (PlayerFeatsPanel.activeSelf)
-        {
-            inventoryController.UpdatePlayerStats();
-            OpenInventoryPanel();
-        }
-        else if (PlayerGlossary.activeSelf)
-        {
-            OpenFeatsPanel();
-        }
-    }
-
-    public void Init(PlayerInput playerInput, PlayerContext context)
-    {
-        PlayerIndex = context.PlayerIndex;
         playerContext = context;
-        inventoryManager = playerContext.InventoryManager;
-        inventoryController.playerUserInterfaceController = this;
 
         resourcePanelController.Init(playerContext.PlayerController);
-        SetupInventoryMenu(playerInput);
-        SetupFeatsMenu();
+        inventoryController.Init(playerContext);
     }
 
-    public void SetupInventoryMenu(PlayerInput playerInput)
+    public void ToggleInventory(bool toggle)
     {
-        inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].EquipmentMenuObject = PlayerInventoryPanel;
-        inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].controller = inventoryController;
-        inventoryManager.EquipmentMenuObjects[playerInput.playerIndex].playerUserInterfaceController = this;
-        inventoryController.playerIndex = playerInput.playerIndex;
+        IsMenuOpened = toggle;
+        inventoryController.ToggleInventory(toggle);
     }
 
-    public void SetupFeatsMenu()
+    public void ToggleResourcePanel(bool value)
     {
-        featsPanelController.CreateFeatButtons(playerContext.PlayerController);
-    }
-
-    public void DisplayPlayerResourcePanel(bool value)
-    {
-        PlayerResourcePanel.SetActive(value);
+        resourcePanelController.gameObject.SetActive(value);
     }
 
     public void AddAbility(AbilitySO ability, AbilityBehaviourBase behaviour)

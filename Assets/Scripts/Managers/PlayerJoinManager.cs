@@ -166,7 +166,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.PlayerPreviewManager = playerPreviewManager;
         playerContext.InventoryController = playerUserInterfaceController.inventoryController;
 
-        playerContext.UserInterfaceController.inventoryController.controller = playerContext.PlayerController;
+        playerUserInterfaceController.playerContext = playerContext;
 
         playerContext.PlayerController.PlayerContext = playerContext;
 
@@ -182,6 +182,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
             classPresetSO = ChooseRandomClassPreset();
         }
 
+        playerUserInterfaceController.Init(playerContext);
 
         playerContext.PlayerController.FeatsController.SetupClassPreset(classPresetSO.classFeatConfig);
         playerContext.PlayerController.WeaponController.EquipStarterItems(classPresetSO.StartingMainHandWeapon, classPresetSO.StartingOffhandWeapon);
@@ -190,7 +191,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.PlayerController.EntityData = classPresetSO.PlayerStatsSO;
         playerContext.PlayerController.ApplyStats();
 
-        playerUserInterfaceController.Init(playerInput, playerContext);
+        playerContext.UserInterfaceController.inventoryController.FeatsMenu.CreateFeatButtons(playerContext);
 
         //playerAveragePositionTracker.AddPlayer(playerInput.gameObject);
     }

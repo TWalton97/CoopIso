@@ -20,7 +20,7 @@ public class PreviewWindow : MonoBehaviour
         if (itemData.data is WeaponDataSO)
         {
             WeaponDataSO weaponData = itemData.data as WeaponDataSO;
-            SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = inventoryController.playerUserInterfaceController.playerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
+            SpawnedItemDataBase.SpawnedWeaponsData spawnedWeaponsData = inventoryController.PlayerContext.UserInterfaceController.playerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedWeaponsData;
             ItemStats.text =
             "Weapon Damage: " + weaponData.WeaponMinDamage + "-" + weaponData.WeaponMaxDamage + " <color=#FFE500>(" + spawnedWeaponsData.weaponMinDamage + "-" + spawnedWeaponsData.weaponMaxDamage + ")</color>" +
             "\nAttacks per Second: " + weaponData.AttacksPerSecond + " <color=#FFE500>(" + spawnedWeaponsData.attacksPerSecond.ToString("0.00") + ")</color>" +
@@ -38,7 +38,7 @@ public class PreviewWindow : MonoBehaviour
         else if (itemData.data is ShieldSO)
         {
             ShieldSO shieldData = itemData.data as ShieldSO;
-            SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = inventoryController.playerUserInterfaceController.playerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedShieldData;
+            SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = inventoryController.PlayerContext.UserInterfaceController.playerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedShieldData;
             ItemStats.text =
             "BlockAngle: " + shieldData.BlockAngle + " <color=#FFE500>(" + spawnedShieldData.blockAngle + ")</color>" +
             "\nBlockAmount: " + shieldData.BlockAmount + " <color=#FFE500>(" + spawnedShieldData.blockAmount + ")</color>" +
@@ -48,7 +48,7 @@ public class PreviewWindow : MonoBehaviour
         else if (itemData.data is BowSO)
         {
             BowSO weaponData = itemData.data as BowSO;
-            SpawnedItemDataBase.SpawnedBowData spawnedWeaponsData = inventoryController.playerUserInterfaceController.playerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedBowData;
+            SpawnedItemDataBase.SpawnedBowData spawnedWeaponsData = inventoryController.PlayerContext.UserInterfaceController.playerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedBowData;
             ItemStats.text =
             "Weapon Damage: " + weaponData.WeaponMinDamage + "-" + weaponData.WeaponMaxDamage + " <color=#FFE500>(" + spawnedWeaponsData.weaponMinDamage + "-" + spawnedWeaponsData.weaponMaxDamage + ")</color>" +
             "\nAttacks per Second: " + weaponData.AttacksPerSecond + " <color=#FFE500>(" + spawnedWeaponsData.attacksPerSecond.ToString("0.00") + ")</color>" +
@@ -59,7 +59,7 @@ public class PreviewWindow : MonoBehaviour
         else if (itemData.data is ArmorSO)
         {
             ArmorSO armorData = itemData.data as ArmorSO;
-            SpawnedItemDataBase.SpawnedArmorData spawnedWeaponsData = inventoryController.playerUserInterfaceController.playerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
+            SpawnedItemDataBase.SpawnedArmorData spawnedWeaponsData = inventoryController.PlayerContext.UserInterfaceController.playerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemData.itemID) as SpawnedItemDataBase.SpawnedArmorData;
             ItemStats.text =
             "Armor Type: " + spawnedWeaponsData.armorType.ToString() +
             "\nArmor Amount: " + armorData.ArmorAmount + " <color=#FFE500>(" + spawnedWeaponsData.armorAmount + ")</color>";

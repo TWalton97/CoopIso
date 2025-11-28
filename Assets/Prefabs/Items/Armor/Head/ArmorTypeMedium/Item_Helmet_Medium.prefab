@@ -46,19 +46,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    WorldRotation: {x: 0, y: 0, z: 0, w: 0}
   itemData:
     itemID: 
     itemName: Medium Helmet
     quantity: 1
-    sprite: {fileID: 21300000, guid: fbc991a4cc408a44c95f71e2ebaa8b3b, type: 3}
+    sprite: {fileID: 21300000, guid: 787bf3fb300ab7948a379edf13ca818c, type: 3}
+    itemValue: 0
+    itemWeight: 0
     itemDescription: A medium helmet.
     objectPrefab: {fileID: 9064966391736161019, guid: f6237aeb9461f694a8a31c0ecccc7894, type: 3}
     floorObjectPrefab: {fileID: 4506212837237186832, guid: c58a0f3d265344c438e99a7d3139dd17, type: 3}
     vfxPrefab: {fileID: 0}
     itemType: 1
+    weaponRangeType: 0
     data: {fileID: 11400000, guid: 4944988477f0f3349a02b9ed28db4b51, type: 2}
     affixes: []
-  inventoryManager: {fileID: 0}
   InteractionType: 0
 --- !u!135 &8452926830592529493
 SphereCollider:

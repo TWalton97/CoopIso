@@ -15439,6 +15439,130 @@ MonoBehaviour:
   twoHandedAttackProfile: {fileID: 11400000, guid: f0ec3d025e2dfc246b8eca57f5442245, type: 2}
   dualWieldAttackProfile: {fileID: 11400000, guid: b5e01b42ab1bd224b8a87e7f620e02a1, type: 2}
   bowAttackProfile: {fileID: 11400000, guid: 421a3dd49930284438034e12f7746a98, type: 2}
+  OneHandedWeaponSet:
+    PrimaryWeaponData:
+      itemID: 
+      itemName: 
+      quantity: 0
+      sprite: {fileID: 0}
+      itemValue: 0
+      itemWeight: 0
+      itemDescription: 
+      objectPrefab: {fileID: 0}
+      floorObjectPrefab: {fileID: 0}
+      vfxPrefab: {fileID: 0}
+      itemType: 0
+      weaponRangeType: 0
+      data: {fileID: 0}
+      affixes: []
+    SecondaryWeaponData:
+      itemID: 
+      itemName: 
+      quantity: 0
+      sprite: {fileID: 0}
+      itemValue: 0
+      itemWeight: 0
+      itemDescription: 
+      objectPrefab: {fileID: 0}
+      floorObjectPrefab: {fileID: 0}
+      vfxPrefab: {fileID: 0}
+      itemType: 0
+      weaponRangeType: 0
+      data: {fileID: 0}
+      affixes: []
+  TwoHandedWeaponSet:
+    PrimaryWeaponData:
+      itemID: 
+      itemName: 
+      quantity: 0
+      sprite: {fileID: 0}
+      itemValue: 0
+      itemWeight: 0
+      itemDescription: 
+      objectPrefab: {fileID: 0}
+      floorObjectPrefab: {fileID: 0}
+      vfxPrefab: {fileID: 0}
+      itemType: 0
+      weaponRangeType: 0
+      data: {fileID: 0}
+      affixes: []
+    SecondaryWeaponData:
+      itemID: 
+      itemName: 
+      quantity: 0
+      sprite: {fileID: 0}
+      itemValue: 0
+      itemWeight: 0
+      itemDescription: 
+      objectPrefab: {fileID: 0}
+      floorObjectPrefab: {fileID: 0}
+      vfxPrefab: {fileID: 0}
+      itemType: 0
+      weaponRangeType: 0
+      data: {fileID: 0}
+      affixes: []
+  RangedWeaponSet:
+    PrimaryWeaponData:
+      itemID: 
+      itemName: 
+      quantity: 0
+      sprite: {fileID: 0}
+      itemValue: 0
+      itemWeight: 0
+      itemDescription: 
+      objectPrefab: {fileID: 0}
+      floorObjectPrefab: {fileID: 0}
+      vfxPrefab: {fileID: 0}
+      itemType: 0
+      weaponRangeType: 0
+      data: {fileID: 0}
+      affixes: []
+    SecondaryWeaponData:
+      itemID: 
+      itemName: 
+      quantity: 0
+      sprite: {fileID: 0}
+      itemValue: 0
+      itemWeight: 0
+      itemDescription: 
+      objectPrefab: {fileID: 0}
+      floorObjectPrefab: {fileID: 0}
+      vfxPrefab: {fileID: 0}
+      itemType: 0
+      weaponRangeType: 0
+      data: {fileID: 0}
+      affixes: []
+  ActiveWeaponSet:
+    PrimaryWeaponData:
+      itemID: 
+      itemName: 
+      quantity: 0
+      sprite: {fileID: 0}
+      itemValue: 0
+      itemWeight: 0
+      itemDescription: 
+      objectPrefab: {fileID: 0}
+      floorObjectPrefab: {fileID: 0}
+      vfxPrefab: {fileID: 0}
+      itemType: 0
+      weaponRangeType: 0
+      data: {fileID: 0}
+      affixes: []
+    SecondaryWeaponData:
+      itemID: 
+      itemName: 
+      quantity: 0
+      sprite: {fileID: 0}
+      itemValue: 0
+      itemWeight: 0
+      itemDescription: 
+      objectPrefab: {fileID: 0}
+      floorObjectPrefab: {fileID: 0}
+      vfxPrefab: {fileID: 0}
+      itemType: 0
+      weaponRangeType: 0
+      data: {fileID: 0}
+      affixes: []
   CombinedWeaponDamage: 0
   UnarmedAnimator: {fileID: 9100000, guid: 5b7e4efa974f7334191e8c27409f2845, type: 2}
   OneHandedAndShieldAnimator: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
@@ -15585,6 +15709,11 @@ MonoBehaviour:
   PlayerController: {fileID: 7230535324818502119}
   experienceController: {fileID: 9155891904063514100}
   AllFeats:
+  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
+  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
+  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
+  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
+  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
   - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
   UnlockedFeats: []
 --- !u!114 &1963507904449709706

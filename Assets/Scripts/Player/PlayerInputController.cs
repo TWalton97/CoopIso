@@ -41,6 +41,8 @@ public class PlayerInputController : MonoBehaviour
     public Action<CallbackContext> OnDrinkPotionTwoPerformed;
     public Action<CallbackContext> OnCycleAbilityListLeftPerformed;
     public Action<CallbackContext> OnCycleAbilityListRightPerformed;
+    public Action<CallbackContext> OnCycleWeaponSetUpPerformed;
+    public Action<CallbackContext> OnCycleWeaponSetDownPerformed;
 
     //Stored dictionary for unsubscribing from all events
     private Dictionary<InputAction, Action<CallbackContext>> subscribedInputActions = new Dictionary<InputAction, Action<CallbackContext>>();
@@ -87,6 +89,8 @@ public class PlayerInputController : MonoBehaviour
         SubscribeToInputAction(playerInputActions.Player.CycleAbilityListRight.id.ToString(), OnCycleAbilityListRight, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.CycleAbilityListLeft.id.ToString(), OnCycleAbilityListLeft, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.ResetCameraRotation.id.ToString(), OnResetCameraRotation, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.CycleWeaponSetUp.id.ToString(), OnCycleWeaponSetUp, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.CycleWeaponSetDown.id.ToString(), OnCycleWeaponSetDown, gameplayMap);
 
         SubscribeToInputAction(playerInputActions.UI.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, UIMap);
         SubscribeToInputAction(playerInputActions.UI.DropItem.id.ToString(), OnDropItem, UIMap);
@@ -239,6 +243,16 @@ public class PlayerInputController : MonoBehaviour
     {
         playerController.PlayerContext.UserInterfaceController.AbilityScrollController.CycleLeft();
     }
+
+    public void OnCycleWeaponSetUp(CallbackContext context)
+    {
+        playerController.WeaponController.CycleActiveWeaponSetUp();
+    }
+
+    public void OnCycleWeaponSetDown(CallbackContext context)
+    {
+        playerController.WeaponController.CycleActiveWeaponSetDown();
+    }
     #endregion
 
     #region UI Input Actions
@@ -294,17 +308,17 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnDropItem(CallbackContext context)
     {
-        playerController.PlayerContext.UserInterfaceController.inventoryController.CurrentlySelectedItemSlot.OnRightClick();
+
     }
 
     public void OnMoveMenuLeft(CallbackContext context)
     {
-        playerController.PlayerContext.UserInterfaceController.GoToPreviousMenu();
+        playerController.PlayerContext.UserInterfaceController.inventoryController.GoToPreviousMenu();
     }
 
     public void OnMoveMenuRight(CallbackContext context)
     {
-        playerController.PlayerContext.UserInterfaceController.GoToNextMenu();
+        playerController.PlayerContext.UserInterfaceController.inventoryController.GoToNextMenu();
     }
     #endregion
 

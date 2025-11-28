@@ -12,6 +12,8 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnEnter()
     {
+        player.RotateToFaceLookPoint();
+
         if (player.WeaponController.instantiatedPrimaryWeapon != null)
         {
             if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))

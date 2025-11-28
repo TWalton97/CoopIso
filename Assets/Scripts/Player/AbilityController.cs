@@ -66,7 +66,7 @@ public class AbilityController : MonoBehaviour
 
             behaviours.Add(abilitySO, behaviour);
 
-            newPlayerController.PlayerContext.InventoryManager.GetPlayerUserInterfaceControllerByIndex(newPlayerController.PlayerInputController.playerIndex).AddAbility(abilitySO, behaviour);
+            newPlayerController.PlayerContext.UserInterfaceController.AddAbility(abilitySO, behaviour);
 
             UnlockedAbilities.Add(abilitySO);
             Debug.Log($"Unlocked ability {abilitySO.AbilityName}");

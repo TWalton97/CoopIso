@@ -152,6 +152,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CycleWeaponSetUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ba7c1fe-92b1-4385-a7d4-177c22b16ebe"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CycleWeaponSetDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""7fd7980f-8ef6-49fb-9f0c-addf0026aa8d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -515,6 +533,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""ResetCameraRotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e4e6dc5-90ef-41e6-8736-c16e6512503d"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""CycleWeaponSetUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""feebd404-130e-4e9f-bee7-45da87fa5562"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""CycleWeaponSetDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1229,6 +1269,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_CycleAbilityListRight = m_Player.FindAction("CycleAbilityListRight", throwIfNotFound: true);
         m_Player_CycleAbilityListLeft = m_Player.FindAction("CycleAbilityListLeft", throwIfNotFound: true);
         m_Player_ResetCameraRotation = m_Player.FindAction("ResetCameraRotation", throwIfNotFound: true);
+        m_Player_CycleWeaponSetUp = m_Player.FindAction("CycleWeaponSetUp", throwIfNotFound: true);
+        m_Player_CycleWeaponSetDown = m_Player.FindAction("CycleWeaponSetDown", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1326,6 +1368,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CycleAbilityListRight;
     private readonly InputAction m_Player_CycleAbilityListLeft;
     private readonly InputAction m_Player_ResetCameraRotation;
+    private readonly InputAction m_Player_CycleWeaponSetUp;
+    private readonly InputAction m_Player_CycleWeaponSetDown;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1344,6 +1388,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @CycleAbilityListRight => m_Wrapper.m_Player_CycleAbilityListRight;
         public InputAction @CycleAbilityListLeft => m_Wrapper.m_Player_CycleAbilityListLeft;
         public InputAction @ResetCameraRotation => m_Wrapper.m_Player_ResetCameraRotation;
+        public InputAction @CycleWeaponSetUp => m_Wrapper.m_Player_CycleWeaponSetUp;
+        public InputAction @CycleWeaponSetDown => m_Wrapper.m_Player_CycleWeaponSetDown;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1395,6 +1441,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ResetCameraRotation.started += instance.OnResetCameraRotation;
             @ResetCameraRotation.performed += instance.OnResetCameraRotation;
             @ResetCameraRotation.canceled += instance.OnResetCameraRotation;
+            @CycleWeaponSetUp.started += instance.OnCycleWeaponSetUp;
+            @CycleWeaponSetUp.performed += instance.OnCycleWeaponSetUp;
+            @CycleWeaponSetUp.canceled += instance.OnCycleWeaponSetUp;
+            @CycleWeaponSetDown.started += instance.OnCycleWeaponSetDown;
+            @CycleWeaponSetDown.performed += instance.OnCycleWeaponSetDown;
+            @CycleWeaponSetDown.canceled += instance.OnCycleWeaponSetDown;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1441,6 +1493,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ResetCameraRotation.started -= instance.OnResetCameraRotation;
             @ResetCameraRotation.performed -= instance.OnResetCameraRotation;
             @ResetCameraRotation.canceled -= instance.OnResetCameraRotation;
+            @CycleWeaponSetUp.started -= instance.OnCycleWeaponSetUp;
+            @CycleWeaponSetUp.performed -= instance.OnCycleWeaponSetUp;
+            @CycleWeaponSetUp.canceled -= instance.OnCycleWeaponSetUp;
+            @CycleWeaponSetDown.started -= instance.OnCycleWeaponSetDown;
+            @CycleWeaponSetDown.performed -= instance.OnCycleWeaponSetDown;
+            @CycleWeaponSetDown.canceled -= instance.OnCycleWeaponSetDown;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1669,6 +1727,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnCycleAbilityListRight(InputAction.CallbackContext context);
         void OnCycleAbilityListLeft(InputAction.CallbackContext context);
         void OnResetCameraRotation(InputAction.CallbackContext context);
+        void OnCycleWeaponSetUp(InputAction.CallbackContext context);
+        void OnCycleWeaponSetDown(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

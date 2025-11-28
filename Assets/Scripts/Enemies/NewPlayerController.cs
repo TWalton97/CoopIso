@@ -251,10 +251,6 @@ public class NewPlayerController : Entity
 
         Vector3 rotatedInputDirection = camForward * _moveInput.y + camRight * _moveInput.x;
 
-        //Quaternion rotation = Quaternion.AngleAxis(225f, Vector3.up);
-
-        //Vector3 rotatedInputDirection = rotation * inputDirection;
-
         Vector3 newVel = rotatedInputDirection * _movementSpeed;
         newVel.y = Rigidbody.velocity.y;
 
@@ -262,6 +258,15 @@ public class NewPlayerController : Entity
 
         if (attackStateMachine.current.State == attackState || (attackStateMachine.current.State == castState && !AbilityBeingUsed.CanRotateDuringCast))
             return;
+
+        if (PlayerContext.PlayerInput.currentControlScheme == KEYBOARD_SCHEME)
+        {
+            if (attackStateMachine.current.State == blockState || (attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast))
+            {
+                RotateToFaceLookPoint();
+                return;
+            }
+        }
 
         if (_moveInput.sqrMagnitude > 0.01f)
             transform.rotation = Quaternion.LookRotation(rotatedInputDirection);
@@ -306,14 +311,10 @@ public class NewPlayerController : Entity
         //RotateToFaceDir(dir);
     }
 
-    private void RotateToFaceDir(Vector2 dir)
+    public void RotateToFaceLookPoint()
     {
-        Vector3 inputDirection = new Vector3(dir.x, 0, dir.y);
-        Quaternion rotation = Quaternion.AngleAxis(225f, Vector3.up);
-
-        Vector3 rotatedInputDirection = rotation * inputDirection;
-
-        transform.LookAt(transform.position + rotatedInputDirection);
+        if (PlayerContext.PlayerInput.currentControlScheme == KEYBOARD_SCHEME)
+            transform.rotation = Quaternion.LookRotation(lookPoint);
     }
 
     #endregion
@@ -327,8 +328,6 @@ public class NewPlayerController : Entity
 
     private void Attack(CallbackContext context)
     {
-        //transform.LookAt(lookPoint);
-
         attackButtonPressed = true;
     }
 
@@ -368,24 +367,11 @@ public class NewPlayerController : Entity
 
     private void DrinkPotionOne(CallbackContext context)
     {
-        //We need to look in our inventory for what potion is in this slot
-        //Get the data from that potion
-        //Send it to the potion controller
 
-        List<EquippedSlot> potionSlots = PlayerContext.InventoryController.FindEquippedSlotOfType(Slot.Potion);
-        if (!potionSlots[0].slotInUse) return;
-
-        PotionSO itemData = potionSlots[0].itemData.data as PotionSO;
-        PotionController.UsePotion(itemData);
     }
 
     private void DrinkPotionTwo(CallbackContext context)
     {
-        List<EquippedSlot> potionSlots = PlayerContext.InventoryController.FindEquippedSlotOfType(Slot.Potion);
-        if (!potionSlots[1].slotInUse) return;
-
-        PotionSO itemData = potionSlots[1].itemData.data as PotionSO;
-        PotionController.UsePotion(itemData);
     }
 
     #endregion

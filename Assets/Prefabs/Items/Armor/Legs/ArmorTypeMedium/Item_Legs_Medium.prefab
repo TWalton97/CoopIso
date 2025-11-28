@@ -46,19 +46,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    WorldRotation: {x: 0, y: 0, z: 0, w: 0}
   itemData:
     itemID: 
     itemName: Medium Legs
     quantity: 1
-    sprite: {fileID: 21300000, guid: fbc991a4cc408a44c95f71e2ebaa8b3b, type: 3}
+    sprite: {fileID: 21300000, guid: 0f170d5018a92164fb4479cfbd0ba7f4, type: 3}
+    itemValue: 0
+    itemWeight: 0
     itemDescription: A medium pair of leggings.
     objectPrefab: {fileID: 4602066518352732491, guid: b18ef68fe4e65d4408d85e21c9096463, type: 3}
     floorObjectPrefab: {fileID: 6732823504039379065, guid: 70b4c3764739b8045a793719e716f6fb, type: 3}
     vfxPrefab: {fileID: 0}
     itemType: 3
+    weaponRangeType: 0
     data: {fileID: 11400000, guid: 4944988477f0f3349a02b9ed28db4b51, type: 2}
     affixes: []
-  inventoryManager: {fileID: 0}
   InteractionType: 0
 --- !u!135 &2169010765723516183
 SphereCollider:

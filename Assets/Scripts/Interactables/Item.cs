@@ -44,17 +44,17 @@ public class Item : MonoBehaviour, IInteractable
         yield return null;
     }
 
-    private void CollectItem(InventoryManager inventoryManager, int playerIndex)
+    private void CollectItem(PlayerContext playerContext)
     {
         if (itemCollected) return;
         itemCollected = true;
-        inventoryManager.AddItemToCorrectPlayerInventory(itemData, playerIndex);
+        playerContext.InventoryController.AddItemToInventory(itemData);
         Destroy(gameObject);
     }
 
     public void OnInteract(PlayerContext context, int playerIndex)
     {
-        CollectItem(context.InventoryManager, playerIndex);
+        CollectItem(context);
     }
 
     public ItemStatus ReturnItemStatus()
@@ -71,6 +71,8 @@ public class ItemData
     public string itemName;
     public int quantity;
     public Sprite sprite;
+    public int itemValue;
+    public float itemWeight;
     [TextArea] public string itemDescription;
     public GameObject objectPrefab;
     public GameObject floorObjectPrefab;

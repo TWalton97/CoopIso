@@ -130,6 +130,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CycleWeaponSetUp",
+                    "type": "Button",
+                    "id": "6ba7c1fe-92b1-4385-a7d4-177c22b16ebe",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CycleWeaponSetDown",
+                    "type": "Button",
+                    "id": "7fd7980f-8ef6-49fb-9f0c-addf0026aa8d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -493,6 +511,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "ResetCameraRotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e4e6dc5-90ef-41e6-8736-c16e6512503d",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "CycleWeaponSetUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "feebd404-130e-4e9f-bee7-45da87fa5562",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "CycleWeaponSetDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

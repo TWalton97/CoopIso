@@ -46,20 +46,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    WorldRotation: {x: 0, y: 0, z: 0, w: 0}
   itemData:
     itemID: 
     itemName: Heavy Body Armor
     quantity: 1
-    sprite: {fileID: 21300000, guid: 13baec530bb89bf45a6f175a1375ea83, type: 3}
+    sprite: {fileID: 21300000, guid: cb76e8e77b97c2d4186f938b81a6d659, type: 3}
+    itemValue: 0
+    itemWeight: 0
     itemDescription: A heavy piece of body armor. Not much will hurt you through
       this.
     objectPrefab: {fileID: 7128013829779419419, guid: 47e4af413a4aed04091e71acb04c826c, type: 3}
     floorObjectPrefab: {fileID: 4179038336015967957, guid: d0275977157ad29488a7ce1fb2d8fccd, type: 3}
     vfxPrefab: {fileID: 0}
     itemType: 2
+    weaponRangeType: 0
     data: {fileID: 11400000, guid: 47f9f2732e2549949856582d507895e8, type: 2}
     affixes: []
-  inventoryManager: {fileID: 0}
   InteractionType: 0
 --- !u!135 &4920443897493769839
 SphereCollider:

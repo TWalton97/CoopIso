@@ -19,7 +19,6 @@ public class FeatsController : MonoBehaviour
         SetupClassConfig(classFeatConfig);
     }
 
-
     public RuntimeFeat GetRuntimeFeat(FeatSO feat)
     {
         return UnlockedFeats.FirstOrDefault(f => f.BaseFeatSO == feat);
