@@ -46,11 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    WorldRotation: {x: 0, y: 0, z: 0, w: 0}
   itemData:
-    itemID: 9e5ac824-860b-4c78-86bc-ae367c0f57d6
+    itemID: 
     itemName: Two-Handed Axe
     quantity: 1
-    sprite: {fileID: 21300000, guid: 0dd2ad6c520c76a478f115e7512d2e23, type: 3}
+    sprite: {fileID: 21300000, guid: e56c3a814ceb11c43b0c3ed49fc4de14, type: 3}
     itemDescription: A heavy two-handed axe. Swing with caution.
     objectPrefab: {fileID: 7351689401621798789, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
     floorObjectPrefab: {fileID: 0}

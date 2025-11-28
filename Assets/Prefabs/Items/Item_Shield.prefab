@@ -46,11 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    WorldRotation: {x: 0, y: 0, z: 0, w: 0}
   itemData:
     itemID: 
     itemName: Old Shield
     quantity: 1
-    sprite: {fileID: 21300000, guid: 2eb711b376b568746b9ec0029dc05b63, type: 3}
+    sprite: {fileID: 21300000, guid: b50bfecc887db334ebaf1bc3978eb52f, type: 3}
     itemDescription: An old shield. It won't fully protect you, but it's better than
       nothing. Probably.
     objectPrefab: {fileID: 8601840781972821055, guid: d08a1202dc9c31847a92b2db41662425, type: 3}

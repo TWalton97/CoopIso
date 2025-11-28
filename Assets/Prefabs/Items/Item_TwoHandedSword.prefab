@@ -46,11 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    WorldRotation: {x: 0, y: 0, z: 0, w: 0}
   itemData:
     itemID: 
     itemName: Two-Handed Sword
     quantity: 1
-    sprite: {fileID: 21300000, guid: e32d83551d57bea4e9e86d8218f43798, type: 3}
+    sprite: {fileID: 21300000, guid: afecbd7a4b159df46826bb96b9cbc83e, type: 3}
     itemDescription: A heavy two-handed sword to deliver swift judgement.
     objectPrefab: {fileID: 1082104743396959951, guid: c50d94eeb1f3b7743805376943012e86, type: 3}
     floorObjectPrefab: {fileID: 0}

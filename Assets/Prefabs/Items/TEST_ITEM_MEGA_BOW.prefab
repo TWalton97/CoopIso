@@ -46,11 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    WorldRotation: {x: 0, y: 0, z: 0, w: 0}
   itemData:
     itemID: 
     itemName: Bow
     quantity: 1
-    sprite: {fileID: 21300000, guid: 604a33afbe2140544a43ae2d43bb9616, type: 3}
+    sprite: {fileID: 21300000, guid: ad63190882c3dcf4d8d88c6994140e6f, type: 3}
     itemDescription: A bow.
     objectPrefab: {fileID: 1717406733745140, guid: 4535dcac0f9dc7244a77b80b041978a5, type: 3}
     floorObjectPrefab: {fileID: 0}

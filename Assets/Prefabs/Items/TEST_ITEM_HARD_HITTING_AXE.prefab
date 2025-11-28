@@ -46,11 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    WorldRotation: {x: 0, y: 0, z: 0, w: 0}
   itemData:
     itemID: 
     itemName: Really Hard Hitting Axe
     quantity: 1
-    sprite: {fileID: 21300000, guid: 38a702e6b4c2c9142859427b96a7c6f9, type: 3}
+    sprite: {fileID: 21300000, guid: 774a7a1997cfb514ba373b25d06beeb5, type: 3}
     itemDescription: This axe hits really, really hard. That's about it.
     objectPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
     floorObjectPrefab: {fileID: 0}

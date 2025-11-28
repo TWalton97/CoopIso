@@ -8,6 +8,9 @@ using Unity.VisualScripting;
 
 public class ItemSlot : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerClickHandler
 {
+    public Color BaseColor;
+    public Color EquippedColor;
+    public Color CannotBeUsedColor;
     [SerializeField] protected Sprite emptySprite;
     [SerializeField] protected Image slotImage;
     public ItemData itemData;

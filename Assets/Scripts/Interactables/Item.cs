@@ -39,6 +39,7 @@ public class Item : MonoBehaviour, IInteractable
             yield return new WaitForSeconds(0.05f);
         }
         transform.rotation = targetRotation;
+        transform.position = targetPosition;
         _isInteractable = true;
         yield return null;
     }
