@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: KnightClassPreset
   m_EditorClassIdentifier: 
   PresetName: Knight
-  StartingMainHandWeapon: {fileID: 7507621691804293595, guid: 0d892f2c0381e594bbef46287f1e97dc, type: 3}
+  StartingMainHandWeapon: {fileID: 7507621691804293595, guid: fa55e7fc38dc68242832e3882e38dd5a, type: 3}
   StartingOffhandWeapon: {fileID: 1060900815880863096, guid: c071088d36a89504db4669b19c753c83, type: 3}
   StartingHelmet: {fileID: 4845004349861385238, guid: 0ba85ec1da2ebd441ad77e5178783e47, type: 3}
   StartingBodyArmor: {fileID: 671674740870320807, guid: 04478f353a783e74e89e6cec6e03b9e4, type: 3}
   StartingLegArmor: {fileID: 6325581541471828504, guid: d96448a32dc0e2c4cbe4993438dccba1, type: 3}
+  StartingConsumables:
+  - {fileID: 1326440589637813361, guid: 10bcb8611637db9409648d860176ff46, type: 3}
+  - {fileID: 1326440589637813361, guid: aaede4860e771814ab1ac06d06321918, type: 3}
   classFeatConfig:
     startingFeats:
     - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}

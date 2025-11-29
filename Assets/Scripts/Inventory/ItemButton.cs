@@ -8,6 +8,7 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
 {
     public PlayerContext PlayerContext;
     public InventoryController InventoryController;
+    public InventoryItemController InventoryItemController;
     public ItemData ItemData;
     public Color BaseColor;
     public Color EquippedColor;
@@ -37,12 +38,7 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
     public abstract void OnLeftClick();
     public abstract void ActivateButton();
 
-    void OnEnable()
-    {
-        PlayerContext.PlayerController.PlayerInputController.OnDropItemPerformed += OnDropItem;
-    }
-
-    void OnDisable()
+    void OnDestroy()
     {
         PlayerContext.PlayerController.PlayerInputController.OnDropItemPerformed -= OnDropItem;
     }
@@ -75,7 +71,7 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
         ToggleHighlight(false);
     }
 
-    private void OnDropItem(CallbackContext context)
+    protected void OnDropItem(CallbackContext context)
     {
         if (!IsSelected) return;
         OnRightClick();

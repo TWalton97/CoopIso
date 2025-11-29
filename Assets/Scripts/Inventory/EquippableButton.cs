@@ -16,7 +16,6 @@ public class EquippableButton : ItemButton
         CannotActivate
     }
     private ButtonState buttonState = ButtonState.Default;
-    public InventoryItemController InventoryItemController;
     private NewWeaponController weaponController;
     private ArmorController armorController;
     public TMP_Text StatValue;
@@ -40,6 +39,10 @@ public class EquippableButton : ItemButton
         if (ItemData.data is WeaponDataSO weaponData)
         {
             StatValue.text = weaponData.WeaponMinDamage.ToString() + "-" + weaponData.WeaponMaxDamage.ToString();
+        }
+        else if (ItemData.data is BowSO bowData)
+        {
+            StatValue.text = bowData.WeaponMinDamage.ToString() + "-" + bowData.WeaponMaxDamage.ToString();
         }
         else if (ItemData.data is ArmorSO armorData)
         {
@@ -72,6 +75,7 @@ public class EquippableButton : ItemButton
             CheckIfItemCanBeEquipped();
         }
 
+        PlayerContext.PlayerController.PlayerInputController.OnDropItemPerformed += OnDropItem;
         armorController.OnArmorUnequipped += CheckIfItemUnequipped;
         weaponController.OnWeaponUnequipped += CheckIfItemUnequipped;
     }

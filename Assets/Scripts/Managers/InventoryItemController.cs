@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -47,7 +48,7 @@ public class InventoryItemController : MonoBehaviour
     {
         for (int i = 0; i < ItemButtonParent.childCount; i++)
         {
-            ItemButtonParent.GetChild(i).GetComponent<EquippableButton>().ToggleHighlight(false);
+            ItemButtonParent.GetChild(i).GetComponent<ItemButton>().ToggleHighlight(false);
         }
     }
 
@@ -59,15 +60,67 @@ public class InventoryItemController : MonoBehaviour
         instantiatedItemButtons.Add(itemData.itemID, itemButton);
     }
 
+    public void CreateButtonForItem(PotionSO potionData)
+    {
+        ItemButton itemButton = Instantiate(ItemButtonPrefab, ItemButtonParent);
+
+        if (itemButton is ConsumableButton consumableButton)
+        {
+            string id = GUID.Generate().ToString();
+            consumableButton.InitializeItemButton(this, potionData, id, PlayerContext);
+            instantiatedItemButtons.Add(id, itemButton);
+        }
+    }
+
     public void RemoveButtonAtID(string id)
     {
         ItemButton itemButton = GetItemButtonByID(id);
         if (itemButton == null) return;
 
         instantiatedItemButtons.Remove(id);
-        Debug.Log(instantiatedItemButtons.Count);
         Destroy(itemButton.gameObject);
         SelectFirstButton();
+    }
+
+    public ConsumableButton TryFindConsumableButtonOfType(PotionSO potionData)
+    {
+        if (instantiatedItemButtons.Count == 0) return null;
+
+        for (int i = 0; i < ItemButtonParent.childCount; i++)
+        {
+            if (ItemButtonParent.GetChild(i).TryGetComponent(out ConsumableButton button))
+            {
+                if (button.PotionData == potionData)
+                    return button;
+            }
+        }
+        return null;
+    }
+
+    public ConsumableButton TryFindLargestPotionOfType(Resources.ResourceType resourceType)
+    {
+        if (instantiatedItemButtons.Count == 0) return null;
+
+        ConsumableButton largestPotionButton = null;
+        int restoreAmount = 0;
+
+        for (int i = 0; i < ItemButtonParent.childCount; i++)
+        {
+            if (ItemButtonParent.GetChild(i).TryGetComponent(out ConsumableButton button))
+            {
+                if (button.PotionData.ResourceToRestore == resourceType && button.PotionData.AmountOfResourceToRestore > restoreAmount)
+                {
+                    largestPotionButton = button;
+                    restoreAmount = button.PotionData.AmountOfResourceToRestore;
+                }
+            }
+        }
+
+        if (largestPotionButton == null)
+        {
+            Debug.Log($"Found no {resourceType} potions in inventory");
+        }
+        return largestPotionButton;
     }
 
     public ItemButton GetItemButtonByID(string id)

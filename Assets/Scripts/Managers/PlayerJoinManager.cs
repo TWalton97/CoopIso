@@ -196,6 +196,13 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.PlayerController.ArmorController.EquipStarterItems(classPresetSO.StartingHelmet, classPresetSO.StartingBodyArmor, classPresetSO.StartingLegArmor);
         playerContext.PlayerController.PlayerStatsBlackboard.ClassName = classPresetSO.PresetName;
         playerContext.PlayerController.EntityData = classPresetSO.PlayerStatsSO;
+        if (classPresetSO.StartingConsumables.Count > 0)
+        {
+            foreach (ConsumableDrop consumable in classPresetSO.StartingConsumables)
+            {
+                playerContext.UserInterfaceController.inventoryController.AddItemToInventory(consumable.potionData);
+            }
+        }
         playerContext.PlayerController.ApplyStats();
 
         playerContext.UserInterfaceController.inventoryController.FeatsMenu.CreateFeatButtons(playerContext);

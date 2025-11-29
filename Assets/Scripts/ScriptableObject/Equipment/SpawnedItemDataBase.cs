@@ -8,6 +8,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
     public Dictionary<string, SpawnedItemData> spawnedItemData = new Dictionary<string, SpawnedItemData>();
 
     public List<Item> spawnableItems;
+    public List<ConsumableDrop> spawnableConsumables;
 
     public void SpawnItemAtPosition(string itemID, Vector3 worldPosition, Quaternion worldRotation)
     {
@@ -45,39 +46,41 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             itemBase = Instantiate(itemToSpawn, parent);
         }
 
-        int numAffixes = GetAffixCount(rarity);
-        if (itemBase.itemData.data.GetType() == typeof(WeaponDataSO))
-        {
-            for (int i = 0; i < numAffixes; i++)
-            {
-                itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomWeaponAffix());
-            }
-        }
-        else if (itemBase.itemData.data.GetType() == typeof(ShieldSO))
-        {
-            for (int i = 0; i < numAffixes; i++)
-            {
-                itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomShieldAffix());
-            }
-        }
-        else if (itemBase.itemData.data.GetType() == typeof(BowSO))
-        {
-            for (int i = 0; i < numAffixes; i++)
-            {
-                itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomBowAffix());
-            }
-        }
-        else if (itemBase.itemData.data.GetType() == typeof(ArmorSO))
-        {
-            for (int i = 0; i < numAffixes; i++)
-            {
-                itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomArmorAffix());
-            }
-        }
-        itemBase.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(numAffixes);
-        itemBase.itemData.itemID = RegisterItemToDatabase(itemBase.itemData);
-
         return itemBase;
+
+        // int numAffixes = GetAffixCount(rarity);
+        // if (itemBase.itemData.data.GetType() == typeof(WeaponDataSO))
+        // {
+        //     for (int i = 0; i < numAffixes; i++)
+        //     {
+        //         itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomWeaponAffix());
+        //     }
+        // }
+        // else if (itemBase.itemData.data.GetType() == typeof(ShieldSO))
+        // {
+        //     for (int i = 0; i < numAffixes; i++)
+        //     {
+        //         itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomShieldAffix());
+        //     }
+        // }
+        // else if (itemBase.itemData.data.GetType() == typeof(BowSO))
+        // {
+        //     for (int i = 0; i < numAffixes; i++)
+        //     {
+        //         itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomBowAffix());
+        //     }
+        // }
+        // else if (itemBase.itemData.data.GetType() == typeof(ArmorSO))
+        // {
+        //     for (int i = 0; i < numAffixes; i++)
+        //     {
+        //         itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomArmorAffix());
+        //     }
+        // }
+        // itemBase.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(numAffixes);
+        // itemBase.itemData.itemID = RegisterItemToDatabase(itemBase.itemData);
+
+        // return itemBase;
     }
 
     public int GetAffixCount(int rarityValue)

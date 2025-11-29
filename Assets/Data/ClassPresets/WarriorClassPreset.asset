@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: WarriorClassPreset
   m_EditorClassIdentifier: 
   PresetName: Warrior
-  StartingMainHandWeapon: {fileID: 7244810151996339239, guid: fee8c54116d6d05409bc9cd4b23960a6, type: 3}
+  StartingMainHandWeapon: {fileID: 7244810151996339239, guid: bebd21c6685ed924ab5cebea503ae3d6, type: 3}
   StartingOffhandWeapon: {fileID: 0}
   StartingHelmet: {fileID: 7985580861925192519, guid: 19074bbd346371443ad9ca2acc7efacd, type: 3}
   StartingBodyArmor: {fileID: 3687732309643741796, guid: 8e5fb974f09f06c42b47716e367d6e23, type: 3}
   StartingLegArmor: {fileID: 1223344451551807704, guid: b7683252bebe81f4c93e176b88f0a486, type: 3}
+  StartingConsumables:
+  - {fileID: 1326440589637813361, guid: 10bcb8611637db9409648d860176ff46, type: 3}
+  - {fileID: 1326440589637813361, guid: aaede4860e771814ab1ac06d06321918, type: 3}
   classFeatConfig:
     startingFeats:
     - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}

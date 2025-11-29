@@ -3,26 +3,22 @@ using UnityEngine;
 public class PotionController : MonoBehaviour
 {
     public HealthController HealthController;
+    public ResourceController ResourceController;
 
     public bool drinkingPotion = false;
 
-    public void UsePotion(PotionSO PotionToUse)
+    public void UsePotion(PotionSO potionData)
     {
         if (drinkingPotion) return;
 
-        for (int i = 0; i < PotionToUse.PotionData.Count; i++)
+        if (potionData.ResourceToRestore == Resources.ResourceType.Health)
         {
-            PotionData data = PotionToUse.PotionData[i];
-            if (data.ResourceToRestore == Resources.ResourceType.Health)
-            {
-                drinkingPotion = true;
-                StartCoroutine(HealthController.RestoreHealthOverDuration(data.AmountOfResourceToRestore, data.RestoreDuration, () => drinkingPotion = false));
-            }
-            else if (data.ResourceToRestore == Resources.ResourceType.Mana)
-            {
-                Debug.Log("Restoring mana but it's not setup yet...");
-            }
+            drinkingPotion = true;
+            StartCoroutine(HealthController.RestoreHealthOverDuration(potionData.AmountOfResourceToRestore, potionData.RestoreDuration, () => drinkingPotion = false));
         }
-
+        else if (potionData.ResourceToRestore == Resources.ResourceType.Mana)
+        {
+            StartCoroutine(ResourceController.RestoreResourceOverDuration(potionData.AmountOfResourceToRestore, potionData.RestoreDuration, () => drinkingPotion = false));
+        }
     }
 }

@@ -14,6 +14,7 @@ public class Chest : MonoBehaviour, IInteractable
     public int minItems = 1;
 
     public List<Item> itemsToSpawn;
+    public List<ConsumableDrop> consumablesToSpawn;
 
     private string itemName = "Chest";
     public string interactableName { get => itemName; set => itemName = value; }
@@ -57,6 +58,13 @@ public class Chest : MonoBehaviour, IInteractable
         {
             Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity, itemsToSpawn[i], transform);
             instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        for (int i = 0; i < consumablesToSpawn.Count; i++)
+        {
+            ConsumableDrop consumableDrop = Instantiate(consumablesToSpawn[i], transform);
+            consumableDrop.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }
 

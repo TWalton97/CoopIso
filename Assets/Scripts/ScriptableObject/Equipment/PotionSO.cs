@@ -5,18 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemData", menuName = "Data/Potion Data")]
 public class PotionSO : ItemSO
 {
-    public ItemData itemData;
-    public List<PotionData> PotionData;
-
-    public virtual void UsePotion()
-    {
-
-    }
-}
-
-[System.Serializable]
-public class PotionData
-{
+    public string PotionName;
+    public int GoldValue;
+    public float Weight;
+    public Sprite PotionSprite;
+    public GameObject PotionPrefab;
     public Resources.ResourceType ResourceToRestore;
     public int AmountOfResourceToRestore;
     public int RestoreDuration;

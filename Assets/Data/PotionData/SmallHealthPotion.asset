@@ -12,16 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a56bfbce48bcdc40985eb6b511ba798, type: 3}
   m_Name: SmallHealthPotion
   m_EditorClassIdentifier: 
-  itemData:
-    itemName: Small Health Potion
-    quantity: 1
-    sprite: {fileID: 21300000, guid: 1d130991a81017b4a9b4046ef0302b0b, type: 3}
-    itemDescription: A small health potion.
-    objectPrefab: {fileID: 0}
-    vfxPrefab: {fileID: 0}
-    itemType: 0
-    data: {fileID: 0}
-  PotionData:
-  - ResourceToRestore: 0
-    AmountOfResourceToRestore: 25
-    RestoreDuration: 5
+  PotionName: Small Health Potion
+  GoldValue: 25
+  Weight: 1
+  PotionSprite: {fileID: 21300000, guid: 1d130991a81017b4a9b4046ef0302b0b, type: 3}
+  PotionPrefab: {fileID: 155352792193692170, guid: 10bcb8611637db9409648d860176ff46, type: 3}
+  ResourceToRestore: 0
+  AmountOfResourceToRestore: 25
+  RestoreDuration: 5

@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class BowAimLineController : MonoBehaviour
 {
+    public NewPlayerController PlayerController;
     private LineRenderer lineRenderer;
     public Vector3 pointOnePosition;
     public LayerMask ObstructionMask;
 
     private bool isEnabled = false;
 
+    public GameObject HitTarget;
+
+
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        PlayerController = GetComponentInParent<NewPlayerController>();
     }
 
     void Update()
@@ -30,8 +35,27 @@ public class BowAimLineController : MonoBehaviour
 
     private void UpdateLineRendererPosition()
     {
-        lineRenderer.SetPosition(0, transform.position + transform.forward + pointOnePosition);
+        Vector3 sphereCastDir;
+        if (PlayerController.PlayerContext.PlayerInput.currentControlScheme == PlayerController.KEYBOARD_SCHEME)
+        {
+            sphereCastDir = PlayerController.lookPoint;
+        }
+        else
+        {
+            sphereCastDir = PlayerController.rotatedInputDirection;
+        }
+
         RaycastHit hit;
+        if (Physics.SphereCast(transform.position, 0.25f, sphereCastDir, out hit, 25f, ObstructionMask) && hit.collider.GetComponent<Entity>() != null)
+        {
+            HitTarget = hit.collider.gameObject;
+        }
+        else
+        {
+            HitTarget = null;
+        }
+
+        lineRenderer.SetPosition(0, transform.position + transform.forward + pointOnePosition);
         if (Physics.Raycast(transform.position + transform.forward + pointOnePosition, transform.forward, out hit, 50f, ObstructionMask))
         {
             lineRenderer.SetPosition(1, hit.point);

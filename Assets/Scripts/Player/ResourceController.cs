@@ -24,6 +24,19 @@ public class ResourceController : MonoBehaviour
         StartCoroutine(RegenerateResource());
         yield return null;
     }
+
+    public IEnumerator RestoreResourceOverDuration(int amountOfResource, int duration, Action endAction)
+    {
+        int amountOfResourcePerInterval = amountOfResource / duration;
+
+        for (int i = 0; i < duration; i++)
+        {
+            resource.AddResource(amountOfResourcePerInterval);
+            yield return new WaitForSeconds(1);
+        }
+        endAction?.Invoke();
+        yield return null;
+    }
 }
 
 [Serializable]

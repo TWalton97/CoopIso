@@ -15705,6 +15705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthController: {fileID: 9157711023718106382}
+  ResourceController: {fileID: 6695485961067399900}
   drinkingPotion: 0
 --- !u!114 &90509361737073914
 MonoBehaviour:

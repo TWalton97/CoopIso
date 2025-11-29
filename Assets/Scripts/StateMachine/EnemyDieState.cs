@@ -49,6 +49,13 @@ public class EnemyDieState : EnemyBaseState
             instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
             yield return new WaitForSeconds(0.2f);
         }
+
+        if (Random.Range(0, 5) < 2)
+        {
+            ConsumableDrop consumableDrop = GameObject.Instantiate(SpawnedItemDataBase.Instance.spawnableConsumables[Random.Range(0, 2)], enemy.transform.position, Quaternion.identity, enemy.transform);
+            consumableDrop.transform.position = ReturnSpawnPositionInRadius();
+            yield return new WaitForSeconds(0.2f);
+        }
         yield return null;
     }
 

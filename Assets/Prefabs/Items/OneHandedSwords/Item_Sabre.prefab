@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &155352792193692170
+--- !u!1 &5257400240843501978
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4795270476125984908}
-  - component: {fileID: 5662900325980378029}
-  - component: {fileID: 8928048899272951523}
-  m_Layer: 0
-  m_Name: Item_SmallHealthPotion
+  - component: {fileID: 8925011886122176219}
+  - component: {fileID: 7507621691804293595}
+  - component: {fileID: 5466513351957134872}
+  m_Layer: 10
+  m_Name: Item_Sabre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4795270476125984908
+--- !u!4 &8925011886122176219
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155352792193692170}
+  m_GameObject: {fileID: 5257400240843501978}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.010784, y: 0.25242233, z: -0.09196615}
+  m_LocalPosition: {x: -7.54, y: 0.36, z: 0.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 27117527323979717}
+  - {fileID: 1069860853810953246}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5662900325980378029
+--- !u!114 &7507621691804293595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155352792193692170}
+  m_GameObject: {fileID: 5257400240843501978}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
@@ -51,28 +51,28 @@ MonoBehaviour:
     WorldPosition: {x: 0, y: 0, z: 0}
     WorldRotation: {x: 0, y: 0, z: 0, w: 0}
   itemData:
-    itemID: bd9a8dd4-ac72-4a46-9a43-95943a1734d1
-    itemName: Small Health Potion
+    itemID: 
+    itemName: Falchion
     quantity: 1
-    sprite: {fileID: 21300000, guid: 1d130991a81017b4a9b4046ef0302b0b, type: 3}
+    sprite: {fileID: 21300000, guid: 4f9caaf8d740989489c00d57a4e06532, type: 3}
     itemValue: 0
     itemWeight: 0
-    itemDescription: A small health potion.
-    objectPrefab: {fileID: 6630030280338927896, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    itemDescription: A one-handed sword. Light enough to allow for nimble movement.
+    objectPrefab: {fileID: 9079547992211365241, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
     floorObjectPrefab: {fileID: 0}
     vfxPrefab: {fileID: 0}
-    itemType: 0
-    weaponRangeType: 0
-    data: {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
+    itemType: 4
+    weaponRangeType: 1
+    data: {fileID: 11400000, guid: f51fc31e76faabb4a9e6f21390f39b71, type: 2}
     affixes: []
   InteractionType: 0
---- !u!135 &8928048899272951523
+--- !u!135 &5466513351957134872
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155352792193692170}
+  m_GameObject: {fileID: 5257400240843501978}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -87,65 +87,65 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &4244490469383582882
+--- !u!1001 &1069132795491708226
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4795270476125984908}
+    m_TransformParent: {fileID: 8925011886122176219}
     m_Modifications:
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 1037715513984232, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
+      propertyPath: m_Name
+      value: Sword_OH
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.054780006
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0828681
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.53880817
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.84242857
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
+    - target: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 114.795
-      objectReference: {fileID: 0}
-    - target: {fileID: 6630030280338927896, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
-      propertyPath: m_Name
-      value: PotionPrefab
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
---- !u!4 &27117527323979717 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
+--- !u!4 &1069860853810953246 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4217377683949394791, guid: 40fbda7e69992f9478b939dffe4319f4, type: 3}
-  m_PrefabInstance: {fileID: 4244490469383582882}
+  m_CorrespondingSourceObject: {fileID: 4145553361310044, guid: 259746fbc59909b4eb14377c46a80363, type: 3}
+  m_PrefabInstance: {fileID: 1069132795491708226}
   m_PrefabAsset: {fileID: 0}

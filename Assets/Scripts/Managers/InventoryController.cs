@@ -51,6 +51,19 @@ public class InventoryController : MonoBehaviour
         FindCorrectInventory(itemData).CreateButtonForItem(itemData, isEquipped);
     }
 
+    public void AddItemToInventory(PotionSO potionData)
+    {
+        ConsumableButton consumableButton = ConsumablesInventory.TryFindConsumableButtonOfType(potionData);
+        if (consumableButton != null)
+        {
+            consumableButton.UpdateQuantity(1);
+        }
+        else
+        {
+            ConsumablesInventory.CreateButtonForItem(potionData);
+        }
+    }
+
     public void GoToNextMenu()
     {
         ControlsPanel.DisableAllControlPrompts();

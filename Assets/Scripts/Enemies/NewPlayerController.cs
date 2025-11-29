@@ -55,6 +55,7 @@ public class NewPlayerController : Entity
     public List<Renderer> playerIndicator;
 
     public Vector3 lookPoint;
+    public Vector3 rotatedInputDirection;
 
     public AbilitySO AbilityBeingUsed;
 
@@ -238,7 +239,6 @@ public class NewPlayerController : Entity
     private void Move()
     {
         _moveInput = PlayerInputController.MoveVal;
-        Vector3 inputDirection = new Vector3(_moveInput.x, 0, _moveInput.y);
 
         Vector3 camForward = mainCam.transform.forward;
         Vector3 camRight = mainCam.transform.right;
@@ -249,7 +249,7 @@ public class NewPlayerController : Entity
         camForward.Normalize();
         camRight.Normalize();
 
-        Vector3 rotatedInputDirection = camForward * _moveInput.y + camRight * _moveInput.x;
+        rotatedInputDirection = camForward * _moveInput.y + camRight * _moveInput.x;
 
         Vector3 newVel = rotatedInputDirection * _movementSpeed;
         newVel.y = Rigidbody.velocity.y;
@@ -259,13 +259,29 @@ public class NewPlayerController : Entity
         if (attackStateMachine.current.State == attackState || (attackStateMachine.current.State == castState && !AbilityBeingUsed.CanRotateDuringCast))
             return;
 
-        if (PlayerContext.PlayerInput.currentControlScheme == KEYBOARD_SCHEME)
+        //Blocking and aiming rotation logic
+        if (attackStateMachine.current.State == blockState)
         {
-            if (attackStateMachine.current.State == blockState || (attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast))
+            //Aim assist handling
+            if (BowAimLineController.HitTarget != null)
+            {
+                Vector3 newRotation = (BowAimLineController.HitTarget.transform.position - transform.position).normalized;
+                transform.rotation = Quaternion.LookRotation(newRotation);
+                return;
+            }
+            //Rotate towards mouse
+            else if (PlayerContext.PlayerInput.currentControlScheme == KEYBOARD_SCHEME)
             {
                 RotateToFaceLookPoint();
                 return;
             }
+        }
+
+        //Rotating towards mouse while casting logic
+        if (PlayerContext.PlayerInput.currentControlScheme == KEYBOARD_SCHEME && attackStateMachine.current.State == castState && AbilityBeingUsed.CanRotateDuringCast)
+        {
+            RotateToFaceLookPoint();
+            return;
         }
 
         if (_moveInput.sqrMagnitude > 0.01f)
@@ -299,8 +315,6 @@ public class NewPlayerController : Entity
             Vector3 updatedHitPoint = new Vector3(hitPoint.x, transform.position.y, hitPoint.z);
             Vector3 dirToPoint = (updatedHitPoint - transform.position).normalized;
 
-            //transform.LookAt(transform.position + dirToPoint);
-            //lookPoint = transform.position + dirToPoint;
             lookPoint = dirToPoint;
         }
     }
@@ -313,7 +327,7 @@ public class NewPlayerController : Entity
 
     public void RotateToFaceLookPoint()
     {
-        if (PlayerContext.PlayerInput.currentControlScheme == KEYBOARD_SCHEME)
+        if (PlayerContext.PlayerInput.currentControlScheme == KEYBOARD_SCHEME && lookPoint.sqrMagnitude > 0.01f)
             transform.rotation = Quaternion.LookRotation(lookPoint);
     }
 
@@ -367,11 +381,22 @@ public class NewPlayerController : Entity
 
     private void DrinkPotionOne(CallbackContext context)
     {
+        if (PotionController.drinkingPotion) return;
 
+        ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(Resources.ResourceType.Health);
+        if (button == null) return;
+
+        PotionController.UsePotion(button.PotionData);
+        button.UpdateQuantity(-1);
     }
 
     private void DrinkPotionTwo(CallbackContext context)
     {
+        ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(Resources.ResourceType.Mana);
+        if (button == null) return;
+
+        PotionController.UsePotion(button.PotionData);
+        button.UpdateQuantity(-1);
     }
 
     #endregion

@@ -27,14 +27,6 @@ public class PreviewWindow : MonoBehaviour
             "\nDPS: " + ((spawnedWeaponsData.weaponMinDamage + spawnedWeaponsData.weaponMaxDamage) / 2 * spawnedWeaponsData.attacksPerSecond).ToString("0.00");
             ItemAffixes.text = BuildAffixString(itemData);
         }
-        else if (itemData.data is PotionSO)
-        {
-            PotionSO potionData = itemData.data as PotionSO;
-            ItemStats.text =
-            "Resource Type: " + potionData.PotionData[0].ResourceToRestore +
-            "\nAmount Restored: " + potionData.PotionData[0].AmountOfResourceToRestore +
-            "\nRestore Duration: " + potionData.PotionData[0].RestoreDuration;
-        }
         else if (itemData.data is ShieldSO)
         {
             ShieldSO shieldData = itemData.data as ShieldSO;
