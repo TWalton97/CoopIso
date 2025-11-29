@@ -35,20 +35,11 @@ public class NewWeaponController : MonoBehaviour
     [Serializable]
     public class WeaponSet
     {
+        public WeaponSetType weaponSetType;
         public bool hasPrimaryWeaponData;
         public bool hasSecondaryWeaponData;
         public ItemData PrimaryWeaponData;
         public ItemData SecondaryWeaponData;
-
-        public bool HasPrimaryWeaponData()
-        {
-            return hasPrimaryWeaponData;
-        }
-
-        public bool HasSecondaryWeaponData()
-        {
-            return hasSecondaryWeaponData;
-        }
     }
 
     public WeaponSet OneHandedWeaponSet;
@@ -57,6 +48,13 @@ public class NewWeaponController : MonoBehaviour
 
     public WeaponSet ActiveWeaponSet;
 
+    public enum WeaponSetType
+    {
+        OneHanded,
+        TwoHanded,
+        Ranged
+    }
+
     public float CombinedWeaponDamage;
 
     public Action<string> OnWeaponUnequipped;
@@ -64,6 +62,9 @@ public class NewWeaponController : MonoBehaviour
     protected void Awake()
     {
         comboCounter = new CountdownTimer(comboPeriod);
+        OneHandedWeaponSet.weaponSetType = WeaponSetType.OneHanded;
+        TwoHandedWeaponSet.weaponSetType = WeaponSetType.TwoHanded;
+        RangedWeaponSet.weaponSetType = WeaponSetType.Ranged;
     }
 
     void Start()
@@ -92,7 +93,7 @@ public class NewWeaponController : MonoBehaviour
         switch (itemData.itemType)
         {
             case ItemType.OneHanded:
-                if (!OneHandedWeaponSet.HasPrimaryWeaponData())
+                if (!OneHandedWeaponSet.hasPrimaryWeaponData)
                 {
                     UpdateOneHandedWeaponSet(itemData, Weapon.WeaponHand.MainHand, true);
                 }
@@ -102,13 +103,17 @@ public class NewWeaponController : MonoBehaviour
                 }
                 break;
             case ItemType.TwoHanded:
-                if (!TwoHandedWeaponSet.HasPrimaryWeaponData())
+                if (!TwoHandedWeaponSet.hasPrimaryWeaponData)
                 {
                     UpdateTwoHandedWeaponSet(itemData, Weapon.WeaponHand.MainHand, true);
                 }
                 else if (newPlayerController.PlayerStatsBlackboard.TwoHandedMastery == true)
                 {
                     UpdateTwoHandedWeaponSet(itemData, Weapon.WeaponHand.OffHand, true);
+                }
+                else
+                {
+                    UpdateTwoHandedWeaponSet(itemData, Weapon.WeaponHand.MainHand, true);
                 }
                 break;
             case ItemType.Bow:
@@ -191,11 +196,13 @@ public class NewWeaponController : MonoBehaviour
 
             if (OneHandedWeaponSet.SecondaryWeaponData != null)
             {
-                OnWeaponUnequipped?.Invoke(OneHandedWeaponSet.PrimaryWeaponData.itemID);
+                OnWeaponUnequipped?.Invoke(OneHandedWeaponSet.SecondaryWeaponData.itemID);
             }
             OneHandedWeaponSet.SecondaryWeaponData = itemData;
         }
 
+        if (equipSet || ActiveWeaponSet.weaponSetType == OneHandedWeaponSet.weaponSetType)
+            SetActiveWeaponSet(OneHandedWeaponSet);
         SetActiveWeaponSet(OneHandedWeaponSet);
     }
     public void UpdateTwoHandedWeaponSet(ItemData itemData, Weapon.WeaponHand weaponHand, bool equipSet = false)
@@ -204,6 +211,14 @@ public class NewWeaponController : MonoBehaviour
         {
             if (TwoHandedWeaponSet.PrimaryWeaponData != null)
             {
+                if (itemData == null)
+                {
+                    TwoHandedWeaponSet.hasPrimaryWeaponData = false;
+                }
+                else
+                {
+                    TwoHandedWeaponSet.hasPrimaryWeaponData = true;
+                }
                 OnWeaponUnequipped?.Invoke(TwoHandedWeaponSet.PrimaryWeaponData.itemID);
             }
             TwoHandedWeaponSet.PrimaryWeaponData = itemData;
@@ -213,16 +228,25 @@ public class NewWeaponController : MonoBehaviour
         {
             if (TwoHandedWeaponSet.SecondaryWeaponData != null)
             {
+                if (itemData == null)
+                {
+                    TwoHandedWeaponSet.hasSecondaryWeaponData = false;
+                }
+                else
+                {
+                    TwoHandedWeaponSet.hasSecondaryWeaponData = true;
+                }
                 OnWeaponUnequipped?.Invoke(TwoHandedWeaponSet.SecondaryWeaponData.itemID);
             }
             TwoHandedWeaponSet.SecondaryWeaponData = itemData;
         }
 
-        SetActiveWeaponSet(TwoHandedWeaponSet);
+        if (equipSet || ActiveWeaponSet.weaponSetType == TwoHandedWeaponSet.weaponSetType)
+            SetActiveWeaponSet(TwoHandedWeaponSet);
     }
+
     public void UpdateRangedWeaponSet(ItemData itemData, Weapon.WeaponHand weaponHand, bool equipSet = false)
     {
-
         if (weaponHand == Weapon.WeaponHand.MainHand)
         {
             if (RangedWeaponSet.PrimaryWeaponData != null)
@@ -250,42 +274,42 @@ public class NewWeaponController : MonoBehaviour
             RangedWeaponSet.SecondaryWeaponData = itemData;
         }
 
-        //if (equipSet)
-        SetActiveWeaponSet(RangedWeaponSet);
+        if (equipSet || ActiveWeaponSet.weaponSetType == RangedWeaponSet.weaponSetType)
+            SetActiveWeaponSet(RangedWeaponSet);
     }
     public void CycleActiveWeaponSetUp()
     {
-        if (ActiveWeaponSet == OneHandedWeaponSet)
+        if (ActiveWeaponSet.weaponSetType == OneHandedWeaponSet.weaponSetType)
         {
-            if (RangedWeaponSet.HasPrimaryWeaponData())
+            if (RangedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(RangedWeaponSet);
                 return;
             }
-            else if (TwoHandedWeaponSet.HasPrimaryWeaponData())
+            else if (TwoHandedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(TwoHandedWeaponSet);
             }
         }
-        else if (ActiveWeaponSet == TwoHandedWeaponSet)
+        else if (ActiveWeaponSet.weaponSetType == TwoHandedWeaponSet.weaponSetType)
         {
-            if (OneHandedWeaponSet.HasPrimaryWeaponData())
+            if (OneHandedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(OneHandedWeaponSet);
             }
-            else if (RangedWeaponSet.HasPrimaryWeaponData())
+            else if (RangedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(RangedWeaponSet);
                 return;
             }
         }
-        else if (ActiveWeaponSet == RangedWeaponSet)
+        else if (ActiveWeaponSet.weaponSetType == RangedWeaponSet.weaponSetType)
         {
-            if (TwoHandedWeaponSet.HasPrimaryWeaponData())
+            if (TwoHandedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(TwoHandedWeaponSet);
             }
-            else if (OneHandedWeaponSet.HasPrimaryWeaponData())
+            else if (OneHandedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(OneHandedWeaponSet);
                 return;
@@ -294,38 +318,38 @@ public class NewWeaponController : MonoBehaviour
     }
     public void CycleActiveWeaponSetDown()
     {
-        if (ActiveWeaponSet == OneHandedWeaponSet)
+        if (ActiveWeaponSet.weaponSetType == OneHandedWeaponSet.weaponSetType)
         {
-            if (TwoHandedWeaponSet.HasPrimaryWeaponData())
+            if (TwoHandedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(TwoHandedWeaponSet);
             }
-            else if (RangedWeaponSet.HasPrimaryWeaponData())
+            else if (RangedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(RangedWeaponSet);
                 return;
             }
         }
-        else if (ActiveWeaponSet == TwoHandedWeaponSet)
+        else if (ActiveWeaponSet.weaponSetType == TwoHandedWeaponSet.weaponSetType)
         {
-            if (RangedWeaponSet.HasPrimaryWeaponData())
+            if (RangedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(RangedWeaponSet);
                 return;
             }
-            else if (OneHandedWeaponSet.HasPrimaryWeaponData())
+            else if (OneHandedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(OneHandedWeaponSet);
             }
         }
-        else if (ActiveWeaponSet == RangedWeaponSet)
+        else if (ActiveWeaponSet.weaponSetType == RangedWeaponSet.weaponSetType)
         {
-            if (OneHandedWeaponSet.HasPrimaryWeaponData())
+            if (OneHandedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(OneHandedWeaponSet);
                 return;
             }
-            else if (TwoHandedWeaponSet.HasPrimaryWeaponData())
+            else if (TwoHandedWeaponSet.hasPrimaryWeaponData)
             {
                 SetActiveWeaponSet(TwoHandedWeaponSet);
             }
@@ -338,6 +362,8 @@ public class NewWeaponController : MonoBehaviour
 
         ActiveWeaponSet.PrimaryWeaponData = weaponSet.PrimaryWeaponData;
         ActiveWeaponSet.SecondaryWeaponData = weaponSet.SecondaryWeaponData;
+
+        ActiveWeaponSet.weaponSetType = weaponSet.weaponSetType;
 
         EquipWeaponSet(weaponSet);
     }

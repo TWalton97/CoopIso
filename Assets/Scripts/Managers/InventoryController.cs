@@ -7,6 +7,8 @@ public class InventoryController : MonoBehaviour
 
     public GameObject InventoryObjectsParent;
 
+    public ControlsPanel ControlsPanel;
+
     public InventoryItemController WeaponInventory;
     public InventoryItemController ArmorInventory;
     public InventoryItemController ConsumablesInventory;
@@ -24,10 +26,18 @@ public class InventoryController : MonoBehaviour
         WeaponInventory.PlayerContext = PlayerContext;
         ArmorInventory.PlayerContext = PlayerContext;
         ConsumablesInventory.PlayerContext = PlayerContext;
+        ControlsPanel.PlayerContext = playerContext;
+        GlossaryMenu.PlayerContext = playerContext;
+    }
+
+    public void UpdateControlPanel(List<ControlData> controlData)
+    {
+        ControlsPanel.UpdateControls(PlayerContext, controlData);
     }
 
     public void ToggleInventory(bool toggle)
     {
+        ControlsPanel.gameObject.SetActive(toggle);
         InventoryObjectsParent.SetActive(toggle);
         if (toggle)
         {
@@ -43,6 +53,7 @@ public class InventoryController : MonoBehaviour
 
     public void GoToNextMenu()
     {
+        ControlsPanel.DisableAllControlPrompts();
         currentIndex++;
         if (currentIndex == 6)
             currentIndex = 0;
@@ -51,6 +62,7 @@ public class InventoryController : MonoBehaviour
 
     public void GoToPreviousMenu()
     {
+        ControlsPanel.DisableAllControlPrompts();
         currentIndex--;
         if (currentIndex == -1)
             currentIndex = 5;

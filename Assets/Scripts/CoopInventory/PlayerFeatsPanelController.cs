@@ -32,6 +32,8 @@ public class PlayerFeatsPanelController : MonoBehaviour
 
     public NewPlayerController playerController { get; private set; }
 
+    public List<ControlData> ControlData;
+
     public void CreateFeatButtons(PlayerContext playerContext)
     {
         PlayerContext = playerContext;
@@ -82,6 +84,7 @@ public class PlayerFeatsPanelController : MonoBehaviour
             return;
         }
         UpdateViewPosition(featButtons[0].rectTransform);
+        PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(ControlData);
     }
 
     public void OnDestroy()

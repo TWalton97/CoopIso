@@ -16,6 +16,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     public PlayerPreviewManager playerPreviewManager;
     public SceneLoadingManager sceneLoadingManager;
     public CullingManager cullingManager;
+    public PlayerAveragePositionTracker playerAveragePositionTracker;
 
     public static Action<GameObject> OnPlayerJoinedEvent;
     public static Action<GameObject> OnPlayerLeftEvent;
@@ -55,6 +56,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     private void DisablePlayerGravity()
     {
+        playerAveragePositionTracker.DisableLeashing = true;
         cullingManager.CanCull = false;
         for (int i = 0; i < playerControllers.Count; i++)
         {
@@ -78,9 +80,13 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         for (int i = 0; i < playerControllers.Count; i++)
         {
             if (targetSpawnPoint != null)
+            {
                 playerControllers[i].transform.SetPositionAndRotation(targetSpawnPoint.transform.GetChild(i).position, targetSpawnPoint.transform.GetChild(i).rotation);
+            }
             else
+            {
                 playerControllers[i].transform.position = Vector3.zero;
+            }
 
             playerControllers[i].GetComponent<Rigidbody>().useGravity = true;
         }
@@ -93,6 +99,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         yield return new WaitForSeconds(0.1f);
         cullingManager.CanCull = true;
         cullingManager.InitialStateCheck();
+        playerAveragePositionTracker.DisableLeashing = false;
         yield return null;
     }
 

@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class EquippableButton : ItemButton
 {
+    public Color OneHandedEquippedColor;
+    public Color TwoHandedEquippedColor;
+    public Color RangedEquippedColor;
+
     public enum ButtonState
     {
         Default,
@@ -37,6 +41,27 @@ public class EquippableButton : ItemButton
         {
             StatValue.text = weaponData.WeaponMinDamage.ToString() + "-" + weaponData.WeaponMaxDamage.ToString();
         }
+        else if (ItemData.data is ArmorSO armorData)
+        {
+            StatValue.text = armorData.ArmorAmount.ToString();
+        }
+        else if (ItemData.data is ShieldSO shieldData)
+        {
+            StatValue.text = shieldData.ArmorAmount.ToString();
+        }
+
+        switch (ItemData.itemType)
+        {
+            case ItemType.OneHanded:
+                EquippedColor = OneHandedEquippedColor;
+                break;
+            case ItemType.TwoHanded:
+                EquippedColor = TwoHandedEquippedColor;
+                break;
+            case ItemType.Bow:
+                EquippedColor = RangedEquippedColor;
+                break;
+        }
 
         if (isEquipped)
         {
@@ -49,6 +74,11 @@ public class EquippableButton : ItemButton
 
         armorController.OnArmorUnequipped += CheckIfItemUnequipped;
         weaponController.OnWeaponUnequipped += CheckIfItemUnequipped;
+    }
+
+    void OnEnable()
+    {
+        CheckIfItemCanBeEquipped();
     }
 
     void OnDestroy()
@@ -76,6 +106,8 @@ public class EquippableButton : ItemButton
 
     private void CheckIfItemCanBeEquipped()
     {
+        if (buttonState == ButtonState.Activated) return;
+
         if (IsItemArmor() && armorController.CanItemBeEquipped(ItemData))
         {
             SetBackgroundColor(BaseColor);
@@ -85,6 +117,15 @@ public class EquippableButton : ItemButton
 
         if (IsItemWeapon())
         {
+            SetBackgroundColor(BaseColor);
+            buttonState = ButtonState.Default;
+            return;
+        }
+
+        if (ItemData.itemType == ItemType.Offhand && PlayerContext.PlayerController.PlayerStatsBlackboard.armorType == ArmorType.Medium || PlayerContext.PlayerController.PlayerStatsBlackboard.armorType == ArmorType.Heavy)
+        {
+            SetBackgroundColor(BaseColor);
+            buttonState = ButtonState.Default;
             return;
         }
 
@@ -99,7 +140,7 @@ public class EquippableButton : ItemButton
 
         if (buttonState == ButtonState.Default)
         {
-            if (IsItemWeapon())
+            if (IsItemWeapon() || ItemData.itemType == ItemType.Offhand)
             {
                 SetBackgroundColor(EquippedColor);
                 weaponController.EquipWeapon(ItemData);
@@ -111,10 +152,11 @@ public class EquippableButton : ItemButton
                 armorController.EquipArmor(ItemData);
                 buttonState = ButtonState.Activated;
             }
+
         }
         else if (buttonState == ButtonState.Activated)
         {
-            if (IsItemWeapon())
+            if (IsItemWeapon() || ItemData.itemType == ItemType.Offhand)
             {
                 SetBackgroundColor(EquippedColor);
                 weaponController.UnequipWeapon(ItemData);
@@ -131,8 +173,26 @@ public class EquippableButton : ItemButton
 
     public override void OnRightClick()
     {
-        //If the item is equipped, unequip it
-        //If the item isn't equipped, drop it
+        if (buttonState == ButtonState.Activated)
+        {
+            if (IsItemWeapon() || ItemData.itemType == ItemType.Offhand)
+            {
+                SetBackgroundColor(EquippedColor);
+                weaponController.UnequipWeapon(ItemData);
+                buttonState = ButtonState.Default;
+            }
+            else if (IsItemArmor())
+            {
+                SetBackgroundColor(EquippedColor);
+                armorController.UnequipArmor(ItemData);
+                buttonState = ButtonState.Default;
+            }
+        }
+        else
+        {
+            SpawnedItemDataBase.Instance.SpawnItemAtPosition(ItemData.itemID, PlayerContext.PlayerController.transform.position, Quaternion.identity);
+            InventoryItemController.RemoveButtonAtID(ButtonID);
+        }
     }
 
     public override void OnSelect(BaseEventData eventData)

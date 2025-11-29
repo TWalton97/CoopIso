@@ -27,8 +27,6 @@ public class ResourcePanelController : MonoBehaviour
         ExperienceController.OnLevelUp += UpdateExperienceBarFill;
         ExperienceController.OnSkillPointUsed += CheckToEnableSkillPointNotification;
 
-        UpdateHealthBarFill(0);
-        UpdateResourceBarFill();
         UpdateExperienceBarFill();
     }
 

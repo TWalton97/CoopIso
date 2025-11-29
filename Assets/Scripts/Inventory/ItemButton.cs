@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using static UnityEngine.InputSystem.InputAction;
 
 public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -36,26 +37,48 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
     public abstract void OnLeftClick();
     public abstract void ActivateButton();
 
+    void OnEnable()
+    {
+        PlayerContext.PlayerController.PlayerInputController.OnDropItemPerformed += OnDropItem;
+    }
+
+    void OnDisable()
+    {
+        PlayerContext.PlayerController.PlayerInputController.OnDropItemPerformed -= OnDropItem;
+    }
+
+    public void ToggleHighlight(bool toggle)
+    {
+        HighlightIcon.SetActive(toggle);
+        IsSelected = toggle;
+    }
+
     public virtual void OnSelect(BaseEventData eventData)
     {
-        HighlightIcon.SetActive(true);
+        ToggleHighlight(true);
     }
 
 
     public virtual void OnDeselect(BaseEventData eventData)
     {
-        HighlightIcon.SetActive(false);
+        ToggleHighlight(false);
     }
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        HighlightIcon.SetActive(true);
+        ToggleHighlight(true);
         selectable.Select();
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
-        HighlightIcon.SetActive(false);
+        ToggleHighlight(false);
+    }
+
+    private void OnDropItem(CallbackContext context)
+    {
+        if (!IsSelected) return;
+        OnRightClick();
     }
 
     public virtual void OnPointerClick(PointerEventData eventData)

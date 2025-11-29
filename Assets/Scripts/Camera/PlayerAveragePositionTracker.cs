@@ -11,6 +11,8 @@ public class PlayerAveragePositionTracker : MonoBehaviour
 
     public PlayerJoinManager playerJoinManager;
 
+    public bool DisableLeashing = false;
+
     private void Start()
     {
         playerJoinManager = PlayerJoinManager.Instance;
@@ -27,6 +29,8 @@ public class PlayerAveragePositionTracker : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (DisableLeashing) return;
+
         foreach (var p in playerObjects)
         {
             Vector3 offset = p.transform.position - transform.position;

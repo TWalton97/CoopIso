@@ -44,6 +44,8 @@ public class PlayerInputController : MonoBehaviour
     public Action<CallbackContext> OnCycleWeaponSetUpPerformed;
     public Action<CallbackContext> OnCycleWeaponSetDownPerformed;
 
+    public Action<CallbackContext> OnDropItemPerformed;
+
     //Stored dictionary for unsubscribing from all events
     private Dictionary<InputAction, Action<CallbackContext>> subscribedInputActions = new Dictionary<InputAction, Action<CallbackContext>>();
 
@@ -308,7 +310,7 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnDropItem(CallbackContext context)
     {
-
+        OnDropItemPerformed?.Invoke(context);
     }
 
     public void OnMoveMenuLeft(CallbackContext context)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.InputAction;
 
 public class InventoryItemController : MonoBehaviour
 {
@@ -15,20 +16,43 @@ public class InventoryItemController : MonoBehaviour
 
     private Dictionary<string, ItemButton> instantiatedItemButtons = new Dictionary<string, ItemButton>();
 
+    public List<ControlData> ControlData;
+
     private void OnEnable()
     {
         if (instantiatedItemButtons.Count != 0)
         {
-            GameObject firstButton = ItemButtonParent.GetChild(0).gameObject;
-            PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(firstButton);
-            UpdateViewPosition(ItemButtonParent.GetChild(0).GetComponent<RectTransform>());
-            firstButton.GetComponent<ItemButton>().HighlightIcon.SetActive(true);
+            SelectFirstButton();
+        }
+
+        PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(ControlData);
+    }
+
+    void OnDisable()
+    {
+        DeselectAllButtons();
+    }
+
+    public void SelectFirstButton()
+    {
+        if (ItemButtonParent.childCount == 0) return;
+
+        GameObject firstButton = ItemButtonParent.GetChild(0).gameObject;
+        PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(firstButton);
+        UpdateViewPosition(ItemButtonParent.GetChild(0).GetComponent<RectTransform>());
+        firstButton.GetComponent<ItemButton>().HighlightIcon.SetActive(true);
+    }
+
+    public void DeselectAllButtons()
+    {
+        for (int i = 0; i < ItemButtonParent.childCount; i++)
+        {
+            ItemButtonParent.GetChild(i).GetComponent<EquippableButton>().ToggleHighlight(false);
         }
     }
 
     public void CreateButtonForItem(ItemData itemData, bool isEquipped = false)
     {
-
         ItemButton itemButton = Instantiate(ItemButtonPrefab, ItemButtonParent);
 
         itemButton.InitializeItemButton(this, itemData, itemData.itemID, PlayerContext, isEquipped);
@@ -38,13 +62,21 @@ public class InventoryItemController : MonoBehaviour
     public void RemoveButtonAtID(string id)
     {
         ItemButton itemButton = GetItemButtonByID(id);
+        if (itemButton == null) return;
+
         instantiatedItemButtons.Remove(id);
-        Destroy(itemButton);
+        Debug.Log(instantiatedItemButtons.Count);
+        Destroy(itemButton.gameObject);
+        SelectFirstButton();
     }
 
     public ItemButton GetItemButtonByID(string id)
     {
-        return instantiatedItemButtons.GetValueOrDefault(id);
+        if (instantiatedItemButtons.TryGetValue(id, out ItemButton itemButton))
+        {
+            return itemButton;
+        }
+        return null;
     }
 
     public void UpdateViewPosition(RectTransform target)

@@ -683,6 +683,10 @@ MonoBehaviour:
   ItemWeight: {fileID: 5768320318445339805}
   ItemButtonImage: {fileID: 7344383749361080813}
   HighlightIcon: {fileID: 2085574477104641779}
+  OneHandedEquippedColor: {r: 0, g: 0.5647059, b: 0.039215688, a: 1}
+  TwoHandedEquippedColor: {r: 0.8962264, g: 0.89622635, b: 0.2240566, a: 1}
+  RangedEquippedColor: {r: 0, g: 0.4554976, b: 0.8207547, a: 1}
+  InventoryItemController: {fileID: 0}
   StatValue: {fileID: 7412441914172270121}
 --- !u!1 &6532454633623127756
 GameObject:
