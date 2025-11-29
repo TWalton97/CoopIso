@@ -401,6 +401,7 @@ public class NewWeaponController : MonoBehaviour
             newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.OffHand, weaponSet.SecondaryWeaponData.objectPrefab);
         }
 
+        CalculateWeaponDamage();
         UpdateAnimator();
     }
     public void EquipStarterItems(Item mainHand, Item offHand)

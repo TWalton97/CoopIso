@@ -15440,6 +15440,9 @@ MonoBehaviour:
   dualWieldAttackProfile: {fileID: 11400000, guid: b5e01b42ab1bd224b8a87e7f620e02a1, type: 2}
   bowAttackProfile: {fileID: 11400000, guid: 421a3dd49930284438034e12f7746a98, type: 2}
   OneHandedWeaponSet:
+    weaponSetType: 0
+    hasPrimaryWeaponData: 0
+    hasSecondaryWeaponData: 0
     PrimaryWeaponData:
       itemID: 
       itemName: 
@@ -15471,6 +15474,9 @@ MonoBehaviour:
       data: {fileID: 0}
       affixes: []
   TwoHandedWeaponSet:
+    weaponSetType: 0
+    hasPrimaryWeaponData: 0
+    hasSecondaryWeaponData: 0
     PrimaryWeaponData:
       itemID: 
       itemName: 
@@ -15502,6 +15508,9 @@ MonoBehaviour:
       data: {fileID: 0}
       affixes: []
   RangedWeaponSet:
+    weaponSetType: 0
+    hasPrimaryWeaponData: 0
+    hasSecondaryWeaponData: 0
     PrimaryWeaponData:
       itemID: 
       itemName: 
@@ -15533,6 +15542,9 @@ MonoBehaviour:
       data: {fileID: 0}
       affixes: []
   ActiveWeaponSet:
+    weaponSetType: 0
+    hasPrimaryWeaponData: 0
+    hasSecondaryWeaponData: 0
     PrimaryWeaponData:
       itemID: 
       itemName: 
@@ -15637,7 +15649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
-  SkillPoints: 3
+  SkillPoints: 0
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 412665536095753354}
 --- !u!114 &4202505148022750934
@@ -15708,13 +15720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 7230535324818502119}
   experienceController: {fileID: 9155891904063514100}
-  AllFeats:
-  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
-  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
-  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
-  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
-  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
-  - {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
+  AllFeats: []
   UnlockedFeats: []
 --- !u!114 &1963507904449709706
 MonoBehaviour:

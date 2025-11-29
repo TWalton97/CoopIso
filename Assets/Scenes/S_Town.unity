@@ -3860,9 +3860,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207a622a634537648b2c2606fba1c35e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: World Map
+  zoneName: Blackthorn Keep
   InteractionType: 3
-  SceneGroupToLoad: 0
+  SceneGroupToLoad: 3
   SpawnPointID: 0
 --- !u!65 &189204114
 BoxCollider:

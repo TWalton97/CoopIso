@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/S_Town.unity
     guid: 48e7d40de78f33c45a12834e1207632e
+  - enabled: 1
+    path: Assets/Scenes/S_BlackthornKeep.unity
+    guid: 4dbbcbe4dd15d11409fbb03b83558805
   m_configObjects: {}
