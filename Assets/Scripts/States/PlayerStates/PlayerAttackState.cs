@@ -57,16 +57,4 @@ public class PlayerAttackState : PlayerBaseState
         }
         player._movementSpeed = player._maximumMovementSpeed;
     }
-
-    private IEnumerator ReduceMovementSpeed(float targetSpeed)
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < (1 / player.PlayerStatsBlackboard.AttacksPerSecond))
-        {
-            elapsedTime += Time.deltaTime;
-            player._movementSpeed = Mathf.Lerp(player._maximumMovementSpeed, player._maximumMovementSpeed * targetSpeed, elapsedTime / 0.5f);
-            yield return null;
-        }
-    }
 }

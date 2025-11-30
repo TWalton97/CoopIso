@@ -1,7 +1,7 @@
-using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System;
 
 public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 {
@@ -10,7 +10,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
     public List<Item> spawnableItems;
     public List<ConsumableDrop> spawnableConsumables;
 
-    public void SpawnItemAtPosition(string itemID, Vector3 worldPosition, Quaternion worldRotation)
+    public void SpawnItemFromDatabase(string itemID, Vector3 worldPosition, Quaternion worldRotation)
     {
         ItemData itemData = GetSpawnedItemDataFromDataBase(itemID).itemData;
 
@@ -34,126 +34,46 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         itemToDrop.AddComponent<SphereCollider>().isTrigger = true;
     }
 
-    public Item SpawnRandomItem(int rarity, Item itemToSpawn = null, Transform parent = null)
+    public Item SpawnAndRegisterItem(ItemData itemData, Vector3 worldPosition, Quaternion worldRotation)
     {
-        Item itemBase;
-        if (itemToSpawn == null)
+        GameObject itemToDrop = new GameObject(itemData.itemName);
+        Item newItem = itemToDrop.AddComponent<Item>();
+        newItem.itemData = itemData;
+        newItem.itemData.itemID = RegisterItemToDatabase(itemData);
+
+        if (itemData.floorObjectPrefab == null)
         {
-            itemBase = Instantiate(spawnableItems[UnityEngine.Random.Range(0, spawnableItems.Count - 1)], parent);
+            Instantiate(itemData.objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
         }
         else
         {
-            itemBase = Instantiate(itemToSpawn, parent);
+            Instantiate(itemData.floorObjectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
         }
 
-        return itemBase;
+        SceneManager.MoveGameObjectToScene(itemToDrop, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
+        itemToDrop.transform.SetPositionAndRotation(worldPosition, worldRotation);
 
-        // int numAffixes = GetAffixCount(rarity);
-        // if (itemBase.itemData.data.GetType() == typeof(WeaponDataSO))
-        // {
-        //     for (int i = 0; i < numAffixes; i++)
-        //     {
-        //         itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomWeaponAffix());
-        //     }
-        // }
-        // else if (itemBase.itemData.data.GetType() == typeof(ShieldSO))
-        // {
-        //     for (int i = 0; i < numAffixes; i++)
-        //     {
-        //         itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomShieldAffix());
-        //     }
-        // }
-        // else if (itemBase.itemData.data.GetType() == typeof(BowSO))
-        // {
-        //     for (int i = 0; i < numAffixes; i++)
-        //     {
-        //         itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomBowAffix());
-        //     }
-        // }
-        // else if (itemBase.itemData.data.GetType() == typeof(ArmorSO))
-        // {
-        //     for (int i = 0; i < numAffixes; i++)
-        //     {
-        //         itemBase.itemData.affixes.Add(WeaponAffixFactory.ReturnRandomArmorAffix());
-        //     }
-        // }
-        // itemBase.itemData.vfxPrefab = AffixManager.Instance.ReturnVFX(numAffixes);
-        // itemBase.itemData.itemID = RegisterItemToDatabase(itemBase.itemData);
-
-        // return itemBase;
+        itemToDrop.AddComponent<SphereCollider>().isTrigger = true;
+        return newItem;
     }
 
-    public int GetAffixCount(int rarityValue)
+    public void SpawnConsumableItem(ConsumableDrop consumableDrop, Vector3 worldPosition, Quaternion worldRotation)
     {
-        if (rarityValue == -1)
-            return 0;
+        GameObject obj = Instantiate(consumableDrop.potionData.PotionPrefab, worldPosition, worldRotation);
+        SceneManager.MoveGameObjectToScene(obj, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
+    }
 
-        rarityValue = Mathf.Clamp(rarityValue, 0, 100);
-
-        float roll = UnityEngine.Random.Range(0f, 100f);
-
-
-        if (roll < rarityValue * 0.05f)
-            return 4;
-        else if (roll < rarityValue * 0.2f)
-            return 3;
-        else if (roll < rarityValue * 0.4f)
-            return 2;
-        else if (roll < rarityValue * 0.9f)
-            return 1;
-        else
-            return 0;
+    public Item ReturnRandomItem()
+    {
+        int rand = UnityEngine.Random.Range(0, spawnableItems.Count);
+        return spawnableItems[rand];
     }
 
     public string RegisterItemToDatabase(ItemData itemData)
     {
         string id = Guid.NewGuid().ToString();
-
-        if (itemData.data.GetType() == typeof(WeaponDataSO))
-        {
-            WeaponDataSO weaponData = itemData.data as WeaponDataSO;
-            List<WeaponAffix> weaponAffixes = AffixListConverter.ConvertListIntoWeaponAffixes(itemData.affixes);
-            int weaponMinDamage = weaponData.WeaponMinDamage + AffixStatCalculator.CalculateMinDamage(weaponAffixes);
-            int weaponMaxDamage = weaponData.WeaponMaxDamage + AffixStatCalculator.CalculateMaxDamage(weaponAffixes);
-            float attacksPerSecond = weaponData.AttacksPerSecond * AffixStatCalculator.CalculateAttackSpeed(weaponAffixes);
-            int numberOfAttacksInCombo = weaponData.NumberOfAttacksInCombo;
-
-            SpawnedWeaponsData data = new SpawnedWeaponsData(id, itemData, weaponMinDamage, weaponMaxDamage, attacksPerSecond);
-            spawnedItemData.Add(id, data);
-        }
-        else if (itemData.data.GetType() == typeof(ShieldSO))
-        {
-            ShieldSO shieldData = itemData.data as ShieldSO;
-            List<ShieldAffix> shieldAffixes = AffixListConverter.ConvertListIntoShieldAffixes(itemData.affixes);
-            int blockAngle = shieldData.BlockAngle + AffixStatCalculator.CalculateBlockAngle(shieldAffixes);
-            int blockAmount = shieldData.BlockAmount + AffixStatCalculator.CalculateBlockAmount(shieldAffixes);
-            int armorAmount = Mathf.CeilToInt(shieldData.ArmorAmount * AffixStatCalculator.CalculateArmor(shieldAffixes));
-
-            SpawnedShieldData data = new SpawnedShieldData(id, itemData, blockAngle, blockAmount, armorAmount);
-            spawnedItemData.Add(id, data);
-        }
-        else if (itemData.data.GetType() == typeof(BowSO))
-        {
-            BowSO weaponData = itemData.data as BowSO;
-            List<BowAffix> weaponAffixes = AffixListConverter.ConvertListIntoBowAffixes(itemData.affixes);
-            int weaponMinDamage = weaponData.WeaponMinDamage + AffixStatCalculator.CalculateMinDamage(weaponAffixes);
-            int weaponMaxDamage = weaponData.WeaponMaxDamage + AffixStatCalculator.CalculateMaxDamage(weaponAffixes);
-            float attacksPerSecond = weaponData.AttacksPerSecond * AffixStatCalculator.CalculateAttackSpeed(weaponAffixes);
-            float MovementSpeedDuringAttack = weaponData.MovementSpeedMultiplierDuringAttack;
-            int numberOfProjectiles = weaponData.NumberOfProjectiles + AffixStatCalculator.CalculateProjectileCount(weaponAffixes);
-
-            SpawnedBowData data = new SpawnedBowData(id, itemData, weaponMinDamage, weaponMaxDamage, attacksPerSecond, MovementSpeedDuringAttack, numberOfProjectiles);
-            spawnedItemData.Add(id, data);
-        }
-        else if (itemData.data.GetType() == typeof(ArmorSO))
-        {
-            ArmorSO armorData = itemData.data as ArmorSO;
-            List<ArmorAffix> armorAffixes = AffixListConverter.ConvertListIntoArmorAffixes(itemData.affixes);
-            int increasedArmor = Mathf.CeilToInt(armorData.ArmorAmount * AffixStatCalculator.CalculateArmor(armorAffixes));
-            SpawnedArmorData data = new SpawnedArmorData(id, itemData, armorData.ArmorType, increasedArmor);
-            spawnedItemData.Add(id, data);
-        }
-
+        SpawnedItemData spawnedItem = new SpawnedItemData(id, itemData, itemData.itemQuality);
+        spawnedItemData.Add(id, spawnedItem);
         return id;
     }
 
@@ -164,16 +84,6 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         {
             data = spawnedItemData[id];
         }
-
-        if (spawnedItemData[id].GetType() == typeof(SpawnedWeaponsData))
-        {
-            return data as SpawnedWeaponsData;
-        }
-        else if (spawnedItemData[id].GetType() == typeof(SpawnedBowData))
-        {
-            return data as SpawnedBowData;
-        }
-
         return data;
     }
 
@@ -181,71 +91,27 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
     {
         public string uniqueID;
         public ItemData itemData;
-    }
-    public class SpawnedWeaponsData : SpawnedItemData
-    {
-        public int weaponMinDamage;
-        public int weaponMaxDamage;
-        public float attacksPerSecond;
-        public float novementSpeedDuringAttack;
+        public ItemQuality itemQuality;
 
-        public SpawnedWeaponsData(string _uniqueID, ItemData _itemData, int _weaponMinDamage, int _weaponMaxDamage, float _attacksPerSecond)
+        public SpawnedItemData(string id, ItemData data, ItemQuality quality)
         {
-            uniqueID = _uniqueID;
-            itemData = _itemData;
-            weaponMinDamage = _weaponMinDamage;
-            weaponMaxDamage = _weaponMaxDamage;
-            attacksPerSecond = _attacksPerSecond;
+            uniqueID = id;
+            itemData = data;
+            itemQuality = quality;
         }
     }
+}
 
-    public class SpawnedShieldData : SpawnedItemData
-    {
-        public int blockAngle;
-        public int blockAmount;
-        public int armorAmount;
 
-        public SpawnedShieldData(string _uniqueID, ItemData _itemData, int _blockAngle, int _blockAmount, int _armorAmount)
-        {
-            uniqueID = _uniqueID;
-            itemData = _itemData;
-            blockAngle = _blockAngle;
-            blockAmount = _blockAmount;
-            armorAmount = _armorAmount;
-        }
-    }
 
-    public class SpawnedBowData : SpawnedItemData
-    {
-        public int weaponMinDamage;
-        public int weaponMaxDamage;
-        public float attacksPerSecond;
-        public float novementSpeedDuringAttack;
-        public int numberOfProjectiles;
-
-        public SpawnedBowData(string _uniqueID, ItemData _itemData, int _weaponMinDamage, int _weaponMaxDamage, float _attacksPerSecond, float _movementSpeedDuringAttack, int _numberOfProjectiles)
-        {
-            uniqueID = _uniqueID;
-            itemData = _itemData;
-            weaponMinDamage = _weaponMinDamage;
-            weaponMaxDamage = _weaponMaxDamage;
-            attacksPerSecond = _attacksPerSecond;
-            novementSpeedDuringAttack = _movementSpeedDuringAttack;
-            numberOfProjectiles = _numberOfProjectiles;
-        }
-    }
-
-    public class SpawnedArmorData : SpawnedItemData
-    {
-        public ArmorType armorType;
-        public int armorAmount;
-
-        public SpawnedArmorData(string _uniqueID, ItemData _itemData, ArmorType _armorType, int _armorAmount)
-        {
-            uniqueID = _uniqueID;
-            itemData = _itemData;
-            armorType = _armorType;
-            armorAmount = _armorAmount;
-        }
-    }
+public enum ItemQuality
+{
+    Shoddy = -1,
+    Normal = 0,
+    Fine = 1,
+    Remarkable = 2,
+    Superior = 3,
+    Grand = 4,
+    Imperial = 5,
+    Flawless = 6
 }

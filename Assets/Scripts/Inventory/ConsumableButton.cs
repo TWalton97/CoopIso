@@ -28,7 +28,7 @@ public class ConsumableButton : ItemButton
         ItemButtonImage.sprite = potionData.PotionSprite;
         ItemValue.text = potionData.GoldValue.ToString();
         ItemWeight.text = potionData.Weight.ToString("0.0");
-        QuantityText.text = "x" + 1;
+        UpdateQuantity(1);
 
         PlayerContext.PlayerController.PlayerInputController.OnDropItemPerformed += OnDropItem;
     }
@@ -36,7 +36,7 @@ public class ConsumableButton : ItemButton
     public void UpdateQuantity(int amount)
     {
         Quantity += amount;
-        if (Quantity == 0)
+        if (Quantity <= 0)
         {
             InventoryItemController.RemoveButtonAtID(ButtonID);
             return;

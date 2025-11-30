@@ -14,15 +14,11 @@ public class Bow : Weapon
     }
     public override void ActivateHitbox()
     {
-        if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedBowData))
+        if (ItemData.data is BowSO weaponData)
         {
-            SpawnedItemDataBase.SpawnedBowData weaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedBowData;
-            int rolledDamage = Random.Range(weaponData.weaponMinDamage, weaponData.weaponMaxDamage);
-            SpawnProjectiles(weaponData.numberOfProjectiles, rolledDamage);
+            int rolledDamage = Random.Range(minDamage, maxDamage);
+            SpawnProjectiles(1, rolledDamage);
         }
-        //int rolledDamage = Random.Range(spawnedWeaponData.weaponMinDamage, spawnedWeaponData.weaponMaxDamage);
-        // Projectile proj = Instantiate(projectilePrefab, arrowSpawnPos.position, newPlayerController.transform.rotation);
-        // proj.Init(projectileSpeed, rolledDamage, newPlayerController, 3, false);
     }
 
 

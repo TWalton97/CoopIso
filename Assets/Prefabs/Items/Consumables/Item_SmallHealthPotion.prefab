@@ -46,13 +46,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced95b1e9395e854ea8e7eaf4ae0d2ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemID: 
+  baseLootBudget: 8
+  baseLootWeight: 3
   ItemStatus:
     GUID: 
     WorldPosition: {x: 0, y: 0, z: 0}
     WorldRotation: {x: 0, y: 0, z: 0, w: 0}
-  potionData: {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
+  itemData:
+    itemID: 
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemValue: 0
+    itemWeight: 0
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    floorObjectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    weaponRangeType: 0
+    data: {fileID: 0}
+    itemQuality: 0
   InteractionType: 0
+  itemID: 
+  potionData: {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
 --- !u!135 &8928048899272951523
 SphereCollider:
   m_ObjectHideFlags: 0

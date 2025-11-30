@@ -8,4 +8,5 @@ public interface IInteractable
     bool isInteractable { get; set; }
     string interactableName { get; set; }
     public void OnInteract(PlayerContext playerContext, int playerIndex);
+    public string GetInteractableName();
 }

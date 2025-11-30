@@ -6,8 +6,6 @@ using UnityEngine;
 public class PotionSO : ItemSO
 {
     public string PotionName;
-    public int GoldValue;
-    public float Weight;
     public Sprite PotionSprite;
     public GameObject PotionPrefab;
     public Resources.ResourceType ResourceToRestore;

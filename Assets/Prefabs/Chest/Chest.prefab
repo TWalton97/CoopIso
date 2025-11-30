@@ -81,12 +81,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f202e1230a85c42b34890278ab2ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minBudget: 5
+  maxBudget: 12
+  ChestStatus:
+    GUID: 
+    IsOpened: 0
   Rarity: 0
   spawnPosition: {fileID: 3047549146197814517}
+  animator: {fileID: 0}
   minItems: 1
   itemsToSpawn:
   - {fileID: 7507621691804293595, guid: 0d892f2c0381e594bbef46287f1e97dc, type: 3}
   - {fileID: 1060900815880863096, guid: c071088d36a89504db4669b19c753c83, type: 3}
+  consumablesToSpawn: []
   InteractionType: 1
 --- !u!95 &2976881862001060602
 Animator:

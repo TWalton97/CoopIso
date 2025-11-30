@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 public class EnemyDieState : EnemyBaseState
@@ -42,18 +43,19 @@ public class EnemyDieState : EnemyBaseState
 
     private IEnumerator SpawnItems()
     {
-        int numItemsToSpawn = SpawnedItemDataBase.Instance.GetAffixCount(enemy.HealthController.MaximumHealth);
-        for (int i = 0; i < numItemsToSpawn; i++)
-        {
-            Item instantiatedItem = SpawnedItemDataBase.Instance.SpawnRandomItem(enemy.HealthController.MaximumHealth, null, enemy.transform);
-            instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
-            yield return new WaitForSeconds(0.2f);
-        }
+        int budget = enemy.EntityData.MaximumHealth / 10;
+        var loot = LootCalculator.RollItemsWithBudget(budget);
 
-        if (Random.Range(0, 5) < 2)
+        foreach (var item in loot)
         {
-            ConsumableDrop consumableDrop = GameObject.Instantiate(SpawnedItemDataBase.Instance.spawnableConsumables[Random.Range(0, 2)], enemy.transform.position, Quaternion.identity, enemy.transform);
-            consumableDrop.transform.position = ReturnSpawnPositionInRadius();
+            if (item.item is ConsumableDrop consumableDrop)
+            {
+                SpawnedItemDataBase.Instance.SpawnConsumableItem(consumableDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
+            }
+            else
+            {
+                SpawnedItemDataBase.Instance.SpawnAndRegisterItem(item.item.itemData, ReturnSpawnPositionInRadius(), Quaternion.identity);
+            }
             yield return new WaitForSeconds(0.2f);
         }
         yield return null;

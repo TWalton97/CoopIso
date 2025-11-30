@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, IInteractable
 {
+    public int baseLootBudget;
+    public float baseLootWeight;
     public ItemStatus ItemStatus;
     public ItemData itemData;
-    private Quaternion targetRotation;
-    private Vector3 targetPosition;
-    private bool _isInteractable = false;
+    protected Quaternion targetRotation;
+    protected Vector3 targetPosition;
+    protected bool _isInteractable = false;
     public InteractionType InteractionType;
 
-    public string interactableName { get => itemData.itemName; set => itemData.itemName = value; }
-    public bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
-    public InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
+    public virtual string interactableName { get => itemData.itemName; set => itemData.itemName = value; }
+    public virtual bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
+    public virtual InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
 
     public bool itemCollected { get; private set; }
 
@@ -52,7 +54,7 @@ public class Item : MonoBehaviour, IInteractable
         Destroy(gameObject);
     }
 
-    public void OnInteract(PlayerContext context, int playerIndex)
+    public virtual void OnInteract(PlayerContext context, int playerIndex)
     {
         CollectItem(context);
     }
@@ -61,6 +63,11 @@ public class Item : MonoBehaviour, IInteractable
     {
         ItemStatus.WorldPosition = targetPosition;
         return ItemStatus;
+    }
+
+    public virtual string GetInteractableName()
+    {
+        return itemData.itemQuality.ToString() + " " + interactableName;
     }
 }
 
@@ -80,7 +87,7 @@ public class ItemData
     public ItemType itemType;
     public WeaponRangeType weaponRangeType;
     public ItemSO data;
-    public List<Affix> affixes;
+    public ItemQuality itemQuality;
 }
 
 [System.Serializable]

@@ -412,6 +412,7 @@ public class NewWeaponController : MonoBehaviour
         if (mainHand != null)
         {
             Item starterSword = Instantiate(mainHand);
+            starterSword.itemData.itemQuality = ItemQuality.Shoddy;
             starterSword.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterSword.itemData);
             newPlayerController.PlayerContext.InventoryController.AddItemToInventory(starterSword.itemData, true);
             Destroy(starterSword.gameObject);
@@ -420,6 +421,7 @@ public class NewWeaponController : MonoBehaviour
         if (offHand != null)
         {
             Item starterShield = Instantiate(offHand);
+            starterShield.itemData.itemQuality = ItemQuality.Shoddy;
             starterShield.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterShield.itemData);
             newPlayerController.PlayerContext.InventoryController.AddItemToInventory(starterShield.itemData, true);
             Destroy(starterShield.gameObject);
@@ -607,8 +609,9 @@ public class NewWeaponController : MonoBehaviour
                     newPlayerController.PlayerContext.PlayerPreviewManager.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand);
                     if (HasShieldEquipped)
                     {
-                        SpawnedItemDataBase.SpawnedShieldData spawnedShieldData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID) as SpawnedItemDataBase.SpawnedShieldData;
-                        newPlayerController.HealthController.UpdateArmorAmount(-spawnedShieldData.armorAmount);
+                        SpawnedItemDataBase.SpawnedItemData spawnedShieldData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID);
+                        if (spawnedShieldData.itemData.data is ShieldSO shieldData)
+                            newPlayerController.HealthController.UpdateArmorAmount(shieldData.ArmorAmount);
                     }
                     Destroy(instantiatedSecondaryWeapon.gameObject);
                     HasShieldEquipped = false;
@@ -663,6 +666,12 @@ public class NewWeaponController : MonoBehaviour
         {
             CombinedWeaponDamage = (primaryWeaponDamage * 0.8f) + (secondaryWeaponDamage * 0.8f);
         }
+    }
+
+    [ContextMenu("Apply Bow Attack Profile")]
+    public void ApplyBowAttackProfile()
+    {
+        ApplyAttackProfile(bowAttackProfile);
     }
 
     public RuntimeAnimatorController UnarmedAnimator;

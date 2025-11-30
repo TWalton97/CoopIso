@@ -247,7 +247,7 @@ public class ZoneManager : MonoBehaviour
 
         foreach (ItemStatus itemStatus in zoneData.ItemStatuses)
         {
-            SpawnedItemDataBase.SpawnItemAtPosition(itemStatus.GUID, itemStatus.WorldPosition, itemStatus.WorldRotation);
+            SpawnedItemDataBase.SpawnItemFromDatabase(itemStatus.GUID, itemStatus.WorldPosition, itemStatus.WorldRotation);
         }
 
         List<Chest> chests = GetObjectsOfTypeInScene<Chest>(sceneName);

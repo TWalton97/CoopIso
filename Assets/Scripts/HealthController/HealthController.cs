@@ -120,13 +120,6 @@ public class HealthController : MonoBehaviour, IDamageable
         return true;
     }
 
-    private void Block(int damageAmount, Entity controller, SpawnedItemDataBase.SpawnedShieldData shieldData)
-    {
-        int newDamageAmount = Mathf.Clamp(damageAmount - shieldData.blockAmount, 0, damageAmount);
-        DamageNumberManager.Instance.SpawnText($"Blocked", transform.position + Vector3.up);
-        TakeDamage(newDamageAmount, controller, true);
-    }
-
     public void UpdateArmorAmount(int amount)
     {
         ArmorAmount += amount;

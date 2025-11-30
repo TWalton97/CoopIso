@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseLootBudget: 10
+  baseLootWeight: 5
   ItemStatus:
     GUID: 
     WorldPosition: {x: 0, y: 0, z: 0}
@@ -64,7 +66,7 @@ MonoBehaviour:
     itemType: 5
     weaponRangeType: 1
     data: {fileID: 11400000, guid: c847618d59e93d74faa7c72c499ed5e4, type: 2}
-    affixes: []
+    itemQuality: 0
   InteractionType: 0
 --- !u!135 &2695945937974794507
 SphereCollider:

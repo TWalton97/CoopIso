@@ -11043,10 +11043,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0396413d10f1548a0b4621bf6dd6a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerController: {fileID: 0}
   pointOnePosition: {x: 0, y: 0.4, z: 0}
   ObstructionMask:
     serializedVersion: 2
     m_Bits: 768
+  HitTarget: {fileID: 0}
 --- !u!1 &3244145821340607935
 GameObject:
   m_ObjectHideFlags: 0
@@ -15413,6 +15415,7 @@ MonoBehaviour:
   - {fileID: 9106999442041791226}
   - {fileID: 822495680235394498}
   lookPoint: {x: 0, y: 0, z: 0}
+  rotatedInputDirection: {x: 0, y: 0, z: 0}
   AbilityBeingUsed: {fileID: 0}
 --- !u!114 &7874169709706284734
 MonoBehaviour:
@@ -15457,7 +15460,7 @@ MonoBehaviour:
       itemType: 0
       weaponRangeType: 0
       data: {fileID: 0}
-      affixes: []
+      itemQuality: 0
     SecondaryWeaponData:
       itemID: 
       itemName: 
@@ -15472,7 +15475,7 @@ MonoBehaviour:
       itemType: 0
       weaponRangeType: 0
       data: {fileID: 0}
-      affixes: []
+      itemQuality: 0
   TwoHandedWeaponSet:
     weaponSetType: 0
     hasPrimaryWeaponData: 0
@@ -15491,7 +15494,7 @@ MonoBehaviour:
       itemType: 0
       weaponRangeType: 0
       data: {fileID: 0}
-      affixes: []
+      itemQuality: 0
     SecondaryWeaponData:
       itemID: 
       itemName: 
@@ -15506,7 +15509,7 @@ MonoBehaviour:
       itemType: 0
       weaponRangeType: 0
       data: {fileID: 0}
-      affixes: []
+      itemQuality: 0
   RangedWeaponSet:
     weaponSetType: 0
     hasPrimaryWeaponData: 0
@@ -15525,7 +15528,7 @@ MonoBehaviour:
       itemType: 0
       weaponRangeType: 0
       data: {fileID: 0}
-      affixes: []
+      itemQuality: 0
     SecondaryWeaponData:
       itemID: 
       itemName: 
@@ -15540,7 +15543,7 @@ MonoBehaviour:
       itemType: 0
       weaponRangeType: 0
       data: {fileID: 0}
-      affixes: []
+      itemQuality: 0
   ActiveWeaponSet:
     weaponSetType: 0
     hasPrimaryWeaponData: 0
@@ -15559,7 +15562,7 @@ MonoBehaviour:
       itemType: 0
       weaponRangeType: 0
       data: {fileID: 0}
-      affixes: []
+      itemQuality: 0
     SecondaryWeaponData:
       itemID: 
       itemName: 
@@ -15574,7 +15577,7 @@ MonoBehaviour:
       itemType: 0
       weaponRangeType: 0
       data: {fileID: 0}
-      affixes: []
+      itemQuality: 0
   CombinedWeaponDamage: 0
   UnarmedAnimator: {fileID: 9100000, guid: 5b7e4efa974f7334191e8c27409f2845, type: 2}
   OneHandedAndShieldAnimator: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
@@ -15649,7 +15652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
-  SkillPoints: 0
+  SkillPoints: 1
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 412665536095753354}
 --- !u!114 &4202505148022750934

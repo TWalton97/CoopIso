@@ -21,4 +21,9 @@ public class ZoneExit : MonoBehaviour, IInteractable
         PlayerJoinManager.Instance.TargetSpawnID = SpawnPointID;
         SceneLoadingManager.Instance.LoadSceneGroup(SceneGroupToLoad);
     }
+
+    public string GetInteractableName()
+    {
+        return interactableName;
+    }
 }

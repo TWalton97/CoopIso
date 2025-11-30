@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
     private bool active = false;
     private Hitbox hitbox;
     public WeaponRangeType weaponRangeType;
+    public ItemData ItemData;
 
     public WeaponHand weaponHand;
     public enum WeaponHand
@@ -22,9 +23,10 @@ public class Weapon : MonoBehaviour
 
     public NewWeaponController.WeaponAttackTypes weaponAttackType;
 
-    public List<Affix> affixes;
     public string itemID;
     protected SpawnedItemDataBase.SpawnedItemData spawnedWeaponData;
+    protected int minDamage;
+    protected int maxDamage;
     public int averageWeaponDamage;
 
     void Awake()
@@ -34,23 +36,26 @@ public class Weapon : MonoBehaviour
 
     public void Init(WeaponHand weaponHand, ItemData itemData)
     {
+        ItemData = itemData;
         this.weaponHand = weaponHand;
         this.itemID = itemData.itemID;
         weaponRangeType = itemData.weaponRangeType;
 
         spawnedWeaponData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemID);// as SpawnedItemDataBase.SpawnedWeaponsData;
 
-        if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedWeaponsData))
+
+
+        if (itemData.data is WeaponDataSO weaponData)
         {
-            spawnedWeaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedWeaponsData;
-            SpawnedItemDataBase.SpawnedWeaponsData data = spawnedWeaponData as SpawnedItemDataBase.SpawnedWeaponsData;
-            averageWeaponDamage = (data.weaponMinDamage + data.weaponMaxDamage) / 2;
+            minDamage = LootCalculator.CalculateQualityModifiedStat(weaponData.WeaponMinDamage, itemData.itemQuality);
+            maxDamage = LootCalculator.CalculateQualityModifiedStat(weaponData.WeaponMaxDamage, itemData.itemQuality);
+            averageWeaponDamage = (minDamage + maxDamage) / 2;
         }
-        else if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedBowData))
+        else if (itemData.data is BowSO bowData)
         {
-            spawnedWeaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedBowData;
-            SpawnedItemDataBase.SpawnedBowData data = spawnedWeaponData as SpawnedItemDataBase.SpawnedBowData;
-            averageWeaponDamage = (data.weaponMinDamage + data.weaponMaxDamage) / 2;
+            minDamage = LootCalculator.CalculateQualityModifiedStat(bowData.WeaponMinDamage, itemData.itemQuality);
+            maxDamage = LootCalculator.CalculateQualityModifiedStat(bowData.WeaponMaxDamage, itemData.itemQuality);
+            averageWeaponDamage = (minDamage + maxDamage) / 2;
         }
     }
 
@@ -110,10 +115,9 @@ public class Weapon : MonoBehaviour
 
     public virtual void ActivateHitbox()
     {
-        if (spawnedWeaponData.GetType() == typeof(SpawnedItemDataBase.SpawnedWeaponsData))
+        if (ItemData.data is WeaponDataSO weaponData)
         {
-            SpawnedItemDataBase.SpawnedWeaponsData weaponData = spawnedWeaponData as SpawnedItemDataBase.SpawnedWeaponsData;
-            int rolledDamage = UnityEngine.Random.Range(weaponData.weaponMinDamage, weaponData.weaponMaxDamage);
+            int rolledDamage = UnityEngine.Random.Range(minDamage, maxDamage);
             hitbox.ActivateHitbox(rolledDamage);
         }
     }

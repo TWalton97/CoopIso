@@ -9,6 +9,4 @@ public class BowSO : ItemSO
     [field: SerializeField] public int WeaponMaxDamage { get; private set; }
     [field: SerializeField] public float AttacksPerSecond { get; private set; }
     [field: SerializeField] public int NumberOfAttacksInCombo { get; private set; }
-    [field: SerializeField] public float MovementSpeedMultiplierDuringAttack { get; private set; }
-    [field: SerializeField] public int NumberOfProjectiles { get; private set; }
 }

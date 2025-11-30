@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250acb76497cebc468b3dcee3a468b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseLootBudget: 10
+  baseLootWeight: 5
   ItemStatus:
     GUID: 
     WorldPosition: {x: 0, y: 0, z: 0}
@@ -55,6 +57,8 @@ MonoBehaviour:
     itemName: One-handed Sword
     quantity: 1
     sprite: {fileID: 21300000, guid: 4f9caaf8d740989489c00d57a4e06532, type: 3}
+    itemValue: 0
+    itemWeight: 0
     itemDescription: A one-handed sword. Light enough to allow for nimble movement.
     objectPrefab: {fileID: 9079547992211365241, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
     floorObjectPrefab: {fileID: 0}
@@ -62,7 +66,7 @@ MonoBehaviour:
     itemType: 4
     weaponRangeType: 1
     data: {fileID: 11400000, guid: e29c7fa259745ed4c9ac8b02b84f47c5, type: 2}
-    affixes: []
+    itemQuality: 0
   InteractionType: 0
 --- !u!135 &5466513351957134872
 SphereCollider:

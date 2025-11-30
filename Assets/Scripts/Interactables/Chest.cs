@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable
 {
+    public int minBudget;
+    public int maxBudget;
+
     private EntityIdentity entityIdentity;
     public ChestStatus ChestStatus;
 
@@ -46,28 +49,21 @@ public class Chest : MonoBehaviour, IInteractable
 
     private IEnumerator SpawnItems(SpawnedItemDataBase spawnedItemDataBase)
     {
-        int numItemsToSpawn = Mathf.Clamp(spawnedItemDataBase.GetAffixCount(Rarity), minItems, 4);
-        for (int i = 0; i < numItemsToSpawn; i++)
+        int budget = LootCalculator.RollBudget(minBudget, maxBudget);
+        var loot = LootCalculator.RollItemsWithBudget(budget);
+
+        foreach (var item in loot)
         {
-            Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity, null, transform);
-            instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
+            if (item.item is ConsumableDrop consumableDrop)
+            {
+                spawnedItemDataBase.SpawnConsumableItem(consumableDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
+            }
+            else
+            {
+                spawnedItemDataBase.SpawnAndRegisterItem(item.item.itemData, ReturnSpawnPositionInRadius(), Quaternion.identity);
+            }
             yield return new WaitForSeconds(0.2f);
         }
-
-        for (int i = 0; i < itemsToSpawn.Count; i++)
-        {
-            Item instantiatedItem = spawnedItemDataBase.SpawnRandomItem(Rarity, itemsToSpawn[i], transform);
-            instantiatedItem.transform.position = ReturnSpawnPositionInRadius();
-            yield return new WaitForSeconds(0.2f);
-        }
-
-        for (int i = 0; i < consumablesToSpawn.Count; i++)
-        {
-            ConsumableDrop consumableDrop = Instantiate(consumablesToSpawn[i], transform);
-            consumableDrop.transform.position = ReturnSpawnPositionInRadius();
-            yield return new WaitForSeconds(0.2f);
-        }
-
         yield return null;
     }
 
@@ -82,6 +78,11 @@ public class Chest : MonoBehaviour, IInteractable
     {
         ChestStatus.IsOpened = !_isInteractable;
         return ChestStatus;
+    }
+
+    public string GetInteractableName()
+    {
+        return interactableName;
     }
 }
 

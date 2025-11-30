@@ -46,7 +46,7 @@ public class BowAimLineController : MonoBehaviour
         }
 
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.25f, sphereCastDir, out hit, 25f, ObstructionMask) && hit.collider.GetComponent<Entity>() != null)
+        if (Physics.SphereCast(transform.position, 0.75f, sphereCastDir, out hit, 25f, ObstructionMask) && hit.collider.GetComponent<Entity>() != null)
         {
             HitTarget = hit.collider.gameObject;
         }

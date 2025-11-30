@@ -29,7 +29,7 @@ public class Interactor : MonoBehaviour
 
     private void DisplayInteractUI()
     {
-        newPlayerController.PlayerContext.InteractionManager.EnableInteractionUI(playerIndex, nearestInteractable.interactionType, nearestInteractable.interactableName, GetInteractionKeyString());
+        newPlayerController.PlayerContext.InteractionManager.EnableInteractionUI(playerIndex, nearestInteractable.interactionType, nearestInteractable.GetInteractableName(), GetInteractionKeyString());
     }
 
     private void HideInteractUI()

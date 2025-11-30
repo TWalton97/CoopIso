@@ -1371,9 +1371,9 @@ MonoBehaviour:
   - {fileID: 8475685219581847362, guid: b0d5c589fdc08ac4085bb94ac9e0856f, type: 3}
   - {fileID: 8475685219581847362, guid: 64871ff51d636ee48bb2d3da86d5b76d, type: 3}
   - {fileID: 8475685219581847362, guid: 99659390744640d4399402c31be899ab, type: 3}
-  spawnableConsumables:
   - {fileID: 1326440589637813361, guid: 10bcb8611637db9409648d860176ff46, type: 3}
   - {fileID: 1326440589637813361, guid: aaede4860e771814ab1ac06d06321918, type: 3}
+  spawnableConsumables: []
 --- !u!1 &388595612
 GameObject:
   m_ObjectHideFlags: 3
@@ -1484,7 +1484,6 @@ Transform:
   m_Children:
   - {fileID: 1872936568}
   - {fileID: 373696304}
-  - {fileID: 1984829104}
   - {fileID: 1457941398}
   - {fileID: 1364516130}
   - {fileID: 764331785}
@@ -6556,55 +6555,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7536111417407256916, guid: 618a2c1f0d4d1ce4b84ed207cd72f2bf, type: 3}
   m_PrefabInstance: {fileID: 1961032391}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1984829103
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1984829104}
-  - component: {fileID: 1984829105}
-  m_Layer: 0
-  m_Name: AffixManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1984829104
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984829103}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 397393751}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1984829105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984829103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dfd471306563114da4cec2df2a65abd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  commonVFX: {fileID: 4440629263168635932, guid: 13fa8b191e984754bbc8a420cbe17e0b, type: 3}
-  uncommonVFX: {fileID: 165858437583528537, guid: 9748af5b7332a964f8a234a8b56041bf, type: 3}
-  rareVFX: {fileID: 3110887897120308211, guid: a95e11b18d6a3724d9e03fd9eb685ac4, type: 3}
-  epicVFX: {fileID: 165858437583528537, guid: c96cdb5aeb6db8145aa538add18cf648, type: 3}
-  legendaryVFX: {fileID: 0}
 --- !u!1 &1993656514
 GameObject:
   m_ObjectHideFlags: 0

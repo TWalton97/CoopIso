@@ -265,7 +265,8 @@ public class NewPlayerController : Entity
             //Aim assist handling
             if (BowAimLineController.HitTarget != null)
             {
-                Vector3 newRotation = (BowAimLineController.HitTarget.transform.position - transform.position).normalized;
+                Vector3 targetPos = new Vector3(BowAimLineController.HitTarget.transform.position.x, transform.position.y, BowAimLineController.HitTarget.transform.position.z);
+                Vector3 newRotation = (targetPos - transform.position).normalized;
                 transform.rotation = Quaternion.LookRotation(newRotation);
                 return;
             }

@@ -32,25 +32,25 @@ public class EquippableButton : ItemButton
         Button button = GetComponent<Button>();
         button.onClick.AddListener(ActivateButton);
 
-        ItemName.text = ItemData.itemName;
+        ItemName.text = ItemData.itemQuality + " " + ItemData.itemName;
         ItemButtonImage.sprite = ItemData.sprite;
         ItemValue.text = ItemData.itemValue.ToString();
         ItemWeight.text = ItemData.itemWeight.ToString("00.0");
         if (ItemData.data is WeaponDataSO weaponData)
         {
-            StatValue.text = weaponData.WeaponMinDamage.ToString() + "-" + weaponData.WeaponMaxDamage.ToString();
+            StatValue.text = LootCalculator.CalculateQualityModifiedStat(weaponData.WeaponMinDamage, itemData.itemQuality).ToString() + "-" + LootCalculator.CalculateQualityModifiedStat(weaponData.WeaponMaxDamage, itemData.itemQuality).ToString();
         }
         else if (ItemData.data is BowSO bowData)
         {
-            StatValue.text = bowData.WeaponMinDamage.ToString() + "-" + bowData.WeaponMaxDamage.ToString();
+            StatValue.text = LootCalculator.CalculateQualityModifiedStat(bowData.WeaponMinDamage, itemData.itemQuality).ToString() + "-" + LootCalculator.CalculateQualityModifiedStat(bowData.WeaponMaxDamage, itemData.itemQuality).ToString();
         }
         else if (ItemData.data is ArmorSO armorData)
         {
-            StatValue.text = armorData.ArmorAmount.ToString();
+            StatValue.text = LootCalculator.CalculateQualityModifiedStat(armorData.ArmorAmount, itemData.itemQuality).ToString();
         }
         else if (ItemData.data is ShieldSO shieldData)
         {
-            StatValue.text = shieldData.ArmorAmount.ToString();
+            StatValue.text = LootCalculator.CalculateQualityModifiedStat(shieldData.ArmorAmount, itemData.itemQuality).ToString();
         }
 
         switch (ItemData.itemType)
@@ -194,7 +194,7 @@ public class EquippableButton : ItemButton
         }
         else
         {
-            SpawnedItemDataBase.Instance.SpawnItemAtPosition(ItemData.itemID, PlayerContext.PlayerController.transform.position, Quaternion.identity);
+            SpawnedItemDataBase.Instance.SpawnItemFromDatabase(ItemData.itemID, PlayerContext.PlayerController.transform.position, Quaternion.identity);
             InventoryItemController.RemoveButtonAtID(ButtonID);
         }
     }

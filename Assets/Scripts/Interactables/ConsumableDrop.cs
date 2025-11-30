@@ -1,22 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class ConsumableDrop : MonoBehaviour, IInteractable
+public class ConsumableDrop : Item, IInteractable
 {
     //Consumables will just store PotionSO
     public string itemID;
-    public ItemStatus ItemStatus;
     public PotionSO potionData;
-    private Quaternion targetRotation;
-    private Vector3 targetPosition;
-    private bool _isInteractable = false;
-    public InteractionType InteractionType;
 
-    public string interactableName { get => potionData.PotionName; set => potionData.PotionName = value; }
-    public bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
-    public InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
-
-    public bool itemCollected { get; private set; }
+    public override string interactableName { get => potionData.PotionName; set => potionData.PotionName = value; }
+    public override InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
 
     void Start()
     {
@@ -49,16 +41,14 @@ public class ConsumableDrop : MonoBehaviour, IInteractable
         Destroy(gameObject);
     }
 
-    public void OnInteract(PlayerContext context, int playerIndex)
+    public override void OnInteract(PlayerContext context, int playerIndex)
     {
-        if (itemCollected) return;
-        itemCollected = true;
         CollectItem(context);
     }
 
-    public ItemStatus ReturnItemStatus()
+    public override string GetInteractableName()
     {
-        ItemStatus.WorldPosition = targetPosition;
-        return ItemStatus;
+        return interactableName;
     }
+
 }
