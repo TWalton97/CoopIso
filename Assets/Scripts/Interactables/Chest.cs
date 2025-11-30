@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Chest : MonoBehaviour, IInteractable
 {
@@ -57,6 +58,12 @@ public class Chest : MonoBehaviour, IInteractable
             if (item.item is ConsumableDrop consumableDrop)
             {
                 spawnedItemDataBase.SpawnConsumableItem(consumableDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
+            }
+            else if (item.item is GoldDrop goldDrop)
+            {
+                GoldDrop drop = Instantiate(goldDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
+                drop.GoldAmount = item.amount;
+                SceneManager.MoveGameObjectToScene(drop.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
             }
             else
             {

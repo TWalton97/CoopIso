@@ -6,6 +6,13 @@ public class Item : MonoBehaviour, IInteractable
 {
     public int baseLootBudget;
     public float baseLootWeight;
+    public enum ItemDropType
+    {
+        Equipment,
+        Consumable,
+        Gold
+    }
+    public ItemDropType itemDropType;
     public ItemStatus ItemStatus;
     public ItemData itemData;
     protected Quaternion targetRotation;

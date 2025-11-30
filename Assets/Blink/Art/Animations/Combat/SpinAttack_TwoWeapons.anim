@@ -111981,14 +111981,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.53333336
+  - time: 0.43333334
     functionName: ActivatePrimaryWeaponHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6
+  - time: 0.53333336
     functionName: ActivateSecondaryWeaponHitbox
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
   m_Name: Halberd
   m_EditorClassIdentifier: 
-  <WeaponMinDamage>k__BackingField: 18
-  <WeaponMaxDamage>k__BackingField: 29
+  GoldValue: 0
+  Weight: 0
+  <WeaponMinDamage>k__BackingField: 12
+  <WeaponMaxDamage>k__BackingField: 16
   <AttacksPerSecond>k__BackingField: 0.76
   <NumberOfAttacksInCombo>k__BackingField: 3

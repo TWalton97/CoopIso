@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 public class EnemyDieState : EnemyBaseState
 {
     readonly NavMeshAgent agent;
@@ -51,6 +52,12 @@ public class EnemyDieState : EnemyBaseState
             if (item.item is ConsumableDrop consumableDrop)
             {
                 SpawnedItemDataBase.Instance.SpawnConsumableItem(consumableDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
+            }
+            else if (item.item is GoldDrop goldDrop)
+            {
+                GoldDrop drop = GameObject.Instantiate(goldDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
+                drop.GoldAmount = item.amount;
+                SceneManager.MoveGameObjectToScene(drop.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
             }
             else
             {

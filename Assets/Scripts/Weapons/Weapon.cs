@@ -103,6 +103,7 @@ public class Weapon : MonoBehaviour
     public virtual void Exit()
     {
         if (!active) return;
+        hitbox.DeactivateHitbox();
         newPlayerController._movementSpeed = newPlayerController._maximumMovementSpeed;
         active = false;
         InvokeOnExit();

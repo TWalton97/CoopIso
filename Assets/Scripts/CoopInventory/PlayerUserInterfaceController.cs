@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -13,6 +14,8 @@ public class PlayerUserInterfaceController : MonoBehaviour
     public ResourcePanelController resourcePanelController;
     public AbilityScrollController AbilityScrollController;
 
+    public TMP_Text GoldAmountText;
+    public TMP_Text WeightText;
 
     public bool IsMenuOpened { get; private set; }
     public EventSystem eventSystem;
@@ -25,6 +28,9 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
         resourcePanelController.Init(playerContext.PlayerController);
         inventoryController.Init(playerContext);
+
+        UpdateGoldAmount(0);
+        UpdateWeightAmount(0, 150);
     }
 
     public void ToggleInventory(bool toggle)
@@ -47,6 +53,16 @@ public class PlayerUserInterfaceController : MonoBehaviour
     public void AddAbility(AbilitySO ability, AbilityBehaviourBase behaviour)
     {
         AbilityScrollController.AddAbility(ability, behaviour);
+    }
+
+    public void UpdateGoldAmount(int current)
+    {
+        GoldAmountText.text = current.ToString();
+    }
+
+    public void UpdateWeightAmount(int current, int max)
+    {
+        WeightText.text = current.ToString() + "/" + max.ToString();
     }
 
 }

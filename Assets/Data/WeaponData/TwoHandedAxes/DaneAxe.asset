@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
   m_Name: DaneAxe
   m_EditorClassIdentifier: 
-  <WeaponMinDamage>k__BackingField: 20
-  <WeaponMaxDamage>k__BackingField: 33
+  GoldValue: 11
+  Weight: 17
+  <WeaponMinDamage>k__BackingField: 12
+  <WeaponMaxDamage>k__BackingField: 18
   <AttacksPerSecond>k__BackingField: 0.68
   <NumberOfAttacksInCombo>k__BackingField: 3

@@ -31,6 +31,8 @@ public class PlayerStatsBlackboard : MonoBehaviour
     public float ResourceCurrent;
     public float ResourceMin;
 
+    public int GoldAmount;
+
     [Header("Equipment Requirements")]
     public bool CanEquipShields = false;
     public ArmorType armorType;
@@ -95,6 +97,12 @@ public class PlayerStatsBlackboard : MonoBehaviour
         if (PlayerController == null) return;
         MovementSpeed = PlayerController._movementSpeed;
         CurrentSpeed = Mathf.Floor(PlayerController.Rigidbody.velocity.magnitude);
+    }
+
+    public void AddGold(int amount)
+    {
+        GoldAmount += amount;
+        PlayerController.PlayerContext.UserInterfaceController.UpdateGoldAmount(GoldAmount);
     }
 
     private void UpdateAttackStats()

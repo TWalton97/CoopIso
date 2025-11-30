@@ -100,10 +100,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField: {fileID: 11400000, guid: e5f1ef78c2c63b14d90c9f72f0e99f29, type: 2}
+  weaponRangeType: 0
+  ItemData:
+    itemID: 
+    itemName: 
+    quantity: 0
+    sprite: {fileID: 0}
+    itemValue: 0
+    itemWeight: 0
+    itemDescription: 
+    objectPrefab: {fileID: 0}
+    floorObjectPrefab: {fileID: 0}
+    vfxPrefab: {fileID: 0}
+    itemType: 0
+    weaponRangeType: 0
+    data: {fileID: 0}
+    itemQuality: 0
   weaponHand: 0
   weaponAttackType: 1
-  affixes: []
   itemID: 
+  averageWeaponDamage: 0
 --- !u!114 &5537983291576836649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +154,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 1.7}
+  m_Size: {x: 0.7, y: 0.7, z: 1.7}
   m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!114 &2172288613997609918
 MonoBehaviour:
