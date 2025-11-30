@@ -20,11 +20,11 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
         if (itemData.floorObjectPrefab == null)
         {
-            Instantiate(itemData.objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
+            Instantiate(itemData.objectPrefab, Vector3.zero, itemData.objectPrefab.transform.rotation, itemToDrop.transform);
         }
         else
         {
-            Instantiate(itemData.floorObjectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
+            Instantiate(itemData.floorObjectPrefab, Vector3.zero, itemData.floorObjectPrefab.transform.rotation, itemToDrop.transform);
         }
 
         SceneManager.MoveGameObjectToScene(itemToDrop, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
@@ -43,11 +43,11 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
         if (itemData.floorObjectPrefab == null)
         {
-            Instantiate(itemData.objectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
+            Instantiate(itemData.objectPrefab, Vector3.zero, itemData.objectPrefab.transform.rotation, itemToDrop.transform);
         }
         else
         {
-            Instantiate(itemData.floorObjectPrefab, Vector3.zero, Quaternion.identity, itemToDrop.transform);
+            Instantiate(itemData.floorObjectPrefab, Vector3.zero, itemData.floorObjectPrefab.transform.rotation, itemToDrop.transform);
         }
 
         SceneManager.MoveGameObjectToScene(itemToDrop, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());

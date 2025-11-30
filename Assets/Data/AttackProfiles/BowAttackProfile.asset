@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0adb5b75a8aa484197405a0f3daedae, type: 3}
   m_Name: BowAttackProfile
   m_EditorClassIdentifier: 
-  altAttack: {fileID: 7400000, guid: 39d3eb785033d2040b4f4d923cd7b330, type: 2}
+  altAttack: {fileID: 7400000, guid: d25c32d7e8f4fa347a13c9d17d7fae87, type: 2}
   attack1: {fileID: 7400000, guid: 09963254d594116409e80159aefa9ac6, type: 2}
   attack2: {fileID: 7400000, guid: 09963254d594116409e80159aefa9ac6, type: 2}
   attack3: {fileID: 7400000, guid: 09963254d594116409e80159aefa9ac6, type: 2}

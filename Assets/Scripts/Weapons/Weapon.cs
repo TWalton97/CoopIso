@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     [field: SerializeField] public ItemSO Data { get; private set; }
     public event Action OnEnter;
     public event Action OnExit;
-    public NewPlayerController newPlayerController { get; private set; }
+    public PlayerContext PlayerContext;
     private bool active = false;
     private Hitbox hitbox;
     public WeaponRangeType weaponRangeType;
@@ -34,14 +34,15 @@ public class Weapon : MonoBehaviour
         hitbox = GetComponent<Hitbox>();
     }
 
-    public void Init(WeaponHand weaponHand, ItemData itemData)
+    public void Init(PlayerContext playerContext, WeaponHand weaponHand, ItemData itemData)
     {
+        PlayerContext = playerContext;
         ItemData = itemData;
         this.weaponHand = weaponHand;
         this.itemID = itemData.itemID;
         weaponRangeType = itemData.weaponRangeType;
 
-        spawnedWeaponData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemID);// as SpawnedItemDataBase.SpawnedWeaponsData;
+        spawnedWeaponData = playerContext.PlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemID);// as SpawnedItemDataBase.SpawnedWeaponsData;
 
 
 
@@ -61,30 +62,30 @@ public class Weapon : MonoBehaviour
 
     void OnDestroy()
     {
-        if (newPlayerController != null)
-            newPlayerController.AnimationStatusTracker.OnAttackCompleted -= Exit;
+        if (PlayerContext.PlayerController != null)
+            PlayerContext.PlayerController.AnimationStatusTracker.OnAttackCompleted -= Exit;
     }
 
     public virtual void Enter(Action endAction, int attackNum)
     {
         if (weaponAttackType == NewWeaponController.WeaponAttackTypes.OneHanded)
         {
-            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
+            PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
         }
-        else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded && newPlayerController.WeaponController.instantiatedSecondaryWeapon != null)
+        else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded && PlayerContext.PlayerController.WeaponController.instantiatedSecondaryWeapon != null)
         {
-            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
+            PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
         }
         else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded)
         {
-            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.TwoHandedAttack);
+            PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.TwoHandedAttack);
         }
         else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.Bow)
         {
-            newPlayerController.Animator.SetFloat("AttackSpeedMultiplier", newPlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.BowAttack);
+            PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.BowAttack);
         }
 
-        newPlayerController.AnimationStatusTracker.OnAttackCompleted += Exit;
+        PlayerContext.PlayerController.AnimationStatusTracker.OnAttackCompleted += Exit;
         active = true;
         InvokeOnEnter();
     }
@@ -97,21 +98,15 @@ public class Weapon : MonoBehaviour
     public void InvokeOnExit()
     {
         OnExit?.Invoke();
-        newPlayerController.Animator.SetBool("ShootFromAiming", false);
+        PlayerContext.PlayerController.Animator.SetBool("ShootFromAiming", false);
     }
 
     public virtual void Exit()
     {
         if (!active) return;
-        hitbox.DeactivateHitbox();
-        newPlayerController._movementSpeed = newPlayerController._maximumMovementSpeed;
+        PlayerContext.PlayerController._movementSpeed = PlayerContext.PlayerController._maximumMovementSpeed;
         active = false;
         InvokeOnExit();
-    }
-
-    public void SetPlayer(NewPlayerController controller)
-    {
-        newPlayerController = controller;
     }
 
     public virtual void ActivateHitbox()

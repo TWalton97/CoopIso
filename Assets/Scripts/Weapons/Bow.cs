@@ -9,7 +9,7 @@ public class Bow : Weapon
     public override void Enter(System.Action endAction, int attackNum)
     {
         base.Enter(endAction, attackNum);
-        BowAnimator.SetFloat("AttackSpeedMultiplier", newPlayerController.Animator.GetFloat("AttackSpeedMultiplier"));
+        BowAnimator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.Animator.GetFloat("AttackSpeedMultiplier"));
         BowAnimator.SetTrigger("Fire");
     }
     public override void ActivateHitbox()
@@ -38,10 +38,10 @@ public class Bow : Weapon
         {
             float currentAngle = startAngle + i * angleIncrement;
             Quaternion spreadRotation = Quaternion.AngleAxis(currentAngle, Vector3.up);
-            Quaternion newRotation = newPlayerController.transform.rotation * spreadRotation;
+            Quaternion newRotation = PlayerContext.PlayerController.transform.rotation * spreadRotation;
 
             Projectile proj = Instantiate(projectilePrefab, arrowSpawnPos.position, newRotation);
-            proj.Init(projectileSpeed, rolledDamage, newPlayerController, 3, false);
+            proj.Init(projectileSpeed, rolledDamage, PlayerContext.PlayerController, 3, false);
         }
     }
 

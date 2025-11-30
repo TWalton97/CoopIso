@@ -21,14 +21,12 @@ public class MainMenuController : MonoBehaviour
     {
         gameSetupData.Initialize(2);
         ShowCharacterSelectMenu();
-        PlayerInputManager.DisableJoining();
     }
 
     public void ShowMainMenu()
     {
         CharacterSelectMenu.SetActive(false);
         MainMenu.SetActive(true);
-        PlayerInputManager.EnableJoining();
     }
 
     public void ShowCharacterSelectMenu()

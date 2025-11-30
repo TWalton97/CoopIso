@@ -12,6 +12,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnEnter()
     {
+        Debug.Log("Entering attack state");
         player.RotateToFaceLookPoint();
 
         if (player.WeaponController.instantiatedPrimaryWeapon != null)
@@ -50,6 +51,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnExit()
     {
+        Debug.Log("Exiting attack state");
         player.attackButtonPressed = false;
         if (ReduceSpeedCoroutine != null)
         {

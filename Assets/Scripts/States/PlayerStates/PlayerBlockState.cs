@@ -16,7 +16,6 @@ public class PlayerBlockState : PlayerBaseState
         player.IsBlocking = true;
         player._movementSpeed = 0f;
         animator.SetBool("Blocking", true);
-        animator.CrossFade(Block_Hash, crossFadeDuration, (int)PlayerAnimatorLayers.UpperBody);
     }
 
     public override void OnExit()

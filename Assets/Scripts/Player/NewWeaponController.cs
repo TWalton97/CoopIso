@@ -40,6 +40,8 @@ public class NewWeaponController : MonoBehaviour
         public bool hasSecondaryWeaponData;
         public ItemData PrimaryWeaponData;
         public ItemData SecondaryWeaponData;
+        public Weapon InstantiatedPrimaryWeapon;
+        public Weapon InstantiatedSecondaryWeapon;
     }
 
     public WeaponSet OneHandedWeaponSet;
@@ -88,197 +90,114 @@ public class NewWeaponController : MonoBehaviour
         comboCounter.Tick(Time.deltaTime);
     }
 
-    public void EquipWeapon(ItemData itemData)
+    public void EquipWeapon(ItemData itemData, Weapon.WeaponHand weaponHand = Weapon.WeaponHand.MainHand)
     {
-        switch (itemData.itemType)
+        if (itemData.itemType == ItemType.OneHanded)
         {
-            case ItemType.OneHanded:
-                if (!OneHandedWeaponSet.hasPrimaryWeaponData)
-                {
-                    UpdateOneHandedWeaponSet(itemData, Weapon.WeaponHand.MainHand, true);
-                }
-                else
-                {
-                    UpdateOneHandedWeaponSet(itemData, Weapon.WeaponHand.OffHand, true);
-                }
-                break;
-            case ItemType.TwoHanded:
-                if (!TwoHandedWeaponSet.hasPrimaryWeaponData)
-                {
-                    UpdateTwoHandedWeaponSet(itemData, Weapon.WeaponHand.MainHand, true);
-                }
-                else if (newPlayerController.PlayerStatsBlackboard.TwoHandedMastery == true)
-                {
-                    UpdateTwoHandedWeaponSet(itemData, Weapon.WeaponHand.OffHand, true);
-                }
-                else
-                {
-                    UpdateTwoHandedWeaponSet(itemData, Weapon.WeaponHand.MainHand, true);
-                }
-                break;
-            case ItemType.Bow:
-                UpdateRangedWeaponSet(itemData, Weapon.WeaponHand.MainHand, true);
-                break;
-            case ItemType.Offhand:
-                UpdateOneHandedWeaponSet(itemData, Weapon.WeaponHand.OffHand, true);
-                break;
+            EquipWeaponToWeaponSet(itemData, weaponHand, OneHandedWeaponSet);
+        }
+        else if (itemData.itemType == ItemType.Offhand)
+        {
+            EquipWeaponToWeaponSet(itemData, Weapon.WeaponHand.OffHand, OneHandedWeaponSet);
+        }
+        else if (itemData.itemType == ItemType.TwoHanded)
+        {
+            EquipWeaponToWeaponSet(itemData, weaponHand, TwoHandedWeaponSet);
+        }
+        else if (itemData.itemType == ItemType.Bow)
+        {
+            EquipWeaponToWeaponSet(itemData, weaponHand, RangedWeaponSet);
         }
     }
+
     public void UnequipWeapon(ItemData itemData)
     {
-        switch (itemData.itemType)
+        if (itemData.itemType == ItemType.OneHanded || itemData.itemType == ItemType.Offhand)
         {
-            case ItemType.OneHanded:
-                if (OneHandedWeaponSet.PrimaryWeaponData == itemData)
-                {
-                    UpdateOneHandedWeaponSet(null, Weapon.WeaponHand.MainHand);
-                }
-                else if (OneHandedWeaponSet.SecondaryWeaponData == itemData)
-                {
-                    UpdateOneHandedWeaponSet(null, Weapon.WeaponHand.OffHand);
-                }
-                break;
-            case ItemType.TwoHanded:
-                if (TwoHandedWeaponSet.PrimaryWeaponData == itemData)
-                {
-                    UpdateTwoHandedWeaponSet(null, Weapon.WeaponHand.MainHand);
-                }
-                else if (TwoHandedWeaponSet.SecondaryWeaponData == itemData)
-                {
-                    UpdateTwoHandedWeaponSet(null, Weapon.WeaponHand.OffHand);
-                }
-                break;
-            case ItemType.Bow:
-                if (RangedWeaponSet.PrimaryWeaponData == itemData)
-                {
-                    UpdateRangedWeaponSet(null, Weapon.WeaponHand.MainHand);
-                }
-                break;
-            case ItemType.Offhand:
-                if (OneHandedWeaponSet.SecondaryWeaponData == itemData)
-                {
-                    UpdateOneHandedWeaponSet(null, Weapon.WeaponHand.OffHand);
-                }
-                break;
+            RemoveWeaponFromWeaponSet(itemData, OneHandedWeaponSet);
+        }
+        else if (itemData.itemType == ItemType.TwoHanded)
+        {
+            RemoveWeaponFromWeaponSet(itemData, TwoHandedWeaponSet);
+        }
+        else if (itemData.itemType == ItemType.Bow)
+        {
+            RemoveWeaponFromWeaponSet(itemData, RangedWeaponSet);
         }
     }
 
-    public void UpdateOneHandedWeaponSet(ItemData itemData, Weapon.WeaponHand weaponHand, bool equipSet = false)
+    public void RemoveWeaponFromWeaponSet(ItemData itemData, WeaponSet weaponSet)
+    {
+        bool isActiveWeaponSet = false;
+
+        if (weaponSet.PrimaryWeaponData == itemData)
+        {
+            if (weaponSet.InstantiatedPrimaryWeapon != null)
+            {
+                if (instantiatedPrimaryWeapon != null && instantiatedPrimaryWeapon == weaponSet.InstantiatedPrimaryWeapon)
+                {
+                    isActiveWeaponSet = true;
+                    instantiatedPrimaryWeapon = null;
+                }
+                Destroy(weaponSet.InstantiatedPrimaryWeapon.gameObject);
+                weaponSet.InstantiatedPrimaryWeapon = null;
+            }
+
+            weaponSet.PrimaryWeaponData = null;
+            weaponSet.hasPrimaryWeaponData = false;
+            OnWeaponUnequipped?.Invoke(itemData.itemID);
+        }
+        else if (weaponSet.SecondaryWeaponData == itemData)
+        {
+            if (weaponSet.InstantiatedSecondaryWeapon != null)
+            {
+                if (instantiatedSecondaryWeapon != null && instantiatedSecondaryWeapon == weaponSet.InstantiatedSecondaryWeapon)
+                {
+                    isActiveWeaponSet = true;
+                    instantiatedSecondaryWeapon = null;
+                }
+                Destroy(weaponSet.InstantiatedSecondaryWeapon.gameObject);
+                weaponSet.InstantiatedSecondaryWeapon = null;
+            }
+
+            weaponSet.SecondaryWeaponData = null;
+            weaponSet.hasSecondaryWeaponData = false;
+            OnWeaponUnequipped?.Invoke(itemData.itemID);
+        }
+
+        if (isActiveWeaponSet)
+            SetActiveWeaponSet(weaponSet);
+    }
+
+    private void EquipWeaponToWeaponSet(ItemData itemData, Weapon.WeaponHand weaponHand, WeaponSet weaponSet)
     {
         if (weaponHand == Weapon.WeaponHand.MainHand)
         {
-            if (itemData == null)
+            if (weaponSet.hasPrimaryWeaponData)
             {
-                OneHandedWeaponSet.hasPrimaryWeaponData = false;
+                OnWeaponUnequipped?.Invoke(weaponSet.PrimaryWeaponData.itemID);
             }
-            else
-            {
-                OneHandedWeaponSet.hasPrimaryWeaponData = true;
-            }
-
-            if (OneHandedWeaponSet.PrimaryWeaponData != null)
-            {
-                OnWeaponUnequipped?.Invoke(OneHandedWeaponSet.PrimaryWeaponData.itemID);
-            }
-            OneHandedWeaponSet.PrimaryWeaponData = itemData;
+            weaponSet.PrimaryWeaponData = itemData;
+            weaponSet.hasPrimaryWeaponData = true;
         }
-
-        if (weaponHand == Weapon.WeaponHand.OffHand)
+        else
         {
-            if (itemData == null)
+            if (weaponSet.hasSecondaryWeaponData)
             {
-                OneHandedWeaponSet.hasSecondaryWeaponData = false;
+                OnWeaponUnequipped?.Invoke(weaponSet.SecondaryWeaponData.itemID);
             }
-            else
-            {
-                OneHandedWeaponSet.hasSecondaryWeaponData = true;
-            }
-
-            if (OneHandedWeaponSet.SecondaryWeaponData != null)
-            {
-                OnWeaponUnequipped?.Invoke(OneHandedWeaponSet.SecondaryWeaponData.itemID);
-            }
-            OneHandedWeaponSet.SecondaryWeaponData = itemData;
+            weaponSet.SecondaryWeaponData = itemData;
+            weaponSet.hasSecondaryWeaponData = true;
         }
 
-        if (equipSet || ActiveWeaponSet.weaponSetType == OneHandedWeaponSet.weaponSetType)
-            SetActiveWeaponSet(OneHandedWeaponSet);
-        SetActiveWeaponSet(OneHandedWeaponSet);
-    }
-    public void UpdateTwoHandedWeaponSet(ItemData itemData, Weapon.WeaponHand weaponHand, bool equipSet = false)
-    {
-        if (weaponHand == Weapon.WeaponHand.MainHand)
-        {
-            if (TwoHandedWeaponSet.PrimaryWeaponData != null)
-            {
-                if (itemData == null)
-                {
-                    TwoHandedWeaponSet.hasPrimaryWeaponData = false;
-                }
-                else
-                {
-                    TwoHandedWeaponSet.hasPrimaryWeaponData = true;
-                }
-                OnWeaponUnequipped?.Invoke(TwoHandedWeaponSet.PrimaryWeaponData.itemID);
-            }
-            TwoHandedWeaponSet.PrimaryWeaponData = itemData;
-        }
-
-        if (weaponHand == Weapon.WeaponHand.OffHand)
-        {
-            if (TwoHandedWeaponSet.SecondaryWeaponData != null)
-            {
-                if (itemData == null)
-                {
-                    TwoHandedWeaponSet.hasSecondaryWeaponData = false;
-                }
-                else
-                {
-                    TwoHandedWeaponSet.hasSecondaryWeaponData = true;
-                }
-                OnWeaponUnequipped?.Invoke(TwoHandedWeaponSet.SecondaryWeaponData.itemID);
-            }
-            TwoHandedWeaponSet.SecondaryWeaponData = itemData;
-        }
-
-        if (equipSet || ActiveWeaponSet.weaponSetType == TwoHandedWeaponSet.weaponSetType)
-            SetActiveWeaponSet(TwoHandedWeaponSet);
+        SetActiveWeaponSet(weaponSet);
     }
 
-    public void UpdateRangedWeaponSet(ItemData itemData, Weapon.WeaponHand weaponHand, bool equipSet = false)
-    {
-        if (weaponHand == Weapon.WeaponHand.MainHand)
-        {
-            if (RangedWeaponSet.PrimaryWeaponData != null)
-            {
-                if (itemData == null)
-                {
-                    RangedWeaponSet.hasPrimaryWeaponData = false;
-                }
-                else
-                {
-                    RangedWeaponSet.hasPrimaryWeaponData = true;
-                }
 
-                OnWeaponUnequipped?.Invoke(RangedWeaponSet.PrimaryWeaponData.itemID);
-            }
-            RangedWeaponSet.PrimaryWeaponData = itemData;
-        }
-
-        if (weaponHand == Weapon.WeaponHand.OffHand)
-        {
-            if (RangedWeaponSet.SecondaryWeaponData != null)
-            {
-                OnWeaponUnequipped?.Invoke(RangedWeaponSet.SecondaryWeaponData.itemID);
-            }
-            RangedWeaponSet.SecondaryWeaponData = itemData;
-        }
-
-        if (equipSet || ActiveWeaponSet.weaponSetType == RangedWeaponSet.weaponSetType)
-            SetActiveWeaponSet(RangedWeaponSet);
-    }
     public void CycleActiveWeaponSetUp()
     {
+        if (!canAttack) return;
+
         if (ActiveWeaponSet.weaponSetType == OneHandedWeaponSet.weaponSetType)
         {
             if (RangedWeaponSet.hasPrimaryWeaponData)
@@ -318,6 +237,8 @@ public class NewWeaponController : MonoBehaviour
     }
     public void CycleActiveWeaponSetDown()
     {
+        if (!canAttack) return;
+
         if (ActiveWeaponSet.weaponSetType == OneHandedWeaponSet.weaponSetType)
         {
             if (TwoHandedWeaponSet.hasPrimaryWeaponData)
@@ -355,55 +276,65 @@ public class NewWeaponController : MonoBehaviour
             }
         }
     }
+
+    //If I have a weapon equipped to preview and equip something else, the new one doesn't show up
     public void SetActiveWeaponSet(WeaponSet weaponSet)
     {
-        ActiveWeaponSet.PrimaryWeaponData = null;
-        ActiveWeaponSet.SecondaryWeaponData = null;
-
-        ActiveWeaponSet.PrimaryWeaponData = weaponSet.PrimaryWeaponData;
-        ActiveWeaponSet.SecondaryWeaponData = weaponSet.SecondaryWeaponData;
-
-        ActiveWeaponSet.weaponSetType = weaponSet.weaponSetType;
-
-        EquipWeaponSet(weaponSet);
-    }
-    public void EquipWeaponSet(WeaponSet weaponSet)
-    {
-        if (instantiatedPrimaryWeapon != null)
+        if (weaponSet.InstantiatedPrimaryWeapon != null)
         {
-            newPlayerController.PlayerContext.PlayerPreviewManager.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.MainHand);
-            Destroy(instantiatedPrimaryWeapon.gameObject);
-            instantiatedPrimaryWeapon = null;
+            weaponSet.InstantiatedPrimaryWeapon.gameObject.SetActive(true);
         }
-
-        if (weaponSet.hasPrimaryWeaponData)
+        else if (weaponSet.hasPrimaryWeaponData)
         {
             instantiatedPrimaryWeapon = Instantiate(weaponSet.PrimaryWeaponData.objectPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
             instantiatedPrimaryWeapon.transform.localRotation = weaponSet.PrimaryWeaponData.objectPrefab.transform.rotation;
-            instantiatedPrimaryWeapon.SetPlayer(newPlayerController);
-            instantiatedPrimaryWeapon.Init(Weapon.WeaponHand.MainHand, weaponSet.PrimaryWeaponData);
-            newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.MainHand, weaponSet.PrimaryWeaponData.objectPrefab);
+            instantiatedPrimaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.MainHand, weaponSet.PrimaryWeaponData);
+            weaponSet.InstantiatedPrimaryWeapon = instantiatedPrimaryWeapon;
         }
 
-        if (instantiatedSecondaryWeapon != null)
+        if (weaponSet.InstantiatedSecondaryWeapon != null)
         {
-            newPlayerController.PlayerContext.PlayerPreviewManager.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand);
-            Destroy(instantiatedSecondaryWeapon.gameObject);
-            instantiatedSecondaryWeapon = null;
+            weaponSet.InstantiatedSecondaryWeapon.gameObject.SetActive(true);
         }
-
-        if (weaponSet.hasSecondaryWeaponData)
+        else if (weaponSet.hasSecondaryWeaponData)
         {
             instantiatedSecondaryWeapon = Instantiate(weaponSet.SecondaryWeaponData.objectPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
             instantiatedSecondaryWeapon.transform.localRotation = weaponSet.SecondaryWeaponData.objectPrefab.transform.rotation;
-            instantiatedSecondaryWeapon.SetPlayer(newPlayerController);
-            instantiatedSecondaryWeapon.Init(Weapon.WeaponHand.OffHand, weaponSet.SecondaryWeaponData);
-            newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.OffHand, weaponSet.SecondaryWeaponData.objectPrefab);
+            instantiatedSecondaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.OffHand, weaponSet.SecondaryWeaponData);
+            weaponSet.InstantiatedSecondaryWeapon = instantiatedSecondaryWeapon;
         }
+
+        if (ActiveWeaponSet.InstantiatedPrimaryWeapon != null && ActiveWeaponSet.InstantiatedPrimaryWeapon != weaponSet.InstantiatedPrimaryWeapon)
+        {
+            ActiveWeaponSet.InstantiatedPrimaryWeapon.gameObject.SetActive(false);
+        }
+
+        if (ActiveWeaponSet.InstantiatedSecondaryWeapon != null && ActiveWeaponSet.InstantiatedSecondaryWeapon != weaponSet.InstantiatedSecondaryWeapon)
+        {
+            ActiveWeaponSet.InstantiatedSecondaryWeapon.gameObject.SetActive(false);
+        }
+
+        GameObject weaponPrefab = null;
+        if (weaponSet.InstantiatedPrimaryWeapon != null)
+            weaponPrefab = weaponSet.PrimaryWeaponData.objectPrefab;
+
+        newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
+
+        weaponPrefab = null;
+        if (weaponSet.InstantiatedSecondaryWeapon != null)
+            weaponPrefab = weaponSet.SecondaryWeaponData.objectPrefab;
+
+        newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
+
+        instantiatedPrimaryWeapon = weaponSet.InstantiatedPrimaryWeapon;
+        instantiatedSecondaryWeapon = weaponSet.InstantiatedSecondaryWeapon;
+
+        ActiveWeaponSet = weaponSet;
 
         CalculateWeaponDamage();
         UpdateAnimator();
     }
+
     public void EquipStarterItems(Item mainHand, Item offHand)
     {
         if (StarterWeaponsEquipped) return;
@@ -427,6 +358,7 @@ public class NewWeaponController : MonoBehaviour
             Destroy(starterShield.gameObject);
         }
     }
+
     public void Attack(Action OnActionCompleted, bool shootFromAiming = false)
     {
         this.OnActionCompleted = OnActionCompleted;
@@ -624,6 +556,14 @@ public class NewWeaponController : MonoBehaviour
 
     public void ApplyAttackProfile(AttackProfile attackProfile)
     {
+        if (attackProfile == bowAttackProfile)
+        {
+            animator.SetBool("HasBow", true);
+        }
+        else
+        {
+            animator.SetBool("HasBow", false);
+        }
         newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("BlockingLoop", attackProfile.altAttack);
         newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchLeft", attackProfile.attack1);
         newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchRight", attackProfile.attack2);

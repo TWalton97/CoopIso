@@ -93,16 +93,22 @@ public class PreviewPlayerController : MonoBehaviour
                 {
                     Destroy(instantiatedMainHand);
                 }
-                instantiatedMainHand = Instantiate(prefab, MainHandTransform.position, Quaternion.identity, MainHandTransform);
-                instantiatedMainHand.transform.localRotation = prefab.transform.rotation;
+                if (prefab != null)
+                {
+                    instantiatedMainHand = Instantiate(prefab, MainHandTransform.position, Quaternion.identity, MainHandTransform);
+                    instantiatedMainHand.transform.localRotation = prefab.transform.rotation;
+                }
                 break;
             case Weapon.WeaponHand.OffHand:
                 if (instantiatedOffHand != null)
                 {
                     Destroy(instantiatedOffHand);
                 }
-                instantiatedOffHand = Instantiate(prefab, OffHandTransform.position, Quaternion.identity, OffHandTransform);
-                instantiatedOffHand.transform.localRotation = prefab.transform.rotation;
+                if (prefab != null)
+                {
+                    instantiatedOffHand = Instantiate(prefab, OffHandTransform.position, Quaternion.identity, OffHandTransform);
+                    instantiatedOffHand.transform.localRotation = prefab.transform.rotation;
+                }
                 break;
         }
     }

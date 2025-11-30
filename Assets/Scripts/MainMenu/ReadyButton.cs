@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ReadyButton : MonoBehaviour
+public class ReadyButton : UIButton
 {
     public CharacterSelectUI selectUI;
 
-    public Image image;
+    public Image[] BackgroundImages;
     public Color BaseColor;
     public Color ToggledColor;
 
@@ -21,11 +21,17 @@ public class ReadyButton : MonoBehaviour
 
         if (ToggledOn)
         {
-            image.color = ToggledColor;
+            foreach (Image image in BackgroundImages)
+            {
+                image.color = ToggledColor;
+            }
         }
         else
         {
-            image.color = BaseColor;
+            foreach (Image image in BackgroundImages)
+            {
+                image.color = BaseColor;
+            }
         }
     }
 }

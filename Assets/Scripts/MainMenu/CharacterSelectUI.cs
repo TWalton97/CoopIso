@@ -7,9 +7,15 @@ public class CharacterSelectUI : MonoBehaviour
     public List<ClassButton> classButtons = new();
     public MainMenuController mainMenuController;
 
-    private void OnEnable()
+    public GameObject PressToJoinText;
+    public GameObject SelectionButtons;
+
+    public void EnableSelectionButtons()
     {
-        classButtons[0].selectable.onClick.Invoke();
+        PressToJoinText.SetActive(false);
+        SelectionButtons.SetActive(true);
+        classButtons[0].ToggleHighlight(true);
+        classButtons[0].button.onClick.Invoke();
     }
 
     public void OnClassSelected(ClassPresetSO classPresetSO)

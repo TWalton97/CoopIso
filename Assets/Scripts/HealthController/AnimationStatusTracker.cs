@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AnimationStatusTracker : MonoBehaviour
 {
+    public Transform PlayerModel;
     public Action OnAttackCompleted;
     public Action OnAbilityCompleted;
 

@@ -19,6 +19,7 @@ public class EquippableButton : ItemButton
     private NewWeaponController weaponController;
     private ArmorController armorController;
     public TMP_Text StatValue;
+    
     public override void InitializeItemButton(InventoryItemController inventoryItemController, ItemData itemData, string buttonID, PlayerContext playerContext, bool isEquipped = false)
     {
         InventoryItemController = inventoryItemController;

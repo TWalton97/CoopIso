@@ -15476,6 +15476,8 @@ MonoBehaviour:
       weaponRangeType: 0
       data: {fileID: 0}
       itemQuality: 0
+    InstantiatedPrimaryWeapon: {fileID: 0}
+    InstantiatedSecondaryWeapon: {fileID: 0}
   TwoHandedWeaponSet:
     weaponSetType: 0
     hasPrimaryWeaponData: 0
@@ -15510,6 +15512,8 @@ MonoBehaviour:
       weaponRangeType: 0
       data: {fileID: 0}
       itemQuality: 0
+    InstantiatedPrimaryWeapon: {fileID: 0}
+    InstantiatedSecondaryWeapon: {fileID: 0}
   RangedWeaponSet:
     weaponSetType: 0
     hasPrimaryWeaponData: 0
@@ -15544,6 +15548,8 @@ MonoBehaviour:
       weaponRangeType: 0
       data: {fileID: 0}
       itemQuality: 0
+    InstantiatedPrimaryWeapon: {fileID: 0}
+    InstantiatedSecondaryWeapon: {fileID: 0}
   ActiveWeaponSet:
     weaponSetType: 0
     hasPrimaryWeaponData: 0
@@ -15578,6 +15584,8 @@ MonoBehaviour:
       weaponRangeType: 0
       data: {fileID: 0}
       itemQuality: 0
+    InstantiatedPrimaryWeapon: {fileID: 0}
+    InstantiatedSecondaryWeapon: {fileID: 0}
   CombinedWeaponDamage: 0
   UnarmedAnimator: {fileID: 9100000, guid: 5b7e4efa974f7334191e8c27409f2845, type: 2}
   OneHandedAndShieldAnimator: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
@@ -15611,6 +15619,7 @@ MonoBehaviour:
   ResourceMax: 0
   ResourceCurrent: 0
   ResourceMin: 0
+  GoldAmount: 0
   CanEquipShields: 0
   armorType: 0
   UnarmedMastery: 0
@@ -25473,6 +25482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b33541b9157ffdb41b5417924dc1e3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerModel: {fileID: 1386973267540630047}
 --- !u!114 &6919973434311884706
 MonoBehaviour:
   m_ObjectHideFlags: 0

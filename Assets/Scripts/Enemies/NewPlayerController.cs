@@ -351,11 +351,13 @@ public class NewPlayerController : Entity
         if (context.started)
         {
             blockButtonPressed = true;
+            Animator.SetBool("BlockButtonHeld", true);
         }
 
         if (context.canceled)
         {
             blockButtonPressed = false;
+            Animator.SetBool("BlockButtonHeld", false);
         }
     }
 
