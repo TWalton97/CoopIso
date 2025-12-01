@@ -15438,6 +15438,7 @@ MonoBehaviour:
   primaryWeaponAttackCompleted: 0
   canAttack: 1
   HasShieldEquipped: 0
+  unarmedAttackProfile: {fileID: 11400000, guid: 5e714cbcd8343b14c8436dc82e0031f2, type: 2}
   oneHandedAttackProfile: {fileID: 11400000, guid: ca170934416f2e540a8ccc28c4c603df, type: 2}
   twoHandedAttackProfile: {fileID: 11400000, guid: f0ec3d025e2dfc246b8eca57f5442245, type: 2}
   dualWieldAttackProfile: {fileID: 11400000, guid: b5e01b42ab1bd224b8a87e7f620e02a1, type: 2}
@@ -15619,6 +15620,8 @@ MonoBehaviour:
   ResourceMax: 0
   ResourceCurrent: 0
   ResourceMin: 0
+  WeightCurrent: 0
+  WeightMax: 150
   GoldAmount: 0
   CanEquipShields: 0
   armorType: 0
@@ -15661,7 +15664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
-  SkillPoints: 1
+  SkillPoints: 0
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 412665536095753354}
 --- !u!114 &4202505148022750934

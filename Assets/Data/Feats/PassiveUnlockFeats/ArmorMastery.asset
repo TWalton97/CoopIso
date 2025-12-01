@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArmorMastery
   m_EditorClassIdentifier: 
   FeatName: Armor Mastery
-  SkillPointCostPerLevel: 020000000400000006000000
+  SkillPointCostPerLevel: 020000000300000004000000
   passiveUnlock: 5
   FeatDescription: Allows you to wear better armor
   FeatUpgradeDescriptionPerLevel:

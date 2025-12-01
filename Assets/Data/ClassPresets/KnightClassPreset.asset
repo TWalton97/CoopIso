@@ -15,9 +15,9 @@ MonoBehaviour:
   PresetName: Knight
   StartingMainHandWeapon: {fileID: 7507621691804293595, guid: fa55e7fc38dc68242832e3882e38dd5a, type: 3}
   StartingOffhandWeapon: {fileID: 1060900815880863096, guid: c071088d36a89504db4669b19c753c83, type: 3}
-  StartingHelmet: {fileID: 4845004349861385238, guid: 0ba85ec1da2ebd441ad77e5178783e47, type: 3}
-  StartingBodyArmor: {fileID: 671674740870320807, guid: 04478f353a783e74e89e6cec6e03b9e4, type: 3}
-  StartingLegArmor: {fileID: 6325581541471828504, guid: d96448a32dc0e2c4cbe4993438dccba1, type: 3}
+  StartingHelmet: {fileID: 7985580861925192519, guid: 19074bbd346371443ad9ca2acc7efacd, type: 3}
+  StartingBodyArmor: {fileID: 3687732309643741796, guid: 8e5fb974f09f06c42b47716e367d6e23, type: 3}
+  StartingLegArmor: {fileID: 1223344451551807704, guid: b7683252bebe81f4c93e176b88f0a486, type: 3}
   StartingConsumables:
   - {fileID: 1326440589637813361, guid: 10bcb8611637db9409648d860176ff46, type: 3}
   - {fileID: 1326440589637813361, guid: aaede4860e771814ab1ac06d06321918, type: 3}
@@ -27,12 +27,14 @@ MonoBehaviour:
       startingLevel: 3
     - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
       startingLevel: 0
-    - feat: {fileID: 11400000, guid: 7cff8d1b8bb094a47b2724b682682c17, type: 2}
-      startingLevel: 0
     - feat: {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 71fc59681dde3654c81e29b8d3acf16a, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 86d4e2fcc63cf0e48b5ab2dff94db207, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 457f9a3fa90599143b2f76d9432c3d85, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 97ee8e636db10b243a935cbc3975cd0d, type: 2}
       startingLevel: 0
   PlayerStatsSO: {fileID: 11400000, guid: b66c1b0fb33840b4fa545e0925ceb874, type: 2}

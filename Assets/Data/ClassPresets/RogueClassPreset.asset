@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PresetName: Rogue
   StartingMainHandWeapon: {fileID: 7507621691804293595, guid: ebd3a76c6fb047144938890136e7a0f6, type: 3}
-  StartingOffhandWeapon: {fileID: 7507621691804293595, guid: ebd3a76c6fb047144938890136e7a0f6, type: 3}
+  StartingOffhandWeapon: {fileID: 0}
   StartingHelmet: {fileID: 1441066551765538833, guid: aeac89239d3dcbc42b2c8e91c579afff, type: 3}
   StartingBodyArmor: {fileID: 8141692574711525087, guid: db4bc9c57c5859b488b47bca7839372b, type: 3}
   StartingLegArmor: {fileID: 4630488950179993611, guid: b0cd6b04a9adaf746be0764bfd4b1953, type: 3}
@@ -28,17 +28,13 @@ MonoBehaviour:
     - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 93097580943abb044bfd719000317c7b, type: 2}
-      startingLevel: 2
-    - feat: {fileID: 11400000, guid: e6a2bea3350b04a44bf2148717f5de67, type: 2}
-      startingLevel: 0
-    - feat: {fileID: 11400000, guid: ae6b9c3edd34adb438fd3c81aafbe495, type: 2}
-      startingLevel: 1
-    - feat: {fileID: 11400000, guid: 7cff8d1b8bb094a47b2724b682682c17, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: b5bda621ae842664e868e8c36964058b, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 457f9a3fa90599143b2f76d9432c3d85, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 97ee8e636db10b243a935cbc3975cd0d, type: 2}
-      startingLevel: 1
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: ae6b9c3edd34adb438fd3c81aafbe495, type: 2}
+      startingLevel: 0
   PlayerStatsSO: {fileID: 11400000, guid: b66c1b0fb33840b4fa545e0925ceb874, type: 2}

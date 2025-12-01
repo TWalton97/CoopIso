@@ -21,4 +21,4 @@ MonoBehaviour:
   - SceneField:
       _sceneAsset: {fileID: 102900000, guid: 0a2ee454dbef0d14dadcdb025b630f9f, type: 3}
       _sceneName: S_Player
-    SceneType: 2
+    SceneType: 0

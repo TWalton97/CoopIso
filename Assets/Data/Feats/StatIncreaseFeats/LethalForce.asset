@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: LethalForce
   m_EditorClassIdentifier: 
   FeatName: Lethal Force
-  SkillPointCostPerLevel: 0200000003000000040000000500000006000000
+  SkillPointCostPerLevel: 0100000002000000020000000300000003000000
   Stat: 3
   ValuePerLevel:
-  - 10
-  - 15
   - 20
   - 25
+  - 25
+  - 30
   - 30
   FeatDescription: Increases your critical damage
   isPercentage: 1

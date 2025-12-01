@@ -27,6 +27,7 @@ public class NewWeaponController : MonoBehaviour
 
     private bool StarterWeaponsEquipped = false;
 
+    public AttackProfile unarmedAttackProfile;
     public AttackProfile oneHandedAttackProfile;
     public AttackProfile twoHandedAttackProfile;
     public AttackProfile dualWieldAttackProfile;
@@ -182,6 +183,11 @@ public class NewWeaponController : MonoBehaviour
         }
         else
         {
+            if (weaponSet == OneHandedWeaponSet && !weaponSet.hasPrimaryWeaponData)
+            {
+                EquipWeaponToWeaponSet(itemData, Weapon.WeaponHand.MainHand, weaponSet);
+                return;
+            }
             if (weaponSet.hasSecondaryWeaponData)
             {
                 OnWeaponUnequipped?.Invoke(weaponSet.SecondaryWeaponData.itemID);
@@ -431,6 +437,7 @@ public class NewWeaponController : MonoBehaviour
 
         if (instantiatedPrimaryWeapon == null)
         {
+            ApplyAttackProfile(unarmedAttackProfile);
             //animator.runtimeAnimatorController = UnarmedAnimator;
         }
         else if (instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.OneHanded && HasShieldEquipped)

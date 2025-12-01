@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CalculatedBlow
   m_EditorClassIdentifier: 
   FeatName: Calculated Blow
-  SkillPointCostPerLevel: 0200000003000000040000000500000006000000
+  SkillPointCostPerLevel: 0100000002000000030000000400000005000000
   Stat: 2
   ValuePerLevel:
   - 2
