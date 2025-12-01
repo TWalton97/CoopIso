@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Rain of Arrows
   AbilityIcon: {fileID: 21300000, guid: 9867e2715a85c6345a93f98353a7799d, type: 3}
-  AnimationClip: {fileID: 7400000, guid: d3230f9aeade20a4ab13025fa142e20c, type: 2}
+  AnimationClip: {fileID: 7400000, guid: a4eb18969eed3944b8bf227f815e1bad, type: 2}
   ResourceType: 1
   ResourceAmount: 20
   MovementSpeedMultiplierWhileUsing: 0
