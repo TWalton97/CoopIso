@@ -37,6 +37,11 @@ public class ConsumableDrop : Item, IInteractable
 
     private void CollectItem(PlayerContext playerContext)
     {
+        if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + itemData.itemWeight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
+        {
+            StartCoroutine(RotateRandomly());
+            return;
+        }
         playerContext.InventoryController.AddItemToInventory(potionData);
         Destroy(gameObject);
     }

@@ -13,7 +13,7 @@ public class ZoneExit : MonoBehaviour, IInteractable
     private bool _isInteractable = true;
     public bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
 
-    public int SceneGroupToLoad;
+    public SceneGroup SceneGroupToLoad;
     public int SpawnPointID;
 
     public void OnInteract(PlayerContext playerContext, int playerIndex)

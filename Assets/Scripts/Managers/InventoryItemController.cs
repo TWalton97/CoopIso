@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +9,9 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class InventoryItemController : MonoBehaviour
 {
+    public Button LeftTab;
+    public Button RightTab;
+
     public PlayerContext PlayerContext;
 
     public Transform ItemButtonParent;
@@ -19,14 +23,43 @@ public class InventoryItemController : MonoBehaviour
 
     public List<ControlData> ControlData;
 
+    public ControlData EquipOffhandControlData; //We add this if the weapon can be equipped offhand
+
     private void OnEnable()
     {
         if (instantiatedItemButtons.Count != 0)
         {
-            SelectFirstButton();
+            MoveEquippedButtonsToTop();
+            SelectButton();
         }
 
-        PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(ControlData);
+        Navigation rightTabNavigation = new Navigation();
+        rightTabNavigation.mode = Navigation.Mode.Explicit;
+        rightTabNavigation.selectOnLeft = LeftTab;
+        if (ItemButtonParent.childCount != 0)
+        {
+            rightTabNavigation.selectOnDown = ItemButtonParent.GetChild(0).GetComponent<Button>();
+        }
+        RightTab.navigation = rightTabNavigation;
+
+        Navigation leftTabNavigation = new Navigation();
+        leftTabNavigation.mode = Navigation.Mode.Explicit;
+        leftTabNavigation.selectOnRight = RightTab;
+        if (ItemButtonParent.childCount != 0)
+        {
+            leftTabNavigation.selectOnDown = ItemButtonParent.GetChild(0).GetComponent<Button>();
+        }
+        LeftTab.navigation = leftTabNavigation;
+    }
+
+    public void UpdateControlsPanel(ItemButton button)
+    {
+        var controls = new List<ControlData>(ControlData);
+        if (button is EquippableButton equippableButton && equippableButton.CanEquipOffhand())
+        {
+            controls.Add(EquipOffhandControlData);
+        }
+        PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(controls);
     }
 
     void OnDisable()
@@ -34,14 +67,14 @@ public class InventoryItemController : MonoBehaviour
         DeselectAllButtons();
     }
 
-    public void SelectFirstButton()
+    public void SelectButton(int index = 0)
     {
         if (ItemButtonParent.childCount == 0) return;
-
-        GameObject firstButton = ItemButtonParent.GetChild(0).gameObject;
+        int clampedIndex = Mathf.Clamp(index, 0, ItemButtonParent.childCount - 1);
+        GameObject firstButton = ItemButtonParent.GetChild(clampedIndex).gameObject;
         PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(firstButton);
-        UpdateViewPosition(ItemButtonParent.GetChild(0).GetComponent<RectTransform>());
-        firstButton.GetComponent<ItemButton>().HighlightIcon.SetActive(true);
+        UpdateViewPosition(ItemButtonParent.GetChild(clampedIndex).GetComponent<RectTransform>());
+        firstButton.GetComponent<ItemButton>().ToggleHighlight(true);
     }
 
     public void DeselectAllButtons()
@@ -77,9 +110,28 @@ public class InventoryItemController : MonoBehaviour
         ItemButton itemButton = GetItemButtonByID(id);
         if (itemButton == null) return;
 
-        instantiatedItemButtons.Remove(id);
-        Destroy(itemButton.gameObject);
-        SelectFirstButton();
+        if (ItemButtonParent.childCount == 1)
+        {
+            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.ItemData.itemWeight);
+            instantiatedItemButtons.Remove(id);
+            Destroy(itemButton.gameObject);
+            PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
+        }
+        else
+        {
+            int childNumber = itemButton.transform.GetSiblingIndex();
+            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.ItemData.itemWeight);
+            instantiatedItemButtons.Remove(id);
+            Destroy(itemButton.gameObject);
+            if (childNumber == 0)
+            {
+                SelectButton(childNumber + 1);
+            }
+            else
+            {
+                SelectButton(childNumber - 1);
+            }
+        }
     }
 
     public ConsumableButton TryFindConsumableButtonOfType(PotionSO potionData)
@@ -130,6 +182,25 @@ public class InventoryItemController : MonoBehaviour
             return itemButton;
         }
         return null;
+    }
+
+    public void MoveEquippedButtonsToTop()
+    {
+        List<GameObject> equippedButtons = new();
+        for (int i = 0; i < ItemButtonParent.childCount; i++)
+        {
+            if (ItemButtonParent.GetChild(i).GetComponent<ItemButton>().buttonState == ItemButton.ButtonState.Activated)
+            {
+                equippedButtons.Add(ItemButtonParent.GetChild(i).gameObject);
+            }
+        }
+
+        if (equippedButtons.Count == 0) return;
+
+        foreach (GameObject obj in equippedButtons)
+        {
+            obj.transform.SetAsFirstSibling();
+        }
     }
 
     public void UpdateViewPosition(RectTransform target)

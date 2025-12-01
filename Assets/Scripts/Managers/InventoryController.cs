@@ -48,6 +48,7 @@ public class InventoryController : MonoBehaviour
 
     public void AddItemToInventory(ItemData itemData, bool isEquipped = false)
     {
+        PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(itemData.itemWeight);
         FindCorrectInventory(itemData).CreateButtonForItem(itemData, isEquipped);
     }
 

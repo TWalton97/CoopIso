@@ -610,43 +610,7 @@ MonoBehaviour:
   _loadingBar: {fileID: 1976463039}
   fillSpeed: 0.5
   loadingCamera: {fileID: 1219148259}
-  sceneGroups:
-  - GroupName: Main Menu
-    Scenes:
-    - SceneField:
-        _sceneAsset: {fileID: 102900000, guid: 49a3178172f8ef64c98dcbe16904bfa9, type: 3}
-        _sceneName: S_MainMenu
-      SceneType: 1
-  - GroupName: Town
-    Scenes:
-    - SceneField:
-        _sceneAsset: {fileID: 102900000, guid: 0a2ee454dbef0d14dadcdb025b630f9f, type: 3}
-        _sceneName: S_Player
-      SceneType: 0
-    - SceneField:
-        _sceneAsset: {fileID: 102900000, guid: 48e7d40de78f33c45a12834e1207632e, type: 3}
-        _sceneName: S_Town
-      SceneType: 4
-  - GroupName: Dungeon
-    Scenes:
-    - SceneField:
-        _sceneAsset: {fileID: 102900000, guid: 0a2ee454dbef0d14dadcdb025b630f9f, type: 3}
-        _sceneName: S_Player
-      SceneType: 0
-    - SceneField:
-        _sceneAsset: {fileID: 102900000, guid: 3423b87f5157f154ea6b4c096292e143, type: 3}
-        _sceneName: S_ArtDemo_2
-      SceneType: 4
-  - GroupName: BlackthornKeep
-    Scenes:
-    - SceneField:
-        _sceneAsset: {fileID: 102900000, guid: 0a2ee454dbef0d14dadcdb025b630f9f, type: 3}
-        _sceneName: S_Player
-      SceneType: 0
-    - SceneField:
-        _sceneAsset: {fileID: 102900000, guid: 4dbbcbe4dd15d11409fbb03b83558805, type: 3}
-        _sceneName: S_BlackthornKeep
-      SceneType: 4
+  StartingSceneGroup: {fileID: 11400000, guid: d753cda9428ab59419cfc555ba1860df, type: 2}
 --- !u!4 &1871647628
 Transform:
   m_ObjectHideFlags: 0

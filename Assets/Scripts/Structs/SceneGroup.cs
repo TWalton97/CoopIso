@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 [Serializable]
-public class SceneGroup
+[CreateAssetMenu(fileName = "Scene Groups", menuName = "Scene Group")]
+public class SceneGroup : ScriptableObject
 {
     public string GroupName = "New Scene Group";
     public List<SceneData> Scenes;

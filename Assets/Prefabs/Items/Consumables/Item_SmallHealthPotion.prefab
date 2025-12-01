@@ -59,7 +59,7 @@ MonoBehaviour:
     quantity: 0
     sprite: {fileID: 0}
     itemValue: 0
-    itemWeight: 0
+    itemWeight: 0.5
     itemDescription: 
     objectPrefab: {fileID: 0}
     floorObjectPrefab: {fileID: 0}

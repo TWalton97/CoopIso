@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerUserInterfaceController : MonoBehaviour
 {
@@ -31,6 +32,31 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
         UpdateGoldAmount(0);
         UpdateWeightAmount(0, 150);
+
+        playerContext.PlayerController.PlayerInputController.OnDropItemPerformed += CallDropItemOnButton;
+        playerContext.PlayerController.PlayerInputController.OnEquipOffhandPerformed += CallEquipOffhandOnButton;
+    }
+
+    void OnDestroy()
+    {
+        playerContext.PlayerController.PlayerInputController.OnDropItemPerformed -= CallDropItemOnButton;
+        playerContext.PlayerController.PlayerInputController.OnEquipOffhandPerformed -= CallEquipOffhandOnButton;
+    }
+
+    private void CallDropItemOnButton(CallbackContext context)
+    {
+        if (eventSystem.currentSelectedGameObject.TryGetComponent(out ItemButton button))
+        {
+            button.OnDropItem(context);
+        }
+    }
+
+    private void CallEquipOffhandOnButton(CallbackContext context)
+    {
+        if (eventSystem.currentSelectedGameObject.TryGetComponent(out ItemButton button))
+        {
+            button.OnEquipOffhand(context);
+        }
     }
 
     public void ToggleInventory(bool toggle)
@@ -60,9 +86,9 @@ public class PlayerUserInterfaceController : MonoBehaviour
         GoldAmountText.text = current.ToString();
     }
 
-    public void UpdateWeightAmount(int current, int max)
+    public void UpdateWeightAmount(float current, float max)
     {
-        WeightText.text = current.ToString() + "/" + max.ToString();
+        WeightText.text = current.ToString("0.0") + "/" + max.ToString("0.0");
     }
 
 }

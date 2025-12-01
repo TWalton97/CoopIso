@@ -13,6 +13,7 @@ public class EnemyArcherAttackState : EnemyBaseState
 
     private Coroutine attackCoroutine;
 
+
     public EnemyArcherAttackState(Enemy enemy, Animator animator, NavMeshAgent agent, Transform player) : base(enemy, animator)
     {
         this.agent = agent;
@@ -23,6 +24,7 @@ public class EnemyArcherAttackState : EnemyBaseState
     {
         agent.speed = 0;
         attackCoroutine = enemy.StartCoroutine(WaitForEndOfAttack());
+        enemy.animationStatusTracker.OnAttackCompleted += () => AttackCompleted = true;
     }
 
     public override void OnExit()
@@ -33,6 +35,7 @@ public class EnemyArcherAttackState : EnemyBaseState
             enemy.StopCoroutine(attackCoroutine);
         }
         AttackCompleted = false;
+        enemy.animationStatusTracker.OnAttackCompleted -= () => AttackCompleted = true;
     }
 
     public override void Update()
@@ -68,16 +71,9 @@ public class EnemyArcherAttackState : EnemyBaseState
         agent.transform.rotation = GetRotationTowardsTarget();
         yield return null;
         animator.CrossFade(AttackHash, crossFadeDuration, 1);
-        AttackCompleted = false;
-
-        yield return new WaitForSeconds(0.2f);
-
-        while (actualNormalizedTime < 0.99f)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => AttackCompleted);
         attackCoroutine = null;
-        AttackCompleted = true;
+        yield return null;
     }
 
     private bool CheckAngleToAttacker(GameObject attacker, float blockAngle)

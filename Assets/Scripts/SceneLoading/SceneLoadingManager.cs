@@ -17,7 +17,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     bool isLoading;
 
     [Header("Scene Groups")]
-    public SceneGroup[] sceneGroups;
+    public SceneGroup StartingSceneGroup;
     public Action OnLoadingStarted;
     public Action<string> OnSceneLoaded;
     public Action OnSceneGroupLoaded;
@@ -34,7 +34,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     protected override void Awake()
     {
         base.Awake();
-        LoadSceneGroup(0);
+        LoadSceneGroup(StartingSceneGroup);
     }
 
     void Update()
@@ -81,10 +81,9 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     #region  Scene Loading
 
-    public void LoadSceneGroup(int index)
+    public void LoadSceneGroup(SceneGroup sceneGroup)
     {
-        _indexToLoad = index;
-        activeSceneGroup = sceneGroups[index];
+        activeSceneGroup = sceneGroup;
         loadedScenes = new List<string>();
 
         OnUnloadingStarted?.Invoke();
@@ -108,11 +107,11 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         {
             var sceneData = activeSceneGroup.Scenes[i];
             if (loadedScenes.Contains(sceneData.Name)) continue;
-            asyncOperationGroup.Operations.Add(SceneManager.LoadSceneAsync(sceneGroups[_indexToLoad].Scenes[i].SceneField, LoadSceneMode.Additive));
+            asyncOperationGroup.Operations.Add(SceneManager.LoadSceneAsync(activeSceneGroup.Scenes[i].SceneField, LoadSceneMode.Additive));
             OnSceneLoaded?.Invoke(sceneData.Name);
         }
 
-        Scene activeScene = SceneManager.GetSceneByName(sceneGroups[_indexToLoad].FindSceneNameByType(SceneType.ActiveScene));
+        Scene activeScene = SceneManager.GetSceneByName(activeSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
 
         EnableLoadingCanvas();
         _loadingBar.fillAmount = 0f;
@@ -180,26 +179,6 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         return s;
     }
 
-    #endregion
-
-    #region Debug
-    [ContextMenu("Load Main Menu")]
-    private void LoadMainMenu()
-    {
-        LoadSceneGroup(0);
-    }
-
-    [ContextMenu("Load Dungeon Scene")]
-    private void LoadDungeonScene()
-    {
-        LoadSceneGroup(1);
-    }
-
-    [ContextMenu("Load Dungeon 2 Scene")]
-    private void LoadDungeon2Scene()
-    {
-        LoadSceneGroup(2);
-    }
     #endregion
 }
 

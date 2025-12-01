@@ -31,6 +31,9 @@ public class PlayerStatsBlackboard : MonoBehaviour
     public float ResourceCurrent;
     public float ResourceMin;
 
+    public float WeightCurrent;
+    public float WeightMax = 150f;
+
     public int GoldAmount;
 
     [Header("Equipment Requirements")]
@@ -103,6 +106,12 @@ public class PlayerStatsBlackboard : MonoBehaviour
     {
         GoldAmount += amount;
         PlayerController.PlayerContext.UserInterfaceController.UpdateGoldAmount(GoldAmount);
+    }
+
+    public void AddCurrentWeight(float amount)
+    {
+        WeightCurrent += amount;
+        PlayerController.PlayerContext.UserInterfaceController.UpdateWeightAmount(WeightCurrent, WeightMax);
     }
 
     private void UpdateAttackStats()

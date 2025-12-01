@@ -38,6 +38,7 @@ public class Item : MonoBehaviour, IInteractable
 
     private IEnumerator RotateRandomly()
     {
+        _isInteractable = false;
         Vector3 startPos = targetPosition + Vector3.up * 2f;
         float elapsedTime = 0f;
         while (elapsedTime < 0.3f)
@@ -55,6 +56,11 @@ public class Item : MonoBehaviour, IInteractable
 
     private void CollectItem(PlayerContext playerContext)
     {
+        if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + itemData.itemWeight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
+        {
+            StartCoroutine(RotateRandomly());
+            return;
+        }
         if (itemCollected) return;
         itemCollected = true;
         playerContext.InventoryController.AddItemToInventory(itemData);

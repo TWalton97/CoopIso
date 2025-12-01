@@ -12,6 +12,8 @@ public class MainMenuController : MonoBehaviour
 
     public string GameplaySceneName;
 
+    public SceneGroup SceneGroupToLoad;
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -40,7 +42,7 @@ public class MainMenuController : MonoBehaviour
         if (!CheckReadyStatus()) return;
 
         gameSetupData.PlayerCount = PlayerInputManager.playerCount;
-        SceneLoadingManager.Instance.LoadSceneGroup(1);
+        SceneLoadingManager.Instance.LoadSceneGroup(SceneGroupToLoad);
     }
 
     private bool CheckReadyStatus()

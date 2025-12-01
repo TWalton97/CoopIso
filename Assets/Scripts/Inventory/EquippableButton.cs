@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.InputAction;
 
 public class EquippableButton : ItemButton
 {
@@ -9,17 +10,10 @@ public class EquippableButton : ItemButton
     public Color TwoHandedEquippedColor;
     public Color RangedEquippedColor;
 
-    public enum ButtonState
-    {
-        Default,
-        Activated,
-        CannotActivate
-    }
-    private ButtonState buttonState = ButtonState.Default;
     private NewWeaponController weaponController;
     private ArmorController armorController;
     public TMP_Text StatValue;
-    
+
     public override void InitializeItemButton(InventoryItemController inventoryItemController, ItemData itemData, string buttonID, PlayerContext playerContext, bool isEquipped = false)
     {
         InventoryItemController = inventoryItemController;
@@ -36,7 +30,7 @@ public class EquippableButton : ItemButton
         ItemName.text = ItemData.itemQuality + " " + ItemData.itemName;
         ItemButtonImage.sprite = ItemData.sprite;
         ItemValue.text = ItemData.itemValue.ToString();
-        ItemWeight.text = ItemData.itemWeight.ToString("00.0");
+        ItemWeight.text = ItemData.itemWeight.ToString("0.0");
         if (ItemData.data is WeaponDataSO weaponData)
         {
             StatValue.text = LootCalculator.CalculateQualityModifiedStat(weaponData.WeaponMinDamage, itemData.itemQuality).ToString() + "-" + LootCalculator.CalculateQualityModifiedStat(weaponData.WeaponMaxDamage, itemData.itemQuality).ToString();
@@ -76,7 +70,6 @@ public class EquippableButton : ItemButton
             CheckIfItemCanBeEquipped();
         }
 
-        PlayerContext.PlayerController.PlayerInputController.OnDropItemPerformed += OnDropItem;
         armorController.OnArmorUnequipped += CheckIfItemUnequipped;
         weaponController.OnWeaponUnequipped += CheckIfItemUnequipped;
     }
@@ -176,6 +169,39 @@ public class EquippableButton : ItemButton
         }
     }
 
+    public bool CanEquipOffhand()
+    {
+        return weaponController.CanEquipOffhand(ItemData);
+    }
+
+    public override void OnEquipOffhand(CallbackContext context)
+    {
+        if (buttonState == ButtonState.CannotActivate)
+            return;
+
+        if (!CanEquipOffhand())
+            return;
+
+        if (buttonState == ButtonState.Default)
+        {
+            if (IsItemWeapon())
+            {
+                SetBackgroundColor(EquippedColor);
+                weaponController.EquipWeapon(ItemData, Weapon.WeaponHand.OffHand);
+                buttonState = ButtonState.Activated;
+            }
+        }
+        else if (buttonState == ButtonState.Activated)
+        {
+            if (IsItemWeapon())
+            {
+                SetBackgroundColor(EquippedColor);
+                weaponController.UnequipWeapon(ItemData);
+                buttonState = ButtonState.Default;
+            }
+        }
+    }
+
     public override void OnRightClick()
     {
         if (buttonState == ButtonState.Activated)
@@ -195,9 +221,16 @@ public class EquippableButton : ItemButton
         }
         else
         {
-            SpawnedItemDataBase.Instance.SpawnItemFromDatabase(ItemData.itemID, PlayerContext.PlayerController.transform.position, Quaternion.identity);
+            SpawnedItemDataBase.Instance.SpawnItemFromDatabase(ItemData.itemID, ReturnSpawnPositionInRadius(), ItemData.objectPrefab.transform.rotation);
             InventoryItemController.RemoveButtonAtID(ButtonID);
         }
+    }
+
+    private Vector3 ReturnSpawnPositionInRadius()
+    {
+        Vector3 insideUnitCircle = Random.insideUnitCircle;
+        insideUnitCircle = new Vector3(insideUnitCircle.x, 0, insideUnitCircle.y);
+        return PlayerContext.PlayerController.transform.position + insideUnitCircle;
     }
 
     public override void OnSelect(BaseEventData eventData)

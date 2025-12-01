@@ -29,8 +29,6 @@ public class ConsumableButton : ItemButton
         ItemValue.text = potionData.GoldValue.ToString();
         ItemWeight.text = potionData.Weight.ToString("0.0");
         UpdateQuantity(1);
-
-        PlayerContext.PlayerController.PlayerInputController.OnDropItemPerformed += OnDropItem;
     }
 
     public void UpdateQuantity(int amount)

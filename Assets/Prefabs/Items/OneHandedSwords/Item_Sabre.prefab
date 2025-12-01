@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseLootBudget: 10
   baseLootWeight: 5
+  itemDropType: 0
   ItemStatus:
     GUID: 
     WorldPosition: {x: 0, y: 0, z: 0}
@@ -58,7 +59,7 @@ MonoBehaviour:
     quantity: 1
     sprite: {fileID: 21300000, guid: 4f9caaf8d740989489c00d57a4e06532, type: 3}
     itemValue: 0
-    itemWeight: 0
+    itemWeight: 5
     itemDescription: A one-handed sword. Light enough to allow for nimble movement.
     objectPrefab: {fileID: 9079547992211365241, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
     floorObjectPrefab: {fileID: 0}

@@ -51,8 +51,7 @@ public class CullingTarget : MonoBehaviour
         }
         else
         {
-            Debug.Log("Failed to register...");
-            Invoke(nameof(TryRegister), 0.1f);
+            Invoke(nameof(TryRegister), 0.2f);
         }
     }
 

@@ -4301,7 +4301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &362940362
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4529,7 +4529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &377106341
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11196,6 +11196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4de045c37cbb3c4da62ebcc8b4fc83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeftTab: {fileID: 0}
+  RightTab: {fileID: 0}
   PlayerContext:
     PlayerIndex: 0
     UserInterfaceController: {fileID: 0}
@@ -11216,6 +11218,10 @@ MonoBehaviour:
   - InteractionText: Unequip/Drop
     InteractionSpriteKBM: {fileID: 21300000, guid: de3944ff1442b784b9845e6a5671133b, type: 3}
     InteractionSpriteGamepad: {fileID: 21300000, guid: a70215e4e5b1ec340a7c8304efb1f49c, type: 3}
+  EquipOffhandControlData:
+    InteractionText: 
+    InteractionSpriteKBM: {fileID: 0}
+    InteractionSpriteGamepad: {fileID: 0}
 --- !u!224 &966724279
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19218,6 +19224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4de045c37cbb3c4da62ebcc8b4fc83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeftTab: {fileID: 0}
+  RightTab: {fileID: 0}
   PlayerContext:
     PlayerIndex: 0
     UserInterfaceController: {fileID: 0}
@@ -19238,6 +19246,10 @@ MonoBehaviour:
   - InteractionText: Unequip/Drop
     InteractionSpriteKBM: {fileID: 21300000, guid: de3944ff1442b784b9845e6a5671133b, type: 3}
     InteractionSpriteGamepad: {fileID: 21300000, guid: a70215e4e5b1ec340a7c8304efb1f49c, type: 3}
+  EquipOffhandControlData:
+    InteractionText: 
+    InteractionSpriteKBM: {fileID: 0}
+    InteractionSpriteGamepad: {fileID: 0}
 --- !u!224 &1486629581
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24362,6 +24374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4de045c37cbb3c4da62ebcc8b4fc83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeftTab: {fileID: 0}
+  RightTab: {fileID: 0}
   PlayerContext:
     PlayerIndex: 0
     UserInterfaceController: {fileID: 0}
@@ -24382,6 +24396,10 @@ MonoBehaviour:
   - InteractionText: Unequip/Drop
     InteractionSpriteKBM: {fileID: 21300000, guid: de3944ff1442b784b9845e6a5671133b, type: 3}
     InteractionSpriteGamepad: {fileID: 21300000, guid: a70215e4e5b1ec340a7c8304efb1f49c, type: 3}
+  EquipOffhandControlData:
+    InteractionText: 
+    InteractionSpriteKBM: {fileID: 0}
+    InteractionSpriteGamepad: {fileID: 0}
 --- !u!224 &1927482122
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27656,9 +27674,9 @@ RectTransform:
   - {fileID: 2970467758735075897}
   m_Father: {fileID: 7323138335390606229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 173.75, y: -85}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 337.5, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &233770153806397004
@@ -27830,9 +27848,9 @@ RectTransform:
   - {fileID: 2694214316455162433}
   m_Father: {fileID: 4707592485370340936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 90, y: -67.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &270272115175382148
@@ -28822,7 +28840,7 @@ RectTransform:
   m_Father: {fileID: 1998504095283435339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -29558,6 +29576,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4de045c37cbb3c4da62ebcc8b4fc83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeftTab: {fileID: 4162755277362704179}
+  RightTab: {fileID: 5314070279697406817}
   PlayerContext:
     PlayerIndex: 0
     UserInterfaceController: {fileID: 0}
@@ -29578,6 +29598,10 @@ MonoBehaviour:
   - InteractionText: Unequip/Drop
     InteractionSpriteKBM: {fileID: 21300000, guid: de3944ff1442b784b9845e6a5671133b, type: 3}
     InteractionSpriteGamepad: {fileID: 21300000, guid: a70215e4e5b1ec340a7c8304efb1f49c, type: 3}
+  EquipOffhandControlData:
+    InteractionText: 
+    InteractionSpriteKBM: {fileID: 0}
+    InteractionSpriteGamepad: {fileID: 0}
 --- !u!114 &1058956909765837987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29833,9 +29857,9 @@ RectTransform:
   - {fileID: 450082371148486365}
   m_Father: {fileID: 7323138335390606229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 173.75, y: -22.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 337.5, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1177135011896090286
@@ -31832,7 +31856,7 @@ RectTransform:
   m_Father: {fileID: 450082371148486365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -35472,9 +35496,9 @@ RectTransform:
   - {fileID: 3829878941651794789}
   m_Father: {fileID: 1010002726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 480, y: -540}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 960, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3797648632056139538
@@ -36400,9 +36424,9 @@ RectTransform:
   - {fileID: 1998504095283435339}
   m_Father: {fileID: 7323138335390606229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 173.75, y: -55}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 337.5, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &4131195130824586550
@@ -36698,7 +36722,7 @@ RectTransform:
   m_Father: {fileID: 2970467758735075897}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -37248,7 +37272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &4433449251847358157
 GameObject:
   m_ObjectHideFlags: 0
@@ -39187,6 +39211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4de045c37cbb3c4da62ebcc8b4fc83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeftTab: {fileID: 8391933575485880516}
+  RightTab: {fileID: 3498528800068437113}
   PlayerContext:
     PlayerIndex: 0
     UserInterfaceController: {fileID: 0}
@@ -39207,6 +39233,10 @@ MonoBehaviour:
   - InteractionText: Unequip/Drop
     InteractionSpriteKBM: {fileID: 21300000, guid: de3944ff1442b784b9845e6a5671133b, type: 3}
     InteractionSpriteGamepad: {fileID: 21300000, guid: a70215e4e5b1ec340a7c8304efb1f49c, type: 3}
+  EquipOffhandControlData:
+    InteractionText: Equip Offhand
+    InteractionSpriteKBM: {fileID: 21300000, guid: 85207a7e2a0fdc34794b81290f9d8de7, type: 3}
+    InteractionSpriteGamepad: {fileID: 21300000, guid: 17c5bbacd515ec043a979cf63f9fc0c9, type: 3}
 --- !u!114 &5170113961017475584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41792,6 +41822,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4de045c37cbb3c4da62ebcc8b4fc83d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeftTab: {fileID: 3864406457419143895}
+  RightTab: {fileID: 4590804318785562995}
   PlayerContext:
     PlayerIndex: 0
     UserInterfaceController: {fileID: 0}
@@ -41812,6 +41844,10 @@ MonoBehaviour:
   - InteractionText: Unequip/Drop
     InteractionSpriteKBM: {fileID: 21300000, guid: de3944ff1442b784b9845e6a5671133b, type: 3}
     InteractionSpriteGamepad: {fileID: 21300000, guid: a70215e4e5b1ec340a7c8304efb1f49c, type: 3}
+  EquipOffhandControlData:
+    InteractionText: 
+    InteractionSpriteKBM: {fileID: 0}
+    InteractionSpriteGamepad: {fileID: 0}
 --- !u!114 &6212845776917205968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43221,7 +43257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7039190323553892813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43619,9 +43655,9 @@ RectTransform:
   - {fileID: 217523670601429823}
   m_Father: {fileID: 4707592485370340936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 353.75, y: -52.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 347.5, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7337201445116228941
@@ -44066,9 +44102,9 @@ RectTransform:
   - {fileID: 7996439556176258347}
   m_Father: {fileID: 3492875406521677018}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -276.0125}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 250, y: 147.975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7507336323596193475
@@ -46733,7 +46769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &8576128052419913124
 CanvasRenderer:
   m_ObjectHideFlags: 0

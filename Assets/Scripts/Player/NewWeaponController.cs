@@ -608,6 +608,21 @@ public class NewWeaponController : MonoBehaviour
         }
     }
 
+    public bool CanEquipOffhand(ItemData itemData)
+    {
+        if (itemData.itemType == ItemType.OneHanded)
+        {
+            return true;
+        }
+
+        if (itemData.itemType == ItemType.TwoHanded && newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     [ContextMenu("Apply Bow Attack Profile")]
     public void ApplyBowAttackProfile()
     {

@@ -12,7 +12,6 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnEnter()
     {
-        Debug.Log("Entering attack state");
         player.RotateToFaceLookPoint();
 
         if (player.WeaponController.instantiatedPrimaryWeapon != null)
@@ -20,7 +19,6 @@ public class PlayerAttackState : PlayerBaseState
             if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
             {
                 WeaponDataSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as WeaponDataSO;
-                //ReduceSpeedCoroutine = player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedMultiplierDuringAttack));
             }
             else if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(BowSO))
             {
@@ -31,7 +29,6 @@ public class PlayerAttackState : PlayerBaseState
                     player._movementSpeed = 0;
                     return;
                 }
-                //ReduceSpeedCoroutine = player.StartCoroutine(ReduceMovementSpeed(weaponData.MovementSpeedMultiplierDuringAttack));
             }
         }
         player.WeaponController.Attack(AttackCompleted);
@@ -51,7 +48,6 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnExit()
     {
-        Debug.Log("Exiting attack state");
         player.attackButtonPressed = false;
         if (ReduceSpeedCoroutine != null)
         {

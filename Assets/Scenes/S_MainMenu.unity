@@ -3484,6 +3484,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
   GameplaySceneName: S_ArtDemo_2
+  SceneGroupToLoad: {fileID: 11400000, guid: d1001970a0fede242ba80d052ac02507, type: 2}
 --- !u!4 &1529166136
 Transform:
   m_ObjectHideFlags: 0

@@ -45,6 +45,8 @@ public class PlayerInputController : MonoBehaviour
     public Action<CallbackContext> OnCycleWeaponSetDownPerformed;
 
     public Action<CallbackContext> OnDropItemPerformed;
+    public Action<CallbackContext> OnDisplayMoreInformationPerformed;
+    public Action<CallbackContext> OnEquipOffhandPerformed;
 
     //Stored dictionary for unsubscribing from all events
     private Dictionary<InputAction, Action<CallbackContext>> subscribedInputActions = new Dictionary<InputAction, Action<CallbackContext>>();
@@ -98,6 +100,7 @@ public class PlayerInputController : MonoBehaviour
         SubscribeToInputAction(playerInputActions.UI.DropItem.id.ToString(), OnDropItem, UIMap);
         SubscribeToInputAction(playerInputActions.UI.MoveMenuLeft.id.ToString(), OnMoveMenuLeft, UIMap);
         SubscribeToInputAction(playerInputActions.UI.MoveMenuRight.id.ToString(), OnMoveMenuRight, UIMap);
+        SubscribeToInputAction(playerInputActions.UI.EquipOffhand.id.ToString(), OnEquipOffhand, UIMap);
 
         //Specific cases//
 
@@ -112,11 +115,15 @@ public class PlayerInputController : MonoBehaviour
 
         action = playerInput.currentActionMap.FindAction(playerInputActions.Player.Ability.id);
         action.started += OnAbility;
-        action.canceled -= OnAbility;
+        action.canceled += OnAbility;
 
         action = playerInput.currentActionMap.FindAction(playerInputActions.Player.LookStick.id);
         action.started += OnLookStick;
         action.canceled += OnLookStick;
+
+        action = UIMap.FindAction(playerInputActions.UI.DisplayMoreInformation.id);
+        action.started += OnDisplayMoreInformation;
+        action.canceled += OnDisplayMoreInformation;
 
         attackCountdownTimer.OnTimerStop += ResetAttackTimer;
     }
@@ -146,7 +153,7 @@ public class PlayerInputController : MonoBehaviour
         subscribedInputActions.Clear();
 
         InputAction action = UIMap.FindAction(playerInputActions.UI.OpenEquipmentMenu.id);
-        action.performed += OnEquipmentMenu;
+        action.performed -= OnEquipmentMenu;
 
         attackCountdownTimer.OnTimerStop -= ResetAttackTimer;
     }
@@ -321,6 +328,16 @@ public class PlayerInputController : MonoBehaviour
     public void OnMoveMenuRight(CallbackContext context)
     {
         playerController.PlayerContext.UserInterfaceController.inventoryController.GoToNextMenu();
+    }
+
+    public void OnDisplayMoreInformation(CallbackContext context)
+    {
+        OnDisplayMoreInformationPerformed?.Invoke(context);
+    }
+
+    public void OnEquipOffhand(CallbackContext context)
+    {
+        OnEquipOffhandPerformed?.Invoke(context);
     }
     #endregion
 

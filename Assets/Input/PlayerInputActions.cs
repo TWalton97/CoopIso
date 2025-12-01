@@ -689,6 +689,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DisplayMoreInformation"",
+                    ""type"": ""Button"",
+                    ""id"": ""47c641a4-bbf1-4940-bb07-569c12c06f65"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipOffhand"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ef2b9db-df06-4aff-9d9e-420bec38c445"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1186,6 +1204,72 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""MoveMenuLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1cb4e5d-3ef8-41a3-b6cc-acfb406bedaf"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DisplayMoreInformation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2cc438c1-0570-42df-9948-427a42fd975e"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DisplayMoreInformation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bcaa5dc5-b6a4-4219-8772-d788caf64c71"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DisplayMoreInformation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46ee510d-f705-45ef-8b8a-a554bd9ab30e"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""EquipOffhand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ccc6e77f-bd1e-470d-970a-659f50769f3d"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""EquipOffhand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff1e4786-e434-4bd6-a23e-4c7f8ae4370e"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""EquipOffhand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1287,6 +1371,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_DropItem = m_UI.FindAction("DropItem", throwIfNotFound: true);
         m_UI_MoveMenuLeft = m_UI.FindAction("MoveMenuLeft", throwIfNotFound: true);
         m_UI_MoveMenuRight = m_UI.FindAction("MoveMenuRight", throwIfNotFound: true);
+        m_UI_DisplayMoreInformation = m_UI.FindAction("DisplayMoreInformation", throwIfNotFound: true);
+        m_UI_EquipOffhand = m_UI.FindAction("EquipOffhand", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -1534,6 +1620,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_DropItem;
     private readonly InputAction m_UI_MoveMenuLeft;
     private readonly InputAction m_UI_MoveMenuRight;
+    private readonly InputAction m_UI_DisplayMoreInformation;
+    private readonly InputAction m_UI_EquipOffhand;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1552,6 +1640,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @DropItem => m_Wrapper.m_UI_DropItem;
         public InputAction @MoveMenuLeft => m_Wrapper.m_UI_MoveMenuLeft;
         public InputAction @MoveMenuRight => m_Wrapper.m_UI_MoveMenuRight;
+        public InputAction @DisplayMoreInformation => m_Wrapper.m_UI_DisplayMoreInformation;
+        public InputAction @EquipOffhand => m_Wrapper.m_UI_EquipOffhand;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1603,6 +1693,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MoveMenuRight.started += instance.OnMoveMenuRight;
             @MoveMenuRight.performed += instance.OnMoveMenuRight;
             @MoveMenuRight.canceled += instance.OnMoveMenuRight;
+            @DisplayMoreInformation.started += instance.OnDisplayMoreInformation;
+            @DisplayMoreInformation.performed += instance.OnDisplayMoreInformation;
+            @DisplayMoreInformation.canceled += instance.OnDisplayMoreInformation;
+            @EquipOffhand.started += instance.OnEquipOffhand;
+            @EquipOffhand.performed += instance.OnEquipOffhand;
+            @EquipOffhand.canceled += instance.OnEquipOffhand;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1649,6 +1745,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MoveMenuRight.started -= instance.OnMoveMenuRight;
             @MoveMenuRight.performed -= instance.OnMoveMenuRight;
             @MoveMenuRight.canceled -= instance.OnMoveMenuRight;
+            @DisplayMoreInformation.started -= instance.OnDisplayMoreInformation;
+            @DisplayMoreInformation.performed -= instance.OnDisplayMoreInformation;
+            @DisplayMoreInformation.canceled -= instance.OnDisplayMoreInformation;
+            @EquipOffhand.started -= instance.OnEquipOffhand;
+            @EquipOffhand.performed -= instance.OnEquipOffhand;
+            @EquipOffhand.canceled -= instance.OnEquipOffhand;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1746,5 +1848,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDropItem(InputAction.CallbackContext context);
         void OnMoveMenuLeft(InputAction.CallbackContext context);
         void OnMoveMenuRight(InputAction.CallbackContext context);
+        void OnDisplayMoreInformation(InputAction.CallbackContext context);
+        void OnEquipOffhand(InputAction.CallbackContext context);
     }
 }

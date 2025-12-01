@@ -22899,7 +22899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneName: Brackenholt
   InteractionType: 3
-  SceneGroupToLoad: 1
+  SceneGroupToLoad: {fileID: 11400000, guid: d1001970a0fede242ba80d052ac02507, type: 2}
   SpawnPointID: 0
 --- !u!4 &1571176285
 Transform:

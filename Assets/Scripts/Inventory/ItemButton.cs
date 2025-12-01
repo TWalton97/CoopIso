@@ -28,6 +28,14 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
 
     protected string ButtonID;
 
+    public enum ButtonState
+    {
+        Default,
+        Activated,
+        CannotActivate
+    }
+    public ButtonState buttonState = ButtonState.Default;
+
     void Awake()
     {
         selectable = GetComponent<Button>();
@@ -38,15 +46,14 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
     public abstract void OnLeftClick();
     public abstract void ActivateButton();
 
-    void OnDestroy()
-    {
-        PlayerContext.PlayerController.PlayerInputController.OnDropItemPerformed -= OnDropItem;
-    }
-
     public void ToggleHighlight(bool toggle)
     {
         HighlightIcon.SetActive(toggle);
         IsSelected = toggle;
+        if (toggle)
+        {
+            InventoryItemController.UpdateControlsPanel(this);
+        }
     }
 
     public virtual void OnSelect(BaseEventData eventData)
@@ -71,10 +78,16 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
         ToggleHighlight(false);
     }
 
-    protected void OnDropItem(CallbackContext context)
+    public void OnDropItem(CallbackContext context)
     {
         if (!IsSelected) return;
         OnRightClick();
+    }
+
+    public virtual void OnEquipOffhand(CallbackContext context)
+    {
+        if (!IsSelected) return;
+
     }
 
     public virtual void OnPointerClick(PointerEventData eventData)
