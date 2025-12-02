@@ -9,21 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/S_MainMenu.unity
     guid: 49a3178172f8ef64c98dcbe16904bfa9
   - enabled: 1
-    path: Assets/Scenes/S_ArtDemo_2.unity
-    guid: 3423b87f5157f154ea6b4c096292e143
-  - enabled: 1
     path: Assets/Scenes/S_Bootstrapper.unity
     guid: 17cb0a43df0734945a995fc5627f0eb8
   - enabled: 1
     path: Assets/Scenes/S_Player.unity
     guid: 0a2ee454dbef0d14dadcdb025b630f9f
   - enabled: 1
-    path: Assets/Scenes/S_Dungeon2.unity
+    path: Assets/Scenes/S_TestingScenes/S_Dungeon2.unity
     guid: af62654ac14f20940bcc4725b7014a89
   - enabled: 1
-    path: Assets/Scenes/S_Town.unity
+    path: Assets/Scenes/S_TestingScenes/S_Town.unity
     guid: 48e7d40de78f33c45a12834e1207632e
   - enabled: 1
-    path: Assets/Scenes/S_BlackthornKeep.unity
+    path: Assets/Scenes/S_TestingScenes/S_BlackthornKeep.unity
     guid: 4dbbcbe4dd15d11409fbb03b83558805
+  - enabled: 1
+    path: Assets/Scenes/S_ZoneProgressionScenes/S_ShorecrestForest.unity
+    guid: 0b2f7e3c301dfbf4498a85840f4001aa
   m_configObjects: {}

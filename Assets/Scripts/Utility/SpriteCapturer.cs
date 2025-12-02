@@ -4,74 +4,106 @@ using System.IO;
 public class SpriteCapturer : MonoBehaviour
 {
     public Camera cam;
-    public int baseResolution = 512; // Square base
-    public float padding = 1.1f;
-
+    public int resolution = 512;
+    public float padding = 1f;
     public GameObject objToCapture;
+
+    [Range(0f, 1f)]
+    public float alphaCutoff = 0.01f;    // Pixels with alpha <= this are trimmed
 
     [ContextMenu("Capture Image")]
     public void Capture()
     {
-        // --- 1. Compute bounds ---
+        // --- Compute bounds ---
         Bounds b = CalculateBounds(objToCapture);
 
-        float width = b.size.x;
-        float height = b.size.y;
-
-        // --- 2. Determine aspect ratio for texture ---
-        float aspect = width / height;
-
-        int texW = baseResolution;
-        int texH = baseResolution;
-
-        if (aspect > 1f)
-        {
-            // Wide item (example: horizontal axes, bows)
-            texW = Mathf.RoundToInt(baseResolution * aspect);
-        }
-        else if (aspect < 1f)
-        {
-            // Tall item (example: spears, staves)
-            texH = Mathf.RoundToInt(baseResolution / aspect);
-        }
-
-        // --- 3. Create RenderTexture dynamically ---
-        RenderTexture rt = new RenderTexture(texW, texH, 24, RenderTextureFormat.Default);
-        rt.useMipMap = false;
-        rt.autoGenerateMips = false;
+        RenderTexture rt = new RenderTexture(resolution, resolution, 24, RenderTextureFormat.ARGB32);
         cam.targetTexture = rt;
 
-        // --- 4. Center camera ---
-        cam.transform.position = new Vector3(b.center.x, b.center.y, cam.transform.position.z);
+        cam.clearFlags = CameraClearFlags.SolidColor;
+        cam.backgroundColor = new Color(0, 0, 0, 0);
 
-        // --- 5. Adjust orthographic size to fit bounding box ---
-        float size = Mathf.Max(b.extents.x / cam.aspect, b.extents.y);
-        cam.orthographicSize = size * padding;
+        Vector3 camPos = cam.transform.position;
+        cam.transform.position = new Vector3(b.center.x, b.center.y, camPos.z);
 
-        // --- 6. Render screenshot ---
+        float objectHalfSize = Mathf.Max(b.extents.x, b.extents.y);
+        cam.orthographicSize = objectHalfSize * padding;
+
         RenderTexture.active = rt;
         cam.Render();
 
-        Texture2D tex = new Texture2D(texW, texH, TextureFormat.RGBA32, false);
-        tex.ReadPixels(new Rect(0, 0, texW, texH), 0, 0);
+        // Read pixels
+        Texture2D tex = new Texture2D(resolution, resolution, TextureFormat.RGBA32, false);
+        tex.ReadPixels(new Rect(0, 0, resolution, resolution), 0, 0);
         tex.Apply();
 
-        byte[] png = tex.EncodeToPNG();
-        File.WriteAllBytes(Application.dataPath + "/Sprites/ItemSprites/" + objToCapture.name.ToString() + "_Sprite.png", png);
+        // ---- TRIM THE BORDER ----
+        Texture2D trimmed = TrimTexture(tex, alphaCutoff);
+
+        // Save
+        string folder = Application.dataPath + "/Sprites/ItemSprites/";
+        if (!Directory.Exists(folder))
+            Directory.CreateDirectory(folder);
+
+        string path = folder + objToCapture.name + "_Sprite.png";
+        File.WriteAllBytes(path, trimmed.EncodeToPNG());
 
         RenderTexture.active = null;
         cam.targetTexture = null;
 
-        Debug.Log("Saved: " + objToCapture.name.ToString() + "_Sprite.png" + " (" + texW + "x" + texH + ")");
+        Debug.Log("Saved TRIMMED image to: " + path);
     }
 
     private Bounds CalculateBounds(GameObject obj)
     {
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         Bounds b = renderers[0].bounds;
+
         foreach (var r in renderers)
             b.Encapsulate(r.bounds);
+
         return b;
+    }
+
+    private Texture2D TrimTexture(Texture2D source, float alphaThreshold)
+    {
+        int w = source.width;
+        int h = source.height;
+
+        Color32[] pixels = source.GetPixels32();
+
+        int minX = w, maxX = 0, minY = h, maxY = 0;
+
+        for (int y = 0; y < h; y++)
+        {
+            for (int x = 0; x < w; x++)
+            {
+                Color32 c = pixels[y * w + x];
+                if (c.a > alphaThreshold * 255)
+                {
+                    if (x < minX) minX = x;
+                    if (x > maxX) maxX = x;
+                    if (y < minY) minY = y;
+                    if (y > maxY) maxY = y;
+                }
+            }
+        }
+
+        int newW = maxX - minX + 1;
+        int newH = maxY - minY + 1;
+
+        Texture2D trimmed = new Texture2D(newW, newH, TextureFormat.RGBA32, false);
+
+        for (int y = 0; y < newH; y++)
+        {
+            for (int x = 0; x < newW; x++)
+            {
+                trimmed.SetPixel(x, y, source.GetPixel(minX + x, minY + y));
+            }
+        }
+
+        trimmed.Apply();
+        return trimmed;
     }
 }
 
