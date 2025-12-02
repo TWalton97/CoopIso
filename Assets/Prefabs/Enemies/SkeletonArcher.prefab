@@ -2933,6 +2933,7 @@ GameObject:
   - component: {fileID: 1052276943576708563}
   - component: {fileID: 3588826832439326997}
   - component: {fileID: 8048806835455225239}
+  - component: {fileID: -8247515937626746065}
   m_Layer: 8
   m_Name: SkeletonArcher
   m_TagString: Cull
@@ -2986,7 +2987,6 @@ MonoBehaviour:
   ExpValue: 90
   ExpRange: 15
   agent: {fileID: 7433324669054062663}
-  playerDetector: {fileID: 5542632148025433312}
   animator: {fileID: 198375892357967965}
   coll: {fileID: 7893179272062647807}
   ragdoll: {fileID: 3643241346399685666}
@@ -3006,6 +3006,17 @@ MonoBehaviour:
   spawned: 0
   animationStatusTracker: {fileID: 0}
   HasSpawnedItems: 0
+  target: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 16512
+  obstructionLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  attackRange: 0
+  InAttackRange: 0
+  CanAttack: 0
+  NextAttackTime: 0
   projectile: {fileID: 5783461640622885472, guid: 778cb966ce47eab41b78642fd79408cc, type: 3}
   projectileSpeed: 14
   damage: 4
@@ -3153,6 +3164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b33541b9157ffdb41b5417924dc1e3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerModel: {fileID: 0}
 --- !u!114 &3588826832439326997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3179,6 +3191,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+--- !u!54 &-8247515937626746065
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8458699510939732860}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8550524380966310095
 GameObject:
   m_ObjectHideFlags: 0

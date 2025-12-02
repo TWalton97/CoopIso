@@ -7,85 +7,54 @@ public class EnemyAttackState : EnemyBaseState
     readonly NavMeshAgent agent;
     readonly Transform player;
     public bool AttackCompleted;
-
-    AnimatorStateInfo animatorStateInfo;
-    float actualNormalizedTime;
-    private Coroutine attackCoroutine;
+    private EnemyStatsSO enemyStats;
 
     public EnemyAttackState(Enemy enemy, Animator animator, NavMeshAgent agent, Transform player) : base(enemy, animator)
     {
         this.agent = agent;
         this.player = player;
+        enemyStats = enemy.EntityData as EnemyStatsSO;
     }
 
     public override void OnEnter()
     {
-        //AttackCompleted = false;
-        attackCoroutine = enemy.StartCoroutine(WaitForEndOfAttack());
-        agent.speed = 0;
+        animator.CrossFade(AttackHash, crossFadeDuration);
+        agent.isStopped = true;
         enemy.animationStatusTracker.OnAttackCompleted += CompleteAttack;
     }
 
     public override void OnExit()
     {
-        enemy.StartCoroutine(enemy.AttackCooldown());
-        if (attackCoroutine != null)
+        agent.isStopped = false;
+        float distance = enemy.target != null ? Vector3.Distance(enemy.transform.position, enemy.target.position) : Mathf.Infinity;
+
+        if (distance <= enemyStats.AttackRange)
         {
-            enemy.StopCoroutine(attackCoroutine);
+            enemy.InAttackRange = true;
         }
+        else
+        {
+            enemy.InAttackRange = false;
+        }
+
         AttackCompleted = false;
         enemy.animationStatusTracker.OnAttackCompleted -= CompleteAttack;
     }
 
     private void CompleteAttack()
     {
+        enemy.NextAttackTime = Time.time + enemyStats.AttackCooldown;
+        enemy.CanAttack = false;
         AttackCompleted = true;
+        enemy.CanAttack = false;
     }
 
     public override void Update()
     {
-        animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        actualNormalizedTime = Mathf.Clamp01(animatorStateInfo.normalizedTime);
+        // animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        // actualNormalizedTime = Mathf.Clamp01(animatorStateInfo.normalizedTime);
 
-        agent.SetDestination(enemy.transform.position);
-        //RotateTowardsTarget(GetRotationTowardsTarget());
-    }
-
-    private Quaternion GetRotationTowardsTarget()
-    {
-        Vector3 DirToTarget = enemy.playerDetector.Player.transform.position - agent.transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(DirToTarget, Vector3.up);
-        targetRotation.x = 0;
-        targetRotation.z = 0;
-        return targetRotation;
-    }
-
-    private void RotateTowardsTarget(Quaternion targetRotation)
-    {
-        agent.transform.rotation = Quaternion.RotateTowards(agent.transform.rotation, targetRotation, enemy.rotationSpeed * Time.deltaTime);
-    }
-
-    private IEnumerator WaitForEndOfAttack()
-    {
-        //animator.CrossFade(IdleHash, crossFadeDuration);
-        while (!CheckAngleToAttacker(enemy.playerDetector.Player.gameObject, 30))
-        {
-            RotateTowardsTarget(GetRotationTowardsTarget());
-            yield return null;
-        }
-        animator.CrossFade(AttackHash, crossFadeDuration);
-        yield return null;
-    }
-
-    private bool CheckAngleToAttacker(GameObject attacker, float blockAngle)
-    {
-        var directionToPlayer = attacker.transform.position - enemy.transform.position;
-        var angleToPlayer = Vector3.Angle(directionToPlayer, enemy.transform.forward);
-
-        if (!(angleToPlayer < blockAngle / 2f))
-        {
-            return false;
-        }
-        return true;
+        // agent.SetDestination(enemy.transform.position);
+        // //RotateTowardsTarget(GetRotationTowardsTarget());
     }
 }

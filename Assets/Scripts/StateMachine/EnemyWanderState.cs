@@ -4,56 +4,81 @@ using UnityEngine.AI;
 public class EnemyWanderState : EnemyBaseState
 {
     readonly NavMeshAgent agent;
-    readonly Vector3 startPoint;
-    readonly float wanderRadius;
-    float elapsedTime = 0f;
-    float waitTime = 2;
-    private bool IsWaiting = false;
+    private Vector3 wanderTarget;
+    private EnemyStatsSO enemyStats;
+
+    private bool waiting = false;
+    private float waitTime = 0f;
+    private float waitDuration = 4f;
 
     public EnemyWanderState(Enemy enemy, Animator animator, NavMeshAgent agent, float wanderRadius) : base(enemy, animator)
     {
         this.agent = agent;
-        this.startPoint = enemy.transform.position;
-        this.wanderRadius = wanderRadius;
+        enemyStats = enemy.EntityData as EnemyStatsSO;
     }
 
     public override void OnEnter()
     {
-        
+        if (!agent.isActiveAndEnabled) return;
+
+        wanderTarget = Vector3.zero;
+        agent.isStopped = false;
+        SetNewWanderTarget(enemy);
     }
 
     public override void Update()
     {
-        agent.speed = enemy.wanderSpeed;
+        Transform potentialTarget = enemy.FindTargetInAggroRange();
+        if (potentialTarget != null)
+        {
+            enemy.SetTarget(potentialTarget);
+        }
+
+        if (!agent.isActiveAndEnabled) return;
+
+        if (wanderTarget == Vector3.zero)
+        {
+            SetNewWanderTarget(enemy);
+        }
+
+        agent.speed = enemyStats.WanderSpeed;
         animator.SetFloat("MovementAnimationMultiplier", agent.speed / enemy.StartWanderSpeed);
 
-        if (HasReachedDestination())
+        if (waiting)
         {
-            if (!IsWaiting)
+            waitTime += Time.deltaTime;
+            if (waitTime >= waitDuration)
             {
-                IsWaiting = true;
-                //animator.CrossFade(IdleHash, crossFadeDuration);
+                waiting = false;
+                SetNewWanderTarget(enemy);
             }
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime < waitTime) return;
-            elapsedTime = 0;
-            waitTime = Random.Range(2, 4);
-            //animator.CrossFade(WalkHash, crossFadeDuration);
-            IsWaiting = false;
-            var randomDirection = Random.insideUnitSphere * wanderRadius;
-            randomDirection += startPoint;
-            NavMeshHit hit;
-            NavMesh.SamplePosition(randomDirection, out hit, wanderRadius, 1);
-            var finalPosition = hit.position;
+            return;
+        }
 
-            agent.SetDestination(finalPosition);
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            waiting = true;
+            waitTime = 0f;
+            waitDuration = Random.Range(4, 8);
         }
     }
 
-    bool HasReachedDestination()
+    private void SetNewWanderTarget(Enemy enemy)
     {
-        return !agent.pathPending
-               && agent.remainingDistance <= agent.stoppingDistance
-               && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f);
+        Vector3 randomPoint = enemy.transform.position + Random.insideUnitSphere * enemyStats.WanderRadius;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, enemyStats.WanderRadius, NavMesh.AllAreas))
+        {
+            wanderTarget = hit.position;
+            agent.SetDestination(wanderTarget);
+        }
+    }
+
+    public override void OnExit()
+    {
+        if (!agent.isActiveAndEnabled) return;
+
+        agent.isStopped = true;
+        waiting = false;
     }
 }

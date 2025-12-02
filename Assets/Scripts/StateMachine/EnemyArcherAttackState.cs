@@ -23,7 +23,7 @@ public class EnemyArcherAttackState : EnemyBaseState
     public override void OnEnter()
     {
         agent.speed = 0;
-        attackCoroutine = enemy.StartCoroutine(WaitForEndOfAttack());
+        //attackCoroutine = enemy.StartCoroutine(WaitForEndOfAttack());
         enemy.animationStatusTracker.OnAttackCompleted += () => AttackCompleted = true;
     }
 
@@ -47,34 +47,34 @@ public class EnemyArcherAttackState : EnemyBaseState
         //RotateTowardsTarget(GetRotationTowardsTarget());
     }
 
-    private Quaternion GetRotationTowardsTarget()
-    {
-        Vector3 DirToTarget = enemy.playerDetector.Player.transform.position - agent.transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(DirToTarget, Vector3.up);
-        targetRotation.x = 0;
-        targetRotation.z = 0;
-        return targetRotation;
-    }
+    // private Quaternion GetRotationTowardsTarget()
+    // {
+    //     Vector3 DirToTarget = enemy.playerDetector.Player.transform.position - agent.transform.position;
+    //     Quaternion targetRotation = Quaternion.LookRotation(DirToTarget, Vector3.up);
+    //     targetRotation.x = 0;
+    //     targetRotation.z = 0;
+    //     return targetRotation;
+    // }
 
     private void RotateTowardsTarget(Quaternion targetRotation)
     {
         agent.transform.rotation = Quaternion.RotateTowards(agent.transform.rotation, targetRotation, enemy.rotationSpeed * Time.deltaTime);
     }
 
-    private IEnumerator WaitForEndOfAttack()
-    {
-        while (!CheckAngleToAttacker(enemy.playerDetector.Player.gameObject, 10f))
-        {
-            RotateTowardsTarget(GetRotationTowardsTarget());
-            yield return null;
-        }
-        agent.transform.rotation = GetRotationTowardsTarget();
-        yield return null;
-        animator.CrossFade(AttackHash, crossFadeDuration, 1);
-        yield return new WaitUntil(() => AttackCompleted);
-        attackCoroutine = null;
-        yield return null;
-    }
+    // private IEnumerator WaitForEndOfAttack()
+    // {
+    //     while (!CheckAngleToAttacker(enemy.playerDetector.Player.gameObject, 10f))
+    //     {
+    //         RotateTowardsTarget(GetRotationTowardsTarget());
+    //         yield return null;
+    //     }
+    //     agent.transform.rotation = GetRotationTowardsTarget();
+    //     yield return null;
+    //     animator.CrossFade(AttackHash, crossFadeDuration, 1);
+    //     yield return new WaitUntil(() => AttackCompleted);
+    //     attackCoroutine = null;
+    //     yield return null;
+    // }
 
     private bool CheckAngleToAttacker(GameObject attacker, float blockAngle)
     {

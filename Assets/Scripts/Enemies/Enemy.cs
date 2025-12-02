@@ -13,7 +13,6 @@ public class Enemy : Entity
     public int ExpValue;
     public float ExpRange;
     public NavMeshAgent agent;
-    public PlayerDetector playerDetector;
     [SerializeField] protected Animator animator;
     public Collider coll;
     public GameObject ragdoll;
@@ -25,7 +24,7 @@ public class Enemy : Entity
     public float rotationSpeed;
 
     [SerializeField] protected float wanderRadius = 10f;
-    [SerializeField] protected float timeBetweenAttacks = 1f;
+    public float timeBetweenAttacks = 1f;
 
     protected StateMachine stateMachine;
     protected Hitbox hitbox;
@@ -49,9 +48,24 @@ public class Enemy : Entity
     public float StartWanderSpeed { get; private set; }
     public float StartChaseSpeed { get; private set; }
 
+    public Transform target;
+    public LayerMask targetLayer;
+    public LayerMask obstructionLayer;
+    public float attackRange;
+    public bool InAttackRange = false;
+    public bool CanAttack = false;
+    public float NextAttackTime;
+
+    private EnemyStatsSO enemyStats;
+
+    private Dictionary<Transform, float> damageTable = new Dictionary<Transform, float>();
+
     public override void Awake()
     {
         base.Awake();
+
+        enemyStats = EntityData as EnemyStatsSO;
+
 
         entityIdentity = GetComponent<EntityIdentity>();
 
@@ -65,6 +79,9 @@ public class Enemy : Entity
         statusController = GetComponent<StatusController>();
         StartWanderSpeed = wanderSpeed;
         StartChaseSpeed = chaseSpeed;
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+        agent.avoidancePriority = Random.Range(0, 99);
+        agent.stoppingDistance = enemyStats.AttackRange * 0.9f;
         ApplyStats();
     }
 
@@ -75,15 +92,19 @@ public class Enemy : Entity
         stateMachine = new StateMachine();
 
         wanderState = new EnemyWanderState(this, animator, agent, wanderRadius);
-        var chaseState = new EnemyChaseState(this, animator, agent, playerDetector.Player);
-        var attackState = new EnemyAttackState(this, animator, agent, playerDetector.Player);
+        var chaseState = new EnemyChaseState(this, animator, agent, target);
+        var waitToAttackState = new EnemyWaitToAttackState(this, animator, agent, target);
+        var attackState = new EnemyAttackState(this, animator, agent, target);
         var deathState = new EnemyDieState(this, animator, agent, transform);
-        var staggerStage = new EnemyStaggerState(this, animator, agent, transform);
 
-        At(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
-        At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
-        At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer() && !attackOnCooldown));
-        At(attackState, chaseState, new FuncPredicate(() => attackState.AttackCompleted));
+        At(wanderState, chaseState, new FuncPredicate(() => target != null));
+        At(chaseState, wanderState, new FuncPredicate(() => target == null));
+
+        At(chaseState, waitToAttackState, new FuncPredicate(() => InAttackRange));
+        At(waitToAttackState, chaseState, new FuncPredicate(() => !InAttackRange));
+
+        At(waitToAttackState, attackState, new FuncPredicate(() => CanAttack));
+        At(attackState, waitToAttackState, new FuncPredicate(() => !CanAttack));
 
         Any(deathState, new FuncPredicate(() => IsDead));
 
@@ -109,6 +130,8 @@ public class Enemy : Entity
         HealthController.OnTakeDamage += Stagger;
         HealthController.OnDie += () => IsDead = true;
         HealthController.OnDie += Die;
+        HealthController.OnTakeDamage += AlertNearbyEnemies;
+        HealthController.OnTakeDamage += UpdateDamageTable;
     }
 
     private void OnDisable()
@@ -118,6 +141,8 @@ public class Enemy : Entity
         HealthController.OnDie -= Die;
 
         stateMachine.OnStateChanged -= UpdateStateName;
+        HealthController.OnTakeDamage -= AlertNearbyEnemies;
+        HealthController.OnTakeDamage -= UpdateDamageTable;
     }
 
     protected void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
@@ -129,6 +154,7 @@ public class Enemy : Entity
         stateMachine.Update();
         attackTimer.Tick(Time.deltaTime);
         UpdateAnimatorParameters();
+        PushAwayFromNearbyEnemies();
     }
 
     void FixedUpdate()
@@ -189,5 +215,105 @@ public class Enemy : Entity
         EntityStatus.WorldPosition = transform.position;
         EntityStatus.IsDead = IsDead;
         return EntityStatus;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
+    }
+
+    public Transform FindTargetInAggroRange()
+    {
+        EnemyStatsSO enemyStats = EntityData as EnemyStatsSO;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, enemyStats.AggroRange, targetLayer);
+        if (colliders.Length == 0)
+        {
+            return null;
+        }
+
+        foreach (Collider coll in colliders)
+        {
+            Vector3 dirToColl = (coll.transform.position - transform.position).normalized;
+            float distance = Vector3.Distance(coll.transform.position, transform.position);
+            if (!Physics.Raycast(transform.position, dirToColl, distance, obstructionLayer))
+            {
+                return coll.transform;
+            }
+        }
+
+        return colliders[0].transform;
+    }
+
+    public void PushAwayFromNearbyEnemies()
+    {
+        if (IsDead) return;
+        Vector3 repulsion = Vector3.zero;
+        Collider[] neighbors = Physics.OverlapSphere(transform.position, 1);
+
+        foreach (var col in neighbors)
+        {
+            if (col.gameObject == gameObject) continue;
+            Enemy other = col.GetComponent<Enemy>();
+            if (other != null)
+            {
+                Vector3 away = (transform.position - other.transform.position).normalized;
+                float dist = Vector3.Distance(transform.position, other.transform.position);
+                float strength = Mathf.Clamp01(1 - dist / 1); // stronger when closer
+                repulsion += away * strength * 0.1f; // tweak 0.1f for intensity
+            }
+        }
+
+        agent.Move(repulsion);
+    }
+
+    private void UpdateDamageTable(int damage, Entity entity)
+    {
+        if (!damageTable.ContainsKey(entity.transform))
+        {
+            damageTable.Add(entity.transform, 0f);
+        }
+
+        damageTable[entity.transform] += damage;
+
+        UpdateTarget();
+    }
+
+    public void UpdateTarget()
+    {
+        if (damageTable.Count == 0)
+            return;
+
+        Transform topAttacker = null;
+        float maxDamage = 0f;
+
+        foreach (var kvp in damageTable)
+        {
+            if (kvp.Value >= maxDamage)
+            {
+                maxDamage = kvp.Value;
+                topAttacker = kvp.Key;
+            }
+        }
+
+        if (topAttacker != null)
+            target = topAttacker;
+    }
+
+    private void AlertNearbyEnemies(int damage, Entity attacker)
+    {
+        LayerMask enemyLayer = 1 << gameObject.layer;
+        Collider[] nearby = Physics.OverlapSphere(transform.position, enemyStats.AggroRange, enemyLayer);
+        foreach (var col in nearby)
+        {
+            if (col.transform == transform) continue;
+            Enemy other = col.GetComponent<Enemy>();
+            if (other != null)
+            {
+                if (other.target == null)
+                {
+                    other.UpdateDamageTable(0, attacker);
+                }
+            }
+        }
     }
 }

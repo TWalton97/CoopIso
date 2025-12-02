@@ -13,15 +13,19 @@ public class SkeletonArcher : Enemy
         stateMachine = new StateMachine();
 
         wanderState = new EnemyWanderState(this, animator, agent, wanderRadius);
-        var chaseState = new EnemyChaseState(this, animator, agent, playerDetector.Player);
-        var attackState = new EnemyArcherAttackState(this, animator, agent, playerDetector.Player);
+        var chaseState = new EnemyChaseState(this, animator, agent, target);
+        var waitToAttackState = new EnemyWaitToAttackState(this, animator, agent, target);
+        var attackState = new EnemyAttackState(this, animator, agent, target);
         var deathState = new EnemyDieState(this, animator, agent, transform);
-        var staggerStage = new EnemyStaggerState(this, animator, agent, transform);
 
-        At(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
-        At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
-        At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer() && !attackOnCooldown));
-        At(attackState, chaseState, new FuncPredicate(() => attackState.AttackCompleted));
+        At(wanderState, chaseState, new FuncPredicate(() => target != null));
+        At(chaseState, wanderState, new FuncPredicate(() => target == null));
+
+        At(chaseState, waitToAttackState, new FuncPredicate(() => InAttackRange));
+        At(waitToAttackState, chaseState, new FuncPredicate(() => !InAttackRange));
+
+        At(waitToAttackState, attackState, new FuncPredicate(() => CanAttack));
+        At(attackState, waitToAttackState, new FuncPredicate(() => !CanAttack));
 
         Any(deathState, new FuncPredicate(() => IsDead));
 
@@ -35,6 +39,9 @@ public class SkeletonArcher : Enemy
         if (attackTimer.IsRunning) return;
 
         Projectile proj = Instantiate(projectile, arrowSpawnPos.position, transform.rotation);
+        proj.GetComponent<Collider>().includeLayers = targetLayer;
+        proj.GetComponent<Collider>().excludeLayers = 1 >> gameObject.layer;
+
         proj.Init(projectileSpeed, damage, this, 3, false);
         attackTimer.Start();
     }

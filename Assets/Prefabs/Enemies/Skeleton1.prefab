@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 6720411467710495853}
   - component: {fileID: 3782912644071027179}
   - component: {fileID: 3080901480681641159}
+  - component: {fileID: -4947240711476998272}
   m_Layer: 8
   m_Name: Skeleton1
   m_TagString: Cull
@@ -171,7 +172,6 @@ MonoBehaviour:
   ExpValue: 90
   ExpRange: 15
   agent: {fileID: 656917702489987130}
-  playerDetector: {fileID: 2216805077470453316}
   animator: {fileID: 7866579901005423658}
   coll: {fileID: 5327276164323173073}
   ragdoll: {fileID: 6572463257021303076}
@@ -188,6 +188,17 @@ MonoBehaviour:
   spawned: 0
   animationStatusTracker: {fileID: 0}
   HasSpawnedItems: 0
+  target: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 16512
+  obstructionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackRange: 0
+  InAttackRange: 0
+  CanAttack: 0
+  NextAttackTime: 0
 --- !u!195 &656917702489987130
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -358,6 +369,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 
+--- !u!54 &-4947240711476998272
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643943140788604249}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1107785775626915473
 GameObject:
   m_ObjectHideFlags: 0

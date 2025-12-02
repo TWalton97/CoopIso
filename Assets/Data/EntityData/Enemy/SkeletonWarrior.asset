@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f843c9ad00ca034895a8a00699ab3a1, type: 3}
   m_Name: SkeletonWarrior
   m_EditorClassIdentifier: 
-  MaximumHealth: 80
+  MaximumHealth: 24
   MovementSpeed: 2.5
   CriticalChance: 10
   CriticalDamage: 100
   WanderSpeed: 1
+  WanderRadius: 2
+  AggroRange: 10
+  ChaseSpeed: 2.5
+  AttackRange: 1.1
+  AttackCooldown: 1.5
+  RotationSpeed: 10
