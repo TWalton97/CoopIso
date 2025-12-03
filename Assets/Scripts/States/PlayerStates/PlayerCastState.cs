@@ -12,7 +12,10 @@ public class PlayerCastState : PlayerBaseState
         PlayerUserInterfaceController controller = player.PlayerContext.UserInterfaceController;
         AbilityScrollController.AbilityData selectedAbility = controller.AbilityScrollController.ActiveAbility;
         player.AbilityController.UseAbility(selectedAbility);
-        player._movementSpeed = player._maximumMovementSpeed * selectedAbility.AbilitySO.MovementSpeedMultiplierWhileUsing;
+
+        if (!selectedAbility.AbilitySO.CanMoveWhileUsing)
+            player.MovementLocked = true;
+
         player.AnimationStatusTracker.OnAbilityCompleted += AbilityCompleted;
     }
 
@@ -29,7 +32,7 @@ public class PlayerCastState : PlayerBaseState
 
     public override void OnExit()
     {
-        player._movementSpeed = player._maximumMovementSpeed;
+        player.MovementLocked = false;
         player.abilityButtonPressed = false;
     }
 }

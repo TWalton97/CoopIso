@@ -44,6 +44,7 @@ public class NewPlayerController : Entity
 
     [SerializeField] private LayerMask GroundLayer = NavMeshUtils.GROUND_LAYER;
     private Vector2 _moveInput;
+    public bool MovementLocked = false;
     public bool blockButtonPressed;
     public bool attackButtonPressed;
     public bool abilityButtonPressed;
@@ -80,7 +81,7 @@ public class NewPlayerController : Entity
     {
         base.ApplyStats();
         HealthController.Init(EntityData.MaximumHealth);
-        _movementSpeed = EntityData.MovementSpeed;
+        _maximumMovementSpeed = EntityData.MovementSpeed;
         PlayerStatsBlackboard.CriticalChance = EntityData.CriticalChance;
         PlayerStatsBlackboard.CriticalDamage = EntityData.CriticalDamage;
     }
@@ -92,7 +93,6 @@ public class NewPlayerController : Entity
         SubscribeToInputEvents();
         // StartCoroutine(WaitForSetup());
 
-        _maximumMovementSpeed = _movementSpeed;
         PlayerInputController.attackCountdownTimer.OnTimerStop += () => attackButtonPressed = true;
 
         if (PlayerInputController.playerIndex == 1)
@@ -228,8 +228,8 @@ public class NewPlayerController : Entity
     {
         Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity);
 
-        Animator.SetFloat("VelocityX", localVelocity.x / _maximumMovementSpeed);
-        Animator.SetFloat("VelocityZ", localVelocity.z / _maximumMovementSpeed);
+        Animator.SetFloat("VelocityX", localVelocity.x / EntityData.MovementSpeed);
+        Animator.SetFloat("VelocityZ", localVelocity.z / EntityData.MovementSpeed);
 
         Animator.SetFloat("SpeedMultiplier", Mathf.Clamp(_movementSpeed / _maximumMovementSpeed, 0.5f, 1));
     }
@@ -251,10 +251,18 @@ public class NewPlayerController : Entity
 
         rotatedInputDirection = camForward * _moveInput.y + camRight * _moveInput.x;
 
-        Vector3 newVel = rotatedInputDirection * _movementSpeed;
+        Vector3 newVel = rotatedInputDirection * 0;
+
+        if (!MovementLocked)
+        {
+            newVel = rotatedInputDirection * _maximumMovementSpeed;
+        }
+
         newVel.y = Rigidbody.velocity.y;
 
+
         Rigidbody.velocity = newVel;
+        _movementSpeed = newVel.magnitude;
 
         if (attackStateMachine.current.State == attackState || (attackStateMachine.current.State == castState && !AbilityBeingUsed.CanRotateDuringCast))
             return;

@@ -28,14 +28,14 @@ MonoBehaviour:
   statusSO: {fileID: 11400000, guid: 0ae180700c5b45747a904b6df15b9584, type: 2}
   buffBehaviourPrefab: {fileID: 1356468606317954617, guid: 11f246e1c9f17ca4f8e0a7269aa64ad3, type: 3}
   BuffValuePerLevel:
+  - 4
   - 6
   - 8
   - 10
   - 12
-  - 14
   BuffDurationPerLevel:
   - 10
+  - 12
   - 14
+  - 16
   - 18
-  - 22
-  - 26

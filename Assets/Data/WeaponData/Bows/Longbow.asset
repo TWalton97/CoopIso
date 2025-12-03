@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8979b43ee1546f4c9432577269ef162, type: 3}
   m_Name: Longbow
   m_EditorClassIdentifier: 
+  GoldValue: 0
+  Weight: 0
+  BaseLootBudget: 6
+  BaseLootWeight: 4
   <WeaponMinDamage>k__BackingField: 7
   <WeaponMaxDamage>k__BackingField: 14
   <AttacksPerSecond>k__BackingField: 0.8
   <NumberOfAttacksInCombo>k__BackingField: 1
-  <MovementSpeedMultiplierDuringAttack>k__BackingField: 0
-  <NumberOfProjectiles>k__BackingField: 1

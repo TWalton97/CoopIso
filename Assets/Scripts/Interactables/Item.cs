@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour, IInteractable
 {
-    public int baseLootBudget;
-    public float baseLootWeight;
     public enum ItemDropType
     {
         Equipment,
@@ -89,7 +88,6 @@ public class ItemData
 {
     public string itemID;
     public string itemName;
-    public int quantity;
     public Sprite sprite;
     public int itemValue;
     public float itemWeight;
@@ -101,6 +99,26 @@ public class ItemData
     public WeaponRangeType weaponRangeType;
     public ItemSO data;
     public ItemQuality itemQuality;
+
+    public ItemData Clone()
+    {
+        return new ItemData()
+        {
+            itemID = "",
+            itemName = this.itemName,
+            sprite = this.sprite,
+            itemValue = this.itemValue,
+            itemWeight = this.itemWeight,
+            itemDescription = this.itemDescription,
+            objectPrefab = this.objectPrefab,
+            floorObjectPrefab = this.floorObjectPrefab,
+            vfxPrefab = this.vfxPrefab,
+            itemType = this.itemType,
+            weaponRangeType = this.weaponRangeType,
+            data = this.data,
+            itemQuality = this.itemQuality,
+        };
+    }
 }
 
 [System.Serializable]

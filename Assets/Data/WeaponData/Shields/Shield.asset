@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffaa435d16d0e840b7cd9444c95fd7f, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
+  GoldValue: 0
+  Weight: 0
+  BaseLootBudget: 5
+  BaseLootWeight: 4
   BlockAngle: 60
   BlockAmount: 2
   ArmorAmount: 2

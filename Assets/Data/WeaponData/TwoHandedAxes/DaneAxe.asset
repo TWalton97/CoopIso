@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GoldValue: 11
   Weight: 17
+  BaseLootBudget: 6
+  BaseLootWeight: 4
   <WeaponMinDamage>k__BackingField: 12
   <WeaponMaxDamage>k__BackingField: 18
   <AttacksPerSecond>k__BackingField: 0.68

@@ -106,12 +106,12 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
 public enum ItemQuality
 {
-    Shoddy = -1,
-    Normal = 0,
-    Fine = 1,
-    Remarkable = 2,
-    Superior = 3,
-    Grand = 4,
-    Imperial = 5,
-    Flawless = 6
+    Shoddy = 0,
+    Normal = -1,
+    Fine = 2,
+    Remarkable = 3,
+    Superior = 4,
+    Grand = 5,
+    Imperial = 6,
+    Flawless = 7
 }

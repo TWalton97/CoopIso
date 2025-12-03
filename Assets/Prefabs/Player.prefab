@@ -15408,6 +15408,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
+  MovementLocked: 0
   blockButtonPressed: 0
   attackButtonPressed: 0
   abilityButtonPressed: 0
@@ -15613,6 +15614,7 @@ MonoBehaviour:
   MovementSpeed: 0
   CurrentSpeed: 0
   WeaponController: {fileID: 7874169709706284734}
+  AttackSpeedMultiplier: 1
   AttacksPerSecond: 0
   CriticalChance: 10
   CriticalDamage: 50
@@ -15665,7 +15667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
-  SkillPoints: 0
+  SkillPoints: 9
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 412665536095753354}
 --- !u!114 &4202505148022750934
@@ -15833,7 +15835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53659272843e8ef449de48307ca09402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotCount: 8
+  maxSlots: 6
   radius: 0.8
 --- !u!1 &5016090182544120206
 GameObject:

@@ -13,6 +13,7 @@ public class PlayerAttackState : PlayerBaseState
     public override void OnEnter()
     {
         player.RotateToFaceLookPoint();
+        player.MovementLocked = true;
 
         if (player.WeaponController.instantiatedPrimaryWeapon != null)
         {
@@ -32,7 +33,6 @@ public class PlayerAttackState : PlayerBaseState
             }
         }
         player.WeaponController.Attack(AttackCompleted);
-        player._movementSpeed = 0;
     }
 
     private void AttackCompleted()
@@ -53,6 +53,6 @@ public class PlayerAttackState : PlayerBaseState
         {
             player.StopCoroutine(ReduceSpeedCoroutine);
         }
-        player._movementSpeed = player._maximumMovementSpeed;
+        player.MovementLocked = false;
     }
 }

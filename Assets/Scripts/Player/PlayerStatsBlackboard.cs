@@ -20,6 +20,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
     [Header("Attack")]
     public NewWeaponController WeaponController;
+    public float AttackSpeedMultiplier;
     public float AttacksPerSecond;
     public float CriticalChance = 10;
     public float CriticalDamage = 50;
@@ -55,6 +56,8 @@ public class PlayerStatsBlackboard : MonoBehaviour
         UpdateMovementSpeed();
         UpdateAttackStats();
         UpdateResourceStats();
+        PlayerStatsSO playerStats = PlayerController.EntityData as PlayerStatsSO;
+        AttackSpeedMultiplier = playerStats.BaseAttackSpeed;
     }
 
     private void OnEnable()
@@ -114,7 +117,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         PlayerController.PlayerContext.UserInterfaceController.UpdateWeightAmount(WeightCurrent, WeightMax);
     }
 
-    private void UpdateAttackStats()
+    public void UpdateAttackStats()
     {
         float attacksPerSecond = 0.00f;
         int numWeapons = 0;
@@ -151,7 +154,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
             attacksPerSecond /= numWeapons;
         }
 
-        AttacksPerSecond = attacksPerSecond;
+        AttacksPerSecond = attacksPerSecond * AttackSpeedMultiplier;
     }
 
     private void UpdateResourceStats()

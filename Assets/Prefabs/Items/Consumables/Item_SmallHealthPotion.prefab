@@ -46,8 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced95b1e9395e854ea8e7eaf4ae0d2ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseLootBudget: 5
-  baseLootWeight: 5
   itemDropType: 0
   ItemStatus:
     GUID: 
@@ -66,7 +64,7 @@ MonoBehaviour:
     vfxPrefab: {fileID: 0}
     itemType: 0
     weaponRangeType: 0
-    data: {fileID: 0}
+    data: {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
     itemQuality: -1
   InteractionType: 0
   itemID: 

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
   m_Name: Flamberge
   m_EditorClassIdentifier: 
+  GoldValue: 0
+  Weight: 0
+  BaseLootBudget: 6
+  BaseLootWeight: 4
   <WeaponMinDamage>k__BackingField: 11
   <WeaponMaxDamage>k__BackingField: 18
   <AttacksPerSecond>k__BackingField: 1.14

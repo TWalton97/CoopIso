@@ -7,7 +7,7 @@ public abstract class AbilitySO : ScriptableObject
     public AnimationClip AnimationClip;
     public Resources.ResourceType ResourceType;
     public float ResourceAmount;
-    public float MovementSpeedMultiplierWhileUsing = 1;
+    public bool CanMoveWhileUsing = false;
     public bool CanRotateDuringCast = true;
     public int MaxLevel;
     [TextArea] public string AbilityDescription;

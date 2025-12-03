@@ -27,6 +27,12 @@ public class BuffAbilityBehaviour : AbilityBehaviour<BuffRuntimeAbility>
             NumberOfTargets = (int)runtime.Duration;
         }
 
+        if (Status is MovementSpeedBuffSO movementSpeedBuffSO)
+        {
+            movementSpeedBuffSO.speedIncreasePercentage = (int)runtime.BuffAmount;
+            movementSpeedBuffSO.baseDuration = runtime.Duration;
+        }
+
         if (buffApplicationTime == BuffApplicationTime.OnEnter)
         {
             ApplyBuff();

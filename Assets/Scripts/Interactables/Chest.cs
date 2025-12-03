@@ -67,7 +67,7 @@ public class Chest : MonoBehaviour, IInteractable
             }
             else
             {
-                spawnedItemDataBase.SpawnAndRegisterItem(item.item.itemData, ReturnSpawnPositionInRadius(), Quaternion.identity);
+                spawnedItemDataBase.SpawnAndRegisterItem(item.itemData, ReturnSpawnPositionInRadius(), Quaternion.identity);
             }
             yield return new WaitForSeconds(0.2f);
         }

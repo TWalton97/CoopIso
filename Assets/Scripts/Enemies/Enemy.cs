@@ -192,7 +192,7 @@ public class Enemy : Entity
         StateName = stateMachine.current.State.ToString();
     }
 
-    private void DistributeExperience()
+    protected void DistributeExperience()
     {
         NewPlayerController[] playerControllers = FindObjectsOfType<NewPlayerController>();
         foreach (NewPlayerController playerController in playerControllers)

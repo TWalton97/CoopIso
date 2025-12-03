@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ba83d6aec6a5043af45903f9a2df83, type: 3}
   m_Name: MediumBodyArmor
   m_EditorClassIdentifier: 
+  GoldValue: 0
+  Weight: 0
+  BaseLootBudget: 6
+  BaseLootWeight: 4
   ArmorType: 2
   ArmorAmount: 2

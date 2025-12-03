@@ -6,10 +6,13 @@ using UnityEngine;
 public class MovementSpeedBuffSO : StatusSO
 {
     public GameObject VFX;
-    public int slowPercentage;
+    public int speedIncreasePercentage;
 
     private float startChaseSpeed;
     public float startWanderSpeed;
+
+    private float speedChange;
+    private float attackSpeedChange;
 
     public override void OnEnter(StatusInstance instance, StatusController target)
     {
@@ -19,8 +22,18 @@ public class MovementSpeedBuffSO : StatusSO
             startWanderSpeed = enemy.wanderSpeed;
             startChaseSpeed = enemy.chaseSpeed;
 
-            enemy.wanderSpeed *= (100 - slowPercentage) * 0.01f;
-            enemy.chaseSpeed *= (100 - slowPercentage) * 0.01f;
+            enemy.wanderSpeed *= (100 + speedIncreasePercentage) * 0.01f;
+            enemy.chaseSpeed *= (100 + speedIncreasePercentage) * 0.01f;
+        }
+        else if (target.TryGetComponent(out NewPlayerController player))
+        {
+            startChaseSpeed = player._maximumMovementSpeed;
+
+            speedChange = player.EntityData.MovementSpeed * (speedIncreasePercentage * 0.01f);
+            player._maximumMovementSpeed += speedChange;
+
+            player.PlayerStatsBlackboard.AttackSpeedMultiplier += speedIncreasePercentage * 0.01f;
+            player.PlayerStatsBlackboard.UpdateAttackStats();
         }
         if (VFX != null)
         {
@@ -41,6 +54,13 @@ public class MovementSpeedBuffSO : StatusSO
         {
             enemy.wanderSpeed = startWanderSpeed;
             enemy.chaseSpeed = startChaseSpeed;
+        }
+        else if (target.TryGetComponent(out NewPlayerController player))
+        {
+            player._maximumMovementSpeed -= speedChange;
+            player.PlayerStatsBlackboard.AttackSpeedMultiplier -= speedIncreasePercentage * 0.01f;
+            player.PlayerStatsBlackboard.UpdateAttackStats();
+            //player._maximumMovementSpeed = startChaseSpeed;
         }
 
         if (instance.spawnedVFX != null)

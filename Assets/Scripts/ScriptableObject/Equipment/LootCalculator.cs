@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class LootCalculator
@@ -6,13 +7,15 @@ public static class LootCalculator
     public struct LootResult
     {
         public Item item;
+        public ItemData itemData;
         public ItemQuality quality;
         public int amount;
         public int budgetCost;
 
-        public LootResult(Item _item, ItemQuality _quality, int _amount, int _budgetCost)
+        public LootResult(Item _item, ItemData _itemData, ItemQuality _quality, int _amount, int _budgetCost)
         {
             this.item = _item;
+            this.itemData = _itemData;
             this.quality = _quality;
             this.amount = _amount;
             this.budgetCost = _budgetCost;
@@ -26,12 +29,13 @@ public static class LootCalculator
 
     public static List<LootResult> RollItemsWithBudget(int budget, float qualityBias = 0f)
     {
+        Debug.Log($"total loot budget is {budget}");
         List<LootResult> results = new List<LootResult>();
         SpawnedItemDataBase database = SpawnedItemDataBase.Instance;
 
         int cheapestCost = int.MaxValue;
         foreach (var li in database.spawnableItems)
-            cheapestCost = Mathf.Min(cheapestCost, li.baseLootBudget);
+            cheapestCost = Mathf.Min(cheapestCost, li.itemData.data.BaseLootBudget);
 
         if (budget < cheapestCost)
             return results;
@@ -43,17 +47,23 @@ public static class LootCalculator
         while (remaining >= cheapestCost && safetyCounter-- > 0)
         {
             Item chosen = WeightedRandom(database.spawnableItems);
+            ItemData data = chosen.itemData.Clone();
+            ItemQuality q = 0;
+            float multiplier = 1;
+            if (chosen.itemDropType == Item.ItemDropType.Equipment)
+            {
+                q = RollQuality(qualityBias);
+                data.itemQuality = q;
+                multiplier = QualityFactor(q);
+            }
 
-            ItemQuality q = RollQuality(qualityBias);
-            chosen.itemData.itemQuality = q;
+            int cost = Mathf.FloorToInt(chosen.itemData.data.BaseLootBudget * multiplier);
 
-            float multiplier = QualityFactor(q);
-
-            int cost = Mathf.RoundToInt(chosen.baseLootBudget * multiplier);
+            Debug.Log($"Trying to spawn a {q} {chosen.itemData.itemName} which costs {cost} with a remaining budget of {remaining}");
 
             if (cost <= remaining)
             {
-                LootResult lr = new LootResult(chosen, q, cost, ResolveAmount(chosen, cost));
+                LootResult lr = new LootResult(chosen, data, q, cost, ResolveAmount(chosen, cost));
                 results.Add(lr);
                 remaining -= cost;
             }
@@ -85,7 +95,7 @@ public static class LootCalculator
             return Items;
 
         GoldDrop combinedGoldDrop = SpawnedItemDataBase.Instance.spawnableItems[0] as GoldDrop;
-        LootResult lr = new LootResult(combinedGoldDrop, 0, totalGold, 0);
+        LootResult lr = new LootResult(combinedGoldDrop, combinedGoldDrop.itemData, 0, totalGold, 0);
         Items.Add(lr);
         return Items;
     }
@@ -107,13 +117,13 @@ public static class LootCalculator
     {
         float total = 0f;
         foreach (var li in list)
-            total += li.baseLootWeight;
+            total += li.itemData.data.BaseLootWeight;
 
         float r = Random.value * total;
 
         foreach (var li in list)
         {
-            r -= li.baseLootWeight;
+            r -= li.itemData.data.BaseLootWeight;
             if (r <= 0f)
                 return li;
         }
@@ -125,8 +135,8 @@ public static class LootCalculator
     {
         float r = Mathf.Clamp01(Random.value + qualityBias);
 
-        if (r < 0.2f) return ItemQuality.Shoddy;
-        if (r < 0.50f) return ItemQuality.Normal;
+        if (r < 0.4f) return ItemQuality.Shoddy;
+        if (r < 0.60f) return ItemQuality.Normal;
         if (r < 0.7f) return ItemQuality.Fine;
         if (r < 0.8f) return ItemQuality.Remarkable;
         if (r < 0.85f) return ItemQuality.Superior;
@@ -137,7 +147,7 @@ public static class LootCalculator
 
     public static float QualityFactor(ItemQuality q)
     {
-        return 1f + ((int)q * 0.25f);
+        return Mathf.Pow(1.4f, (int)q);
     }
 
     public static int CalculateQualityModifiedStat(int stat, ItemQuality quality)

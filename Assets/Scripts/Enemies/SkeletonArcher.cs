@@ -45,4 +45,10 @@ public class SkeletonArcher : Enemy
         proj.Init(projectileSpeed, damage, this, 3, false);
         attackTimer.Start();
     }
+
+    public override void Die()
+    {
+        DistributeExperience();
+        Destroy(gameObject, 1);
+    }
 }

@@ -17,7 +17,7 @@ MonoBehaviour:
   AnimationClip: {fileID: 7400000, guid: 63b3d9ed541af004bbdf824144fb5459, type: 2}
   ResourceType: 1
   ResourceAmount: 25
-  MovementSpeedMultiplierWhileUsing: 0.8
+  CanMoveWhileUsing: 1
   CanRotateDuringCast: 1
   MaxLevel: 3
   AbilityDescription: Spins around, rapidly dealing damage to all nearby enemies.

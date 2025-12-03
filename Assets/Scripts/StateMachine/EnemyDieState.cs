@@ -24,7 +24,7 @@ public class EnemyDieState : EnemyBaseState
         }
         else
         {
-            animator.CrossFade(DieHash, crossFadeDuration);
+            animator.CrossFade(DieHash, 0f);
             enemy.StartCoroutine(SpawnItems());
             enemy.HasSpawnedItems = true;
         }
@@ -44,7 +44,7 @@ public class EnemyDieState : EnemyBaseState
 
     private IEnumerator SpawnItems()
     {
-        int budget = enemy.EntityData.MaximumHealth / 10;
+        int budget = 2 * (int)Mathf.Sqrt(enemy.EntityData.MaximumHealth);
         var loot = LootCalculator.RollItemsWithBudget(budget);
 
         foreach (var item in loot)
@@ -61,7 +61,7 @@ public class EnemyDieState : EnemyBaseState
             }
             else
             {
-                SpawnedItemDataBase.Instance.SpawnAndRegisterItem(item.item.itemData, ReturnSpawnPositionInRadius(), Quaternion.identity);
+                SpawnedItemDataBase.Instance.SpawnAndRegisterItem(item.itemData, ReturnSpawnPositionInRadius(), Quaternion.identity);
             }
             yield return new WaitForSeconds(0.2f);
         }
