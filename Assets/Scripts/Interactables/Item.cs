@@ -19,7 +19,7 @@ public class Item : MonoBehaviour, IInteractable
     protected bool _isInteractable = false;
     public InteractionType InteractionType;
 
-    public virtual string interactableName { get => itemData.itemName; set => itemData.itemName = value; }
+    public virtual string interactableName { get => itemData.Name; set => itemData.Name = value; }
     public virtual bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
     public virtual InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
 
@@ -27,11 +27,9 @@ public class Item : MonoBehaviour, IInteractable
 
     void Start()
     {
-        if (itemData.vfxPrefab != null)
-            Instantiate(itemData.vfxPrefab, transform);
         targetRotation = transform.rotation;
         targetPosition = transform.position;
-        ItemStatus = new ItemStatus(itemData.itemID, targetPosition, targetRotation);
+        ItemStatus = new ItemStatus(itemData.ItemID, targetPosition, targetRotation);
         StartCoroutine(RotateRandomly());
     }
 
@@ -55,7 +53,7 @@ public class Item : MonoBehaviour, IInteractable
 
     private void CollectItem(PlayerContext playerContext)
     {
-        if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + itemData.itemWeight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
+        if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + itemData.Weight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
         {
             StartCoroutine(RotateRandomly());
             return;
@@ -79,46 +77,37 @@ public class Item : MonoBehaviour, IInteractable
 
     public virtual string GetInteractableName()
     {
-        return itemData.itemQuality.ToString() + " " + interactableName;
+        return itemData.Quality.ToString() + " " + interactableName;
     }
 }
 
 [System.Serializable]
 public class ItemData
 {
-    public string itemID;
-    public string itemName;
-    public Sprite sprite;
-    public int itemValue;
-    public float itemWeight;
-    [TextArea] public string itemDescription;
-    public GameObject objectPrefab;
-    public GameObject floorObjectPrefab;
-    public GameObject vfxPrefab;
-    public ItemType itemType;
-    public WeaponRangeType weaponRangeType;
-    public ItemSO data;
-    public ItemQuality itemQuality;
+    public string ItemID;
+    public ItemSO ItemSO;
+    public ItemQuality Quality;
 
-    public ItemData Clone()
-    {
-        return new ItemData()
-        {
-            itemID = "",
-            itemName = this.itemName,
-            sprite = this.sprite,
-            itemValue = this.itemValue,
-            itemWeight = this.itemWeight,
-            itemDescription = this.itemDescription,
-            objectPrefab = this.objectPrefab,
-            floorObjectPrefab = this.floorObjectPrefab,
-            vfxPrefab = this.vfxPrefab,
-            itemType = this.itemType,
-            weaponRangeType = this.weaponRangeType,
-            data = this.data,
-            itemQuality = this.itemQuality,
-        };
-    }
+    public string Name { get => ItemSO.ItemName; set => Name = value; }
+    public Sprite Sprite => ItemSO.ItemSprite;
+    public GameObject ItemPrefab => ItemSO.ItemPrefab;
+    public GameObject GroundPrefab => ItemSO.GroundItemPrefab;
+    public int GoldValue => Mathf.RoundToInt(ItemSO.GoldValue * LootCalculator.QualityFactor(Quality));
+    [Tooltip("Just used for gold drops")] public int GoldDropValue;
+    public float Weight => ItemSO.BaseLootWeight;
+    public int Quantity = 1;
+
+    public int MinDamage => (ItemSO as WeaponSO)?.WeaponMinDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMinDamage * LootCalculator.QualityFactor(Quality)) : 0;
+    public int MaxDamage => (ItemSO as WeaponSO)?.WeaponMaxDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMaxDamage * LootCalculator.QualityFactor(Quality)) : 0;
+    public WeaponRangeType WeaponRangeType => (ItemSO as WeaponSO)?.WeaponRangeType != null ? (ItemSO as WeaponSO).WeaponRangeType : WeaponRangeType.None;
+
+    public int ArmorAmount => (ItemSO as ArmorSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ArmorSO).ArmorAmount * LootCalculator.QualityFactor(Quality)) : 0;
+    public ArmorType ArmorType => (ItemSO as ArmorSO)?.ArmorType != null ? (ItemSO as ArmorSO).ArmorType : ArmorType.None;
+
+    public int ShieldArmorAmount => (ItemSO as ShieldSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ShieldSO).ArmorAmount * LootCalculator.QualityFactor(Quality)) : 0;
+
+    public Resources.ResourceType ResourceType => (ItemSO as PotionSO)?.ResourceToRestore ?? Resources.ResourceType.Health;
+    public int ResourceAmount => (ItemSO as PotionSO)?.AmountOfResourceToRestore ?? 0;
 }
 
 [System.Serializable]

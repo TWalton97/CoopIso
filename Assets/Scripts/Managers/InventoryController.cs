@@ -20,6 +20,10 @@ public class InventoryController : MonoBehaviour
     public GameObject[] inventoryPanelGameObjects;
     private int currentIndex = 0;
 
+    private bool toggled = false;
+
+    public InventoryMode InventoryMode = InventoryMode.Normal;
+
     public void Init(PlayerContext playerContext)
     {
         PlayerContext = playerContext;
@@ -35,34 +39,27 @@ public class InventoryController : MonoBehaviour
         ControlsPanel.UpdateControls(PlayerContext, controlData);
     }
 
-    public void ToggleInventory(bool toggle)
+    public void ToggleInventory()
     {
-        ControlsPanel.gameObject.SetActive(toggle);
-        InventoryObjectsParent.SetActive(toggle);
-        if (toggle)
+        toggled = !toggled;
+        ControlsPanel.gameObject.SetActive(toggled);
+        InventoryObjectsParent.SetActive(toggled);
+        if (toggled)
         {
+            PlayerContext.InventoryManager.RequestPause();
             currentIndex = 0;
             OpenMenu(0);
+        }
+        else
+        {
+            PlayerContext.InventoryManager.RequestUnpause();
         }
     }
 
     public void AddItemToInventory(ItemData itemData, bool isEquipped = false)
     {
-        PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(itemData.itemWeight);
+        PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(itemData.Weight);
         FindCorrectInventory(itemData).CreateButtonForItem(itemData, isEquipped);
-    }
-
-    public void AddItemToInventory(PotionSO potionData)
-    {
-        ConsumableButton consumableButton = ConsumablesInventory.TryFindConsumableButtonOfType(potionData);
-        if (consumableButton != null)
-        {
-            consumableButton.UpdateQuantity(1);
-        }
-        else
-        {
-            ConsumablesInventory.CreateButtonForItem(potionData);
-        }
     }
 
     public void GoToNextMenu()
@@ -99,7 +96,7 @@ public class InventoryController : MonoBehaviour
 
     private InventoryItemController FindCorrectInventory(ItemData itemData)
     {
-        switch (itemData.itemType)
+        switch (itemData.ItemSO.ItemType)
         {
             case ItemType.OneHanded:
                 return WeaponInventory;
@@ -122,4 +119,27 @@ public class InventoryController : MonoBehaviour
         }
         return null;
     }
+
+    public void ChangeInventoryMode(InventoryMode inventoryMode)
+    {
+        InventoryMode = inventoryMode;
+        WeaponInventory.SwapToInventoryMode(inventoryMode);
+        ArmorInventory.SwapToInventoryMode(inventoryMode);
+        ConsumablesInventory.SwapToInventoryMode(inventoryMode);
+    }
+
+    public void SetupBuyInventory(List<ItemData> itemsForSale)
+    {
+        foreach (ItemData itemData in itemsForSale)
+        {
+            FindCorrectInventory(itemData).CreateButtonForBuyItem(itemData);
+        }
+    }
+}
+
+public enum InventoryMode
+{
+    Normal,
+    Buy,
+    Sell
 }

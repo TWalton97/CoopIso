@@ -65,5 +65,6 @@ public enum InteractionType
     PickUp,
     Open,
     Close,
-    Travel
+    Travel,
+    TalkTo,
 }

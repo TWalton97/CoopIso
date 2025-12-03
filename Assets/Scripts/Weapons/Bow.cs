@@ -14,9 +14,9 @@ public class Bow : Weapon
     }
     public override void ActivateHitbox()
     {
-        if (ItemData.data is BowSO weaponData)
+        if (ItemData.ItemSO is WeaponSO weaponData)
         {
-            int rolledDamage = Random.Range(minDamage, maxDamage);
+            int rolledDamage = Random.Range(ItemData.MinDamage, ItemData.MaxDamage);
             SpawnProjectiles(1, rolledDamage);
         }
     }

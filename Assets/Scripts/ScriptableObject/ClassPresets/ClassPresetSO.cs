@@ -7,14 +7,14 @@ public class ClassPresetSO : ScriptableObject
 {
     public string PresetName;
 
-    public Item StartingMainHandWeapon;
-    public Item StartingOffhandWeapon;
+    public ItemSO StartingMainHandWeapon;
+    public ItemSO StartingOffhandWeapon;
 
-    public Item StartingHelmet;
-    public Item StartingBodyArmor;
-    public Item StartingLegArmor;
+    public ItemSO StartingHelmet;
+    public ItemSO StartingBodyArmor;
+    public ItemSO StartingLegArmor;
 
-    public List<ConsumableDrop> StartingConsumables;
+    public List<ItemSO> StartingConsumables;
 
     [Tooltip("List of feats that will be added to this class's Feats Menu")] public ClassFeatConfig classFeatConfig;
     public PlayerStatsSO PlayerStatsSO;

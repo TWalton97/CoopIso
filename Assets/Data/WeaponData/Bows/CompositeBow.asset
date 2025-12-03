@@ -9,14 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8979b43ee1546f4c9432577269ef162, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
   m_Name: CompositeBow
   m_EditorClassIdentifier: 
-  GoldValue: 0
-  Weight: 0
+  ItemName: Composite Bow
+  ItemSprite: {fileID: 21300000, guid: ad63190882c3dcf4d8d88c6994140e6f, type: 3}
+  ItemPrefab: {fileID: 1717406733745140, guid: 4535dcac0f9dc7244a77b80b041978a5, type: 3}
+  GroundItemPrefab: {fileID: 2558469119884498331, guid: ff56a8ac47cfbd84a9449b4769513065, type: 3}
+  ItemType: 7
+  ItemDropType: 0
   BaseLootBudget: 6
-  BaseLootWeight: 4
+  BaseLootWeight: 6
+  GoldValue: 20
+  Weight: 8
   <WeaponMinDamage>k__BackingField: 4
-  <WeaponMaxDamage>k__BackingField: 10
-  <AttacksPerSecond>k__BackingField: 1.2
+  <WeaponMaxDamage>k__BackingField: 12
+  <AttacksPerSecond>k__BackingField: 1
   <NumberOfAttacksInCombo>k__BackingField: 1
+  WeaponRangeType: 2

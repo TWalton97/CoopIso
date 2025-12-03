@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a56bfbce48bcdc40985eb6b511ba798, type: 3}
   m_Name: SmallManaPotion
   m_EditorClassIdentifier: 
-  GoldValue: 25
-  Weight: 1
+  ItemName: Small Mana Potion
+  ItemSprite: {fileID: 21300000, guid: 597d01b22596a204d8c2a1961f356ce7, type: 3}
+  ItemPrefab: {fileID: 155352792193692170, guid: aaede4860e771814ab1ac06d06321918, type: 3}
+  GroundItemPrefab: {fileID: 155352792193692170, guid: aaede4860e771814ab1ac06d06321918, type: 3}
+  ItemType: 0
+  ItemDropType: 1
   BaseLootBudget: 3
   BaseLootWeight: 15
+  GoldValue: 25
+  Weight: 1
   PotionName: Small Mana Potion
   PotionSprite: {fileID: 21300000, guid: 597d01b22596a204d8c2a1961f356ce7, type: 3}
   PotionPrefab: {fileID: 155352792193692170, guid: aaede4860e771814ab1ac06d06321918, type: 3}

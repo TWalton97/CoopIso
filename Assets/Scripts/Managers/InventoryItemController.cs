@@ -15,15 +15,21 @@ public class InventoryItemController : MonoBehaviour
     public PlayerContext PlayerContext;
 
     public Transform ItemButtonParent;
+    public Transform BuyItemButtonParent;
     public ItemButton ItemButtonPrefab;
 
     public ScrollRect scrollRect;
 
     private Dictionary<string, ItemButton> instantiatedItemButtons = new Dictionary<string, ItemButton>();
+    private Dictionary<string, ItemButton> instantiatedBuyItemButtons = new Dictionary<string, ItemButton>();
 
-    public List<ControlData> ControlData;
+    public List<ControlData> NormalModeControlData;
+    public List<ControlData> SellModeControlData;
+    public List<ControlData> BuyModeControlData;
 
     public ControlData EquipOffhandControlData; //We add this if the weapon can be equipped offhand
+
+    public InventoryMode InventoryMode;
 
     private void OnEnable()
     {
@@ -52,19 +58,27 @@ public class InventoryItemController : MonoBehaviour
         LeftTab.navigation = leftTabNavigation;
     }
 
-    public void UpdateControlsPanel(ItemButton button)
+    public void UpdateControlsPanel(ItemButton button = null)
     {
-        var controls = new List<ControlData>(ControlData);
-        if (button is EquippableButton equippableButton && equippableButton.CanEquipOffhand())
+        if (InventoryMode == InventoryMode.Normal && button != null)
         {
-            controls.Add(EquipOffhandControlData);
+            var controls = new List<ControlData>(NormalModeControlData);
+            if (button is EquippableButton equippableButton && equippableButton.CanEquipOffhand())
+            {
+                controls.Add(EquipOffhandControlData);
+            }
+            PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(controls);
         }
-        PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(controls);
-    }
-
-    void OnDisable()
-    {
-        DeselectAllButtons();
+        else if (InventoryMode == InventoryMode.Sell)
+        {
+            var controls = new List<ControlData>(SellModeControlData);
+            PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(controls);
+        }
+        else
+        {
+            var controls = new List<ControlData>(BuyModeControlData);
+            PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(controls);
+        }
     }
 
     public void SelectButton(int index = 0)
@@ -89,20 +103,8 @@ public class InventoryItemController : MonoBehaviour
     {
         ItemButton itemButton = Instantiate(ItemButtonPrefab, ItemButtonParent);
 
-        itemButton.InitializeItemButton(this, itemData, itemData.itemID, PlayerContext, isEquipped);
-        instantiatedItemButtons.Add(itemData.itemID, itemButton);
-    }
-
-    public void CreateButtonForItem(PotionSO potionData)
-    {
-        ItemButton itemButton = Instantiate(ItemButtonPrefab, ItemButtonParent);
-
-        if (itemButton is ConsumableButton consumableButton)
-        {
-            string id = GUID.Generate().ToString();
-            consumableButton.InitializeItemButton(this, potionData, id, PlayerContext);
-            instantiatedItemButtons.Add(id, itemButton);
-        }
+        itemButton.InitializeItemButton(this, itemData, itemData.ItemID, PlayerContext, isEquipped);
+        instantiatedItemButtons.Add(itemData.ItemID, itemButton);
     }
 
     public void RemoveButtonAtID(string id)
@@ -112,7 +114,7 @@ public class InventoryItemController : MonoBehaviour
 
         if (ItemButtonParent.childCount == 1)
         {
-            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.ItemData.itemWeight);
+            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.ItemData.Weight);
             instantiatedItemButtons.Remove(id);
             Destroy(itemButton.gameObject);
             PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
@@ -120,8 +122,35 @@ public class InventoryItemController : MonoBehaviour
         else
         {
             int childNumber = itemButton.transform.GetSiblingIndex();
-            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.ItemData.itemWeight);
+            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.ItemData.Weight);
             instantiatedItemButtons.Remove(id);
+            Destroy(itemButton.gameObject);
+            if (childNumber == 0)
+            {
+                SelectButton(childNumber + 1);
+            }
+            else
+            {
+                SelectButton(childNumber - 1);
+            }
+        }
+    }
+
+    public void RemoveBuyButtonAtID(string id)
+    {
+        ItemButton itemButton = GetBuyItemButtonByID(id);
+        if (itemButton == null) return;
+
+        if (instantiatedBuyItemButtons.Count == 1)
+        {
+            instantiatedBuyItemButtons.Remove(id);
+            Destroy(itemButton.gameObject);
+            PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
+        }
+        else
+        {
+            int childNumber = itemButton.transform.GetSiblingIndex();
+            instantiatedBuyItemButtons.Remove(id);
             Destroy(itemButton.gameObject);
             if (childNumber == 0)
             {
@@ -184,6 +213,15 @@ public class InventoryItemController : MonoBehaviour
         return null;
     }
 
+    public ItemButton GetBuyItemButtonByID(string id)
+    {
+        if (instantiatedBuyItemButtons.TryGetValue(id, out ItemButton itemButton))
+        {
+            return itemButton;
+        }
+        return null;
+    }
+
     public void MoveEquippedButtonsToTop()
     {
         List<GameObject> equippedButtons = new();
@@ -221,5 +259,45 @@ public class InventoryItemController : MonoBehaviour
             0 - (viewportLocalPosition.y + childLocalPosition.y)
         );
         return result;
+    }
+
+    public void SwapToInventoryMode(InventoryMode inventoryMode)
+    {
+        InventoryMode = inventoryMode;
+        if (inventoryMode == InventoryMode.Normal || inventoryMode == InventoryMode.Sell)
+        {
+            foreach (ItemButton itemButton in instantiatedItemButtons.Values)
+            {
+                itemButton.gameObject.SetActive(true);
+            }
+
+            foreach (ItemButton itemButton in instantiatedBuyItemButtons.Values)
+            {
+                itemButton.gameObject.SetActive(false);
+            }
+        }
+        else if (inventoryMode == InventoryMode.Buy)
+        {
+            foreach (ItemButton itemButton in instantiatedItemButtons.Values)
+            {
+                itemButton.gameObject.SetActive(false);
+            }
+
+            foreach (ItemButton itemButton in instantiatedBuyItemButtons.Values)
+            {
+                itemButton.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void CreateButtonForBuyItem(ItemData itemData, bool isEquipped = false)
+    {
+        if (!instantiatedBuyItemButtons.ContainsKey(itemData.ItemID))
+        {
+            ItemButton itemButton = Instantiate(ItemButtonPrefab, BuyItemButtonParent);
+
+            itemButton.InitializeItemButton(this, itemData, itemData.ItemID, PlayerContext, isEquipped);
+            instantiatedBuyItemButtons.Add(itemData.ItemID, itemButton);
+        }
     }
 }

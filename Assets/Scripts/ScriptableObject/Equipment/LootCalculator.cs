@@ -4,38 +4,20 @@ using UnityEngine;
 
 public static class LootCalculator
 {
-    public struct LootResult
-    {
-        public Item item;
-        public ItemData itemData;
-        public ItemQuality quality;
-        public int amount;
-        public int budgetCost;
-
-        public LootResult(Item _item, ItemData _itemData, ItemQuality _quality, int _amount, int _budgetCost)
-        {
-            this.item = _item;
-            this.itemData = _itemData;
-            this.quality = _quality;
-            this.amount = _amount;
-            this.budgetCost = _budgetCost;
-        }
-    }
 
     public static int RollBudget(int minBudget, int maxBudget)
     {
         return Random.Range(minBudget, maxBudget + 1);
     }
 
-    public static List<LootResult> RollItemsWithBudget(int budget, float qualityBias = 0f)
+    public static List<ItemData> RollItemsWithBudget(int budget, float qualityBias = 0f)
     {
-        Debug.Log($"total loot budget is {budget}");
-        List<LootResult> results = new List<LootResult>();
+        List<ItemData> results = new List<ItemData>();
         SpawnedItemDataBase database = SpawnedItemDataBase.Instance;
 
         int cheapestCost = int.MaxValue;
         foreach (var li in database.spawnableItems)
-            cheapestCost = Mathf.Min(cheapestCost, li.itemData.data.BaseLootBudget);
+            cheapestCost = Mathf.Min(cheapestCost, li.BaseLootBudget);
 
         if (budget < cheapestCost)
             return results;
@@ -46,25 +28,23 @@ public static class LootCalculator
 
         while (remaining >= cheapestCost && safetyCounter-- > 0)
         {
-            Item chosen = WeightedRandom(database.spawnableItems);
-            ItemData data = chosen.itemData.Clone();
+            ItemSO itemSO = WeightedRandom(database.spawnableItems);
             ItemQuality q = 0;
             float multiplier = 1;
-            if (chosen.itemDropType == Item.ItemDropType.Equipment)
+            if (itemSO.ItemDropType == Item.ItemDropType.Equipment)
             {
                 q = RollQuality(qualityBias);
-                data.itemQuality = q;
                 multiplier = QualityFactor(q);
             }
 
-            int cost = Mathf.FloorToInt(chosen.itemData.data.BaseLootBudget * multiplier);
-
-            Debug.Log($"Trying to spawn a {q} {chosen.itemData.itemName} which costs {cost} with a remaining budget of {remaining}");
+            int cost = Mathf.FloorToInt(itemSO.BaseLootBudget * multiplier);
 
             if (cost <= remaining)
             {
-                LootResult lr = new LootResult(chosen, data, q, cost, ResolveAmount(chosen, cost));
-                results.Add(lr);
+                ItemData itemData = database.CreateItemData();
+                itemData.ItemSO = itemSO;
+                itemData.Quality = q;
+                results.Add(itemData);
                 remaining -= cost;
             }
             else
@@ -76,27 +56,27 @@ public static class LootCalculator
         return CombineGold(results);
     }
 
-    public static List<LootResult> CombineGold(List<LootResult> Items)
+    public static List<ItemData> CombineGold(List<ItemData> Items)
     {
         int totalGold = 0;
 
         for (int i = Items.Count - 1; i >= 0; i--)
         {
-            Item item = Items[i].item;
-            if (item is GoldDrop)
+            ItemData item = Items[i];
+            if (item.ItemSO.ItemDropType == Item.ItemDropType.Gold)
             {
-                totalGold += Items[i].amount;
+                totalGold += Items[i].GoldValue;
                 Items.RemoveAt(i);
-
             }
         }
 
         if (totalGold <= 0)
             return Items;
 
-        GoldDrop combinedGoldDrop = SpawnedItemDataBase.Instance.spawnableItems[0] as GoldDrop;
-        LootResult lr = new LootResult(combinedGoldDrop, combinedGoldDrop.itemData, 0, totalGold, 0);
-        Items.Add(lr);
+        ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(0);
+        itemData.GoldDropValue = totalGold;
+
+        Items.Add(itemData);
         return Items;
     }
 
@@ -113,17 +93,17 @@ public static class LootCalculator
         }
     }
 
-    private static Item WeightedRandom(List<Item> list)
+    private static ItemSO WeightedRandom(List<ItemSO> list)
     {
         float total = 0f;
         foreach (var li in list)
-            total += li.itemData.data.BaseLootWeight;
+            total += li.BaseLootWeight;
 
         float r = Random.value * total;
 
         foreach (var li in list)
         {
-            r -= li.itemData.data.BaseLootWeight;
+            r -= li.BaseLootWeight;
             if (r <= 0f)
                 return li;
         }
@@ -154,5 +134,10 @@ public static class LootCalculator
     {
         float newStat = Mathf.Clamp(stat * QualityFactor(quality), 1, Mathf.Infinity);
         return (int)newStat;
+    }
+
+    public static int CalculateCost(ItemSO itemSO, ItemQuality quality)
+    {
+        return Mathf.RoundToInt(itemSO.BaseLootBudget * QualityFactor(quality));
     }
 }

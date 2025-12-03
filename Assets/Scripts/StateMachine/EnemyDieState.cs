@@ -49,21 +49,7 @@ public class EnemyDieState : EnemyBaseState
 
         foreach (var item in loot)
         {
-            if (item.item is ConsumableDrop consumableDrop)
-            {
-                SpawnedItemDataBase.Instance.SpawnConsumableItem(consumableDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
-            }
-            else if (item.item is GoldDrop goldDrop)
-            {
-                GoldDrop drop = GameObject.Instantiate(goldDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
-                drop.GoldAmount = item.amount;
-                SceneManager.MoveGameObjectToScene(drop.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
-            }
-            else
-            {
-                SpawnedItemDataBase.Instance.SpawnAndRegisterItem(item.itemData, ReturnSpawnPositionInRadius(), Quaternion.identity);
-            }
-            yield return new WaitForSeconds(0.2f);
+            SpawnedItemDataBase.Instance.SpawnItemFromDatabase(item.ItemID, ReturnSpawnPositionInRadius(), item.GroundPrefab.transform.rotation);
         }
         yield return null;
     }

@@ -55,20 +55,7 @@ public class Chest : MonoBehaviour, IInteractable
 
         foreach (var item in loot)
         {
-            if (item.item is ConsumableDrop consumableDrop)
-            {
-                spawnedItemDataBase.SpawnConsumableItem(consumableDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
-            }
-            else if (item.item is GoldDrop goldDrop)
-            {
-                GoldDrop drop = Instantiate(goldDrop, ReturnSpawnPositionInRadius(), Quaternion.identity);
-                drop.GoldAmount = item.amount;
-                SceneManager.MoveGameObjectToScene(drop.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
-            }
-            else
-            {
-                spawnedItemDataBase.SpawnAndRegisterItem(item.itemData, ReturnSpawnPositionInRadius(), Quaternion.identity);
-            }
+            spawnedItemDataBase.SpawnItemFromDatabase(item.ItemID, ReturnSpawnPositionInRadius(), item.GroundPrefab.transform.rotation);
             yield return new WaitForSeconds(0.2f);
         }
         yield return null;

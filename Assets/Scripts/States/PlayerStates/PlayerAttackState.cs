@@ -12,24 +12,15 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnEnter()
     {
+        
         player.RotateToFaceLookPoint();
         player.MovementLocked = true;
 
         if (player.WeaponController.instantiatedPrimaryWeapon != null)
         {
-            if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
+            if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponSO))
             {
-                WeaponDataSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as WeaponDataSO;
-            }
-            else if (player.WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(BowSO))
-            {
-                BowSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as BowSO;
-                if (player.blockButtonPressed)
-                {
-                    player.WeaponController.Attack(AttackCompleted, true);
-                    player._movementSpeed = 0;
-                    return;
-                }
+                WeaponSO weaponData = player.WeaponController.instantiatedPrimaryWeapon.Data as WeaponSO;
             }
         }
         player.WeaponController.Attack(AttackCompleted);

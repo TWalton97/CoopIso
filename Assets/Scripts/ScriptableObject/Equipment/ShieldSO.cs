@@ -7,6 +7,7 @@ public class ShieldSO : ItemSO
     public int BlockAngle;
     public int BlockAmount;
     public int ArmorAmount;
+    public WeaponRangeType WeaponRangeType;
 
     public override bool CheckItemRequirements(PlayerStatsBlackboard playerStatsBlackboard)
     {

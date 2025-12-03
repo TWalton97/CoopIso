@@ -9,43 +9,39 @@ public class InventoryManager : MonoBehaviour
 
     public PlayerUserInterfaceController[] playerUserInterfaceControllers = new PlayerUserInterfaceController[2];
 
-    private bool player0MenuOpened;
-    private bool player1MenuOpened;
+    public int PauseRequests = 0;
 
-    public void OpenInventory(int playerIndex)
+
+    public void RequestPause()
     {
-        if (playerUserInterfaceControllers[playerIndex].IsMenuOpened)
+        PauseRequests++;
+        if (PauseRequests > 0)
         {
-            playerUserInterfaceControllers[playerIndex].ToggleInventory(false);
-            if (playerIndex == 0) player0MenuOpened = false;
-            if (playerIndex == 1) player1MenuOpened = false;
-
-            if (!player0MenuOpened && !player1MenuOpened)
-            {
-                Time.timeScale = 1;
-
-                foreach (PlayerUserInterfaceController playerUserInterfaceController in playerUserInterfaceControllers)
-                {
-                    playerUserInterfaceController.ToggleResourcePanel(true);
-                }
-
-                PlayerPreview.SetActive(false);
-                OnMenuClosed?.Invoke();
-            }
-        }
-        else
-        {
-            playerUserInterfaceControllers[playerIndex].ToggleInventory(true);
-
-            if (playerIndex == 0) player0MenuOpened = true;
-            if (playerIndex == 1) player1MenuOpened = true;
             Time.timeScale = 0;
             foreach (PlayerUserInterfaceController playerUserInterfaceController in playerUserInterfaceControllers)
             {
                 playerUserInterfaceController.ToggleResourcePanel(false);
             }
+
             PlayerPreview.SetActive(true);
             OnMenuOpened?.Invoke();
+        }
+    }
+
+    public void RequestUnpause()
+    {
+        PauseRequests--;
+        if (PauseRequests <= 0)
+        {
+            PauseRequests = 0;
+            Time.timeScale = 1;
+            foreach (PlayerUserInterfaceController playerUserInterfaceController in playerUserInterfaceControllers)
+            {
+                playerUserInterfaceController.ToggleResourcePanel(true);
+            }
+
+            PlayerPreview.SetActive(false);
+            OnMenuClosed?.Invoke();
         }
     }
 }

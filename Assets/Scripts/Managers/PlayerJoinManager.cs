@@ -198,9 +198,13 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.PlayerController.EntityData = classPresetSO.PlayerStatsSO;
         if (classPresetSO.StartingConsumables.Count > 0)
         {
-            foreach (ConsumableDrop consumable in classPresetSO.StartingConsumables)
+            foreach (ItemSO consumable in classPresetSO.StartingConsumables)
             {
-                playerContext.UserInterfaceController.inventoryController.AddItemToInventory(consumable.potionData);
+                ItemData itemData = new ItemData();
+                itemData.ItemSO = consumable;
+                itemData.Quality = ItemQuality.Shoddy;
+                itemData.ItemID = spawnedItemDatabase.RegisterItemToDatabase(itemData);
+                playerContext.UserInterfaceController.inventoryController.AddItemToInventory(itemData);
             }
         }
         playerContext.PlayerController.ApplyStats();

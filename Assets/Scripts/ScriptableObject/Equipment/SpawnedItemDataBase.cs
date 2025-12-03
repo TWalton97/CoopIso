@@ -7,24 +7,24 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 {
     public Dictionary<string, SpawnedItemData> spawnedItemData = new Dictionary<string, SpawnedItemData>();
 
-    public List<Item> spawnableItems;
+    public List<ItemSO> spawnableItems;
     public List<ConsumableDrop> spawnableConsumables;
 
     public void SpawnItemFromDatabase(string itemID, Vector3 worldPosition, Quaternion worldRotation)
     {
         ItemData itemData = GetSpawnedItemDataFromDataBase(itemID).itemData;
 
-        GameObject itemToDrop = new GameObject(itemData.itemName);
+        GameObject itemToDrop = new GameObject(itemData.Name);
         Item newItem = itemToDrop.AddComponent<Item>();
         newItem.itemData = itemData;
 
-        if (itemData.floorObjectPrefab == null)
+        if (itemData.GroundPrefab == null)
         {
-            Instantiate(itemData.objectPrefab, Vector3.zero, itemData.objectPrefab.transform.rotation, itemToDrop.transform);
+            Instantiate(itemData.ItemPrefab, Vector3.zero, itemData.ItemPrefab.transform.rotation, itemToDrop.transform);
         }
         else
         {
-            Instantiate(itemData.floorObjectPrefab, Vector3.zero, itemData.floorObjectPrefab.transform.rotation, itemToDrop.transform);
+            Instantiate(itemData.GroundPrefab, Vector3.zero, itemData.GroundPrefab.transform.rotation, itemToDrop.transform);
         }
 
         SceneManager.MoveGameObjectToScene(itemToDrop, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
@@ -36,18 +36,18 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
     public Item SpawnAndRegisterItem(ItemData itemData, Vector3 worldPosition, Quaternion worldRotation)
     {
-        GameObject itemToDrop = new GameObject(itemData.itemName);
+        GameObject itemToDrop = new GameObject(itemData.Name);
         Item newItem = itemToDrop.AddComponent<Item>();
         newItem.itemData = itemData;
-        newItem.itemData.itemID = RegisterItemToDatabase(itemData);
+        newItem.itemData.ItemID = RegisterItemToDatabase(itemData);
 
-        if (itemData.floorObjectPrefab == null)
+        if (itemData.GroundPrefab == null)
         {
-            Instantiate(itemData.objectPrefab, Vector3.zero, itemData.objectPrefab.transform.rotation, itemToDrop.transform);
+            Instantiate(itemData.ItemPrefab, Vector3.zero, itemData.ItemPrefab.transform.rotation, itemToDrop.transform);
         }
         else
         {
-            Instantiate(itemData.floorObjectPrefab, Vector3.zero, itemData.floorObjectPrefab.transform.rotation, itemToDrop.transform);
+            Instantiate(itemData.GroundPrefab, Vector3.zero, itemData.GroundPrefab.transform.rotation, itemToDrop.transform);
         }
 
         SceneManager.MoveGameObjectToScene(itemToDrop, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
@@ -63,18 +63,27 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         SceneManager.MoveGameObjectToScene(obj, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
     }
 
-    public Item ReturnRandomItem()
-    {
-        int rand = UnityEngine.Random.Range(0, spawnableItems.Count);
-        return spawnableItems[rand];
-    }
-
     public string RegisterItemToDatabase(ItemData itemData)
     {
         string id = Guid.NewGuid().ToString();
-        SpawnedItemData spawnedItem = new SpawnedItemData(id, itemData, itemData.itemQuality);
+        SpawnedItemData spawnedItem = new SpawnedItemData(id, itemData, itemData.Quality);
         spawnedItemData.Add(id, spawnedItem);
         return id;
+    }
+
+    public ItemData CreateItemData(int spawnableItemsIndex = -1)
+    {
+        ItemData itemData = new ItemData();
+        if (spawnableItemsIndex == -1)
+        {
+            itemData.ItemSO = spawnableItems[UnityEngine.Random.Range(0, spawnableItems.Count)];
+        }
+        else
+        {
+            itemData.ItemSO = spawnableItems[spawnableItemsIndex];
+        }
+        itemData.ItemID = RegisterItemToDatabase(itemData);
+        return itemData;
     }
 
     public SpawnedItemData GetSpawnedItemDataFromDataBase(string id)
@@ -106,12 +115,12 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
 public enum ItemQuality
 {
-    Shoddy = 0,
-    Normal = -1,
-    Fine = 2,
-    Remarkable = 3,
-    Superior = 4,
-    Grand = 5,
-    Imperial = 6,
-    Flawless = 7
+    Shoddy = -1,
+    Normal = 0,
+    Fine = 1,
+    Remarkable = 2,
+    Superior = 3,
+    Grand = 4,
+    Imperial = 5,
+    Flawless = 6
 }

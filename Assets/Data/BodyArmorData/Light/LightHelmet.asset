@@ -10,11 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05ba83d6aec6a5043af45903f9a2df83, type: 3}
-  m_Name: LightBodyArmor
+  m_Name: LightHelmet
   m_EditorClassIdentifier: 
-  GoldValue: 0
-  Weight: 0
+  ItemName: Light Helmet
+  ItemSprite: {fileID: 21300000, guid: 6a1ca3417bdcec04c97f68449aa375a7, type: 3}
+  ItemPrefab: {fileID: 5943126142168136107, guid: aeac89239d3dcbc42b2c8e91c579afff, type: 3}
+  GroundItemPrefab: {fileID: 5943126142168136107, guid: aeac89239d3dcbc42b2c8e91c579afff, type: 3}
+  ItemType: 1
+  ItemDropType: 0
   BaseLootBudget: 4
   BaseLootWeight: 6
+  GoldValue: 0
+  Weight: 0
   ArmorType: 1
   ArmorAmount: 1

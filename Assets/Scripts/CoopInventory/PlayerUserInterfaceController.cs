@@ -15,10 +15,11 @@ public class PlayerUserInterfaceController : MonoBehaviour
     public ResourcePanelController resourcePanelController;
     public AbilityScrollController AbilityScrollController;
 
+    public VendorPanelController VendorPanelController;
+
     public TMP_Text GoldAmountText;
     public TMP_Text WeightText;
 
-    public bool IsMenuOpened { get; private set; }
     public EventSystem eventSystem;
 
     public void Init(PlayerContext context)
@@ -59,11 +60,17 @@ public class PlayerUserInterfaceController : MonoBehaviour
         }
     }
 
-    public void ToggleInventory(bool toggle)
+    public void ToggleInventory(InventoryMode inventoryMode = InventoryMode.Normal)
     {
-        IsMenuOpened = toggle;
-        inventoryController.ToggleInventory(toggle);
-        TogglePlayerControlsPanel(toggle);
+        inventoryController.ChangeInventoryMode(inventoryMode);
+        inventoryController.ToggleInventory();
+    }
+
+    public void ToggleBuyInventory(List<ItemData> itemsForSale)
+    {
+        inventoryController.SetupBuyInventory(itemsForSale);
+        inventoryController.ChangeInventoryMode(InventoryMode.Buy);
+        inventoryController.ToggleInventory();
     }
 
     public void ToggleResourcePanel(bool value)
@@ -74,6 +81,11 @@ public class PlayerUserInterfaceController : MonoBehaviour
     public void TogglePlayerControlsPanel(bool value)
     {
         PlayerControlsPanel.SetActive(value);
+    }
+
+    public void ToggleVendorPanel(List<ItemData> ItemsForSale)
+    {
+        VendorPanelController.TogglePanel(playerContext, ItemsForSale);
     }
 
     public void AddAbility(AbilitySO ability, AbilityBehaviourBase behaviour)

@@ -128,23 +128,16 @@ public class PlayerStatsBlackboard : MonoBehaviour
             return;
         }
 
-        if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(BowSO))
+        if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponSO))
         {
-            BowSO bowData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID).itemData.data as BowSO;
-            attacksPerSecond += bowData.AttacksPerSecond;
-            numWeapons++;
-        }
-
-        if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
-        {
-            WeaponDataSO weaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID).itemData.data as WeaponDataSO;
+            WeaponSO weaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID).itemData.ItemSO as WeaponSO;
             attacksPerSecond += weaponData.AttacksPerSecond;
             numWeapons++;
         }
 
-        if (WeaponController.instantiatedSecondaryWeapon != null && WeaponController.instantiatedSecondaryWeapon.Data.GetType() == typeof(WeaponDataSO))
+        if (WeaponController.instantiatedSecondaryWeapon != null && WeaponController.instantiatedSecondaryWeapon.Data.GetType() == typeof(WeaponSO))
         {
-            WeaponDataSO weaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedSecondaryWeapon.itemID).itemData.data as WeaponDataSO;
+            WeaponSO weaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedSecondaryWeapon.itemID).itemData.ItemSO as WeaponSO;
             attacksPerSecond += weaponData.AttacksPerSecond;
             numWeapons++;
         }

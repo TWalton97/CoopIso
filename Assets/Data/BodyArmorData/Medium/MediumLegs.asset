@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ba83d6aec6a5043af45903f9a2df83, type: 3}
+  m_Name: MediumLegs
+  m_EditorClassIdentifier: 
+  ItemName: Medium Legs
+  ItemSprite: {fileID: 21300000, guid: 0f170d5018a92164fb4479cfbd0ba7f4, type: 3}
+  ItemPrefab: {fileID: 4602066518352732491, guid: b18ef68fe4e65d4408d85e21c9096463, type: 3}
+  GroundItemPrefab: {fileID: 7886311029729354042, guid: b7683252bebe81f4c93e176b88f0a486, type: 3}
+  ItemType: 3
+  ItemDropType: 0
+  BaseLootBudget: 6
+  BaseLootWeight: 4
+  GoldValue: 0
+  Weight: 0
+  ArmorType: 2
+  ArmorAmount: 2

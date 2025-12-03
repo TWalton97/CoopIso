@@ -17,4 +17,4 @@ MonoBehaviour:
   CriticalChance: 10
   CriticalDamage: 100
   BaseArmor: 0
-  BaseAttackSpeed: 0
+  BaseAttackSpeed: 1

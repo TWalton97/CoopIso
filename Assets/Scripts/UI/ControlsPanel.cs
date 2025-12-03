@@ -11,6 +11,7 @@ public class ControlsPanel : MonoBehaviour
 
     public void UpdateControls(PlayerContext playerContext, List<ControlData> newControlData)
     {
+        DisableAllControlPrompts();
         for (int i = 0; i < newControlData.Count; i++)
         {
             controlPrompts[i].SetPrompt(playerContext, newControlData[i]);

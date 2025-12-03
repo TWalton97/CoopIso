@@ -12,11 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
   m_Name: HandAxe
   m_EditorClassIdentifier: 
-  GoldValue: 0
-  Weight: 0
+  ItemName: Hand Axe
+  ItemSprite: {fileID: 21300000, guid: 774a7a1997cfb514ba373b25d06beeb5, type: 3}
+  ItemPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
+  GroundItemPrefab: {fileID: 1634620894161367855, guid: 0c9a0e5de228917409629e02a1b0e334, type: 3}
+  ItemType: 4
+  ItemDropType: 0
   BaseLootBudget: 4
   BaseLootWeight: 6
+  GoldValue: 20
+  Weight: 4
   <WeaponMinDamage>k__BackingField: 4
   <WeaponMaxDamage>k__BackingField: 7
   <AttacksPerSecond>k__BackingField: 1.3
   <NumberOfAttacksInCombo>k__BackingField: 3
+  WeaponRangeType: 1

@@ -12,11 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
   m_Name: DaneAxe
   m_EditorClassIdentifier: 
-  GoldValue: 11
-  Weight: 17
+  ItemName: Dane Axe
+  ItemSprite: {fileID: 21300000, guid: e56c3a814ceb11c43b0c3ed49fc4de14, type: 3}
+  ItemPrefab: {fileID: 7351689401621798789, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
+  GroundItemPrefab: {fileID: 0}
+  ItemType: 5
+  ItemDropType: 0
   BaseLootBudget: 6
   BaseLootWeight: 4
+  GoldValue: 45
+  Weight: 8
   <WeaponMinDamage>k__BackingField: 12
   <WeaponMaxDamage>k__BackingField: 18
   <AttacksPerSecond>k__BackingField: 0.68
   <NumberOfAttacksInCombo>k__BackingField: 3
+  WeaponRangeType: 1

@@ -344,7 +344,8 @@ public class PlayerInputController : MonoBehaviour
     #region Shared Input Actions
     public void OnEquipmentMenu(CallbackContext context)
     {
-        playerController.PlayerContext.InventoryManager.OpenInventory(playerIndex);
+        playerController.PlayerContext.UserInterfaceController.ToggleInventory();
+        //playerController.PlayerContext.InventoryManager.OpenInventory(playerIndex);
     }
     #endregion
 

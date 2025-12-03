@@ -12,11 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1960e8df187c248a8d769af8065928, type: 3}
   m_Name: Gladius
   m_EditorClassIdentifier: 
-  GoldValue: 0
-  Weight: 0
+  ItemName: Gladius
+  ItemSprite: {fileID: 21300000, guid: 4f9caaf8d740989489c00d57a4e06532, type: 3}
+  ItemPrefab: {fileID: 9079547992211365241, guid: 749fa67de869e2e488a1398389fdb5c5, type: 3}
+  GroundItemPrefab: {fileID: 5257400240843501978, guid: cc7396fb864ca544e9c31a51b2dce958, type: 3}
+  ItemType: 4
+  ItemDropType: 0
   BaseLootBudget: 4
   BaseLootWeight: 6
+  GoldValue: 25
+  Weight: 3
   <WeaponMinDamage>k__BackingField: 2
   <WeaponMaxDamage>k__BackingField: 8
   <AttacksPerSecond>k__BackingField: 1.96
   <NumberOfAttacksInCombo>k__BackingField: 3
+  WeaponRangeType: 0

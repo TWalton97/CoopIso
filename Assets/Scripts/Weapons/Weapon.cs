@@ -39,23 +39,17 @@ public class Weapon : MonoBehaviour
         PlayerContext = playerContext;
         ItemData = itemData;
         this.weaponHand = weaponHand;
-        this.itemID = itemData.itemID;
-        weaponRangeType = itemData.weaponRangeType;
+        this.itemID = itemData.ItemID;
+        weaponRangeType = itemData.WeaponRangeType;
 
         spawnedWeaponData = playerContext.PlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemID);// as SpawnedItemDataBase.SpawnedWeaponsData;
 
 
 
-        if (itemData.data is WeaponDataSO weaponData)
+        if (itemData.ItemSO is WeaponSO weaponData)
         {
-            minDamage = LootCalculator.CalculateQualityModifiedStat(weaponData.WeaponMinDamage, itemData.itemQuality);
-            maxDamage = LootCalculator.CalculateQualityModifiedStat(weaponData.WeaponMaxDamage, itemData.itemQuality);
-            averageWeaponDamage = (minDamage + maxDamage) / 2;
-        }
-        else if (itemData.data is BowSO bowData)
-        {
-            minDamage = LootCalculator.CalculateQualityModifiedStat(bowData.WeaponMinDamage, itemData.itemQuality);
-            maxDamage = LootCalculator.CalculateQualityModifiedStat(bowData.WeaponMaxDamage, itemData.itemQuality);
+            minDamage = itemData.MinDamage;
+            maxDamage = itemData.MaxDamage;
             averageWeaponDamage = (minDamage + maxDamage) / 2;
         }
     }
@@ -68,6 +62,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void Enter(Action endAction, int attackNum)
     {
+        Debug.Log($"Entering weapon attack state");
         if (weaponAttackType == NewWeaponController.WeaponAttackTypes.OneHanded)
         {
             PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
@@ -111,7 +106,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void ActivateHitbox()
     {
-        if (ItemData.data is WeaponDataSO weaponData)
+        if (ItemData.ItemSO is WeaponSO weaponData)
         {
             int rolledDamage = UnityEngine.Random.Range(minDamage, maxDamage);
             hitbox.ActivateHitbox(rolledDamage);

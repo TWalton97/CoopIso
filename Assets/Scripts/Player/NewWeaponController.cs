@@ -93,19 +93,19 @@ public class NewWeaponController : MonoBehaviour
 
     public void EquipWeapon(ItemData itemData, Weapon.WeaponHand weaponHand = Weapon.WeaponHand.MainHand)
     {
-        if (itemData.itemType == ItemType.OneHanded)
+        if (itemData.ItemSO.ItemType == ItemType.OneHanded)
         {
             EquipWeaponToWeaponSet(itemData, weaponHand, OneHandedWeaponSet);
         }
-        else if (itemData.itemType == ItemType.Offhand)
+        else if (itemData.ItemSO.ItemType == ItemType.Offhand)
         {
             EquipWeaponToWeaponSet(itemData, Weapon.WeaponHand.OffHand, OneHandedWeaponSet);
         }
-        else if (itemData.itemType == ItemType.TwoHanded)
+        else if (itemData.ItemSO.ItemType == ItemType.TwoHanded)
         {
             EquipWeaponToWeaponSet(itemData, weaponHand, TwoHandedWeaponSet);
         }
-        else if (itemData.itemType == ItemType.Bow)
+        else if (itemData.ItemSO.ItemType == ItemType.Bow)
         {
             EquipWeaponToWeaponSet(itemData, weaponHand, RangedWeaponSet);
         }
@@ -113,15 +113,15 @@ public class NewWeaponController : MonoBehaviour
 
     public void UnequipWeapon(ItemData itemData)
     {
-        if (itemData.itemType == ItemType.OneHanded || itemData.itemType == ItemType.Offhand)
+        if (itemData.ItemSO.ItemType == ItemType.OneHanded || itemData.ItemSO.ItemType == ItemType.Offhand)
         {
             RemoveWeaponFromWeaponSet(itemData, OneHandedWeaponSet);
         }
-        else if (itemData.itemType == ItemType.TwoHanded)
+        else if (itemData.ItemSO.ItemType == ItemType.TwoHanded)
         {
             RemoveWeaponFromWeaponSet(itemData, TwoHandedWeaponSet);
         }
-        else if (itemData.itemType == ItemType.Bow)
+        else if (itemData.ItemSO.ItemType == ItemType.Bow)
         {
             RemoveWeaponFromWeaponSet(itemData, RangedWeaponSet);
         }
@@ -146,7 +146,7 @@ public class NewWeaponController : MonoBehaviour
 
             weaponSet.PrimaryWeaponData = null;
             weaponSet.hasPrimaryWeaponData = false;
-            OnWeaponUnequipped?.Invoke(itemData.itemID);
+            OnWeaponUnequipped?.Invoke(itemData.ItemID);
         }
         else if (weaponSet.SecondaryWeaponData == itemData)
         {
@@ -163,7 +163,7 @@ public class NewWeaponController : MonoBehaviour
 
             weaponSet.SecondaryWeaponData = null;
             weaponSet.hasSecondaryWeaponData = false;
-            OnWeaponUnequipped?.Invoke(itemData.itemID);
+            OnWeaponUnequipped?.Invoke(itemData.ItemID);
         }
 
         if (isActiveWeaponSet)
@@ -176,21 +176,21 @@ public class NewWeaponController : MonoBehaviour
         {
             if (weaponSet.hasPrimaryWeaponData)
             {
-                OnWeaponUnequipped?.Invoke(weaponSet.PrimaryWeaponData.itemID);
+                OnWeaponUnequipped?.Invoke(weaponSet.PrimaryWeaponData.ItemID);
             }
             weaponSet.PrimaryWeaponData = itemData;
             weaponSet.hasPrimaryWeaponData = true;
         }
         else
         {
-            if (weaponSet == OneHandedWeaponSet && !weaponSet.hasPrimaryWeaponData)
+            if (weaponSet == OneHandedWeaponSet && !weaponSet.hasPrimaryWeaponData && itemData.ItemSO.ItemType != ItemType.Offhand)
             {
                 EquipWeaponToWeaponSet(itemData, Weapon.WeaponHand.MainHand, weaponSet);
                 return;
             }
             if (weaponSet.hasSecondaryWeaponData)
             {
-                OnWeaponUnequipped?.Invoke(weaponSet.SecondaryWeaponData.itemID);
+                OnWeaponUnequipped?.Invoke(weaponSet.SecondaryWeaponData.ItemID);
             }
             weaponSet.SecondaryWeaponData = itemData;
             weaponSet.hasSecondaryWeaponData = true;
@@ -292,8 +292,9 @@ public class NewWeaponController : MonoBehaviour
         }
         else if (weaponSet.hasPrimaryWeaponData)
         {
-            instantiatedPrimaryWeapon = Instantiate(weaponSet.PrimaryWeaponData.objectPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
-            instantiatedPrimaryWeapon.transform.localRotation = weaponSet.PrimaryWeaponData.objectPrefab.transform.rotation;
+            instantiatedPrimaryWeapon = Instantiate(weaponSet.PrimaryWeaponData.ItemPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
+            instantiatedPrimaryWeapon.ItemData = weaponSet.PrimaryWeaponData;
+            instantiatedPrimaryWeapon.transform.localRotation = weaponSet.PrimaryWeaponData.ItemPrefab.transform.rotation;
             instantiatedPrimaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.MainHand, weaponSet.PrimaryWeaponData);
             weaponSet.InstantiatedPrimaryWeapon = instantiatedPrimaryWeapon;
         }
@@ -304,8 +305,8 @@ public class NewWeaponController : MonoBehaviour
         }
         else if (weaponSet.hasSecondaryWeaponData)
         {
-            instantiatedSecondaryWeapon = Instantiate(weaponSet.SecondaryWeaponData.objectPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
-            instantiatedSecondaryWeapon.transform.localRotation = weaponSet.SecondaryWeaponData.objectPrefab.transform.rotation;
+            instantiatedSecondaryWeapon = Instantiate(weaponSet.SecondaryWeaponData.ItemPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
+            instantiatedSecondaryWeapon.transform.localRotation = weaponSet.SecondaryWeaponData.ItemPrefab.transform.rotation;
             instantiatedSecondaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.OffHand, weaponSet.SecondaryWeaponData);
             weaponSet.InstantiatedSecondaryWeapon = instantiatedSecondaryWeapon;
         }
@@ -322,13 +323,13 @@ public class NewWeaponController : MonoBehaviour
 
         GameObject weaponPrefab = null;
         if (weaponSet.InstantiatedPrimaryWeapon != null)
-            weaponPrefab = weaponSet.PrimaryWeaponData.objectPrefab;
+            weaponPrefab = weaponSet.PrimaryWeaponData.ItemPrefab;
 
         newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.MainHand, weaponPrefab);
 
         weaponPrefab = null;
         if (weaponSet.InstantiatedSecondaryWeapon != null)
-            weaponPrefab = weaponSet.SecondaryWeaponData.objectPrefab;
+            weaponPrefab = weaponSet.SecondaryWeaponData.ItemPrefab;
 
         newPlayerController.PlayerContext.PlayerPreviewManager.EquipWeaponToPlayer(newPlayerController.PlayerContext.PlayerIndex, Weapon.WeaponHand.OffHand, weaponPrefab);
 
@@ -337,31 +338,40 @@ public class NewWeaponController : MonoBehaviour
 
         ActiveWeaponSet = weaponSet;
 
+        if (instantiatedSecondaryWeapon != null && ActiveWeaponSet.SecondaryWeaponData.ItemSO.ItemType == ItemType.Offhand)
+        {
+            HasShieldEquipped = true;
+        }
+        else
+        {
+            HasShieldEquipped = false;
+        }
+
         CalculateWeaponDamage();
         UpdateAnimator();
     }
 
-    public void EquipStarterItems(Item mainHand, Item offHand)
+    public void EquipStarterItems(ItemSO mainHand, ItemSO offHand)
     {
         if (StarterWeaponsEquipped) return;
         StarterWeaponsEquipped = true;
 
         if (mainHand != null)
         {
-            Item starterSword = Instantiate(mainHand);
-            starterSword.itemData.itemQuality = ItemQuality.Shoddy;
-            starterSword.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterSword.itemData);
-            newPlayerController.PlayerContext.InventoryController.AddItemToInventory(starterSword.itemData, true);
-            Destroy(starterSword.gameObject);
+            ItemData itemData = new ItemData();
+            itemData.ItemSO = mainHand;
+            itemData.Quality = ItemQuality.Shoddy;
+            itemData.ItemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(itemData);
+            newPlayerController.PlayerContext.InventoryController.AddItemToInventory(itemData, true);
         }
 
         if (offHand != null)
         {
-            Item starterShield = Instantiate(offHand);
-            starterShield.itemData.itemQuality = ItemQuality.Shoddy;
-            starterShield.itemData.itemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(starterShield.itemData);
-            newPlayerController.PlayerContext.InventoryController.AddItemToInventory(starterShield.itemData, true);
-            Destroy(starterShield.gameObject);
+            ItemData itemData = new ItemData();
+            itemData.ItemSO = offHand;
+            itemData.Quality = ItemQuality.Shoddy;
+            itemData.ItemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(itemData);
+            newPlayerController.PlayerContext.InventoryController.AddItemToInventory(itemData, true);
         }
     }
 
@@ -408,17 +418,9 @@ public class NewWeaponController : MonoBehaviour
 
 
 
-        if (instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponDataSO))
+        if (instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponSO))
         {
-            WeaponDataSO weaponData = instantiatedPrimaryWeapon.Data as WeaponDataSO;
-            if (numAttacks >= weaponData.NumberOfAttacksInCombo)
-            {
-                numAttacks = 0;
-            }
-        }
-        else if (instantiatedPrimaryWeapon.Data.GetType() == typeof(BowSO))
-        {
-            BowSO weaponData = instantiatedPrimaryWeapon.Data as BowSO;
+            WeaponSO weaponData = instantiatedPrimaryWeapon.Data as WeaponSO;
             if (numAttacks >= weaponData.NumberOfAttacksInCombo)
             {
                 numAttacks = 0;
@@ -549,7 +551,7 @@ public class NewWeaponController : MonoBehaviour
                     if (HasShieldEquipped)
                     {
                         SpawnedItemDataBase.SpawnedItemData spawnedShieldData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID);
-                        if (spawnedShieldData.itemData.data is ShieldSO shieldData)
+                        if (spawnedShieldData.itemData.ItemSO is ShieldSO shieldData)
                             newPlayerController.HealthController.UpdateArmorAmount(shieldData.ArmorAmount);
                     }
                     Destroy(instantiatedSecondaryWeapon.gameObject);
@@ -617,12 +619,12 @@ public class NewWeaponController : MonoBehaviour
 
     public bool CanEquipOffhand(ItemData itemData)
     {
-        if (itemData.itemType == ItemType.OneHanded)
+        if (itemData.ItemSO.ItemType == ItemType.OneHanded)
         {
             return true;
         }
 
-        if (itemData.itemType == ItemType.TwoHanded && newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
+        if (itemData.ItemSO.ItemType == ItemType.TwoHanded && newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
         {
             return true;
         }
