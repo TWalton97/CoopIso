@@ -5,35 +5,33 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, IInteractable
 {
-    public enum ItemDropType
-    {
-        Equipment,
-        Consumable,
-        Gold
-    }
-    public ItemDropType itemDropType;
+
     public ItemStatus ItemStatus;
-    public ItemData itemData;
+    public ItemData ItemData;
+    public ItemSO ItemSO;
+    public int Quantity;
+    public ItemQuality Quality;
+
     protected Quaternion targetRotation;
     protected Vector3 targetPosition;
     protected bool _isInteractable = false;
     public InteractionType InteractionType;
 
-    public virtual string interactableName { get => itemData.Name; set => itemData.Name = value; }
+    public virtual string interactableName { get => GetInteractableName(); set => ItemData.Name = value; }
     public virtual bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
     public virtual InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
 
-    public bool itemCollected { get; private set; }
+    protected bool itemCollected { get; set; }
 
     void Start()
     {
         targetRotation = transform.rotation;
         targetPosition = transform.position;
-        ItemStatus = new ItemStatus(itemData.ItemID, targetPosition, targetRotation);
+        ItemStatus = new ItemStatus(ItemData.ItemID, targetPosition, targetRotation);
         StartCoroutine(RotateRandomly());
     }
 
-    private IEnumerator RotateRandomly()
+    protected IEnumerator RotateRandomly()
     {
         _isInteractable = false;
         Vector3 startPos = targetPosition + Vector3.up * 2f;
@@ -51,16 +49,30 @@ public class Item : MonoBehaviour, IInteractable
         yield return null;
     }
 
-    private void CollectItem(PlayerContext playerContext)
+    protected virtual void CollectItem(PlayerContext playerContext)
     {
-        if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + itemData.Weight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
+        if (ItemData.ItemSO != null)
+        {
+            if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + ItemData.ItemSO.Weight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
+            {
+                StartCoroutine(RotateRandomly());
+                return;
+            }
+        }
+        else if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + ItemSO.Weight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
         {
             StartCoroutine(RotateRandomly());
             return;
         }
+
         if (itemCollected) return;
         itemCollected = true;
-        playerContext.InventoryController.AddItemToInventory(itemData);
+        if (ItemData.ItemSO == null)
+        {
+            ItemData = SpawnedItemDataBase.Instance.CreateItemData(ItemSO, Quality, Quantity);
+        }
+
+        playerContext.InventoryController.AddItemToInventory(ItemData);
         Destroy(gameObject);
     }
 
@@ -77,7 +89,11 @@ public class Item : MonoBehaviour, IInteractable
 
     public virtual string GetInteractableName()
     {
-        return itemData.Quality.ToString() + " " + interactableName;
+        if (ItemSO != null)
+        {
+            return Quality.ToString() + " " + ItemSO.ItemName;
+        }
+        return ItemData.Quality.ToString() + " " + ItemData.ItemSO.ItemName;
     }
 }
 
@@ -93,7 +109,6 @@ public class ItemData
     public GameObject ItemPrefab => ItemSO.ItemPrefab;
     public GameObject GroundPrefab => ItemSO.GroundItemPrefab;
     public int GoldValue => Mathf.RoundToInt(ItemSO.GoldValue * LootCalculator.QualityFactor(Quality));
-    [Tooltip("Just used for gold drops")] public int GoldDropValue;
     public float Weight => ItemSO.BaseLootWeight;
     public int Quantity = 1;
 
@@ -123,4 +138,11 @@ public class ItemStatus
         WorldPosition = _worldPosition;
         WorldRotation = _worldRotation;
     }
+}
+
+public enum ItemDropType
+{
+    Equipment,
+    Consumable,
+    Gold
 }

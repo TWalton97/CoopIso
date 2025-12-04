@@ -8,7 +8,7 @@ public class ItemSO : ScriptableObject
     public GameObject GroundItemPrefab;
 
     public ItemType ItemType;
-    public Item.ItemDropType ItemDropType;
+    public ItemDropType ItemDropType;
 
     public int BaseLootBudget;
     public int BaseLootWeight;

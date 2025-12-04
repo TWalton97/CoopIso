@@ -66,7 +66,7 @@ public class PlayerUserInterfaceController : MonoBehaviour
         inventoryController.ToggleInventory();
     }
 
-    public void ToggleBuyInventory(List<ItemData> itemsForSale)
+    public void ToggleBuyInventory(List<InventoryItemView> itemsForSale)
     {
         inventoryController.SetupBuyInventory(itemsForSale);
         inventoryController.ChangeInventoryMode(InventoryMode.Buy);
@@ -83,7 +83,7 @@ public class PlayerUserInterfaceController : MonoBehaviour
         PlayerControlsPanel.SetActive(value);
     }
 
-    public void ToggleVendorPanel(List<ItemData> ItemsForSale)
+    public void ToggleVendorPanel(List<InventoryItemView> ItemsForSale)
     {
         VendorPanelController.TogglePanel(playerContext, ItemsForSale);
     }

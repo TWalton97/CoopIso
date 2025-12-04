@@ -15450,35 +15450,15 @@ MonoBehaviour:
     hasPrimaryWeaponData: 0
     hasSecondaryWeaponData: 0
     PrimaryWeaponData:
-      itemID: 
-      itemName: 
-      quantity: 0
-      sprite: {fileID: 0}
-      itemValue: 0
-      itemWeight: 0
-      itemDescription: 
-      objectPrefab: {fileID: 0}
-      floorObjectPrefab: {fileID: 0}
-      vfxPrefab: {fileID: 0}
-      itemType: 0
-      weaponRangeType: 0
-      data: {fileID: 0}
-      itemQuality: 0
+      ItemID: 
+      ItemSO: {fileID: 0}
+      Quality: 0
+      Quantity: 1
     SecondaryWeaponData:
-      itemID: 
-      itemName: 
-      quantity: 0
-      sprite: {fileID: 0}
-      itemValue: 0
-      itemWeight: 0
-      itemDescription: 
-      objectPrefab: {fileID: 0}
-      floorObjectPrefab: {fileID: 0}
-      vfxPrefab: {fileID: 0}
-      itemType: 0
-      weaponRangeType: 0
-      data: {fileID: 0}
-      itemQuality: 0
+      ItemID: 
+      ItemSO: {fileID: 0}
+      Quality: 0
+      Quantity: 1
     InstantiatedPrimaryWeapon: {fileID: 0}
     InstantiatedSecondaryWeapon: {fileID: 0}
   TwoHandedWeaponSet:
@@ -15486,35 +15466,15 @@ MonoBehaviour:
     hasPrimaryWeaponData: 0
     hasSecondaryWeaponData: 0
     PrimaryWeaponData:
-      itemID: 
-      itemName: 
-      quantity: 0
-      sprite: {fileID: 0}
-      itemValue: 0
-      itemWeight: 0
-      itemDescription: 
-      objectPrefab: {fileID: 0}
-      floorObjectPrefab: {fileID: 0}
-      vfxPrefab: {fileID: 0}
-      itemType: 0
-      weaponRangeType: 0
-      data: {fileID: 0}
-      itemQuality: 0
+      ItemID: 
+      ItemSO: {fileID: 0}
+      Quality: 0
+      Quantity: 1
     SecondaryWeaponData:
-      itemID: 
-      itemName: 
-      quantity: 0
-      sprite: {fileID: 0}
-      itemValue: 0
-      itemWeight: 0
-      itemDescription: 
-      objectPrefab: {fileID: 0}
-      floorObjectPrefab: {fileID: 0}
-      vfxPrefab: {fileID: 0}
-      itemType: 0
-      weaponRangeType: 0
-      data: {fileID: 0}
-      itemQuality: 0
+      ItemID: 
+      ItemSO: {fileID: 0}
+      Quality: 0
+      Quantity: 1
     InstantiatedPrimaryWeapon: {fileID: 0}
     InstantiatedSecondaryWeapon: {fileID: 0}
   RangedWeaponSet:
@@ -15522,35 +15482,15 @@ MonoBehaviour:
     hasPrimaryWeaponData: 0
     hasSecondaryWeaponData: 0
     PrimaryWeaponData:
-      itemID: 
-      itemName: 
-      quantity: 0
-      sprite: {fileID: 0}
-      itemValue: 0
-      itemWeight: 0
-      itemDescription: 
-      objectPrefab: {fileID: 0}
-      floorObjectPrefab: {fileID: 0}
-      vfxPrefab: {fileID: 0}
-      itemType: 0
-      weaponRangeType: 0
-      data: {fileID: 0}
-      itemQuality: 0
+      ItemID: 
+      ItemSO: {fileID: 0}
+      Quality: 0
+      Quantity: 1
     SecondaryWeaponData:
-      itemID: 
-      itemName: 
-      quantity: 0
-      sprite: {fileID: 0}
-      itemValue: 0
-      itemWeight: 0
-      itemDescription: 
-      objectPrefab: {fileID: 0}
-      floorObjectPrefab: {fileID: 0}
-      vfxPrefab: {fileID: 0}
-      itemType: 0
-      weaponRangeType: 0
-      data: {fileID: 0}
-      itemQuality: 0
+      ItemID: 
+      ItemSO: {fileID: 0}
+      Quality: 0
+      Quantity: 1
     InstantiatedPrimaryWeapon: {fileID: 0}
     InstantiatedSecondaryWeapon: {fileID: 0}
   ActiveWeaponSet:
@@ -15558,35 +15498,15 @@ MonoBehaviour:
     hasPrimaryWeaponData: 0
     hasSecondaryWeaponData: 0
     PrimaryWeaponData:
-      itemID: 
-      itemName: 
-      quantity: 0
-      sprite: {fileID: 0}
-      itemValue: 0
-      itemWeight: 0
-      itemDescription: 
-      objectPrefab: {fileID: 0}
-      floorObjectPrefab: {fileID: 0}
-      vfxPrefab: {fileID: 0}
-      itemType: 0
-      weaponRangeType: 0
-      data: {fileID: 0}
-      itemQuality: 0
+      ItemID: 
+      ItemSO: {fileID: 0}
+      Quality: 0
+      Quantity: 1
     SecondaryWeaponData:
-      itemID: 
-      itemName: 
-      quantity: 0
-      sprite: {fileID: 0}
-      itemValue: 0
-      itemWeight: 0
-      itemDescription: 
-      objectPrefab: {fileID: 0}
-      floorObjectPrefab: {fileID: 0}
-      vfxPrefab: {fileID: 0}
-      itemType: 0
-      weaponRangeType: 0
-      data: {fileID: 0}
-      itemQuality: 0
+      ItemID: 
+      ItemSO: {fileID: 0}
+      Quality: 0
+      Quantity: 1
     InstantiatedPrimaryWeapon: {fileID: 0}
     InstantiatedSecondaryWeapon: {fileID: 0}
   CombinedWeaponDamage: 0

@@ -14,12 +14,16 @@ public class EquippableButton : ItemButton
     private ArmorController armorController;
     public TMP_Text StatValue;
 
-    public override void InitializeItemButton(InventoryItemController inventoryItemController, ItemData itemData, string buttonID, PlayerContext playerContext, bool isEquipped = false)
+    public override void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false)
     {
         InventoryItemController = inventoryItemController;
-        ItemData = itemData;
-        ButtonID = buttonID;
         PlayerContext = playerContext;
+        this.inventoryItemView = inventoryItemView;
+        ItemSO = inventoryItemView.ItemSO;
+        ButtonID = inventoryItemView.SlotID;
+
+        if (inventoryItemView.HasItemData)
+            ItemData = inventoryItemView.ItemData;
 
         weaponController = playerContext.PlayerController.WeaponController;
         armorController = playerContext.PlayerController.ArmorController;
@@ -27,35 +31,7 @@ public class EquippableButton : ItemButton
         Button button = GetComponent<Button>();
         button.onClick.AddListener(ActivateButton);
 
-        ItemName.text = ItemData.Quality + " " + ItemData.Name;
-        ItemButtonImage.sprite = ItemData.Sprite;
-        ItemValue.text = ItemData.GoldValue.ToString();
-        ItemWeight.text = ItemData.Weight.ToString("0.0");
-        if (ItemData.ItemSO is WeaponSO weaponData)
-        {
-            StatValue.text = ItemData.MinDamage + "-" + ItemData.MaxDamage;
-        }
-        else if (ItemData.ItemSO is ArmorSO armorData)
-        {
-            StatValue.text = ItemData.ArmorAmount.ToString();
-        }
-        else if (ItemData.ItemSO is ShieldSO shieldData)
-        {
-            StatValue.text = ItemData.ShieldArmorAmount.ToString();
-        }
-
-        switch (ItemData.ItemSO.ItemType)
-        {
-            case ItemType.OneHanded:
-                EquippedColor = OneHandedEquippedColor;
-                break;
-            case ItemType.TwoHanded:
-                EquippedColor = TwoHandedEquippedColor;
-                break;
-            case ItemType.Bow:
-                EquippedColor = RangedEquippedColor;
-                break;
-        }
+        UpdateUI();
 
         if (isEquipped)
         {
@@ -68,6 +44,41 @@ public class EquippableButton : ItemButton
 
         armorController.OnArmorUnequipped += CheckIfItemUnequipped;
         weaponController.OnWeaponUnequipped += CheckIfItemUnequipped;
+        PlayerContext.PlayerController.PlayerStatsBlackboard.OnGoldAmountChanged += CheckIfButtonCanBeActivated;
+    }
+
+    public override void UpdateUI()
+    {
+        ItemName.text = inventoryItemView.ItemQuality.ToString() + " " + inventoryItemView.ItemSO.ItemName;
+        ItemButtonImage.sprite = inventoryItemView.ItemSO.ItemSprite;
+        ItemValue.text = inventoryItemView.GoldValue.ToString();
+        ItemWeight.text = inventoryItemView.ItemSO.Weight.ToString("0.0");
+
+        if (inventoryItemView.ItemSO is WeaponSO)
+        {
+            StatValue.text = inventoryItemView.DisplayMinDamage + "-" + inventoryItemView.DisplayMaxDamage;
+        }
+        else if (inventoryItemView.ItemSO is ArmorSO)
+        {
+            StatValue.text = inventoryItemView.DisplayArmorAmount.ToString();
+        }
+        else if (inventoryItemView.ItemSO is ShieldSO)
+        {
+            StatValue.text = inventoryItemView.DisplayShieldArmorAmount.ToString();
+        }
+
+        switch (inventoryItemView.ItemSO.ItemType)
+        {
+            case ItemType.OneHanded:
+                EquippedColor = OneHandedEquippedColor;
+                break;
+            case ItemType.TwoHanded:
+                EquippedColor = TwoHandedEquippedColor;
+                break;
+            case ItemType.Bow:
+                EquippedColor = RangedEquippedColor;
+                break;
+        }
     }
 
     void OnEnable()
@@ -79,6 +90,7 @@ public class EquippableButton : ItemButton
     {
         armorController.OnArmorUnequipped -= CheckIfItemUnequipped;
         weaponController.OnWeaponUnequipped -= CheckIfItemUnequipped;
+        PlayerContext.PlayerController.PlayerStatsBlackboard.OnGoldAmountChanged -= CheckIfButtonCanBeActivated;
     }
 
     private void SetBackgroundColor(Color color)
@@ -91,6 +103,8 @@ public class EquippableButton : ItemButton
 
     private void CheckIfItemUnequipped(string id)
     {
+        if (ItemData == null) return;
+
         if (id == ItemData.ItemID)
         {
             SetBackgroundColor(BaseColor);
@@ -114,7 +128,7 @@ public class EquippableButton : ItemButton
     {
         if (buttonState == ButtonState.Activated) return;
 
-        if (IsItemArmor() && armorController.CanItemBeEquipped(ItemData))
+        if (IsItemArmor() && armorController.CanItemBeEquipped(ItemSO))
         {
             SetBackgroundColor(BaseColor);
             buttonState = ButtonState.Default;
@@ -128,7 +142,7 @@ public class EquippableButton : ItemButton
             return;
         }
 
-        if (ItemData.ItemSO.ItemType == ItemType.Offhand && PlayerContext.PlayerController.PlayerStatsBlackboard.armorType == ArmorType.Medium || PlayerContext.PlayerController.PlayerStatsBlackboard.armorType == ArmorType.Heavy)
+        if (ItemSO.ItemType == ItemType.Offhand && PlayerContext.PlayerController.PlayerStatsBlackboard.armorType == ArmorType.Medium || PlayerContext.PlayerController.PlayerStatsBlackboard.armorType == ArmorType.Heavy)
         {
             SetBackgroundColor(BaseColor);
             buttonState = ButtonState.Default;
@@ -141,13 +155,15 @@ public class EquippableButton : ItemButton
 
     private void CheckIfButtonCanBeActivatedBuyMode()
     {
-        if (ItemData.ItemSO.GoldValue > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
+        if (inventoryItemView.GoldValue > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
         {
             SetBackgroundColor(CannotBeUsedColor);
+            buttonState = ButtonState.CannotActivate;
         }
         else
         {
             SetBackgroundColor(BaseColor);
+            buttonState = ButtonState.Default;
         }
     }
 
@@ -172,9 +188,11 @@ public class EquippableButton : ItemButton
         if (buttonState == ButtonState.CannotActivate)
             return;
 
+        if (!inventoryItemView.HasItemData) return;
+
         if (buttonState == ButtonState.Default)
         {
-            if (IsItemWeapon() || ItemData.ItemSO.ItemType == ItemType.Offhand)
+            if (IsItemWeapon() || ItemSO.ItemType == ItemType.Offhand)
             {
                 SetBackgroundColor(EquippedColor);
                 weaponController.EquipWeapon(ItemData);
@@ -190,7 +208,7 @@ public class EquippableButton : ItemButton
         }
         else if (buttonState == ButtonState.Activated)
         {
-            if (IsItemWeapon() || ItemData.ItemSO.ItemType == ItemType.Offhand)
+            if (IsItemWeapon() || ItemSO.ItemType == ItemType.Offhand)
             {
                 SetBackgroundColor(BaseColor);
                 weaponController.UnequipWeapon(ItemData);
@@ -207,20 +225,21 @@ public class EquippableButton : ItemButton
 
     public void OnLeftClickSellMode()
     {
+        if (!inventoryItemView.HasItemData) return;
+
         if (buttonState == ButtonState.Activated)
         {
-            if (IsItemWeapon() || ItemData.ItemSO.ItemType == ItemType.Offhand)
+            if (IsItemWeapon() || ItemSO.ItemType == ItemType.Offhand)
             {
                 weaponController.UnequipWeapon(ItemData);
             }
             else if (IsItemArmor())
             {
                 armorController.UnequipArmor(ItemData);
-
             }
         }
 
-        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(ItemData.ItemSO.GoldValue);
+        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(inventoryItemView.GoldValue);
         InventoryItemController.RemoveButtonAtID(ButtonID);
     }
 
@@ -229,20 +248,25 @@ public class EquippableButton : ItemButton
         if (buttonState == ButtonState.CannotActivate)
             return;
 
-        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-ItemData.ItemSO.GoldValue);
-        InventoryItemController.CreateButtonForItem(ItemData);
+        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-inventoryItemView.GoldValue);
+        ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(ItemSO, inventoryItemView.ItemQuality);
+        inventoryItemView.ItemData = itemData;
+        VendorController.OnItemPurchased?.Invoke(ButtonID);
+        InventoryItemController.CreateButtonForItem(inventoryItemView);
         InventoryItemController.RemoveBuyButtonAtID(ButtonID);
     }
 
     public bool CanEquipOffhand()
     {
-        return weaponController.CanEquipOffhand(ItemData);
+        return weaponController.CanEquipOffhand(ItemSO);
     }
 
     public override void OnEquipOffhand(CallbackContext context)
     {
         if (buttonState == ButtonState.CannotActivate)
             return;
+
+        if (!inventoryItemView.HasItemData) return;
 
         if (!CanEquipOffhand())
             return;
@@ -269,9 +293,11 @@ public class EquippableButton : ItemButton
 
     public override void OnRightClick()
     {
+        if (!inventoryItemView.HasItemData) return;
+
         if (buttonState == ButtonState.Activated)
         {
-            if (IsItemWeapon() || ItemData.ItemSO.ItemType == ItemType.Offhand)
+            if (IsItemWeapon() || ItemSO.ItemType == ItemType.Offhand)
             {
                 SetBackgroundColor(EquippedColor);
                 weaponController.UnequipWeapon(ItemData);
@@ -306,13 +332,13 @@ public class EquippableButton : ItemButton
 
     public bool IsItemArmor()
     {
-        if (ItemData.ItemSO.ItemType == ItemType.Head)
+        if (ItemSO.ItemType == ItemType.Head)
             return true;
 
-        if (ItemData.ItemSO.ItemType == ItemType.Body)
+        if (ItemSO.ItemType == ItemType.Body)
             return true;
 
-        if (ItemData.ItemSO.ItemType == ItemType.Legs)
+        if (ItemSO.ItemType == ItemType.Legs)
             return true;
 
         return false;
@@ -320,13 +346,13 @@ public class EquippableButton : ItemButton
 
     public bool IsItemWeapon()
     {
-        if (ItemData.ItemSO.ItemType == ItemType.OneHanded)
+        if (ItemSO.ItemType == ItemType.OneHanded)
             return true;
 
-        if (ItemData.ItemSO.ItemType == ItemType.TwoHanded)
+        if (ItemSO.ItemType == ItemType.TwoHanded)
             return true;
 
-        if (ItemData.ItemSO.ItemType == ItemType.Bow)
+        if (ItemSO.ItemType == ItemType.Bow)
             return true;
 
         return false;

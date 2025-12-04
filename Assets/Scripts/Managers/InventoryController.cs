@@ -58,8 +58,30 @@ public class InventoryController : MonoBehaviour
 
     public void AddItemToInventory(ItemData itemData, bool isEquipped = false)
     {
-        PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(itemData.Weight);
-        FindCorrectInventory(itemData).CreateButtonForItem(itemData, isEquipped);
+        PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(itemData.ItemSO.Weight);
+        InventoryItemView inventoryItemView = new InventoryItemView(itemData.ItemSO, itemData, 1, itemData.Quality, false, itemData.ItemID);
+        inventoryItemView.GoldValue = inventoryItemView.DisplayGoldValue;
+        FindCorrectInventory(itemData.ItemSO).CreateButtonForItem(inventoryItemView, isEquipped);
+    }
+
+    public void AddConsumableToInventory(ItemSO itemSO, int quantity)
+    {
+        InventoryItemView inventoryItemView = new InventoryItemView(itemSO, null, quantity, ItemQuality.Normal, true);
+        inventoryItemView.GoldValue = inventoryItemView.DisplayGoldValue;
+
+        ItemButton button = ConsumablesInventory.FindSlotByItemSO(itemSO);
+        if (button != null)
+        {
+            ConsumableButton cb = button as ConsumableButton;
+            cb.UpdateQuantity(quantity);
+            button.UpdateUI();
+        }
+        else
+        {
+            ConsumablesInventory.CreateButtonForItem(inventoryItemView);
+        }
+
+        PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(itemSO.Weight * quantity);
     }
 
     public void GoToNextMenu()
@@ -94,9 +116,9 @@ public class InventoryController : MonoBehaviour
         inventoryPanelGameObjects[index].SetActive(true);
     }
 
-    private InventoryItemController FindCorrectInventory(ItemData itemData)
+    private InventoryItemController FindCorrectInventory(ItemSO itemSO)
     {
-        switch (itemData.ItemSO.ItemType)
+        switch (itemSO.ItemType)
         {
             case ItemType.OneHanded:
                 return WeaponInventory;
@@ -128,11 +150,11 @@ public class InventoryController : MonoBehaviour
         ConsumablesInventory.SwapToInventoryMode(inventoryMode);
     }
 
-    public void SetupBuyInventory(List<ItemData> itemsForSale)
+    public void SetupBuyInventory(List<InventoryItemView> ItemsForSale)
     {
-        foreach (ItemData itemData in itemsForSale)
+        foreach (InventoryItemView itemData in ItemsForSale)
         {
-            FindCorrectInventory(itemData).CreateButtonForBuyItem(itemData);
+            FindCorrectInventory(itemData.ItemSO).CreateButtonForBuyItem(itemData);
         }
     }
 }

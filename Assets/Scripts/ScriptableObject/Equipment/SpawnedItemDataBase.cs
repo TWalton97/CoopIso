@@ -16,7 +16,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
         GameObject itemToDrop = new GameObject(itemData.Name);
         Item newItem = itemToDrop.AddComponent<Item>();
-        newItem.itemData = itemData;
+        newItem.ItemData = itemData;
 
         if (itemData.GroundPrefab == null)
         {
@@ -34,35 +34,6 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         itemToDrop.AddComponent<SphereCollider>().isTrigger = true;
     }
 
-    public Item SpawnAndRegisterItem(ItemData itemData, Vector3 worldPosition, Quaternion worldRotation)
-    {
-        GameObject itemToDrop = new GameObject(itemData.Name);
-        Item newItem = itemToDrop.AddComponent<Item>();
-        newItem.itemData = itemData;
-        newItem.itemData.ItemID = RegisterItemToDatabase(itemData);
-
-        if (itemData.GroundPrefab == null)
-        {
-            Instantiate(itemData.ItemPrefab, Vector3.zero, itemData.ItemPrefab.transform.rotation, itemToDrop.transform);
-        }
-        else
-        {
-            Instantiate(itemData.GroundPrefab, Vector3.zero, itemData.GroundPrefab.transform.rotation, itemToDrop.transform);
-        }
-
-        SceneManager.MoveGameObjectToScene(itemToDrop, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
-        itemToDrop.transform.SetPositionAndRotation(worldPosition, worldRotation);
-
-        itemToDrop.AddComponent<SphereCollider>().isTrigger = true;
-        return newItem;
-    }
-
-    public void SpawnConsumableItem(ConsumableDrop consumableDrop, Vector3 worldPosition, Quaternion worldRotation)
-    {
-        GameObject obj = Instantiate(consumableDrop.potionData.PotionPrefab, worldPosition, worldRotation);
-        SceneManager.MoveGameObjectToScene(obj, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
-    }
-
     public string RegisterItemToDatabase(ItemData itemData)
     {
         string id = Guid.NewGuid().ToString();
@@ -71,19 +42,49 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         return id;
     }
 
-    public ItemData CreateItemData(int spawnableItemsIndex = -1)
+    public ItemData CreateItemData(ItemSO itemSO, ItemQuality quality = ItemQuality.Normal, int quantity = 1)
     {
         ItemData itemData = new ItemData();
-        if (spawnableItemsIndex == -1)
-        {
-            itemData.ItemSO = spawnableItems[UnityEngine.Random.Range(0, spawnableItems.Count)];
-        }
-        else
-        {
-            itemData.ItemSO = spawnableItems[spawnableItemsIndex];
-        }
+        itemData.ItemSO = itemSO;
+        itemData.Quality = quality;
+        itemData.Quantity = quantity;
         itemData.ItemID = RegisterItemToDatabase(itemData);
         return itemData;
+    }
+
+    public ItemSO ReturnRandomWeaponSO()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            int rand = UnityEngine.Random.Range(0, spawnableItems.Count);
+            if (spawnableItems[rand] is WeaponSO)
+            {
+                return spawnableItems[rand];
+            }
+        }
+        return null;
+    }
+
+    public ItemSO ReturnRandomArmorSO()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            int rand = UnityEngine.Random.Range(0, spawnableItems.Count);
+            if (spawnableItems[rand] is ArmorSO || spawnableItems[rand] is ShieldSO)
+            {
+                return spawnableItems[rand];
+            }
+        }
+        return null;
+    }
+
+    public void SpawnWorldDropAtPosition(LootResult lootResult, Vector3 worldPosition)
+    {
+        Item item = Instantiate(lootResult.itemSO.GroundItemPrefab, worldPosition, lootResult.itemSO.ItemPrefab.transform.rotation).GetComponent<Item>();
+        item.ItemSO = lootResult.itemSO;
+        item.Quality = lootResult.quality;
+        item.Quantity = lootResult.quantity;
+        SceneManager.MoveGameObjectToScene(item.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
     }
 
     public SpawnedItemData GetSpawnedItemDataFromDataBase(string id)

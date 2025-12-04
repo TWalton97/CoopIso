@@ -202,7 +202,6 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
             {
                 ItemData itemData = new ItemData();
                 itemData.ItemSO = consumable;
-                itemData.Quality = ItemQuality.Shoddy;
                 itemData.ItemID = spawnedItemDatabase.RegisterItemToDatabase(itemData);
                 playerContext.UserInterfaceController.inventoryController.AddItemToInventory(itemData);
             }

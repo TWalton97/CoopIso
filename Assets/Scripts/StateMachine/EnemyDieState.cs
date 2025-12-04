@@ -49,7 +49,7 @@ public class EnemyDieState : EnemyBaseState
 
         foreach (var item in loot)
         {
-            SpawnedItemDataBase.Instance.SpawnItemFromDatabase(item.ItemID, ReturnSpawnPositionInRadius(), item.GroundPrefab.transform.rotation);
+            SpawnedItemDataBase.Instance.SpawnWorldDropAtPosition(item, ReturnSpawnPositionInRadius());
         }
         yield return null;
     }

@@ -761,11 +761,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d23d4bf9dca80d449dd9c919779d667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Data>k__BackingField: {fileID: 11400000, guid: 886e9b3c35b94ab4a9885384a3bbf2b0, type: 2}
+  <Data>k__BackingField: {fileID: 11400000, guid: cc3212b0424884542a72e58d69182fda, type: 2}
+  PlayerContext:
+    PlayerIndex: 0
+    UserInterfaceController: {fileID: 0}
+    PlayerController: {fileID: 0}
+    PlayerInput: {fileID: 0}
+    InventoryManager: {fileID: 0}
+    InteractionManager: {fileID: 0}
+    SpawnedItemDatabase: {fileID: 0}
+    PlayerPreviewManager: {fileID: 0}
+    InventoryController: {fileID: 0}
+  weaponRangeType: 0
+  ItemData:
+    ItemID: 
+    ItemSO: {fileID: 0}
+    Quality: 0
+    Quantity: 1
   weaponHand: 0
   weaponAttackType: 4
-  affixes: []
   itemID: 
+  averageWeaponDamage: 0
   BowAnimator: {fileID: 7418600451847444454}
   arrowSpawnPos: {fileID: 3327361800678131007}
   projectilePrefab: {fileID: 5783461640622885472, guid: 1746bda9a717b4646b9ce8a6e9186aec, type: 3}

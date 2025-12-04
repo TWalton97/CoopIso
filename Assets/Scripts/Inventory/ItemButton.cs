@@ -9,7 +9,9 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
     public PlayerContext PlayerContext;
     public InventoryController InventoryController;
     public InventoryItemController InventoryItemController;
+    public ItemSO ItemSO;
     public ItemData ItemData;
+    public InventoryItemView inventoryItemView;
     public Color BaseColor;
     public Color EquippedColor;
     public Color CannotBeUsedColor;
@@ -26,7 +28,7 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
 
     private Selectable selectable;
 
-    protected string ButtonID;
+    public string ButtonID;
 
     public enum ButtonState
     {
@@ -41,7 +43,8 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
         selectable = GetComponent<Button>();
     }
 
-    public abstract void InitializeItemButton(InventoryItemController inventoryItemController, ItemData itemData, string buttonID, PlayerContext playerContext, bool isEquipped = false);
+    public abstract void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false);
+    public abstract void UpdateUI();
     public abstract void OnRightClick();
     public abstract void OnLeftClick();
     public abstract void ActivateButton();

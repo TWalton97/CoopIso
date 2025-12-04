@@ -3,57 +3,29 @@ using UnityEngine;
 
 public class ConsumableDrop : Item, IInteractable
 {
-    //Consumables will just store PotionSO
-    public string itemID;
-    public PotionSO potionData;
-
-    public override string interactableName { get => potionData.PotionName; set => potionData.PotionName = value; }
+    public override string interactableName { get => GetInteractableName(); set => ItemSO.ItemName = value; }
     public override InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
 
-    void Start()
+    protected override void CollectItem(PlayerContext playerContext)
     {
-        targetRotation = transform.rotation;
-        targetPosition = transform.position;
-        ItemStatus = new ItemStatus(itemID, targetPosition, targetRotation);
-        StartCoroutine(RotateRandomly());
-    }
-
-    private IEnumerator RotateRandomly()
-    {
-        Vector3 startPos = targetPosition + Vector3.up * 2f;
-        float elapsedTime = 0f;
-        while (elapsedTime < 0.3f)
-        {
-            transform.rotation = Random.rotation;
-            transform.position = Vector3.Lerp(startPos, targetPosition, elapsedTime / 0.3f);
-            elapsedTime += 0.05f;
-            yield return new WaitForSeconds(0.05f);
-        }
-        transform.rotation = targetRotation;
-        transform.position = targetPosition;
-        _isInteractable = true;
-        yield return null;
-    }
-
-    private void CollectItem(PlayerContext playerContext)
-    {
-        if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + itemData.Weight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
+        if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + ItemSO.Weight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
         {
             StartCoroutine(RotateRandomly());
             return;
         }
-        playerContext.InventoryController.AddItemToInventory(itemData);
+        if (itemCollected) return;
+        itemCollected = true;
+        playerContext.InventoryController.AddConsumableToInventory(ItemSO, Quantity);
         Destroy(gameObject);
-    }
-
-    public override void OnInteract(PlayerContext context, int playerIndex)
-    {
-        CollectItem(context);
     }
 
     public override string GetInteractableName()
     {
-        return interactableName;
+        if (ItemSO != null)
+        {
+            return ItemSO.ItemName;
+        }
+        return ItemData.ItemSO.ItemName;
     }
 
 }

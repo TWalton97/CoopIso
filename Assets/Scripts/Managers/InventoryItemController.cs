@@ -14,7 +14,9 @@ public class InventoryItemController : MonoBehaviour
 
     public PlayerContext PlayerContext;
 
+    public GameObject ItemButtonScrollRect;
     public Transform ItemButtonParent;
+    public GameObject BuyItemButtonScrollRect;
     public Transform BuyItemButtonParent;
     public ItemButton ItemButtonPrefab;
 
@@ -99,12 +101,28 @@ public class InventoryItemController : MonoBehaviour
         }
     }
 
-    public void CreateButtonForItem(ItemData itemData, bool isEquipped = false)
+    public void CreateButtonForItem(InventoryItemView inventoryItemView, bool isEquipped = false)
     {
         ItemButton itemButton = Instantiate(ItemButtonPrefab, ItemButtonParent);
+        string id = "";
+        if (inventoryItemView.ItemData != null)
+        {
+            id = inventoryItemView.ItemData.ItemID;
+            instantiatedItemButtons.Add(id, itemButton);
+        }
+        else
+        {
+            id = GUID.Generate().ToString();
+            instantiatedItemButtons.Add(id, itemButton);
+            ItemData itemData = new ItemData();
+            itemData.ItemID = id;
+            itemData.ItemSO = inventoryItemView.ItemSO;
+            itemData.Quantity = inventoryItemView.Quantity;
+            inventoryItemView.ItemData = itemData;
+        }
 
-        itemButton.InitializeItemButton(this, itemData, itemData.ItemID, PlayerContext, isEquipped);
-        instantiatedItemButtons.Add(itemData.ItemID, itemButton);
+        inventoryItemView.SlotID = id;
+        itemButton.InitializeItemButton(this, PlayerContext, inventoryItemView, isEquipped);
     }
 
     public void RemoveButtonAtID(string id)
@@ -114,7 +132,7 @@ public class InventoryItemController : MonoBehaviour
 
         if (ItemButtonParent.childCount == 1)
         {
-            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.ItemData.Weight);
+            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.inventoryItemView.ItemSO.Weight);
             instantiatedItemButtons.Remove(id);
             Destroy(itemButton.gameObject);
             PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
@@ -122,7 +140,7 @@ public class InventoryItemController : MonoBehaviour
         else
         {
             int childNumber = itemButton.transform.GetSiblingIndex();
-            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.ItemData.Weight);
+            PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.inventoryItemView.ItemSO.Weight);
             instantiatedItemButtons.Remove(id);
             Destroy(itemButton.gameObject);
             if (childNumber == 0)
@@ -143,14 +161,12 @@ public class InventoryItemController : MonoBehaviour
 
         if (instantiatedBuyItemButtons.Count == 1)
         {
-            instantiatedBuyItemButtons.Remove(id);
             Destroy(itemButton.gameObject);
             PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
         }
         else
         {
             int childNumber = itemButton.transform.GetSiblingIndex();
-            instantiatedBuyItemButtons.Remove(id);
             Destroy(itemButton.gameObject);
             if (childNumber == 0)
             {
@@ -163,15 +179,15 @@ public class InventoryItemController : MonoBehaviour
         }
     }
 
-    public ConsumableButton TryFindConsumableButtonOfType(PotionSO potionData)
+    public ItemButton FindSlotByItemSO(ItemSO itemSO)
     {
         if (instantiatedItemButtons.Count == 0) return null;
 
         for (int i = 0; i < ItemButtonParent.childCount; i++)
         {
-            if (ItemButtonParent.GetChild(i).TryGetComponent(out ConsumableButton button))
+            if (ItemButtonParent.GetChild(i).TryGetComponent(out ItemButton button))
             {
-                if (button.PotionData == potionData)
+                if (button.inventoryItemView.ItemSO == itemSO)
                     return button;
             }
         }
@@ -189,10 +205,13 @@ public class InventoryItemController : MonoBehaviour
         {
             if (ItemButtonParent.GetChild(i).TryGetComponent(out ConsumableButton button))
             {
-                if (button.PotionData.ResourceToRestore == resourceType && button.PotionData.AmountOfResourceToRestore > restoreAmount)
+                if (button.inventoryItemView.ItemSO is PotionSO potionSO)
                 {
-                    largestPotionButton = button;
-                    restoreAmount = button.PotionData.AmountOfResourceToRestore;
+                    if (potionSO.ResourceToRestore == resourceType && potionSO.AmountOfResourceToRestore > restoreAmount)
+                    {
+                        largestPotionButton = button;
+                        restoreAmount = potionSO.AmountOfResourceToRestore;
+                    }
                 }
             }
         }
@@ -266,38 +285,160 @@ public class InventoryItemController : MonoBehaviour
         InventoryMode = inventoryMode;
         if (inventoryMode == InventoryMode.Normal || inventoryMode == InventoryMode.Sell)
         {
-            foreach (ItemButton itemButton in instantiatedItemButtons.Values)
+            var sortedItemButtons = instantiatedItemButtons.Values.OrderBy(b => b.inventoryItemView.GoldValue).ToList();
+            for (int i = 0; i < sortedItemButtons.Count; i++)
             {
-                itemButton.gameObject.SetActive(true);
+                sortedItemButtons[i].transform.SetSiblingIndex(i);
             }
-
-            foreach (ItemButton itemButton in instantiatedBuyItemButtons.Values)
-            {
-                itemButton.gameObject.SetActive(false);
-            }
+            ItemButtonScrollRect.gameObject.SetActive(true);
+            BuyItemButtonScrollRect.gameObject.SetActive(false);
         }
         else if (inventoryMode == InventoryMode.Buy)
         {
-            foreach (ItemButton itemButton in instantiatedItemButtons.Values)
+            var sortedBuyItemButtons = instantiatedBuyItemButtons.Values.OrderBy(b => b.inventoryItemView.GoldValue).ToList();
+            for (int i = 0; i < sortedBuyItemButtons.Count; i++)
             {
-                itemButton.gameObject.SetActive(false);
+                sortedBuyItemButtons[i].transform.SetSiblingIndex(i);
             }
-
-            foreach (ItemButton itemButton in instantiatedBuyItemButtons.Values)
-            {
-                itemButton.gameObject.SetActive(true);
-            }
+            ItemButtonScrollRect.gameObject.SetActive(false);
+            BuyItemButtonScrollRect.gameObject.SetActive(true);
         }
     }
 
-    public void CreateButtonForBuyItem(ItemData itemData, bool isEquipped = false)
+    public void CreateButtonForBuyItem(InventoryItemView inventoryItemView, bool isEquipped = false)
     {
-        if (!instantiatedBuyItemButtons.ContainsKey(itemData.ItemID))
+        if (!instantiatedBuyItemButtons.ContainsKey(inventoryItemView.SlotID))
         {
             ItemButton itemButton = Instantiate(ItemButtonPrefab, BuyItemButtonParent);
+            instantiatedBuyItemButtons.Add(inventoryItemView.SlotID, itemButton);
+            itemButton.InitializeItemButton(this, PlayerContext, inventoryItemView, isEquipped);
+        }
+        else
+        {
+            instantiatedBuyItemButtons[inventoryItemView.SlotID].gameObject.SetActive(true);
+        }
+    }
+}
 
-            itemButton.InitializeItemButton(this, itemData, itemData.ItemID, PlayerContext, isEquipped);
-            instantiatedBuyItemButtons.Add(itemData.ItemID, itemButton);
+[Serializable]
+public class InventoryItemView
+{
+    public ItemSO ItemSO;
+    public ItemData ItemData;
+    public int Quantity;
+    public ItemQuality ItemQuality;
+    public int GoldValue;
+    public bool IsStackable;
+    public string SlotID;
+
+    public InventoryItemView(ItemSO _itemSO, ItemData _itemData = null, int _quantity = 1, ItemQuality _itemQuality = ItemQuality.Normal, bool _isStackable = false, string _slotID = "")
+    {
+        ItemSO = _itemSO;
+        ItemData = _itemData;
+        Quantity = _quantity;
+        ItemQuality = _itemQuality;
+        IsStackable = _isStackable;
+        SlotID = _slotID;
+    }
+
+    public bool HasItemData => ItemData != null;
+
+    public int DisplayGoldValue
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.GoldValue;
+            else
+                return Mathf.RoundToInt(ItemSO.GoldValue * LootCalculator.QualityFactor(ItemQuality));
+        }
+    }
+
+    public int DisplayMinDamage
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.MinDamage;
+            else
+                return (ItemSO as WeaponSO)?.WeaponMinDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMinDamage * LootCalculator.QualityFactor(ItemQuality)) : 0;
+        }
+    }
+
+    public int DisplayMaxDamage
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.MaxDamage;
+            else
+                return (ItemSO as WeaponSO)?.WeaponMaxDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMaxDamage * LootCalculator.QualityFactor(ItemQuality)) : 0;
+        }
+    }
+
+    public WeaponRangeType DisplayWeaponRangeType
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.WeaponRangeType;
+            else
+                return (ItemSO as WeaponSO)?.WeaponRangeType != null ? (ItemSO as WeaponSO).WeaponRangeType : WeaponRangeType.None;
+        }
+    }
+
+    public int DisplayArmorAmount
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.ArmorAmount;
+            else
+                return (ItemSO as ArmorSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ArmorSO).ArmorAmount * LootCalculator.QualityFactor(ItemQuality)) : 0;
+        }
+    }
+
+    public ArmorType DisplayArmorType
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.ArmorType;
+            else
+                return (ItemSO as ArmorSO)?.ArmorType != null ? (ItemSO as ArmorSO).ArmorType : ArmorType.None;
+        }
+    }
+
+    public int DisplayShieldArmorAmount
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.ShieldArmorAmount;
+            else
+                return (ItemSO as ShieldSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ShieldSO).ArmorAmount * LootCalculator.QualityFactor(ItemQuality)) : 0;
+        }
+    }
+
+    public Resources.ResourceType DisplayResourceType
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.ResourceType;
+            else
+                return (ItemSO as PotionSO)?.ResourceToRestore ?? Resources.ResourceType.Health;
+        }
+    }
+
+    public int DisplayResourceAmount
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.ResourceAmount;
+            else
+                return (ItemSO as PotionSO)?.AmountOfResourceToRestore ?? 0;
         }
     }
 }

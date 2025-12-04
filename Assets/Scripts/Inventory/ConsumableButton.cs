@@ -7,41 +7,57 @@ public class ConsumableButton : ItemButton
     public int Quantity = 0;
     public TMP_Text QuantityText;
 
-    public PotionSO PotionData;
-
-    public override void InitializeItemButton(InventoryItemController inventoryItemController, ItemData itemData, string buttonID, PlayerContext playerContext, bool isEquipped = false)
+    public override void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false)
     {
         InventoryItemController = inventoryItemController;
-        ButtonID = buttonID;
         PlayerContext = playerContext;
-        ItemData = itemData;
-        PotionData = itemData.ItemSO as PotionSO;
+        this.inventoryItemView = inventoryItemView;
+        ButtonID = inventoryItemView.SlotID;
+        ItemSO = inventoryItemView.ItemSO;
+
+        if (inventoryItemView.HasItemData)
+            ItemData = inventoryItemView.ItemData;
 
         Button button = GetComponent<Button>();
         button.onClick.AddListener(ActivateButton);
 
-        ItemName.text = PotionData.PotionName;
-        ItemButtonImage.sprite = PotionData.PotionSprite;
-        ItemValue.text = PotionData.GoldValue.ToString();
-        ItemWeight.text = PotionData.Weight.ToString("0.0");
+        UpdateUI();
+
         CheckIfButtonCanBeActivated();
-        UpdateQuantity(1);
+        UpdateQuantity(inventoryItemView.Quantity);
+
+        PlayerContext.PlayerController.PlayerStatsBlackboard.OnGoldAmountChanged += CheckIfButtonCanBeActivated;
     }
 
-    public void InitializeItemButton(InventoryItemController inventoryItemController, PotionSO potionData, string buttonID, PlayerContext playerContext)
+    void OnDestroy()
     {
-
+        PlayerContext.PlayerController.PlayerStatsBlackboard.OnGoldAmountChanged -= CheckIfButtonCanBeActivated;
     }
 
+    public override void UpdateUI()
+    {
+        ItemName.text = inventoryItemView.ItemSO.ItemName;
+        ItemButtonImage.sprite = inventoryItemView.ItemSO.ItemSprite;
+        ItemValue.text = (inventoryItemView.GoldValue * Quantity).ToString();
+        ItemWeight.text = inventoryItemView.ItemSO.Weight.ToString("0.0");
+    }
     void OnEnable()
     {
         CheckIfButtonCanBeActivated();
+        if (InventoryItemController.InventoryMode == InventoryMode.Buy)
+        {
+            QuantityText.enabled = false;
+        }
+        else
+        {
+            QuantityText.enabled = true;
+        }
     }
 
     public void UpdateQuantity(int amount)
     {
         Quantity += amount;
-        if (Quantity <= 0)
+        if (Quantity <= 0 && InventoryItemController.InventoryMode != InventoryMode.Buy)
         {
             InventoryItemController.RemoveButtonAtID(ButtonID);
             return;
@@ -61,20 +77,27 @@ public class ConsumableButton : ItemButton
     {
         if (InventoryItemController.InventoryMode == InventoryMode.Buy)
         {
-            if (ItemData.ItemSO.GoldValue > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
+            if (inventoryItemView.GoldValue > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
             {
                 SetBackgroundColor(CannotBeUsedColor);
+                buttonState = ButtonState.CannotActivate;
             }
             else
             {
                 SetBackgroundColor(BaseColor);
+                buttonState = ButtonState.Default;
             }
+        }
+        else
+        {
+            SetBackgroundColor(BaseColor);
+            buttonState = ButtonState.Default;
         }
     }
 
     public override void ActivateButton()
     {
-
+        OnLeftClick();
     }
 
     public override void OnLeftClick()
@@ -94,14 +117,13 @@ public class ConsumableButton : ItemButton
         if (buttonState == ButtonState.CannotActivate)
             return;
 
-        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-ItemData.ItemSO.GoldValue);
-        InventoryItemController.CreateButtonForItem(ItemData);
-        InventoryItemController.RemoveBuyButtonAtID(ButtonID);
+        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-inventoryItemView.GoldValue);
+        InventoryItemController.PlayerContext.InventoryController.AddConsumableToInventory(ItemSO, 1);
     }
 
     public void OnLeftClickSellMode()
     {
-        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(ItemData.ItemSO.GoldValue);
+        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(inventoryItemView.GoldValue);
         UpdateQuantity(-1);
     }
 
@@ -109,8 +131,9 @@ public class ConsumableButton : ItemButton
     {
         Vector3 spawnPos = NavMeshUtils.ReturnRandomPointOnXZ(PlayerContext.PlayerController.transform.position, 1f);
         spawnPos.y = 0f;
-        Item item = Instantiate(PotionData.PotionPrefab, spawnPos, Quaternion.identity).GetComponent<Item>();
-        item.itemData = ItemData;
+        Item item = Instantiate(inventoryItemView.ItemSO.GroundItemPrefab, spawnPos, Quaternion.identity).GetComponent<Item>();
+        item.ItemSO = ItemSO;
+        item.Quantity = 1;
         UpdateQuantity(-1);
     }
 }

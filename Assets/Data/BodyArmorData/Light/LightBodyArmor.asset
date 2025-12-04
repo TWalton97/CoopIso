@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Light Body Armor
   ItemSprite: {fileID: 21300000, guid: 9b83b1b50b6618847855609efd72172e, type: 3}
-  ItemPrefab: {fileID: 3570430455495733410, guid: db4bc9c57c5859b488b47bca7839372b, type: 3}
+  ItemPrefab: {fileID: 603522249259933497, guid: a88cd9a37537d70449ed197fbcb755f0, type: 3}
   GroundItemPrefab: {fileID: 3570430455495733410, guid: db4bc9c57c5859b488b47bca7839372b, type: 3}
   ItemType: 2
   ItemDropType: 0
   BaseLootBudget: 4
   BaseLootWeight: 6
-  GoldValue: 0
-  Weight: 0
+  GoldValue: 30
+  Weight: 7
   ArmorType: 1
   ArmorAmount: 1

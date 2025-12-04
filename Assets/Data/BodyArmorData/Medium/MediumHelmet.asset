@@ -20,7 +20,7 @@ MonoBehaviour:
   ItemDropType: 0
   BaseLootBudget: 6
   BaseLootWeight: 4
-  GoldValue: 0
-  Weight: 0
+  GoldValue: 40
+  Weight: 6
   ArmorType: 2
   ArmorAmount: 2

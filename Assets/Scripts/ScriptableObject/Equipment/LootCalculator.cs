@@ -4,15 +4,18 @@ using UnityEngine;
 
 public static class LootCalculator
 {
-
     public static int RollBudget(int minBudget, int maxBudget)
     {
         return Random.Range(minBudget, maxBudget + 1);
     }
 
-    public static List<ItemData> RollItemsWithBudget(int budget, float qualityBias = 0f)
+
+    //This just returns a type of item, its quality (if applicable), and quantity (if applicable)
+    //The item isn't turned into itemData, or assigned an ID
+    public static List<LootResult> RollItemsWithBudget(int budget, float qualityBias = 0f)
     {
-        List<ItemData> results = new List<ItemData>();
+        List<LootResult> results = new List<LootResult>();
+        // List<ItemData> results = new List<ItemData>();
         SpawnedItemDataBase database = SpawnedItemDataBase.Instance;
 
         int cheapestCost = int.MaxValue;
@@ -31,7 +34,7 @@ public static class LootCalculator
             ItemSO itemSO = WeightedRandom(database.spawnableItems);
             ItemQuality q = 0;
             float multiplier = 1;
-            if (itemSO.ItemDropType == Item.ItemDropType.Equipment)
+            if (itemSO.ItemDropType == ItemDropType.Equipment)
             {
                 q = RollQuality(qualityBias);
                 multiplier = QualityFactor(q);
@@ -41,10 +44,11 @@ public static class LootCalculator
 
             if (cost <= remaining)
             {
-                ItemData itemData = database.CreateItemData();
-                itemData.ItemSO = itemSO;
-                itemData.Quality = q;
-                results.Add(itemData);
+                LootResult loot = new LootResult();
+                loot.itemSO = itemSO;
+                loot.quality = q;
+                loot.quantity = ResolveAmount(itemSO);
+                results.Add(loot);
                 remaining -= cost;
             }
             else
@@ -56,37 +60,40 @@ public static class LootCalculator
         return CombineGold(results);
     }
 
-    public static List<ItemData> CombineGold(List<ItemData> Items)
+    public static List<LootResult> CombineGold(List<LootResult> Items)
     {
-        int totalGold = 0;
+        int totalQuantity = 0;
+        ItemSO goldSO = null;
 
         for (int i = Items.Count - 1; i >= 0; i--)
         {
-            ItemData item = Items[i];
-            if (item.ItemSO.ItemDropType == Item.ItemDropType.Gold)
+            LootResult item = Items[i];
+            if (item.itemSO.ItemDropType == ItemDropType.Gold)
             {
-                totalGold += Items[i].GoldValue;
+                totalQuantity += item.quantity;
                 Items.RemoveAt(i);
+                goldSO = item.itemSO;
             }
         }
 
-        if (totalGold <= 0)
+        if (totalQuantity <= 0)
             return Items;
 
-        ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(0);
-        itemData.GoldDropValue = totalGold;
+        LootResult loot = new LootResult();
+        loot.itemSO = goldSO;
+        loot.quantity = totalQuantity;
 
-        Items.Add(itemData);
+        Items.Add(loot);
         return Items;
     }
 
-    private static int ResolveAmount(Item item, int cost)
+    private static int ResolveAmount(ItemSO item)
     {
-        switch (item.itemDropType)   // depends on your ItemSO
+        switch (item.ItemDropType)   // depends on your ItemSO
         {
-            case Item.ItemDropType.Gold:
-                return Mathf.RoundToInt(cost * 12); // example conversion
-            case Item.ItemDropType.Consumable:
+            case ItemDropType.Gold:
+                return Mathf.RoundToInt(item.GoldValue * 12); // example conversion
+            case ItemDropType.Consumable:
                 return 1; // or use cost scaling for stacks
             default:
                 return 1;
@@ -140,4 +147,11 @@ public static class LootCalculator
     {
         return Mathf.RoundToInt(itemSO.BaseLootBudget * QualityFactor(quality));
     }
+}
+
+public class LootResult
+{
+    public ItemSO itemSO;
+    public ItemQuality quality = ItemQuality.Normal;
+    public int quantity = 1;
 }

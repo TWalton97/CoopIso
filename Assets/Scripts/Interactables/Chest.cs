@@ -55,7 +55,7 @@ public class Chest : MonoBehaviour, IInteractable
 
         foreach (var item in loot)
         {
-            spawnedItemDataBase.SpawnItemFromDatabase(item.ItemID, ReturnSpawnPositionInRadius(), item.GroundPrefab.transform.rotation);
+            spawnedItemDataBase.SpawnWorldDropAtPosition(item, ReturnSpawnPositionInRadius());
             yield return new WaitForSeconds(0.2f);
         }
         yield return null;

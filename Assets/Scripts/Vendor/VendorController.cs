@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +18,23 @@ public class VendorController : MonoBehaviour, IInteractable
     private bool _isInteractable = true;
     public bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
 
-    public List<ItemData> ItemDatasForSale;
+    [System.Serializable]
+    public class VendorItem
+    {
+        public string itemID;
+        public ItemSO itemSO;
+        public ItemQuality itemQuality;
+        public float priceMultiplier;
+    }
+    public List<VendorItem> ItemsForSale;
+    private List<InventoryItemView> vendorItemViews = new();
 
     private bool spawnedItems = false;
+    public float VendorWeaponPriceMultiplier;
+    public float VendorArmorPriceMultiplier;
+    public float ConsumablePriceMultiplier;
+
+    public static Action<string> OnItemPurchased;
 
 
     public string GetInteractableName()
@@ -27,18 +42,70 @@ public class VendorController : MonoBehaviour, IInteractable
         return interactableName;
     }
 
+    void OnEnable()
+    {
+        OnItemPurchased += RemoveItemFromAvailableItems;
+    }
+
+    void OnDisable()
+    {
+        OnItemPurchased -= RemoveItemFromAvailableItems;
+    }
+
+    public void RemoveItemFromAvailableItems(string id)
+    {
+        foreach (var item in vendorItemViews)
+        {
+            if (item.SlotID == id)
+            {
+                vendorItemViews.Remove(item);
+                return;
+            }
+        }
+    }
+
     public void OnInteract(PlayerContext playerContext, int playerIndex)
     {
         if (!spawnedItems)
         {
             spawnedItems = true;
-            for (int i = 0; i < Random.Range(10, 20); i++)
+            foreach (VendorItem item in ItemsForSale)
             {
-                //ItemDatasForSale.Add(ItemsForSale[i].itemData.Clone());
-                ItemDatasForSale.Add(SpawnedItemDataBase.Instance.CreateItemData());
+                item.itemID = Guid.NewGuid().ToString();
+                item.priceMultiplier = ConsumablePriceMultiplier;
             }
-        }
 
-        playerContext.UserInterfaceController.ToggleVendorPanel(ItemDatasForSale);
+            for (int i = 0; i < 5; i++)
+            {
+                VendorItem vendorItem = new VendorItem();
+                vendorItem.itemID = Guid.NewGuid().ToString();
+                vendorItem.itemSO = SpawnedItemDataBase.Instance.ReturnRandomWeaponSO();
+                vendorItem.itemQuality = LootCalculator.RollQuality();
+                vendorItem.priceMultiplier = VendorWeaponPriceMultiplier;
+                ItemsForSale.Add(vendorItem);
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                VendorItem vendorItem = new VendorItem();
+                vendorItem.itemID = Guid.NewGuid().ToString();
+                vendorItem.itemSO = SpawnedItemDataBase.Instance.ReturnRandomArmorSO();
+                vendorItem.itemQuality = LootCalculator.RollQuality();
+                vendorItem.priceMultiplier = VendorArmorPriceMultiplier;
+                ItemsForSale.Add(vendorItem);
+            }
+            WrapVendorItemsForInventoryView();
+        }
+        playerContext.UserInterfaceController.ToggleVendorPanel(vendorItemViews);
+    }
+
+    public void WrapVendorItemsForInventoryView()
+    {
+        foreach (var vendorItem in ItemsForSale)
+        {
+            InventoryItemView view = new InventoryItemView(vendorItem.itemSO, null, (vendorItem.itemSO.ItemType == ItemType.Consumable) ? 1 : 1, vendorItem.itemQuality, false, vendorItem.itemID);
+            view.GoldValue = (int)(view.DisplayGoldValue * vendorItem.priceMultiplier);
+            vendorItemViews.Add(view);
+        }
     }
 }

@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Light Legs
   ItemSprite: {fileID: 21300000, guid: 7c40e79b53ded734694ad8a142b4890b, type: 3}
-  ItemPrefab: {fileID: 773802651178812812, guid: b0cd6b04a9adaf746be0764bfd4b1953, type: 3}
+  ItemPrefab: {fileID: 7057373036346066464, guid: 64bdf95ae24ba4347922c9491513b861, type: 3}
   GroundItemPrefab: {fileID: 773802651178812812, guid: b0cd6b04a9adaf746be0764bfd4b1953, type: 3}
   ItemType: 3
   ItemDropType: 0
   BaseLootBudget: 4
   BaseLootWeight: 6
-  GoldValue: 0
-  Weight: 0
+  GoldValue: 30
+  Weight: 6
   ArmorType: 1
   ArmorAmount: 1

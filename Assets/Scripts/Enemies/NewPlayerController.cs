@@ -397,7 +397,7 @@ public class NewPlayerController : Entity
         ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(Resources.ResourceType.Health);
         if (button == null) return;
 
-        PotionController.UsePotion(button.PotionData);
+        PotionController.UsePotion(button.inventoryItemView.ItemSO as PotionSO);
         button.UpdateQuantity(-1);
     }
 
@@ -406,7 +406,7 @@ public class NewPlayerController : Entity
         ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(Resources.ResourceType.Mana);
         if (button == null) return;
 
-        PotionController.UsePotion(button.PotionData);
+        PotionController.UsePotion(button.inventoryItemView.ItemSO as PotionSO);
         button.UpdateQuantity(-1);
     }
 

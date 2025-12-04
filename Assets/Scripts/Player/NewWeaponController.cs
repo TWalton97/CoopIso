@@ -617,14 +617,14 @@ public class NewWeaponController : MonoBehaviour
         }
     }
 
-    public bool CanEquipOffhand(ItemData itemData)
+    public bool CanEquipOffhand(ItemSO itemSO)
     {
-        if (itemData.ItemSO.ItemType == ItemType.OneHanded)
+        if (itemSO.ItemType == ItemType.OneHanded)
         {
             return true;
         }
 
-        if (itemData.ItemSO.ItemType == ItemType.TwoHanded && newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
+        if (itemSO.ItemType == ItemType.TwoHanded && newPlayerController.PlayerStatsBlackboard.TwoHandedMastery)
         {
             return true;
         }

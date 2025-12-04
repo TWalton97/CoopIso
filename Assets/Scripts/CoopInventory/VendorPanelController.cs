@@ -6,9 +6,9 @@ public class VendorPanelController : MonoBehaviour
 {
     public PlayerContext PlayerContext;
     public Button FirstButton;
-    public List<ItemData> ItemsForSale;
+    public List<InventoryItemView> ItemsForSale;
 
-    public void TogglePanel(PlayerContext playerContext, List<ItemData> itemsForSale = null)
+    public void TogglePanel(PlayerContext playerContext, List<InventoryItemView> itemsForSale = null)
     {
         PlayerContext = playerContext;
         gameObject.SetActive(!gameObject.activeSelf);
@@ -30,7 +30,6 @@ public class VendorPanelController : MonoBehaviour
         //Opens the VENDOR UI, populated with vendor's items
         PlayerContext.UserInterfaceController.ToggleBuyInventory(ItemsForSale);
         TogglePanel(PlayerContext);
-
     }
 
     public void EnterSellMode()

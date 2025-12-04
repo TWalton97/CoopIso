@@ -16,7 +16,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 774a7a1997cfb514ba373b25d06beeb5, type: 3}
   ItemPrefab: {fileID: 7220092997085358212, guid: c59257ee3b5d45542a8d265f37bd93c5, type: 3}
   GroundItemPrefab: {fileID: 1634620894161367855, guid: 323cc608e60e55f4a8f6e9a391953509, type: 3}
-  ItemType: 0
+  ItemType: 4
   ItemDropType: 0
   BaseLootBudget: 4
   BaseLootWeight: 6

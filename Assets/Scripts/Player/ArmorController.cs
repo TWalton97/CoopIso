@@ -210,9 +210,9 @@ public class ArmorController : MonoBehaviour
         }
     }
 
-    public bool CanItemBeEquipped(ItemData itemData)
+    public bool CanItemBeEquipped(ItemSO itemSO)
     {
-        if (itemData.ItemSO is ArmorSO armorSO)
+        if (itemSO is ArmorSO armorSO)
         {
             switch (armorSO.ArmorType)
             {
