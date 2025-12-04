@@ -62,6 +62,12 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
     public void ToggleInventory(InventoryMode inventoryMode = InventoryMode.Normal)
     {
+        if (VendorPanelController.gameObject.activeSelf)
+        {
+            VendorPanelController.TogglePanel();
+            return;
+        }
+        
         inventoryController.ChangeInventoryMode(inventoryMode);
         inventoryController.ToggleInventory();
     }

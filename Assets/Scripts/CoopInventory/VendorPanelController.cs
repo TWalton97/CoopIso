@@ -5,8 +5,13 @@ using UnityEngine.UI;
 public class VendorPanelController : MonoBehaviour
 {
     public PlayerContext PlayerContext;
-    public Button FirstButton;
+    public UIButton[] Buttons;
     public List<InventoryItemView> ItemsForSale;
+
+    public void TogglePanel()
+    {
+        TogglePanel(PlayerContext);
+    }
 
     public void TogglePanel(PlayerContext playerContext, List<InventoryItemView> itemsForSale = null)
     {
@@ -16,12 +21,16 @@ public class VendorPanelController : MonoBehaviour
         if (gameObject.activeSelf)
         {
             ItemsForSale = itemsForSale;
-            playerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(FirstButton.gameObject);
+            playerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(Buttons[0].gameObject);
             playerContext.InventoryManager.RequestPause();
         }
         else
         {
             playerContext.InventoryManager.RequestUnpause();
+            foreach (UIButton button in Buttons)
+            {
+                button.ToggleHighlight(false);
+            }
         }
     }
 

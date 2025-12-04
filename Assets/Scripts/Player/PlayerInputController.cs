@@ -345,7 +345,6 @@ public class PlayerInputController : MonoBehaviour
     public void OnEquipmentMenu(CallbackContext context)
     {
         playerController.PlayerContext.UserInterfaceController.ToggleInventory();
-        //playerController.PlayerContext.InventoryManager.OpenInventory(playerIndex);
     }
     #endregion
 

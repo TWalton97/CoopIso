@@ -41,6 +41,11 @@ public class InventoryItemController : MonoBehaviour
             SelectButton();
         }
 
+        if (instantiatedBuyItemButtons.Count != 0)
+        {
+            SelectButton();
+        }
+
         Navigation rightTabNavigation = new Navigation();
         rightTabNavigation.mode = Navigation.Mode.Explicit;
         rightTabNavigation.selectOnLeft = LeftTab;
@@ -85,12 +90,24 @@ public class InventoryItemController : MonoBehaviour
 
     public void SelectButton(int index = 0)
     {
-        if (ItemButtonParent.childCount == 0) return;
-        int clampedIndex = Mathf.Clamp(index, 0, ItemButtonParent.childCount - 1);
-        GameObject firstButton = ItemButtonParent.GetChild(clampedIndex).gameObject;
-        PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(firstButton);
-        UpdateViewPosition(ItemButtonParent.GetChild(clampedIndex).GetComponent<RectTransform>());
-        firstButton.GetComponent<ItemButton>().ToggleHighlight(true);
+        if (InventoryMode == InventoryMode.Normal || InventoryMode == InventoryMode.Sell)
+        {
+            if (ItemButtonParent.childCount == 0) return;
+            int clampedIndex = Mathf.Clamp(index, 0, ItemButtonParent.childCount - 1);
+            GameObject firstButton = ItemButtonParent.GetChild(clampedIndex).gameObject;
+            PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(firstButton);
+            UpdateViewPosition(ItemButtonParent.GetChild(clampedIndex).GetComponent<RectTransform>());
+            firstButton.GetComponent<ItemButton>().ToggleHighlight(true);
+        }
+        else if (InventoryMode == InventoryMode.Buy)
+        {
+            if (BuyItemButtonParent.childCount == 0) return;
+            int clampedIndex = Mathf.Clamp(index, 0, BuyItemButtonParent.childCount - 1);
+            GameObject firstButton = BuyItemButtonParent.GetChild(clampedIndex).gameObject;
+            PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(firstButton);
+            UpdateViewPosition(BuyItemButtonParent.GetChild(clampedIndex).GetComponent<RectTransform>());
+            firstButton.GetComponent<ItemButton>().ToggleHighlight(true);
+        }
     }
 
     public void DeselectAllButtons()
