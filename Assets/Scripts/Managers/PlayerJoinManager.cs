@@ -17,6 +17,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     public SceneLoadingManager sceneLoadingManager;
     public CullingManager cullingManager;
     public PlayerAveragePositionTracker playerAveragePositionTracker;
+    public UIStateManager UIStateManager;
 
     public static Action<GameObject> OnPlayerJoinedEvent;
     public static Action<GameObject> OnPlayerLeftEvent;
@@ -172,6 +173,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.SpawnedItemDatabase = spawnedItemDatabase;
         playerContext.PlayerPreviewManager = playerPreviewManager;
         playerContext.InventoryController = playerUserInterfaceController.inventoryController;
+        playerContext.UIStateManager = UIStateManager;
 
         playerUserInterfaceController.playerContext = playerContext;
 
@@ -234,4 +236,5 @@ public class PlayerContext
     public SpawnedItemDataBase SpawnedItemDatabase;
     public PlayerPreviewManager PlayerPreviewManager;
     public InventoryController InventoryController;
+    public UIStateManager UIStateManager;
 }

@@ -374,7 +374,7 @@
                 {
                     "name": "",
                     "id": "df0c0985-358b-4486-8be3-ff18ed4190a5",
-                    "path": "<Gamepad>/start",
+                    "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -583,15 +583,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Cancel",
-                    "type": "Button",
-                    "id": "2a48f440-70fb-4dd1-ade4-a3176791cabb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Point",
                     "type": "PassThrough",
                     "id": "c3303257-7730-4e75-9b36-308b226833df",
@@ -664,7 +655,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DropItem",
+                    "name": "Cancel",
                     "type": "Button",
                     "id": "d3bf42f8-649d-4db7-b7a1-6a55d4c50724",
                     "expectedControlType": "",
@@ -703,6 +694,15 @@
                     "name": "EquipOffhand",
                     "type": "Button",
                     "id": "7ef2b9db-df06-4aff-9d9e-420bec38c445",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DropItem",
+                    "type": "Button",
+                    "id": "d15557f0-8f47-45ca-a4bc-e99e49aa05aa",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -987,17 +987,6 @@
                 },
                 {
                     "name": "",
-                    "id": "82627dcc-3b13-4ba9-841d-e4b746d6553e",
-                    "path": "*/{Cancel}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c52c8e0b-8179-41d3-b8a1-d149033bbe86",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -1142,7 +1131,7 @@
                 {
                     "name": "",
                     "id": "76dd7b4d-e9de-48bf-9037-8f099bfec36e",
-                    "path": "<Gamepad>/start",
+                    "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -1157,7 +1146,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "DropItem",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "196cc444-14bf-442c-8a80-91ea64c9f7cc",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1268,6 +1268,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "EquipOffhand",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eab9175c-eff1-4bd6-b532-15dd9f60895b",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DropItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a22bb2b-8037-484b-8a7e-6bfc44bc12c6",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DropItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

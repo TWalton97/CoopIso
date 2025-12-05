@@ -22,6 +22,8 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
     public EventSystem eventSystem;
 
+    public PlayerUIState playerUIState = PlayerUIState.None;
+
     public void Init(PlayerContext context)
     {
         eventSystem = GetComponent<EventSystem>();
@@ -36,12 +38,42 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
         playerContext.PlayerController.PlayerInputController.OnDropItemPerformed += CallDropItemOnButton;
         playerContext.PlayerController.PlayerInputController.OnEquipOffhandPerformed += CallEquipOffhandOnButton;
+        playerContext.PlayerController.PlayerInputController.OnCancelPerformed += OnCancel;
+        VendorPanelController.PlayerContext = playerContext;
+    }
+
+    void OnEnable()
+    {
+
     }
 
     void OnDestroy()
     {
         playerContext.PlayerController.PlayerInputController.OnDropItemPerformed -= CallDropItemOnButton;
         playerContext.PlayerController.PlayerInputController.OnEquipOffhandPerformed -= CallEquipOffhandOnButton;
+        playerContext.PlayerController.PlayerInputController.OnCancelPerformed -= OnCancel;
+    }
+
+    private void OnCancel(CallbackContext context)
+    {
+        switch (playerUIState)
+        {
+            case PlayerUIState.Inventory_Normal:
+                CloseInventory();
+                break;
+            case PlayerUIState.Vendor_Buy:
+                CloseInventoryToVendorMenu();
+                break;
+            case PlayerUIState.Vendor_Sell:
+                CloseInventoryToVendorMenu();
+                break;
+            case PlayerUIState.Vendor_Menu:
+                VendorPanelController.Exit();
+                break;
+            case PlayerUIState.Vendor_Craft:
+                CloseInventoryToVendorMenu();
+                break;
+        }
     }
 
     private void CallDropItemOnButton(CallbackContext context)
@@ -60,24 +92,72 @@ public class PlayerUserInterfaceController : MonoBehaviour
         }
     }
 
-    public void ToggleInventory(InventoryMode inventoryMode = InventoryMode.Normal)
+    public void TryToggleInventory()
     {
-        if (VendorPanelController.gameObject.activeSelf)
+        if (playerUIState == PlayerUIState.None)
         {
-            VendorPanelController.TogglePanel();
-            return;
+            OpenInventoryInMode(InventoryMode.Normal);
         }
-        
-        inventoryController.ChangeInventoryMode(inventoryMode);
-        inventoryController.ToggleInventory();
+        else if (playerUIState == PlayerUIState.Inventory_Normal)
+        {
+            CloseInventory();
+        }
+        else if (playerUIState == PlayerUIState.Vendor_Waiting || playerUIState == PlayerUIState.Vendor_Menu)
+        {
+            //Do nothing
+        }
+        else
+        {
+            CloseInventoryToVendorMenu();
+        }
     }
 
-    public void ToggleBuyInventory(List<InventoryItemView> itemsForSale)
+    public void OpenInventoryInMode(InventoryMode inventoryMode)
     {
-        inventoryController.SetupBuyInventory(itemsForSale);
-        inventoryController.ChangeInventoryMode(InventoryMode.Buy);
-        inventoryController.ToggleInventory();
+        inventoryController.ChangeInventoryMode(inventoryMode);
+        inventoryController.OpenInventory();
+
+        switch (inventoryMode)
+        {
+            case InventoryMode.Normal:
+                playerUIState = PlayerUIState.Inventory_Normal;
+                playerContext.InventoryManager.RequestPause();
+                break;
+            case InventoryMode.Buy:
+                playerUIState = PlayerUIState.Vendor_Buy;
+                break;
+            case InventoryMode.Sell:
+                playerUIState = PlayerUIState.Vendor_Sell;
+                break;
+        }
     }
+
+    public void CloseInventory()
+    {
+        inventoryController.ChangeInventoryMode(InventoryMode.Normal);
+        inventoryController.CloseInventory();
+        playerContext.InventoryManager.RequestUnpause();
+        playerUIState = PlayerUIState.None;
+    }
+
+    public void CloseInventoryToVendorMenu()
+    {
+        CloseInventory();
+        OpenVendorMenu();
+    }
+
+    public void OpenVendorMenu()
+    {
+        VendorPanelController.OpenVendorMenu();
+        playerUIState = PlayerUIState.Vendor_Menu;
+    }
+
+    public void CloseVendorMenu()
+    {
+        VendorPanelController.CloseVendorMenu();
+        playerUIState = PlayerUIState.None;
+    }
+
 
     public void ToggleResourcePanel(bool value)
     {
@@ -87,11 +167,6 @@ public class PlayerUserInterfaceController : MonoBehaviour
     public void TogglePlayerControlsPanel(bool value)
     {
         PlayerControlsPanel.SetActive(value);
-    }
-
-    public void ToggleVendorPanel(List<InventoryItemView> ItemsForSale)
-    {
-        VendorPanelController.TogglePanel(playerContext, ItemsForSale);
     }
 
     public void AddAbility(AbilitySO ability, AbilityBehaviourBase behaviour)
@@ -108,5 +183,15 @@ public class PlayerUserInterfaceController : MonoBehaviour
     {
         WeightText.text = current.ToString("0.0") + "/" + max.ToString("0.0");
     }
+}
 
+public enum PlayerUIState
+{
+    None,
+    Inventory_Normal,
+    Vendor_Waiting,
+    Vendor_Menu,
+    Vendor_Buy,
+    Vendor_Sell,
+    Vendor_Craft
 }

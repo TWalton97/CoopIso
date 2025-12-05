@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ConsumableButton : ItemButton
@@ -135,5 +136,11 @@ public class ConsumableButton : ItemButton
         item.ItemSO = ItemSO;
         item.Quantity = 1;
         UpdateQuantity(-1);
+    }
+
+    public override void OnSelect(BaseEventData eventData)
+    {
+        base.OnSelect(eventData);
+        InventoryItemController.UpdateViewPosition(GetComponent<RectTransform>(), GetComponentInParent<ScrollRect>());
     }
 }

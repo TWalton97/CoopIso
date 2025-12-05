@@ -47,6 +47,8 @@ public class PlayerInputController : MonoBehaviour
     public Action<CallbackContext> OnDropItemPerformed;
     public Action<CallbackContext> OnDisplayMoreInformationPerformed;
     public Action<CallbackContext> OnEquipOffhandPerformed;
+    public Action<CallbackContext> OnCancelPerformed;
+    public Action<CallbackContext> OnSubmitPerformed;
 
     //Stored dictionary for unsubscribing from all events
     private Dictionary<InputAction, Action<CallbackContext>> subscribedInputActions = new Dictionary<InputAction, Action<CallbackContext>>();
@@ -101,6 +103,8 @@ public class PlayerInputController : MonoBehaviour
         SubscribeToInputAction(playerInputActions.UI.MoveMenuLeft.id.ToString(), OnMoveMenuLeft, UIMap);
         SubscribeToInputAction(playerInputActions.UI.MoveMenuRight.id.ToString(), OnMoveMenuRight, UIMap);
         SubscribeToInputAction(playerInputActions.UI.EquipOffhand.id.ToString(), OnEquipOffhand, UIMap);
+        SubscribeToInputAction(playerInputActions.UI.Cancel.id.ToString(), OnCancel, UIMap);
+        SubscribeToInputAction(playerInputActions.UI.Submit.id.ToString(), OnSubmit, UIMap);
 
         //Specific cases//
 
@@ -265,54 +269,13 @@ public class PlayerInputController : MonoBehaviour
     #endregion
 
     #region UI Input Actions
-    public void OnCancel(CallbackContext context)
-    {
-
-    }
-
-    public void OnClick(CallbackContext context)
-    {
-
-    }
-
-    public void OnMiddleClick(CallbackContext context)
-    {
-
-    }
-
-    public void OnNavigate(CallbackContext context)
-    {
-
-    }
-
-    public void OnPoint(CallbackContext context)
-    {
-
-    }
-
-    public void OnRightClick(CallbackContext context)
-    {
-
-    }
-
-    public void OnScrollWheel(CallbackContext context)
-    {
-
-    }
-
     public void OnSubmit(CallbackContext context)
     {
-
+        OnSubmitPerformed?.Invoke(context);
     }
-
-    public void OnTrackedDeviceOrientation(CallbackContext context)
+    public void OnCancel(CallbackContext context)
     {
-
-    }
-
-    public void OnTrackedDevicePosition(CallbackContext context)
-    {
-
+        OnCancelPerformed?.Invoke(context);
     }
 
     public void OnDropItem(CallbackContext context)
@@ -344,7 +307,7 @@ public class PlayerInputController : MonoBehaviour
     #region Shared Input Actions
     public void OnEquipmentMenu(CallbackContext context)
     {
-        playerController.PlayerContext.UserInterfaceController.ToggleInventory();
+        playerController.PlayerContext.UserInterfaceController.TryToggleInventory();
     }
     #endregion
 

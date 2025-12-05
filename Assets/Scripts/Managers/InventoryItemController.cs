@@ -96,7 +96,7 @@ public class InventoryItemController : MonoBehaviour
             int clampedIndex = Mathf.Clamp(index, 0, ItemButtonParent.childCount - 1);
             GameObject firstButton = ItemButtonParent.GetChild(clampedIndex).gameObject;
             PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(firstButton);
-            UpdateViewPosition(ItemButtonParent.GetChild(clampedIndex).GetComponent<RectTransform>());
+            UpdateViewPosition(ItemButtonParent.GetChild(clampedIndex).GetComponent<RectTransform>(), ItemButtonScrollRect.GetComponent<ScrollRect>());
             firstButton.GetComponent<ItemButton>().ToggleHighlight(true);
         }
         else if (InventoryMode == InventoryMode.Buy)
@@ -105,7 +105,7 @@ public class InventoryItemController : MonoBehaviour
             int clampedIndex = Mathf.Clamp(index, 0, BuyItemButtonParent.childCount - 1);
             GameObject firstButton = BuyItemButtonParent.GetChild(clampedIndex).gameObject;
             PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(firstButton);
-            UpdateViewPosition(BuyItemButtonParent.GetChild(clampedIndex).GetComponent<RectTransform>());
+            UpdateViewPosition(BuyItemButtonParent.GetChild(clampedIndex).GetComponent<RectTransform>(), BuyItemButtonScrollRect.GetComponent<ScrollRect>());
             firstButton.GetComponent<ItemButton>().ToggleHighlight(true);
         }
     }
@@ -277,12 +277,12 @@ public class InventoryItemController : MonoBehaviour
         }
     }
 
-    public void UpdateViewPosition(RectTransform target)
+    public void UpdateViewPosition(RectTransform target, ScrollRect _scrollRect)
     {
         if (target == null) return;
 
         if (PlayerContext.PlayerController.PlayerInputController.playerInput.currentControlScheme == PlayerContext.PlayerController.KEYBOARD_SCHEME) return;
-        scrollRect.content.localPosition = GetSnapToPositionToBringChildIntoView(scrollRect, target);
+        _scrollRect.content.localPosition = GetSnapToPositionToBringChildIntoView(_scrollRect, target);
     }
 
     public Vector2 GetSnapToPositionToBringChildIntoView(ScrollRect instance, RectTransform child)

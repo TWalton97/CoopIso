@@ -20294,7 +20294,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionType: 4
-  ItemsForSale:
+  ItemsForSale1:
+  - itemID: 
+    itemSO: {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
+    itemQuality: 0
+    priceMultiplier: 0
+  - itemID: 
+    itemSO: {fileID: 11400000, guid: ae07c51b79f60cd4ea616b538a9709eb, type: 2}
+    itemQuality: 0
+    priceMultiplier: 0
+  ItemsForSale2:
   - itemID: 
     itemSO: {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
     itemQuality: 0

@@ -396,7 +396,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""df0c0985-358b-4486-8be3-ff18ed4190a5"",
-                    ""path"": ""<Gamepad>/start"",
+                    ""path"": ""<Gamepad>/select"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -605,15 +605,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Cancel"",
-                    ""type"": ""Button"",
-                    ""id"": ""2a48f440-70fb-4dd1-ade4-a3176791cabb"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Point"",
                     ""type"": ""PassThrough"",
                     ""id"": ""c3303257-7730-4e75-9b36-308b226833df"",
@@ -686,7 +677,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DropItem"",
+                    ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""d3bf42f8-649d-4db7-b7a1-6a55d4c50724"",
                     ""expectedControlType"": """",
@@ -725,6 +716,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""EquipOffhand"",
                     ""type"": ""Button"",
                     ""id"": ""7ef2b9db-df06-4aff-9d9e-420bec38c445"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DropItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""d15557f0-8f47-45ca-a4bc-e99e49aa05aa"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1009,17 +1009,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""82627dcc-3b13-4ba9-841d-e4b746d6553e"",
-                    ""path"": ""*/{Cancel}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;Gamepad;Touch;Joystick;XR"",
-                    ""action"": ""Cancel"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c52c8e0b-8179-41d3-b8a1-d149033bbe86"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -1164,7 +1153,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""76dd7b4d-e9de-48bf-9037-8f099bfec36e"",
-                    ""path"": ""<Gamepad>/start"",
+                    ""path"": ""<Gamepad>/select"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -1179,7 +1168,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""DropItem"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""196cc444-14bf-442c-8a80-91ea64c9f7cc"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1292,6 +1292,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""EquipOffhand"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eab9175c-eff1-4bd6-b532-15dd9f60895b"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DropItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a22bb2b-8037-484b-8a7e-6bfc44bc12c6"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DropItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1381,7 +1403,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
-        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
         m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
         m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
@@ -1390,11 +1411,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_OpenEquipmentMenu = m_UI.FindAction("OpenEquipmentMenu", throwIfNotFound: true);
-        m_UI_DropItem = m_UI.FindAction("DropItem", throwIfNotFound: true);
+        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
         m_UI_MoveMenuLeft = m_UI.FindAction("MoveMenuLeft", throwIfNotFound: true);
         m_UI_MoveMenuRight = m_UI.FindAction("MoveMenuRight", throwIfNotFound: true);
         m_UI_DisplayMoreInformation = m_UI.FindAction("DisplayMoreInformation", throwIfNotFound: true);
         m_UI_EquipOffhand = m_UI.FindAction("EquipOffhand", throwIfNotFound: true);
+        m_UI_DropItem = m_UI.FindAction("DropItem", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
@@ -1630,7 +1652,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_Submit;
-    private readonly InputAction m_UI_Cancel;
     private readonly InputAction m_UI_Point;
     private readonly InputAction m_UI_Click;
     private readonly InputAction m_UI_ScrollWheel;
@@ -1639,18 +1660,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_OpenEquipmentMenu;
-    private readonly InputAction m_UI_DropItem;
+    private readonly InputAction m_UI_Cancel;
     private readonly InputAction m_UI_MoveMenuLeft;
     private readonly InputAction m_UI_MoveMenuRight;
     private readonly InputAction m_UI_DisplayMoreInformation;
     private readonly InputAction m_UI_EquipOffhand;
+    private readonly InputAction m_UI_DropItem;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
-        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
         public InputAction @Point => m_Wrapper.m_UI_Point;
         public InputAction @Click => m_Wrapper.m_UI_Click;
         public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
@@ -1659,11 +1680,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @OpenEquipmentMenu => m_Wrapper.m_UI_OpenEquipmentMenu;
-        public InputAction @DropItem => m_Wrapper.m_UI_DropItem;
+        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
         public InputAction @MoveMenuLeft => m_Wrapper.m_UI_MoveMenuLeft;
         public InputAction @MoveMenuRight => m_Wrapper.m_UI_MoveMenuRight;
         public InputAction @DisplayMoreInformation => m_Wrapper.m_UI_DisplayMoreInformation;
         public InputAction @EquipOffhand => m_Wrapper.m_UI_EquipOffhand;
+        public InputAction @DropItem => m_Wrapper.m_UI_DropItem;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1679,9 +1701,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Submit.started += instance.OnSubmit;
             @Submit.performed += instance.OnSubmit;
             @Submit.canceled += instance.OnSubmit;
-            @Cancel.started += instance.OnCancel;
-            @Cancel.performed += instance.OnCancel;
-            @Cancel.canceled += instance.OnCancel;
             @Point.started += instance.OnPoint;
             @Point.performed += instance.OnPoint;
             @Point.canceled += instance.OnPoint;
@@ -1706,9 +1725,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @OpenEquipmentMenu.started += instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.performed += instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.canceled += instance.OnOpenEquipmentMenu;
-            @DropItem.started += instance.OnDropItem;
-            @DropItem.performed += instance.OnDropItem;
-            @DropItem.canceled += instance.OnDropItem;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
             @MoveMenuLeft.started += instance.OnMoveMenuLeft;
             @MoveMenuLeft.performed += instance.OnMoveMenuLeft;
             @MoveMenuLeft.canceled += instance.OnMoveMenuLeft;
@@ -1721,6 +1740,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @EquipOffhand.started += instance.OnEquipOffhand;
             @EquipOffhand.performed += instance.OnEquipOffhand;
             @EquipOffhand.canceled += instance.OnEquipOffhand;
+            @DropItem.started += instance.OnDropItem;
+            @DropItem.performed += instance.OnDropItem;
+            @DropItem.canceled += instance.OnDropItem;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1731,9 +1753,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Submit.started -= instance.OnSubmit;
             @Submit.performed -= instance.OnSubmit;
             @Submit.canceled -= instance.OnSubmit;
-            @Cancel.started -= instance.OnCancel;
-            @Cancel.performed -= instance.OnCancel;
-            @Cancel.canceled -= instance.OnCancel;
             @Point.started -= instance.OnPoint;
             @Point.performed -= instance.OnPoint;
             @Point.canceled -= instance.OnPoint;
@@ -1758,9 +1777,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @OpenEquipmentMenu.started -= instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.performed -= instance.OnOpenEquipmentMenu;
             @OpenEquipmentMenu.canceled -= instance.OnOpenEquipmentMenu;
-            @DropItem.started -= instance.OnDropItem;
-            @DropItem.performed -= instance.OnDropItem;
-            @DropItem.canceled -= instance.OnDropItem;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
             @MoveMenuLeft.started -= instance.OnMoveMenuLeft;
             @MoveMenuLeft.performed -= instance.OnMoveMenuLeft;
             @MoveMenuLeft.canceled -= instance.OnMoveMenuLeft;
@@ -1773,6 +1792,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @EquipOffhand.started -= instance.OnEquipOffhand;
             @EquipOffhand.performed -= instance.OnEquipOffhand;
             @EquipOffhand.canceled -= instance.OnEquipOffhand;
+            @DropItem.started -= instance.OnDropItem;
+            @DropItem.performed -= instance.OnDropItem;
+            @DropItem.canceled -= instance.OnDropItem;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1858,7 +1880,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnNavigate(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
-        void OnCancel(InputAction.CallbackContext context);
         void OnPoint(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
         void OnScrollWheel(InputAction.CallbackContext context);
@@ -1867,10 +1888,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnOpenEquipmentMenu(InputAction.CallbackContext context);
-        void OnDropItem(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
         void OnMoveMenuLeft(InputAction.CallbackContext context);
         void OnMoveMenuRight(InputAction.CallbackContext context);
         void OnDisplayMoreInformation(InputAction.CallbackContext context);
         void OnEquipOffhand(InputAction.CallbackContext context);
+        void OnDropItem(InputAction.CallbackContext context);
     }
 }

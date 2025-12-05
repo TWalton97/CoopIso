@@ -44,7 +44,6 @@ public class EquippableButton : ItemButton
 
         armorController.OnArmorUnequipped += CheckIfItemUnequipped;
         weaponController.OnWeaponUnequipped += CheckIfItemUnequipped;
-        PlayerContext.PlayerController.PlayerStatsBlackboard.OnGoldAmountChanged += CheckIfButtonCanBeActivated;
     }
 
     public override void UpdateUI()
@@ -327,7 +326,7 @@ public class EquippableButton : ItemButton
     public override void OnSelect(BaseEventData eventData)
     {
         base.OnSelect(eventData);
-        InventoryItemController.UpdateViewPosition(GetComponent<RectTransform>());
+        InventoryItemController.UpdateViewPosition(GetComponent<RectTransform>(), GetComponentInParent<ScrollRect>());
     }
 
     public bool IsItemArmor()

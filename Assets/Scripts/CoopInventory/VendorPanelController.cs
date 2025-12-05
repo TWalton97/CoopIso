@@ -1,50 +1,90 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.InputAction;
 
 public class VendorPanelController : MonoBehaviour
 {
     public PlayerContext PlayerContext;
+    public GameObject ButtonPanel;
+    public GameObject WaitingForPlayerPanel;
     public UIButton[] Buttons;
     public List<InventoryItemView> ItemsForSale;
 
-    public void TogglePanel()
+    private float nextAllowedInputTime = 0f;
+
+    void Awake()
     {
-        TogglePanel(PlayerContext);
+        PlayerContext.PlayerController.PlayerInputController.OnSubmitPerformed += OnSubmit;
     }
 
-    public void TogglePanel(PlayerContext playerContext, List<InventoryItemView> itemsForSale = null)
+    void OnDestroy()
     {
-        PlayerContext = playerContext;
-        gameObject.SetActive(!gameObject.activeSelf);
+        PlayerContext.PlayerController.PlayerInputController.OnSubmitPerformed -= OnSubmit;
+    }
 
-        if (gameObject.activeSelf)
+    private void OnSubmit(CallbackContext context)
+    {
+        if (PlayerContext.UserInterfaceController.playerUIState == PlayerUIState.Vendor_Waiting)
         {
-            ItemsForSale = itemsForSale;
-            playerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(Buttons[0].gameObject);
-            playerContext.InventoryManager.RequestPause();
+            Enter();
         }
-        else
+    }
+
+    public void OpenVendorMenu()
+    {
+        gameObject.SetActive(true);
+        ButtonPanel.gameObject.SetActive(true);
+        WaitingForPlayerPanel.gameObject.SetActive(false);
+        PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(Buttons[0].gameObject);
+        PlayerContext.InventoryManager.RequestPause();
+    }
+
+    public void CloseVendorMenu()
+    {
+        gameObject.SetActive(false);
+        foreach (UIButton button in Buttons)
         {
-            playerContext.InventoryManager.RequestUnpause();
-            foreach (UIButton button in Buttons)
-            {
-                button.ToggleHighlight(false);
-            }
+            button.ToggleHighlight(false);
         }
     }
 
     public void EnterBuyMode()
     {
-        //Opens the VENDOR UI, populated with vendor's items
-        PlayerContext.UserInterfaceController.ToggleBuyInventory(ItemsForSale);
-        TogglePanel(PlayerContext);
+        if (Time.unscaledTime < nextAllowedInputTime) return;
+        nextAllowedInputTime = Time.unscaledTime + 0.15f;
+        PlayerContext.InventoryController.SetupBuyInventory(ItemsForSale);
+        PlayerContext.UserInterfaceController.OpenInventoryInMode(InventoryMode.Buy);
+        CloseVendorMenu();
     }
 
     public void EnterSellMode()
     {
-        PlayerContext.UserInterfaceController.ToggleInventory(InventoryMode.Sell);
-        TogglePanel(PlayerContext);
-        //Opens the PLAYER UI, with inventory item controllers set to SELL mode
+        if (Time.unscaledTime < nextAllowedInputTime) return;
+        nextAllowedInputTime = Time.unscaledTime + 0.15f;
+        PlayerContext.UserInterfaceController.OpenInventoryInMode(InventoryMode.Sell);
+        CloseVendorMenu();
+    }
+
+    public void Exit()
+    {
+        if (Time.unscaledTime < nextAllowedInputTime) return;
+        nextAllowedInputTime = Time.unscaledTime + 0.15f;
+        PlayerContext.UserInterfaceController.playerUIState = PlayerUIState.Vendor_Waiting;
+        ButtonPanel.gameObject.SetActive(false);
+        WaitingForPlayerPanel.gameObject.SetActive(true);
+        PlayerContext.InventoryManager.RequestUnpause();
+    }
+
+    public void Enter()
+    {
+        if (Time.unscaledTime < nextAllowedInputTime) return;
+        nextAllowedInputTime = Time.unscaledTime + 0.15f;
+        PlayerContext.UserInterfaceController.playerUIState = PlayerUIState.Vendor_Menu;
+        ButtonPanel.gameObject.SetActive(true);
+        WaitingForPlayerPanel.gameObject.SetActive(false);
+        PlayerContext.InventoryManager.RequestPause();
     }
 }

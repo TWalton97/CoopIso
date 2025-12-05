@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class InventoryManager : MonoBehaviour
     public static Action OnMenuOpened;
     public static Action OnMenuClosed;
     public GameObject PlayerPreview;
+    public GameObject[] VendorPanels;
 
     public PlayerUserInterfaceController[] playerUserInterfaceControllers = new PlayerUserInterfaceController[2];
 
@@ -40,8 +42,25 @@ public class InventoryManager : MonoBehaviour
                 playerUserInterfaceController.ToggleResourcePanel(true);
             }
 
+            CloseVendorPanel();
             PlayerPreview.SetActive(false);
             OnMenuClosed?.Invoke();
+        }
+    }
+
+    public void OpenVendorPanel()
+    {
+        for (int i = 0; i < PlayerJoinManager.Instance.playerControllers.Count; i++)
+        {
+            playerUserInterfaceControllers[i].OpenVendorMenu();
+        }
+    }
+
+    public void CloseVendorPanel()
+    {
+        for (int i = 0; i < PlayerJoinManager.Instance.playerControllers.Count; i++)
+        {
+            playerUserInterfaceControllers[i].CloseVendorMenu();
         }
     }
 }

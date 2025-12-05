@@ -20,8 +20,6 @@ public class InventoryController : MonoBehaviour
     public GameObject[] inventoryPanelGameObjects;
     private int currentIndex = 0;
 
-    private bool toggled = false;
-
     public InventoryMode InventoryMode = InventoryMode.Normal;
 
     public void Init(PlayerContext playerContext)
@@ -38,22 +36,20 @@ public class InventoryController : MonoBehaviour
     {
         ControlsPanel.UpdateControls(PlayerContext, controlData);
     }
-
-    public void ToggleInventory()
+    public void OpenInventory()
     {
-        toggled = !toggled;
-        ControlsPanel.gameObject.SetActive(toggled);
-        InventoryObjectsParent.SetActive(toggled);
-        if (toggled)
-        {
-            PlayerContext.InventoryManager.RequestPause();
-            currentIndex = 0;
-            OpenMenu(0);
-        }
-        else
-        {
-            PlayerContext.InventoryManager.RequestUnpause();
-        }
+        ControlsPanel.gameObject.SetActive(true);
+        InventoryObjectsParent.SetActive(true);
+        PlayerContext.InventoryManager.RequestPause();
+        currentIndex = 0;
+        OpenMenu(0);
+    }
+
+    public void CloseInventory()
+    {
+        ControlsPanel.gameObject.SetActive(false);
+        InventoryObjectsParent.SetActive(false);
+        PlayerContext.InventoryManager.RequestUnpause();
     }
 
     public void AddItemToInventory(ItemData itemData, bool isEquipped = false)
