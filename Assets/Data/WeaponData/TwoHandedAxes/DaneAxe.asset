@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemName: Dane Axe
   ItemSprite: {fileID: 21300000, guid: e56c3a814ceb11c43b0c3ed49fc4de14, type: 3}
   ItemPrefab: {fileID: 7351689401621798789, guid: 80a6fcb85e43e5b48807181614507b28, type: 3}
-  GroundItemPrefab: {fileID: 0}
+  GroundItemPrefab: {fileID: 1573130268152827418, guid: 202051d8dab4b8b4aa7ec75a62f1799b, type: 3}
   ItemType: 5
   ItemDropType: 0
   BaseLootBudget: 6

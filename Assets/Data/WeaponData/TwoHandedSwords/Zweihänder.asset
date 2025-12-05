@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: "Zweih\xE4nder"
   ItemSprite: {fileID: 21300000, guid: afecbd7a4b159df46826bb96b9cbc83e, type: 3}
-  ItemPrefab: {fileID: 6273018360727772320, guid: 8714d47c60ac80c48ae77c8ca9dd2967, type: 3}
+  ItemPrefab: {fileID: 1082104743396959951, guid: c50d94eeb1f3b7743805376943012e86, type: 3}
   GroundItemPrefab: {fileID: 6273018360727772320, guid: 99659390744640d4399402c31be899ab, type: 3}
   ItemType: 5
   ItemDropType: 0
