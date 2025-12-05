@@ -172,7 +172,7 @@ public class Enemy : Entity
     {
         if (attackTimer.IsRunning) return;
 
-        hitbox.ActivateHitbox(2);
+        hitbox.ActivateHitbox(enemyStats.AttackDamage);
         attackTimer.Start();
     }
 

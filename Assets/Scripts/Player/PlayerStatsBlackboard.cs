@@ -7,6 +7,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
     [Header("Health")]
     public float MaximumHealth;
     public float CurrentHealth;
+    public float HealthRegen;
 
     public Action OnHealthChanged;
 
@@ -31,6 +32,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
     public float ResourceMax;
     public float ResourceCurrent;
     public float ResourceMin;
+    public float ResourceRegen;
 
     public float WeightCurrent;
     public float WeightMax = 150f;
@@ -57,6 +59,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         UpdateMovementSpeed();
         UpdateAttackStats();
         UpdateResourceStats();
+        UpdateArmorStats();
         PlayerStatsSO playerStats = PlayerController.EntityData as PlayerStatsSO;
         AttackSpeedMultiplier = playerStats.BaseAttackSpeed;
     }
@@ -84,6 +87,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         if (PlayerController.HealthController == null) return;
         MaximumHealth = PlayerController.HealthController.MaximumHealth;
         CurrentHealth = PlayerController.HealthController.CurrentHealth;
+        HealthRegen = PlayerController.HealthController.HealthRegenPerSecond;
     }
 
     private void UpdateHealthStats()
@@ -99,11 +103,11 @@ public class PlayerStatsBlackboard : MonoBehaviour
         ArmorAmount = PlayerController.HealthController.ArmorAmount;
     }
 
-    private void UpdateMovementSpeed()
+    public void UpdateMovementSpeed()
     {
         if (PlayerController == null) return;
-        MovementSpeed = PlayerController._movementSpeed;
-        CurrentSpeed = Mathf.Floor(PlayerController.Rigidbody.velocity.magnitude);
+        MovementSpeed = PlayerController._maximumMovementSpeed;
+        CurrentSpeed = PlayerController._movementSpeed;
     }
 
     public void AddGold(int amount)
@@ -159,6 +163,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         ResourceMax = ResourceController.resource.resourceMax;
         ResourceCurrent = ResourceController.resource.resourceCurrent;
         ResourceMin = ResourceController.resource.resourceMin;
+        ResourceRegen = ResourceController.resource.RegenPerSecond;
     }
 
     public bool IsCritical()

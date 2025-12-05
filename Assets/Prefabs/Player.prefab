@@ -15360,6 +15360,7 @@ MonoBehaviour:
   entity: {fileID: 0}
   MaximumHealth: 10
   CurrentHealth: 0
+  HealthRegenPerSecond: 0.2
   ArmorAmount: 0
   BlockAngle: 60
   PrintDamageTaken: 0
@@ -15393,6 +15394,7 @@ MonoBehaviour:
     SpawnedItemDatabase: {fileID: 0}
     PlayerPreviewManager: {fileID: 0}
     InventoryController: {fileID: 0}
+    UIStateManager: {fileID: 0}
   WeaponController: {fileID: 7874169709706284734}
   ArmorController: {fileID: 1963507904449709706}
   ExperienceController: {fileID: 9155891904063514100}
@@ -15529,6 +15531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaximumHealth: 0
   CurrentHealth: 0
+  HealthRegen: 0
   ArmorAmount: 0
   PlayerController: {fileID: 7230535324818502119}
   MovementSpeed: 0
@@ -15543,6 +15546,7 @@ MonoBehaviour:
   ResourceMax: 0
   ResourceCurrent: 0
   ResourceMin: 0
+  ResourceRegen: 0
   WeightCurrent: 0
   WeightMax: 150
   GoldAmount: 0
@@ -15572,7 +15576,8 @@ MonoBehaviour:
     resourceMax: 100
     resourceCurrent: 100
     resourceMin: 0
-    resourceRegenerationPerSecond: 1.5
+    RegenPerSecond: 0.1
+    AccumulatedRegen: 0
 --- !u!114 &9155891904063514100
 MonoBehaviour:
   m_ObjectHideFlags: 0

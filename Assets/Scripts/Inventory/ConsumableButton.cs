@@ -22,10 +22,10 @@ public class ConsumableButton : ItemButton
         Button button = GetComponent<Button>();
         button.onClick.AddListener(ActivateButton);
 
+        UpdateQuantity(inventoryItemView.Quantity);
         UpdateUI();
 
         CheckIfButtonCanBeActivated();
-        UpdateQuantity(inventoryItemView.Quantity);
 
         PlayerContext.PlayerController.PlayerStatsBlackboard.OnGoldAmountChanged += CheckIfButtonCanBeActivated;
     }

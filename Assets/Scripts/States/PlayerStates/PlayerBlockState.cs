@@ -14,14 +14,14 @@ public class PlayerBlockState : PlayerBaseState
             ToggleAimLine(true);
         }
         player.IsBlocking = true;
-        player._movementSpeed = 0f;
+        player.MovementLocked = true;
         animator.SetBool("Blocking", true);
     }
 
     public override void OnExit()
     {
+        player.MovementLocked = false;
         player.IsBlocking = false;
-        player._movementSpeed = player._maximumMovementSpeed;
         animator.SetBool("Blocking", false);
         ToggleAimLine(false);
     }

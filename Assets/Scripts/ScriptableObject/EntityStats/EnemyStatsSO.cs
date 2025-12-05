@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class EnemyStatsSO : EntityStatsSO
 {
+    public int AttackDamage;
     public float WanderSpeed;
     public float WanderRadius;
     public float AggroRange;

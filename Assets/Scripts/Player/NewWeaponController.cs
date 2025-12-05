@@ -155,6 +155,10 @@ public class NewWeaponController : MonoBehaviour
                 if (instantiatedSecondaryWeapon != null && instantiatedSecondaryWeapon == weaponSet.InstantiatedSecondaryWeapon)
                 {
                     isActiveWeaponSet = true;
+                    if (instantiatedSecondaryWeapon.ItemData.ItemSO is ShieldSO)
+                    {
+                        newPlayerController.HealthController.UpdateArmorAmount(-instantiatedSecondaryWeapon.ItemData.ShieldArmorAmount);
+                    }
                     instantiatedSecondaryWeapon = null;
                 }
                 Destroy(weaponSet.InstantiatedSecondaryWeapon.gameObject);
@@ -318,6 +322,10 @@ public class NewWeaponController : MonoBehaviour
 
         if (ActiveWeaponSet.InstantiatedSecondaryWeapon != null && ActiveWeaponSet.InstantiatedSecondaryWeapon != weaponSet.InstantiatedSecondaryWeapon)
         {
+            if (instantiatedSecondaryWeapon.ItemData.ItemSO is ShieldSO)
+            {
+                newPlayerController.HealthController.UpdateArmorAmount(-instantiatedSecondaryWeapon.ItemData.ShieldArmorAmount);
+            }
             ActiveWeaponSet.InstantiatedSecondaryWeapon.gameObject.SetActive(false);
         }
 
@@ -341,6 +349,11 @@ public class NewWeaponController : MonoBehaviour
         if (instantiatedSecondaryWeapon != null && ActiveWeaponSet.SecondaryWeaponData.ItemSO.ItemType == ItemType.Offhand)
         {
             HasShieldEquipped = true;
+            if (ActiveWeaponSet.SecondaryWeaponData.ItemSO is ShieldSO)
+            {
+                newPlayerController.HealthController.UpdateArmorAmount(ActiveWeaponSet.SecondaryWeaponData.ShieldArmorAmount);
+            }
+
         }
         else
         {

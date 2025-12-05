@@ -15,14 +15,19 @@ public class ResourceController : MonoBehaviour
 
     private IEnumerator RegenerateResource()
     {
-        yield return new WaitForSeconds(0.1f);
-        if (resource.resourceCurrent != resource.resourceMax)
+        while (true)
         {
-            resource.AddResource(resource.resourceRegenerationPerSecond / 10f);
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
+
+            resource.AccumulatedRegen += resource.RegenPerSecond * 0.1f;
+
+            if (resource.AccumulatedRegen >= 1f)
+            {
+                int gained = Mathf.FloorToInt(resource.AccumulatedRegen);
+                resource.AccumulatedRegen -= gained;
+                resource.AddResource(gained);
+            }
         }
-        StartCoroutine(RegenerateResource());
-        yield return null;
     }
 
     public IEnumerator RestoreResourceOverDuration(int amountOfResource, int duration, Action endAction)
@@ -47,7 +52,8 @@ public class Resource
     public float resourceCurrent;
     public float resourceMin = 0;
 
-    public float resourceRegenerationPerSecond = 2f;
+    public float RegenPerSecond;
+    public float AccumulatedRegen;
 
     public Action OnResourceMinReached;
     public Action OnResourceMaxReached;

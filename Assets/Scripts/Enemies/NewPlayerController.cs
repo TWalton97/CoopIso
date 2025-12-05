@@ -308,6 +308,7 @@ public class NewPlayerController : Entity
     {
         _movementSpeed += movementSpeedIncreaseAmount;
         _maximumMovementSpeed += movementSpeedIncreaseAmount;
+        PlayerStatsBlackboard.UpdateMovementSpeed();
     }
 
     #endregion

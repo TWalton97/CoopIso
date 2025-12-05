@@ -7,6 +7,11 @@ public class HealthController : MonoBehaviour, IDamageable
     public Entity entity;
     public int MaximumHealth = 10;
     public int CurrentHealth;
+
+    public float HealthRegenPerSecond;
+    private float AccumulatedRegen;
+    private Coroutine RegenCoroutine;
+
     public int ArmorAmount;
     public int BlockAngle;
 
@@ -23,6 +28,11 @@ public class HealthController : MonoBehaviour, IDamageable
     private void Awake()
     {
         entity = GetComponent<Entity>();
+    }
+
+    void Start()
+    {
+        RegenCoroutine = StartCoroutine(RegenerateHealth());
     }
 
     public void Init(int MaximumHealth)
@@ -90,15 +100,23 @@ public class HealthController : MonoBehaviour, IDamageable
 
     public IEnumerator RestoreHealthOverDuration(int amountOfHealth, int duration, Action endAction)
     {
-        int amountOfHealthPerInterval = amountOfHealth / duration;
+        float accumulatedRegen = 0f;
+        float healthPerSecond = amountOfHealth / duration;
 
-        for (int i = 0; i < duration; i++)
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
         {
-            Heal(amountOfHealthPerInterval);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.1f);
+            elapsedTime += 0.1f;
+            accumulatedRegen += healthPerSecond * 0.1f;
+            if (accumulatedRegen >= 1f)
+            {
+                int gained = Mathf.FloorToInt(accumulatedRegen);
+                accumulatedRegen -= gained;
+                Heal(gained);
+            }
         }
         endAction?.Invoke();
-        yield return null;
     }
 
     public void IncreaseMaximumHealth(int amountOfHealth)
@@ -132,5 +150,22 @@ public class HealthController : MonoBehaviour, IDamageable
         if (ArmorAmount <= 0) return baseDamage;
         int damage = Mathf.Clamp(baseDamage * K / (K + ArmorAmount), 1, baseDamage);
         return damage;
+    }
+
+    private IEnumerator RegenerateHealth()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            AccumulatedRegen += HealthRegenPerSecond * 0.1f;
+
+            if (AccumulatedRegen >= 1f)
+            {
+                int gained = Mathf.FloorToInt(AccumulatedRegen);
+                AccumulatedRegen -= gained;
+                Heal(gained);
+            }
+        }
     }
 }
