@@ -30,9 +30,11 @@ public class FriendlySkeletonArcher : SkeletonArcher
 
         At(chaseState, waitToAttackState, new FuncPredicate(() => InAttackRange && OwnerInLeashRange()));
         At(waitToAttackState, chaseState, new FuncPredicate(() => !InAttackRange));
+        At(waitToAttackState, idleState, new FuncPredicate(() => target == null));
 
         At(waitToAttackState, attackState, new FuncPredicate(() => CanAttack && OwnerInLeashRange()));
         At(attackState, waitToAttackState, new FuncPredicate(() => !CanAttack));
+        At(attackState, idleState, new FuncPredicate(() => target == null));
 
         At(idleState, leashState, new FuncPredicate(() => !OwnerInLeashRange()));
         At(chaseState, leashState, new FuncPredicate(() => !OwnerInLeashRange()));

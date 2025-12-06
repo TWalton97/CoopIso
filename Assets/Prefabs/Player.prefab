@@ -15322,6 +15322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 7230535324818502119}
   AttackButtonHeldDown: 0
+  AbilityButtonHeldDown: 0
 --- !u!136 &4776015412995186482
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15588,7 +15589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
-  SkillPoints: 0
+  SkillPoints: 5
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 412665536095753354}
 --- !u!114 &4202505148022750934
@@ -15645,7 +15646,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthController: {fileID: 9157711023718106382}
   ResourceController: {fileID: 6695485961067399900}
-  drinkingPotion: 0
 --- !u!114 &90509361737073914
 MonoBehaviour:
   m_ObjectHideFlags: 0

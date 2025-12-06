@@ -98,6 +98,9 @@ public class AbilityController : MonoBehaviour
         if (so is SpellAbility spellAbility)
             return Instantiate(spellAbility.abilityBehaviourPrefab, transform);
 
+        if (so is ProjectileSpellAbility projSpellAbility)
+            return Instantiate(projSpellAbility.abilityBehaviourPrefab, transform);
+
         throw new Exception($"No behaviour prefab assigned for ability type: {so.GetType()}");
     }
 

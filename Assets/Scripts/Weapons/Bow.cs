@@ -41,7 +41,7 @@ public class Bow : Weapon
             Quaternion newRotation = PlayerContext.PlayerController.transform.rotation * spreadRotation;
 
             Projectile proj = Instantiate(projectilePrefab, arrowSpawnPos.position, newRotation);
-            proj.Init(projectileSpeed, rolledDamage, PlayerContext.PlayerController, 3, false);
+            proj.Init(projectileSpeed, rolledDamage, PlayerContext.PlayerController, 3, null, false);
         }
     }
 

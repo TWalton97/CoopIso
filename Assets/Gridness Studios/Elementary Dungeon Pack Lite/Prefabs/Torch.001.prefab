@@ -214,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 363946921170397246, guid: 4daecac5922e4cf46914efecc3de4129, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0face13fdba49094f96e086359e61c30, type: 2}
+      objectReference: {fileID: 2100000, guid: 5e01cbbef75a454468e5eb490ac64181, type: 2}
     - target: {fileID: 5866797894309309924, guid: 4daecac5922e4cf46914efecc3de4129, type: 3}
       propertyPath: m_Name
       value: Fire_Effect

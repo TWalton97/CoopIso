@@ -19,7 +19,7 @@ MonoBehaviour:
   ItemType: 0
   ItemDropType: 1
   BaseLootBudget: 6
-  BaseLootWeight: 15
+  BaseLootWeight: 10
   GoldValue: 25
   Weight: 1
   PotionName: Small Health Potion
@@ -27,4 +27,4 @@ MonoBehaviour:
   PotionPrefab: {fileID: 155352792193692170, guid: 10bcb8611637db9409648d860176ff46, type: 3}
   ResourceToRestore: 0
   AmountOfResourceToRestore: 25
-  RestoreDuration: 5
+  RestoreDuration: 8

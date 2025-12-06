@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8633409809437865329
+--- !u!1 &435489016670132664
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6980498549238560618}
-  - component: {fileID: 1777890230724462431}
+  - component: {fileID: 3904786236615748310}
+  - component: {fileID: 741917137808545308}
   m_Layer: 0
-  m_Name: RainOfArrowBehaviour
+  m_Name: FireballBehaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6980498549238560618
+--- !u!4 &3904786236615748310
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8633409809437865329}
+  m_GameObject: {fileID: 435489016670132664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,27 +32,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1777890230724462431
+--- !u!114 &741917137808545308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8633409809437865329}
+  m_GameObject: {fileID: 435489016670132664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b008991744141fa43881c0382e73c37c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d7ba9d9f969f3042895a170d9234a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponRangeType: 2
-  SpinAttackHitbox: {fileID: 2911535206415080141, guid: 2c35ba8aa56f47d469f098de25508dc5, type: 3}
-  CurrentWeaponDamagePercentage: 0
-  HitboxSpawnDelay: 1
-  HitboxDuration: 1
-  HitboxMoveSpeed: 15
-  EnemyLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  WallLayer:
-    serializedVersion: 2
-    m_Bits: 512
+  FireballProjectile: {fileID: 5783461640622885472, guid: 3ea4552e1076f69468abc8e0b6fae176, type: 3}

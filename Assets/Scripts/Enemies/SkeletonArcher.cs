@@ -37,7 +37,7 @@ public class SkeletonArcher : Enemy
         proj.GetComponent<Collider>().includeLayers = targetLayer;
         proj.GetComponent<Collider>().excludeLayers = 1 >> gameObject.layer;
 
-        proj.Init(projectileSpeed, damage, this, 3, false);
+        proj.Init(projectileSpeed, damage, this, 3, null, false);
     }
 
     public override void Die()

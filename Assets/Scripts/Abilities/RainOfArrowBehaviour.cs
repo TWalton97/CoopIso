@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RainOfArrowBehaviour : WeaponAbilityBehaviour
 {
@@ -9,6 +10,7 @@ public class RainOfArrowBehaviour : WeaponAbilityBehaviour
     public float CurrentWeaponDamagePercentage;
     public float HitboxSpawnDelay;
     public float HitboxDuration;
+    public float HitboxMoveSpeed;
     public LayerMask EnemyLayer;
     public LayerMask WallLayer;
     public override void OnUse()
@@ -34,25 +36,25 @@ public class RainOfArrowBehaviour : WeaponAbilityBehaviour
     private IEnumerator SpawnHitboxAfterDelay()
     {
         yield return new WaitForSeconds(HitboxSpawnDelay);
-        RaycastHit hit;
+        // RaycastHit hit;
         Vector3 spawnPos;
-        if (Physics.SphereCast(player.transform.position + Vector3.up, 2f, player.transform.forward, out hit, 10f, EnemyLayer))
-        {
-            spawnPos = new Vector3(hit.point.x, 0f, hit.point.z);
-        }
-        else if (Physics.SphereCast(player.transform.position + Vector3.up, 1f, player.transform.forward, out hit, 10f, WallLayer))
-        {
-            spawnPos = new Vector3(hit.point.x, 0f, hit.point.z);
-        }
-        else
-        {
-            spawnPos = transform.position + transform.forward * 10f;
-            spawnPos.y = 0;
-        }
+        Vector3 dir;
+        spawnPos = transform.position + transform.forward;
+        dir = transform.forward;
 
         instantiatedHitbox = Instantiate(SpinAttackHitbox, spawnPos, Quaternion.identity, null);
         instantiatedHitbox.Init(CalculateDamagePerTick(), Physics.AllLayers, player, false, runtime.TickRate, runtime.DealsDamageOverTime, statuses);
+        StartCoroutine(MoveHitbox(dir));
         Destroy(instantiatedHitbox.gameObject, HitboxDuration);
         yield return null;
+    }
+
+    private IEnumerator MoveHitbox(Vector3 dir)
+    {
+        while (instantiatedHitbox != null)
+        {
+            instantiatedHitbox.transform.Translate(dir * HitboxMoveSpeed * Time.deltaTime);
+            yield return null;
+        }
     }
 }

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusID: Slow
   statusDescription: Slows the target's movement speed
-  baseDuration: 2
+  baseDuration: 5
   isStackable: 0
   refreshDurationOnReapply: 1
   VFX: {fileID: 6126188424833946103, guid: a58aa9a78f2b45b45bb0f3e2e1e3ad3c, type: 3}
   slowPercentage: 30
+  startWanderSpeed: 0.75

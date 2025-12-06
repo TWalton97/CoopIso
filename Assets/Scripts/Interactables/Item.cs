@@ -116,10 +116,10 @@ public class ItemData
     public int MaxDamage => (ItemSO as WeaponSO)?.WeaponMaxDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMaxDamage * LootCalculator.QualityFactor(Quality)) : 0;
     public WeaponRangeType WeaponRangeType => (ItemSO as WeaponSO)?.WeaponRangeType != null ? (ItemSO as WeaponSO).WeaponRangeType : WeaponRangeType.None;
 
-    public int ArmorAmount => (ItemSO as ArmorSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ArmorSO).ArmorAmount * LootCalculator.QualityFactor(Quality)) : 0;
+    public int ArmorAmount => (ItemSO as ArmorSO)?.ArmorAmount != null ? Mathf.FloorToInt((ItemSO as ArmorSO).ArmorAmount * LootCalculator.QualityFactor(Quality)) : 0;
     public ArmorType ArmorType => (ItemSO as ArmorSO)?.ArmorType != null ? (ItemSO as ArmorSO).ArmorType : ArmorType.None;
 
-    public int ShieldArmorAmount => (ItemSO as ShieldSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ShieldSO).ArmorAmount * LootCalculator.QualityFactor(Quality)) : 0;
+    public int ShieldArmorAmount => (ItemSO as ShieldSO)?.ArmorAmount != null ? Mathf.FloorToInt((ItemSO as ShieldSO).ArmorAmount * LootCalculator.QualityFactor(Quality)) : 0;
 
     public Resources.ResourceType ResourceType => (ItemSO as PotionSO)?.ResourceToRestore ?? Resources.ResourceType.Health;
     public int ResourceAmount => (ItemSO as PotionSO)?.AmountOfResourceToRestore ?? 0;

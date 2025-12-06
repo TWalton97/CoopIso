@@ -14,7 +14,7 @@ public static class LootCalculator
     //The item isn't turned into itemData, or assigned an ID
     public static List<LootResult> RollItemsWithBudget(int budget, float qualityBias = 0f)
     {
-        budget = Random.Range(0, budget);
+        budget = (int)Random.Range(budget * 0.5f, budget);
 
         List<LootResult> results = new List<LootResult>();
         // List<ItemData> results = new List<ItemData>();

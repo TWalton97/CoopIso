@@ -7,11 +7,11 @@ public class Projectile : MonoBehaviour
     private float _maximumProjectileDuration = 3f;
     private bool _doesProjectilePierceEnemies = false;
     float _elapsedTime = 0f;
-    private Hitbox _hitbox;
+    private DamageOverTimeHitbox _hitbox;
 
     private void Awake()
     {
-        _hitbox = GetComponent<Hitbox>();
+        _hitbox = GetComponent<DamageOverTimeHitbox>();
     }
 
     private void OnDisable()
@@ -20,12 +20,16 @@ public class Projectile : MonoBehaviour
             _hitbox.OnTargetDamaged -= DestroyProjectile;
     }
 
-    public void Init(float speed, int damage, Entity spawner, float maximumProjectileDuration = 3f, bool doesProjectilePierceEnemies = false)
+    public void Init(float speed, int damage, Entity spawner, float maximumProjectileDuration = 3f, StatusSO[] appliedStatus = null, bool doesProjectilePierceEnemies = false)
     {
         _speed = speed;
         _maximumProjectileDuration = maximumProjectileDuration;
         _hitbox._damage = damage;
         _hitbox._controller = spawner;
+        foreach (StatusSO s in appliedStatus)
+        {
+            _hitbox.statusesToApply.Add(s);
+        }
 
         if (!_doesProjectilePierceEnemies)
             _hitbox.OnTargetDamaged += DestroyProjectile;
