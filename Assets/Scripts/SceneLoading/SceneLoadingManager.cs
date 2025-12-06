@@ -124,6 +124,12 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
             yield return 0;
             SceneManager.SetActiveScene(activeScene);
         }
+        ZoneController zoneController = FindObjectOfType<ZoneController>();
+        if (zoneController != null)
+        {
+            zoneController.ZoneLevel = activeSceneGroup.ZoneLevel;
+            zoneController.SetupZone();
+        }
         OnSceneGroupLoaded?.Invoke();
         yield return new WaitForSeconds(0.1f);
         EnableLoadingCanvas(false);

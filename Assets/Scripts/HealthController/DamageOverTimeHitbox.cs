@@ -6,7 +6,6 @@ using UnityEngine;
 public class DamageOverTimeHitbox : Hitbox
 {
     public float DamageTickDuration = 0.2f;
-
     public bool DamageOnTriggerStay;
     public List<StatusSO> statusesToApply;
 

@@ -57,13 +57,13 @@ public class Enemy : Entity
 
     public Dictionary<Entity, float> damageTable = new Dictionary<Entity, float>();
     public int damage;
+    public int Level = 1;
 
     public override void Awake()
     {
         base.Awake();
 
         enemyStats = EntityData as EnemyStatsSO;
-        damage = enemyStats.AttackDamage;
 
         entityIdentity = GetComponent<EntityIdentity>();
 
@@ -83,7 +83,6 @@ public class Enemy : Entity
         {
             agent.stoppingDistance = enemyStats.AttackRange * 0.9f;
         }
-        ApplyStats();
     }
 
     protected virtual void Start()
@@ -116,8 +115,9 @@ public class Enemy : Entity
 
     public override void ApplyStats()
     {
-        base.ApplyStats();
+        HealthController.IncreaseMaximumHealth(EntityData.MaximumHealth * Level);
         chaseSpeed = EntityData.MovementSpeed;
+        damage = enemyStats.AttackDamage * Level;
         if (EntityData is EnemyStatsSO enemyData)
         {
             wanderSpeed = enemyData.WanderSpeed;

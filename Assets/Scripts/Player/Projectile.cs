@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Hitbox))]
@@ -20,12 +21,13 @@ public class Projectile : MonoBehaviour
             _hitbox.OnTargetDamaged -= DestroyProjectile;
     }
 
-    public void Init(float speed, int damage, Entity spawner, float maximumProjectileDuration = 3f, StatusSO[] appliedStatus = null, bool doesProjectilePierceEnemies = false)
+    public void Init(float speed, int damage, Entity spawner, List<StatusSO> appliedStatus, float maximumProjectileDuration = 3f, bool doesProjectilePierceEnemies = false)
     {
         _speed = speed;
         _maximumProjectileDuration = maximumProjectileDuration;
         _hitbox._damage = damage;
         _hitbox._controller = spawner;
+
         foreach (StatusSO s in appliedStatus)
         {
             _hitbox.statusesToApply.Add(s);

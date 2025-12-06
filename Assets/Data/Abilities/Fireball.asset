@@ -16,7 +16,7 @@ MonoBehaviour:
   AbilityIcon: {fileID: 21300000, guid: 9e578035df2fdfc4c814a5678dbbb411, type: 3}
   AnimationClip: {fileID: 7400000, guid: 955ce1e234ee7c44b91a0d53bb720995, type: 2}
   ResourceType: 1
-  ResourceAmount: 10
+  ResourceAmount: 6
   CanMoveWhileUsing: 0
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
@@ -30,6 +30,6 @@ MonoBehaviour:
   abilityBehaviourPrefab: {fileID: 741917137808545308, guid: 058583b889911004f8b79585061ec4bc, type: 3}
   AppliedStatuses:
   - {fileID: 11400000, guid: 216ce27acdc885b4cb1a9a4da3a2fb4f, type: 2}
-  DamagePerLevel: 080000000a0000000c0000001000000012000000
+  DamagePerLevel: 06000000080000000a0000000c0000000e000000
   ProjectileSpeed: 0a0000000a0000000a0000000a0000000a000000
   NumberOfProjectiles: 0100000002000000030000000400000005000000

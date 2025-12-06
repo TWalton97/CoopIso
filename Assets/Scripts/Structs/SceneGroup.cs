@@ -9,6 +9,7 @@ public class SceneGroup : ScriptableObject
 {
     public string GroupName = "New Scene Group";
     public List<SceneData> Scenes;
+    public int ZoneLevel;
 
     public string FindSceneNameByType(SceneType sceneType)
     {

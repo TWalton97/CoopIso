@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "AbilityData", menuName = "Data/Ability Data/Projectile Spell Ability")]
 public class ProjectileSpellAbility : AbilitySO
 {
     public WeaponRangeType RequiredWeaponRangeType;
     public ProjectileSpellAbilityBehaviour abilityBehaviourPrefab;
-    public StatusSO[] AppliedStatuses;
+    public List<StatusSO> AppliedStatuses;
     public int[] DamagePerLevel;
     public int[] ProjectileSpeed;
     public int[] NumberOfProjectiles;

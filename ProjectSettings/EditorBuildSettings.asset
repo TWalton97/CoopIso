@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/S_ZoneProgressionScenes/S_ShorecrestHollows.unity
     guid: 78b199e4a723c4f4485781ed55beb597
+  - enabled: 1
+    path: Assets/Scenes/S_ZoneProgressionScenes/S_TempestForest.unity
+    guid: 925a55b341a149c4bba3bde140a91caf
   m_configObjects: {}

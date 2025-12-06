@@ -37,7 +37,7 @@ public class FireballBehaviour : ProjectileSpellAbilityBehaviour
             Quaternion newRotation = player.transform.rotation * spreadRotation;
 
             Projectile proj = Instantiate(FireballProjectile, player.transform.position + player.transform.forward + Vector3.up, newRotation);
-            proj.Init(runtime.ProjectileSpeed, runtime.Damage, player, 3, runtime.Statuses, false);
+            proj.Init(runtime.ProjectileSpeed, runtime.Damage, player, runtime.Statuses, 3, false);
         }
     }
 }

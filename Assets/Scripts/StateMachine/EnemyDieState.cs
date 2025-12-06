@@ -44,7 +44,7 @@ public class EnemyDieState : EnemyBaseState
 
     private IEnumerator SpawnItems()
     {
-        int budget = 2 * (int)Mathf.Sqrt(enemy.EntityData.MaximumHealth);
+        int budget = 2 * (int)Mathf.Sqrt(enemy.HealthController.MaximumHealth);
         var loot = LootCalculator.RollItemsWithBudget(budget);
 
         foreach (var item in loot)

@@ -15572,7 +15572,7 @@ MonoBehaviour:
     resourceMax: 100
     resourceCurrent: 100
     resourceMin: 0
-    RegenPerSecond: 0.1
+    RegenPerSecond: 0.5
     AccumulatedRegen: 0
     remainingRestoreAmount: 0
 --- !u!114 &9155891904063514100
@@ -15589,7 +15589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
-  SkillPoints: 5
+  SkillPoints: 0
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 412665536095753354}
 --- !u!114 &4202505148022750934

@@ -176,9 +176,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9196066924878126523}
   - component: {fileID: 5783461640622885472}
-  - component: {fileID: 6740614575758253745}
   - component: {fileID: 917805574881564531}
   - component: {fileID: -5876357893162859849}
+  - component: {fileID: 5537707242693641348}
   m_Layer: 12
   m_Name: SkeletonArcherArrow
   m_TagString: Untagged
@@ -216,21 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015b4f92d537baa44ba724acdd0daa11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6740614575758253745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5829499135092916304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c90d9f53383f2b4abf27e9ee058875d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 6
-  _controller: {fileID: 0}
-  DestroyHitboxOnHit: 1
 --- !u!65 &917805574881564531
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -279,6 +264,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5537707242693641348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5829499135092916304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0caca825e7bf04f85839eeda8c96f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 0
+  _controller: {fileID: 0}
+  DestroyHitboxOnHit: 1
+  DamageTickDuration: 0.2
+  DamageOnTriggerStay: 0
+  statusesToApply: []
 --- !u!1 &8811282695761867908
 GameObject:
   m_ObjectHideFlags: 0

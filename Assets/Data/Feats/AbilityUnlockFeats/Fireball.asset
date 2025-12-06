@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   FeatName: Fireball
-  SkillPointCostPerLevel: 0100000001000000020000000200000003000000
+  SkillPointCostPerLevel: 0100000002000000020000000300000003000000
   AbilityToUnlock: {fileID: 11400000, guid: 29227fdc18759894ab609c0e5c82e883, type: 2}

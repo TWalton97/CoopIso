@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 public class ProjectileSpellRuntimeAbility : RuntimeAbility
 {
     public ProjectileSpellAbility data;
-    public StatusSO[] Statuses;
+    public List<StatusSO> Statuses;
     public int Damage;
     public int ProjectileSpeed;
     public int NumberOfProjectiles;
