@@ -10,7 +10,8 @@ public class ArmorBuffSO : StatusSO
     public override void OnEnter(StatusInstance instance, StatusController target)
     {
         base.OnEnter(instance, target);
-        if (target.TryGetComponent(out NewPlayerController controller))
+
+        if (target.TryGetComponent(out Entity controller))
         {
             controller.HealthController.UpdateArmorAmount(armorIncrease);
             if (armorBuffVFX != null)
@@ -29,7 +30,7 @@ public class ArmorBuffSO : StatusSO
 
     public override void OnExit(StatusInstance instance, StatusController target)
     {
-        if (target.TryGetComponent(out NewPlayerController controller))
+        if (target.TryGetComponent(out Entity controller))
         {
             controller.HealthController.UpdateArmorAmount(-armorIncrease);
 

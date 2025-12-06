@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01c68ce3e4a50c849b047c11e54857f6, type: 3}
-  m_Name: GroundTargetedAbility
+  m_Script: {fileID: 11500000, guid: 64ee4eca2fa83f84e9560c11e68baf1c, type: 3}
+  m_Name: SummonSkeletonArcher
   m_EditorClassIdentifier: 
-  AbilityCost: 20
-  hitbox: {fileID: 7679281387949893350, guid: 0c333e6d1f8d29b4d9fa5d7010043bd9, type: 3}
+  FeatName: Summon Skeleton Archer
+  SkillPointCostPerLevel: 010000000200000003000000
+  AbilityToUnlock: {fileID: 11400000, guid: c173e662e9c54d64c8de0988d99cf757, type: 2}

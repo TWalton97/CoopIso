@@ -270,6 +270,7 @@ public class NewWeaponController : MonoBehaviour
         if (weaponSet.hasPrimaryWeaponData)
         {
             instantiatedPrimaryWeapon = Instantiate(weaponSet.PrimaryWeaponData.ItemPrefab, mainHandTransform.position, Quaternion.identity, mainHandTransform).GetComponent<Weapon>();
+            instantiatedPrimaryWeapon.Data = weaponSet.PrimaryWeaponData.ItemSO;
             instantiatedPrimaryWeapon.ItemData = weaponSet.PrimaryWeaponData;
             instantiatedPrimaryWeapon.transform.localRotation = weaponSet.PrimaryWeaponData.ItemPrefab.transform.rotation;
             instantiatedPrimaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.MainHand, weaponSet.PrimaryWeaponData);
@@ -288,6 +289,7 @@ public class NewWeaponController : MonoBehaviour
         if (weaponSet.hasSecondaryWeaponData)
         {
             instantiatedSecondaryWeapon = Instantiate(weaponSet.SecondaryWeaponData.ItemPrefab, offHandTransform.position, Quaternion.identity, offHandTransform).GetComponent<Weapon>();
+            instantiatedSecondaryWeapon.Data = weaponSet.SecondaryWeaponData.ItemSO;
             instantiatedSecondaryWeapon.ItemData = weaponSet.SecondaryWeaponData;
             instantiatedSecondaryWeapon.transform.localRotation = weaponSet.SecondaryWeaponData.ItemPrefab.transform.rotation;
             instantiatedSecondaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.OffHand, weaponSet.SecondaryWeaponData);
@@ -392,9 +394,8 @@ public class NewWeaponController : MonoBehaviour
 
 
 
-        if (instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponSO))
+        if (instantiatedPrimaryWeapon.ItemData.ItemSO is WeaponSO weaponData)
         {
-            WeaponSO weaponData = instantiatedPrimaryWeapon.Data as WeaponSO;
             if (numAttacks >= weaponData.NumberOfAttacksInCombo)
             {
                 numAttacks = 0;

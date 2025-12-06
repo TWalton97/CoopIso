@@ -8,6 +8,7 @@ using System.Collections;
 
 public class NewPlayerController : Entity
 {
+    public FriendlySkeletonArcher FriendlySkeletonArcher;
     public PlayerContext PlayerContext;
     //Object references
     public Rigidbody Rigidbody { get; private set; }
@@ -413,10 +414,11 @@ public class NewPlayerController : Entity
 
     #endregion
 
-    [ContextMenu("Print Animation Clip Length")]
-    public void PrintAnimationClipLength()
+    [ContextMenu("Spawn Friendly Skeleton")]
+    public void SpawnFriendlySkeleton()
     {
-        Debug.Log(animationClip.length);
+        FriendlySkeletonArcher archer = Instantiate(FriendlySkeletonArcher, transform.position + transform.forward, Quaternion.identity);
+        archer.Init(this);
     }
 
     // private IEnumerator WaitForSetup()

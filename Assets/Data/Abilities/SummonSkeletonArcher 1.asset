@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05cdef1cac19f1e44ac7a8e62bffa689, type: 3}
+  m_Name: SummonSkeletonArcher 1
+  m_EditorClassIdentifier: 
+  AbilityName: Summon Skeleton Archer
+  AbilityIcon: {fileID: 21300000, guid: 186bae809cabc044c9149f1735ebbf25, type: 3}
+  AnimationClip: {fileID: 7400000, guid: 955ce1e234ee7c44b91a0d53bb720995, type: 2}
+  ResourceType: 1
+  ResourceAmount: 25
+  CanMoveWhileUsing: 0
+  CanRotateDuringCast: 1
+  MaxLevel: 3
+  AbilityDescription: Summons a skeletal archer you assist you in combat.
+  LevelDescriptionTemplate: Skeletal archer shoots at nearby enemies for {DMG} damage.
+  UpgradeDescriptionTemplate: Increases damage from {DMG_CURR} to {DMG_NEXT}.
+  RequiredWeaponRangeType: 0
+  abilityBehaviourPrefab: {fileID: 6284882083578312484, guid: 82121738cd7fb2e49853d12eefcaf001, type: 3}
+  DamagePerLevel: 040000000600000008000000

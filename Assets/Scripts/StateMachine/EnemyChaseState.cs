@@ -11,7 +11,7 @@ public class EnemyChaseState : EnemyBaseState
 
     private float repulsionStrength = 0.1f;
 
-    public EnemyChaseState(Enemy enemy, Animator animator, NavMeshAgent agent, Transform player) : base(enemy, animator)
+    public EnemyChaseState(Enemy enemy, Animator animator, NavMeshAgent agent) : base(enemy, animator)
     {
         this.agent = agent;
         enemyStats = enemy.EntityData as EnemyStatsSO;
@@ -31,12 +31,12 @@ public class EnemyChaseState : EnemyBaseState
         enemy.UpdateTarget();
         if (enemy.target == null) return;
 
-        float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.target.position);
+        float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.target.transform.position);
 
         // If outside personal attack range, approach player
         if (distanceToPlayer > enemyStats.AttackRange)
         {
-            agent.SetDestination(enemy.target.position);
+            agent.SetDestination(enemy.target.transform.position);
             enemy.InAttackRange = false;
             assignedSlot = -1; // reset slot when out of range
             return;

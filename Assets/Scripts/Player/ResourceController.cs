@@ -32,15 +32,25 @@ public class ResourceController : MonoBehaviour
 
     public IEnumerator RestoreResourceOverDuration(int amountOfResource, int duration, Action endAction)
     {
-        int amountOfResourcePerInterval = amountOfResource / duration;
+        resource.remainingRestoreAmount = amountOfResource;
+        float accumulatedRegen = 0f;
+        float resourcePerSecond = amountOfResource / duration;
 
-        for (int i = 0; i < duration; i++)
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
         {
-            resource.AddResource(amountOfResourcePerInterval);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.1f);
+            elapsedTime += 0.1f;
+            accumulatedRegen += resourcePerSecond * 0.1f;
+            if (accumulatedRegen >= 1f)
+            {
+                int gained = Mathf.FloorToInt(accumulatedRegen);
+                resource.remainingRestoreAmount -= gained;
+                accumulatedRegen -= gained;
+                resource.AddResource(gained);
+            }
         }
         endAction?.Invoke();
-        yield return null;
     }
 }
 
@@ -58,6 +68,8 @@ public class Resource
     public Action OnResourceMinReached;
     public Action OnResourceMaxReached;
     public Action OnResourceValueChanged;
+
+    public float remainingRestoreAmount;
 
     public Resource(Resources.ResourceType _resourceType, float _resourceMax, float _resourceCurrent, float _resourceMin = 0)
     {

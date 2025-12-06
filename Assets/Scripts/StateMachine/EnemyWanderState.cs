@@ -21,14 +21,15 @@ public class EnemyWanderState : EnemyBaseState
     {
         if (!agent.isActiveAndEnabled) return;
 
-        wanderTarget = Vector3.zero;
+        waitDuration = Random.Range(4, 8);
+        waiting = true;
+        wanderTarget = enemy.transform.position;
         agent.isStopped = false;
-        SetNewWanderTarget(enemy);
     }
 
     public override void Update()
     {
-        Transform potentialTarget = enemy.FindTargetInAggroRange();
+        Entity potentialTarget = enemy.FindTargetInAggroRange();
         if (potentialTarget != null)
         {
             enemy.SetTarget(potentialTarget);

@@ -29,9 +29,6 @@ public class Enemy : Entity
     protected StateMachine stateMachine;
     protected Hitbox hitbox;
 
-    protected CountdownTimer attackTimer;
-
-    public bool IsDead = false;
     [HideInInspector] public bool IsStaggered = false;
 
     public string StateName;
@@ -48,7 +45,7 @@ public class Enemy : Entity
     public float StartWanderSpeed { get; private set; }
     public float StartChaseSpeed { get; private set; }
 
-    public Transform target;
+    public Entity target;
     public LayerMask targetLayer;
     public LayerMask obstructionLayer;
     public float attackRange;
@@ -58,14 +55,15 @@ public class Enemy : Entity
 
     private EnemyStatsSO enemyStats;
 
-    private Dictionary<Transform, float> damageTable = new Dictionary<Transform, float>();
+    public Dictionary<Entity, float> damageTable = new Dictionary<Entity, float>();
+    public int damage;
 
     public override void Awake()
     {
         base.Awake();
 
         enemyStats = EntityData as EnemyStatsSO;
-
+        damage = enemyStats.AttackDamage;
 
         entityIdentity = GetComponent<EntityIdentity>();
 
@@ -81,18 +79,19 @@ public class Enemy : Entity
         StartChaseSpeed = chaseSpeed;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
         agent.avoidancePriority = Random.Range(0, 99);
-        agent.stoppingDistance = enemyStats.AttackRange * 0.9f;
+        if (enemyStats.AttackRange < 3)
+        {
+            agent.stoppingDistance = enemyStats.AttackRange * 0.9f;
+        }
         ApplyStats();
     }
 
     protected virtual void Start()
     {
-        attackTimer = new CountdownTimer(timeBetweenAttacks);
-
         stateMachine = new StateMachine();
 
         wanderState = new EnemyWanderState(this, animator, agent, wanderRadius);
-        var chaseState = new EnemyChaseState(this, animator, agent, target);
+        var chaseState = new EnemyChaseState(this, animator, agent);
         var waitToAttackState = new EnemyWaitToAttackState(this, animator, agent, target);
         var attackState = new EnemyAttackState(this, animator, agent, target);
         var deathState = new EnemyDieState(this, animator, agent, transform);
@@ -102,6 +101,8 @@ public class Enemy : Entity
 
         At(chaseState, waitToAttackState, new FuncPredicate(() => InAttackRange));
         At(waitToAttackState, chaseState, new FuncPredicate(() => !InAttackRange));
+
+        At(waitToAttackState, wanderState, new FuncPredicate(() => target == null));
 
         At(waitToAttackState, attackState, new FuncPredicate(() => CanAttack));
         At(attackState, waitToAttackState, new FuncPredicate(() => !CanAttack));
@@ -148,16 +149,15 @@ public class Enemy : Entity
     protected void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
     protected void Any(IState to, IPredicate condition) => stateMachine.AddAnyTransition(to, condition);
 
-    void Update()
+    public virtual void Update()
     {
         if (!spawned) return;
         stateMachine.Update();
-        attackTimer.Tick(Time.deltaTime);
         UpdateAnimatorParameters();
         PushAwayFromNearbyEnemies();
     }
 
-    void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         if (!spawned) return;
         stateMachine.FixedUpdate();
@@ -170,10 +170,7 @@ public class Enemy : Entity
 
     public virtual void Attack()
     {
-        if (attackTimer.IsRunning) return;
-
         hitbox.ActivateHitbox(enemyStats.AttackDamage);
-        attackTimer.Start();
     }
 
     public override void Die()
@@ -217,12 +214,12 @@ public class Enemy : Entity
         return EntityStatus;
     }
 
-    public void SetTarget(Transform target)
+    public void SetTarget(Entity target)
     {
         this.target = target;
     }
 
-    public Transform FindTargetInAggroRange()
+    public Entity FindTargetInAggroRange()
     {
         EnemyStatsSO enemyStats = EntityData as EnemyStatsSO;
         Collider[] colliders = Physics.OverlapSphere(transform.position, enemyStats.AggroRange, targetLayer);
@@ -237,11 +234,17 @@ public class Enemy : Entity
             float distance = Vector3.Distance(coll.transform.position, transform.position);
             if (!Physics.Raycast(transform.position, dirToColl, distance, obstructionLayer))
             {
-                return coll.transform;
+                if (coll.TryGetComponent(out Entity entity))
+                {
+                    if (!entity.IsDead)
+                    {
+                        return entity;
+                    }
+                }
             }
         }
 
-        return colliders[0].transform;
+        return null;
     }
 
     public void PushAwayFromNearbyEnemies()
@@ -268,22 +271,58 @@ public class Enemy : Entity
 
     private void UpdateDamageTable(int damage, Entity entity)
     {
-        if (!damageTable.ContainsKey(entity.transform))
+        if (!damageTable.ContainsKey(entity))
         {
-            damageTable.Add(entity.transform, 0f);
+            damageTable.Add(entity, 0f);
         }
 
-        damageTable[entity.transform] += damage;
+        damageTable[entity] += damage;
 
         UpdateTarget();
     }
 
+    private void PruneDeadEntities()
+    {
+        if (damageTable == null || damageTable.Count == 0)
+            return;
+
+        // Temp list so we don't modify the dictionary while iterating it
+        List<Entity> toRemove = null;
+
+        foreach (var kvp in damageTable)
+        {
+            Entity e = kvp.Key;
+
+            if (e == null || e.IsDead)
+            {
+                if (toRemove == null)
+                    toRemove = new List<Entity>(4); // small default size
+
+                if (target == e)
+                    target = null;
+
+                toRemove.Add(e);
+            }
+        }
+
+        // Remove after iteration
+        if (toRemove != null)
+        {
+            foreach (var deadEntity in toRemove)
+            {
+                damageTable.Remove(deadEntity);
+            }
+        }
+    }
+
     public void UpdateTarget()
     {
+        PruneDeadEntities();
+
         if (damageTable.Count == 0)
             return;
 
-        Transform topAttacker = null;
+        Entity topAttacker = null;
         float maxDamage = 0f;
 
         foreach (var kvp in damageTable)

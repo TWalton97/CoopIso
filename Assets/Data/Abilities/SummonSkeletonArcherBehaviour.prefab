@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3904786236615748310}
-  - component: {fileID: 1356468606317954617}
+  - component: {fileID: 6284882083578312484}
   m_Layer: 0
-  m_Name: HasteBehaviour
+  m_Name: SummonSkeletonArcherBehaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1356468606317954617
+--- !u!114 &6284882083578312484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,14 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 435489016670132664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c4e4ec9e34ec242bd7619770303d4b, type: 3}
+  m_Script: {fileID: 11500000, guid: 47bf9e0c76dd5a846a391d1546f1f811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponRangeType: 0
-  TargetLayer:
-    serializedVersion: 2
-    m_Bits: 16512
-  radius: 5
-  Status: {fileID: 11400000, guid: 722df6418edc71142ac55c2aa1049fc2, type: 2}
-  NumberOfTargets: -1
-  buffApplicationTime: 1
+  friendlySkeletonArcher: {fileID: 6624118268835372258, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
+  Damage: 4
+  Health: 28
+  MaximumNumberOfSummons: 1

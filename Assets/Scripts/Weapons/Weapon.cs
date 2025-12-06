@@ -5,7 +5,7 @@ using System;
 
 public class Weapon : MonoBehaviour
 {
-    [field: SerializeField] public ItemSO Data { get; private set; }
+    [field: SerializeField] public ItemSO Data;
     public event Action OnEnter;
     public event Action OnExit;
     public PlayerContext PlayerContext;
@@ -62,7 +62,6 @@ public class Weapon : MonoBehaviour
 
     public virtual void Enter(Action endAction, int attackNum)
     {
-        Debug.Log($"Entering weapon attack state");
         if (weaponAttackType == NewWeaponController.WeaponAttackTypes.OneHanded)
         {
             PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);

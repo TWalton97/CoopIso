@@ -4933,63 +4933,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1576488453971394810, guid: a778b631c6253a04899cb31bad047c81, type: 3}
   m_PrefabInstance: {fileID: 1396465643}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1422023058
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.9112104
-      objectReference: {fileID: 0}
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.0000019073486
-      objectReference: {fileID: 0}
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.631518
-      objectReference: {fileID: 0}
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 485979926277232232, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8977019219616172884, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-      propertyPath: m_Name
-      value: FriendlySkeletonArcher
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
 --- !u!1001 &1501240706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7999,4 +7942,3 @@ SceneRoots:
   - {fileID: 3448719273217916247}
   - {fileID: 6432933461637965952}
   - {fileID: 1835316615}
-  - {fileID: 1422023058}

@@ -16,6 +16,7 @@ MonoBehaviour:
   MovementSpeed: 2.5
   CriticalChance: 10
   CriticalDamage: 100
+  AttackDamage: 10
   WanderSpeed: 1
   WanderRadius: 2
   AggroRange: 10

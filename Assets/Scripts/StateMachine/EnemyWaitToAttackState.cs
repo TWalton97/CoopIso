@@ -5,12 +5,12 @@ public class EnemyWaitToAttackState : EnemyBaseState
 {
     private readonly NavMeshAgent agent;
     private EnemyStatsSO enemyStats;
-    private Transform player;
+    private Entity target;
 
-    public EnemyWaitToAttackState(Enemy enemy, Animator animator, NavMeshAgent agent, Transform player) : base(enemy, animator)
+    public EnemyWaitToAttackState(Enemy enemy, Animator animator, NavMeshAgent agent, Entity target) : base(enemy, animator)
     {
         this.agent = agent;
-        this.player = player;
+        this.target = target;
         enemyStats = enemy.EntityData as EnemyStatsSO;
     }
 
@@ -22,10 +22,15 @@ public class EnemyWaitToAttackState : EnemyBaseState
 
     public override void Update()
     {
+        if (enemy.target != null && enemy.target.IsDead)
+            enemy.target = null;
+
+        enemy.UpdateTarget();
+
         if (enemy.target == null) return;
 
         // --- Check distance to player ---
-        float distance = Vector3.Distance(enemy.transform.position, enemy.target.position);
+        float distance = Vector3.Distance(enemy.transform.position, enemy.target.transform.position);
         if (distance > enemyStats.AttackRange + 0.05f)
         {
             // Outside attack range → go back to chase
@@ -37,7 +42,7 @@ public class EnemyWaitToAttackState : EnemyBaseState
         enemy.InAttackRange = true;
 
         // --- Rotate toward target ---
-        Vector3 direction = (enemy.target.position - enemy.transform.position).normalized;
+        Vector3 direction = (enemy.target.transform.position - enemy.transform.position).normalized;
         direction.y = 0;
         if (direction.sqrMagnitude > 0.001f)
         {

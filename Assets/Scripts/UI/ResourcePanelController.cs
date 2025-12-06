@@ -9,10 +9,13 @@ public class ResourcePanelController : MonoBehaviour
     public ResourceController ResourceController;
     public ExperienceController ExperienceController;
 
-    public Slider HealthBarFill;
-    public Slider ResourceBarFill;
-    public Slider ExperienceBarFill;
+    public Image HealthBarFill;
+    public Image ResourceBarFill;
+    public Image ExperienceBarFill;
     public GameObject SkillPointNotification;
+
+    public Image HealthBarHealingFill;
+    public Image ResourceBarRestoreFill;
 
     public void Init(NewPlayerController playerController)
     {
@@ -41,22 +44,25 @@ public class ResourcePanelController : MonoBehaviour
 
     private void UpdateHealthBarFill(int damage, Entity entity)
     {
-        HealthBarFill.value = (float)HealthController.CurrentHealth / HealthController.MaximumHealth;
+        HealthBarFill.fillAmount = (float)HealthController.CurrentHealth / HealthController.MaximumHealth;
+        HealthBarHealingFill.fillAmount = (float)(HealthController.CurrentHealth + HealthController.remainingRestoreAmount) / HealthController.MaximumHealth;
     }
 
     private void UpdateHealthBarFill(int amount)
     {
-        HealthBarFill.value = (float)HealthController.CurrentHealth / HealthController.MaximumHealth;
+        HealthBarFill.fillAmount = (float)HealthController.CurrentHealth / HealthController.MaximumHealth;
+        HealthBarHealingFill.fillAmount = (float)(HealthController.CurrentHealth + HealthController.remainingRestoreAmount) / HealthController.MaximumHealth;
     }
 
     private void UpdateResourceBarFill()
     {
-        ResourceBarFill.value = (ResourceController.resource.resourceCurrent - ResourceController.resource.resourceMin) / (ResourceController.resource.resourceMax - ResourceController.resource.resourceMin);
+        ResourceBarFill.fillAmount = (float)(ResourceController.resource.resourceCurrent - ResourceController.resource.resourceMin) / (ResourceController.resource.resourceMax - ResourceController.resource.resourceMin);
+        ResourceBarRestoreFill.fillAmount = (float)(ResourceController.resource.resourceCurrent + ResourceController.resource.remainingRestoreAmount - ResourceController.resource.resourceMin) / (ResourceController.resource.resourceMax - ResourceController.resource.resourceMin);
     }
 
     private void UpdateExperienceBarFill()
     {
-        ExperienceBarFill.value = (float)ExperienceController.experience / ExperienceController.levelExperienceRequirements[ExperienceController.level];
+        ExperienceBarFill.fillAmount = (float)ExperienceController.experience / ExperienceController.levelExperienceRequirements[ExperienceController.level];
         CheckToEnableSkillPointNotification();
     }
 

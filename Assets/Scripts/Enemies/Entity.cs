@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour, IDamageable
     public HealthController HealthController;
 
     public bool IsBlocking;
+    public bool IsDead = false;
 
     public virtual void Awake()
     {
@@ -18,6 +19,7 @@ public class Entity : MonoBehaviour, IDamageable
 
     public virtual void Die()
     {
+        IsDead = true;
         HealthController.Die();
     }
 

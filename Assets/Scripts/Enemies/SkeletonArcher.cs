@@ -4,16 +4,13 @@ public class SkeletonArcher : Enemy
 {
     public Projectile projectile;
     public float projectileSpeed;
-    public int damage;
     public Transform arrowSpawnPos;
     protected override void Start()
     {
-        attackTimer = new CountdownTimer(timeBetweenAttacks);
-
         stateMachine = new StateMachine();
 
         wanderState = new EnemyWanderState(this, animator, agent, wanderRadius);
-        var chaseState = new EnemyChaseState(this, animator, agent, target);
+        var chaseState = new EnemyChaseState(this, animator, agent);
         var waitToAttackState = new EnemyWaitToAttackState(this, animator, agent, target);
         var attackState = new EnemyAttackState(this, animator, agent, target);
         var deathState = new EnemyDieState(this, animator, agent, transform);
@@ -36,14 +33,11 @@ public class SkeletonArcher : Enemy
 
     public override void Attack()
     {
-        if (attackTimer.IsRunning) return;
-
         Projectile proj = Instantiate(projectile, arrowSpawnPos.position, transform.rotation);
         proj.GetComponent<Collider>().includeLayers = targetLayer;
         proj.GetComponent<Collider>().excludeLayers = 1 >> gameObject.layer;
 
         proj.Init(projectileSpeed, damage, this, 3, false);
-        attackTimer.Start();
     }
 
     public override void Die()

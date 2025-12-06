@@ -936,8 +936,92 @@ PrefabInstance:
       propertyPath: targetLayer.m_Bits
       value: 256
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9138885414497719036, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8458699510939732860, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 6624118268835372258}
   m_SourcePrefab: {fileID: 100100000, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+--- !u!95 &808207961330135157 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 198375892357967965, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+  m_PrefabInstance: {fileID: 718202135111974952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3231817022881547000 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2679124445174203088, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+  m_PrefabInstance: {fileID: 718202135111974952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &7241125964225445335 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 7893179272062647807, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+  m_PrefabInstance: {fileID: 718202135111974952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &7989359824386871407 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 7433324669054062663, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+  m_PrefabInstance: {fileID: 718202135111974952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8977019219616172884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8458699510939732860, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+  m_PrefabInstance: {fileID: 718202135111974952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6624118268835372258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8977019219616172884}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1da0a55fea32547974589887159cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntityData: {fileID: 11400000, guid: 2db3304d65bda3249892c85da5b5de30, type: 2}
+  EntityStatus:
+    GUID: 
+    WorldPosition: {x: 0, y: 0, z: 0}
+    IsDead: 0
+  HealthController: {fileID: 0}
+  IsBlocking: 0
+  IsDead: 0
+  statusController: {fileID: 0}
+  spawnedItemDataBase: {fileID: 0}
+  ExpValue: 90
+  ExpRange: 15
+  agent: {fileID: 7989359824386871407}
+  animator: {fileID: 808207961330135157}
+  coll: {fileID: 7241125964225445335}
+  ragdoll: {fileID: 0}
+  body: []
+  wanderSpeed: 1.5
+  chaseSpeed: 2.5
+  rotationSpeed: 240
+  wanderRadius: 10
+  timeBetweenAttacks: 1
+  IsStaggered: 0
+  StateName: 
+  spawned: 0
+  animationStatusTracker: {fileID: 0}
+  HasSpawnedItems: 0
+  target: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  obstructionLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  attackRange: 0
+  InAttackRange: 0
+  CanAttack: 0
+  NextAttackTime: 0
+  damage: 4
+  projectile: {fileID: 5783461640622885472, guid: 3f70d49f99e5cbe4ab55b7622e8822ad, type: 3}
+  projectileSpeed: 22
+  arrowSpawnPos: {fileID: 3231817022881547000}
+  Owner: {fileID: 0}

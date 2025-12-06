@@ -15365,6 +15365,7 @@ MonoBehaviour:
   BlockAngle: 60
   PrintDamageTaken: 0
   DisplayDamageNumbers: 0
+  remainingRestoreAmount: 0
 --- !u!114 &7230535324818502119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15384,6 +15385,7 @@ MonoBehaviour:
     IsDead: 0
   HealthController: {fileID: 9157711023718106382}
   IsBlocking: 0
+  FriendlySkeletonArcher: {fileID: 6624118268835372258, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
   PlayerContext:
     PlayerIndex: 0
     UserInterfaceController: {fileID: 0}
@@ -15461,8 +15463,6 @@ MonoBehaviour:
       ItemSO: {fileID: 0}
       Quality: 0
       Quantity: 1
-    InstantiatedPrimaryWeapon: {fileID: 0}
-    InstantiatedSecondaryWeapon: {fileID: 0}
   TwoHandedWeaponSet:
     weaponSetType: 0
     hasPrimaryWeaponData: 0
@@ -15477,8 +15477,6 @@ MonoBehaviour:
       ItemSO: {fileID: 0}
       Quality: 0
       Quantity: 1
-    InstantiatedPrimaryWeapon: {fileID: 0}
-    InstantiatedSecondaryWeapon: {fileID: 0}
   RangedWeaponSet:
     weaponSetType: 0
     hasPrimaryWeaponData: 0
@@ -15493,8 +15491,6 @@ MonoBehaviour:
       ItemSO: {fileID: 0}
       Quality: 0
       Quantity: 1
-    InstantiatedPrimaryWeapon: {fileID: 0}
-    InstantiatedSecondaryWeapon: {fileID: 0}
   ActiveWeaponSet:
     weaponSetType: 0
     hasPrimaryWeaponData: 0
@@ -15509,8 +15505,6 @@ MonoBehaviour:
       ItemSO: {fileID: 0}
       Quality: 0
       Quantity: 1
-    InstantiatedPrimaryWeapon: {fileID: 0}
-    InstantiatedSecondaryWeapon: {fileID: 0}
   CombinedWeaponDamage: 0
   UnarmedAnimator: {fileID: 9100000, guid: 5b7e4efa974f7334191e8c27409f2845, type: 2}
   OneHandedAndShieldAnimator: {fileID: 22100000, guid: 92fef03c57f276749950e0d73a0e8b8c, type: 2}
@@ -15578,6 +15572,7 @@ MonoBehaviour:
     resourceMin: 0
     RegenPerSecond: 0.1
     AccumulatedRegen: 0
+    remainingRestoreAmount: 0
 --- !u!114 &9155891904063514100
 MonoBehaviour:
   m_ObjectHideFlags: 0

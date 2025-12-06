@@ -9,18 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f843c9ad00ca034895a8a00699ab3a1, type: 3}
-  m_Name: Golem
+  m_Script: {fileID: 11500000, guid: effebc64236282c47aedb1a5b0c192b0, type: 3}
+  m_Name: FriendlySkeletonArcher
   m_EditorClassIdentifier: 
-  MaximumHealth: 65
+  MaximumHealth: 24
   MovementSpeed: 2.5
   CriticalChance: 10
   CriticalDamage: 100
-  AttackDamage: 20
+  AttackDamage: 6
   WanderSpeed: 2
-  WanderRadius: 2
+  WanderRadius: 4
   AggroRange: 12
-  ChaseSpeed: 2.5
-  AttackRange: 2.5
-  AttackCooldown: 2.5
+  ChaseSpeed: 3
+  AttackRange: 13
+  AttackCooldown: 2
   RotationSpeed: 10
+  LeashRange: 5
+  TeleportRange: 10

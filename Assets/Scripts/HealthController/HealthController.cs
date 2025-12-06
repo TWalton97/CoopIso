@@ -25,6 +25,8 @@ public class HealthController : MonoBehaviour, IDamageable
     public bool DisplayDamageNumbers = true;
     protected bool IsDead = false;
 
+    public float remainingRestoreAmount = 0;
+
     private void Awake()
     {
         entity = GetComponent<Entity>();
@@ -100,6 +102,7 @@ public class HealthController : MonoBehaviour, IDamageable
 
     public IEnumerator RestoreHealthOverDuration(int amountOfHealth, int duration, Action endAction)
     {
+        remainingRestoreAmount = amountOfHealth;
         float accumulatedRegen = 0f;
         float healthPerSecond = amountOfHealth / duration;
 
@@ -113,6 +116,7 @@ public class HealthController : MonoBehaviour, IDamageable
             {
                 int gained = Mathf.FloorToInt(accumulatedRegen);
                 accumulatedRegen -= gained;
+                remainingRestoreAmount -= gained;
                 Heal(gained);
             }
         }

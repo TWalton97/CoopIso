@@ -5,14 +5,14 @@ using UnityEngine.AI;
 public class EnemyAttackState : EnemyBaseState
 {
     readonly NavMeshAgent agent;
-    readonly Transform player;
+    readonly Entity target;
     public bool AttackCompleted;
     private EnemyStatsSO enemyStats;
 
-    public EnemyAttackState(Enemy enemy, Animator animator, NavMeshAgent agent, Transform player) : base(enemy, animator)
+    public EnemyAttackState(Enemy enemy, Animator animator, NavMeshAgent agent, Entity target) : base(enemy, animator)
     {
         this.agent = agent;
-        this.player = player;
+        this.target = target;
         enemyStats = enemy.EntityData as EnemyStatsSO;
     }
 
@@ -26,7 +26,7 @@ public class EnemyAttackState : EnemyBaseState
     public override void OnExit()
     {
         agent.isStopped = false;
-        float distance = enemy.target != null ? Vector3.Distance(enemy.transform.position, enemy.target.position) : Mathf.Infinity;
+        float distance = enemy.target != null ? Vector3.Distance(enemy.transform.position, enemy.target.transform.position) : Mathf.Infinity;
 
         if (distance <= enemyStats.AttackRange)
         {

@@ -134,14 +134,14 @@ public class PlayerStatsBlackboard : MonoBehaviour
             return;
         }
 
-        if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.Data.GetType() == typeof(WeaponSO))
+        if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.ItemData.ItemSO is WeaponSO)
         {
             WeaponSO weaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID).itemData.ItemSO as WeaponSO;
             attacksPerSecond += weaponData.AttacksPerSecond;
             numWeapons++;
         }
 
-        if (WeaponController.instantiatedSecondaryWeapon != null && WeaponController.instantiatedSecondaryWeapon.Data.GetType() == typeof(WeaponSO))
+        if (WeaponController.instantiatedSecondaryWeapon != null && WeaponController.instantiatedSecondaryWeapon.ItemData.ItemSO is WeaponSO)
         {
             WeaponSO weaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedSecondaryWeapon.itemID).itemData.ItemSO as WeaponSO;
             attacksPerSecond += weaponData.AttacksPerSecond;
