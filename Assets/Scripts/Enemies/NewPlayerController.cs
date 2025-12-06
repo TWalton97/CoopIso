@@ -394,8 +394,6 @@ public class NewPlayerController : Entity
 
     private void DrinkPotionOne(CallbackContext context)
     {
-        if (PotionController.drinkingPotion) return;
-
         ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(Resources.ResourceType.Health);
         if (button == null) return;
 

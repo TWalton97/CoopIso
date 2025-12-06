@@ -15362,7 +15362,7 @@ MonoBehaviour:
   CurrentHealth: 0
   HealthRegenPerSecond: 0.2
   ArmorAmount: 0
-  BlockAngle: 60
+  BlockAngle: 180
   PrintDamageTaken: 0
   DisplayDamageNumbers: 0
   remainingRestoreAmount: 0

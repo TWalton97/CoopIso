@@ -26,4 +26,9 @@ public class SpinAttackBehaviour : WeaponAbilityBehaviour
     {
         return Mathf.CeilToInt(player.WeaponController.CombinedWeaponDamage * runtime.WeaponDamage);
     }
+
+    public override void OnChannelTick(float deltaTime)
+    {
+
+    }
 }

@@ -328,7 +328,7 @@ public class InventoryItemController : MonoBehaviour
         {
             ItemButton itemButton = Instantiate(ItemButtonPrefab, BuyItemButtonParent);
             instantiatedBuyItemButtons.Add(inventoryItemView.SlotID, itemButton);
-            itemButton.InitializeItemButton(this, PlayerContext, inventoryItemView, isEquipped);
+            itemButton.InitializeItemButton(this, PlayerContext, inventoryItemView, isEquipped, InventoryMode.Buy);
         }
         else
         {

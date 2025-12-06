@@ -24,19 +24,25 @@ MonoBehaviour:
   classFeatConfig:
     startingFeats:
     - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
-      startingLevel: 3
-    - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
+      startingLevel: 2
+    - feat: {fileID: 11400000, guid: 97ee8e636db10b243a935cbc3975cd0d, type: 2}
       startingLevel: 0
-    - feat: {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
+    - feat: {fileID: 11400000, guid: 0e4d047c9f357444fb30b9deb71369eb, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 71fc59681dde3654c81e29b8d3acf16a, type: 2}
       startingLevel: 0
-    - feat: {fileID: 11400000, guid: 86d4e2fcc63cf0e48b5ab2dff94db207, type: 2}
+    - feat: {fileID: 11400000, guid: 57144b2257e65ed4cab8e04965dce972, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 457f9a3fa90599143b2f76d9432c3d85, type: 2}
       startingLevel: 0
-    - feat: {fileID: 11400000, guid: 97ee8e636db10b243a935cbc3975cd0d, type: 2}
+    - feat: {fileID: 11400000, guid: 24d540c74b5878d4b81671c9c8509dcb, type: 2}
       startingLevel: 0
-    - feat: {fileID: 11400000, guid: ead8f73057b896e43b78397be961015e, type: 2}
+    - feat: {fileID: 11400000, guid: f444f4cc6dfcbe146996f565c062b89f, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 94beeead9af9b0446b471a044b6a9a56, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: c29d650f74cff0241a27fa5cc33bd85d, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
       startingLevel: 0
   PlayerStatsSO: {fileID: 11400000, guid: b66c1b0fb33840b4fa545e0925ceb874, type: 2}

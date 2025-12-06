@@ -16,7 +16,7 @@ public class AbilityController : MonoBehaviour
     public List<AbilitySO> UnlockedAbilities;
 
     public AbilityScrollController.AbilityData ActivatedAbility;
-
+    private AbilityBehaviourBase _activeChannelingAbility;
     public WeaponAbilityBehaviour weaponAbilityPrefab;
 
     private Dictionary<AbilitySO, RuntimeAbility> activeAbilities = new();
@@ -26,6 +26,12 @@ public class AbilityController : MonoBehaviour
     void Start()
     {
         newPlayerController.AnimationStatusTracker.OnAbilityCompleted += ExitActivatedAbility;
+    }
+
+    void Update()
+    {
+        if (_activeChannelingAbility != null)
+            HandleChanneling();
     }
 
     void OnDestroy()
@@ -89,6 +95,9 @@ public class AbilityController : MonoBehaviour
         if (so is SummonAbility summonAbility)
             return Instantiate(summonAbility.abilityBehaviourPrefab, transform);
 
+        if (so is SpellAbility spellAbility)
+            return Instantiate(spellAbility.abilityBehaviourPrefab, transform);
+
         throw new Exception($"No behaviour prefab assigned for ability type: {so.GetType()}");
     }
 
@@ -96,11 +105,60 @@ public class AbilityController : MonoBehaviour
     {
         if (abilityData == null) return;
 
-        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName($"Ability_Default_Slot{1}", abilityData.AbilitySO.AnimationClip);
+        if (!abilityData.AbilitySO.IsChannelingAbility)
+        {
+            newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName($"Ability_Default_Slot{1}", abilityData.AbilitySO.AnimationClip);
+            ActivatedAbility = abilityData;
+            abilityData.AbilityBehaviour.OnEnter();
+            playerAnimator.SetInteger("AbilityIndex", 0);
+            playerAnimator.SetTrigger("Cast");
+        }
+        else
+        {
+            _activeChannelingAbility = abilityData.AbilityBehaviour;
+            StartChanneling(abilityData);
+        }
+    }
+
+    private void StartChanneling(AbilityScrollController.AbilityData abilityData)
+    {
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName($"Ability_Default_Slot{2}", abilityData.AbilitySO.AnimationClip);
         ActivatedAbility = abilityData;
         abilityData.AbilityBehaviour.OnEnter();
-        playerAnimator.SetInteger("AbilityIndex", 0);
+        playerAnimator.SetInteger("AbilityIndex", 1);
         playerAnimator.SetTrigger("Cast");
+        playerAnimator.SetBool("IsChanneling", true);
+    }
+
+    private void HandleChanneling()
+    {
+        float delta = Time.deltaTime;
+
+        var ability = ActivatedAbility.AbilitySO;
+
+        float manaCost = ability.ResourceAmount * delta;
+
+        if (!resourceController.resource.RemoveResource(manaCost))
+        {
+            StopChanneling();
+            return;
+        }
+
+        _activeChannelingAbility.OnChannelTick(delta);
+
+        if (!newPlayerController.PlayerInputController.AbilityButtonHeldDown)
+        {
+            StopChanneling();
+        }
+
+    }
+
+    private void StopChanneling()
+    {
+        newPlayerController.AnimationStatusTracker.AbilityAnimationCompleted();
+        _activeChannelingAbility.OnExit();
+        _activeChannelingAbility = null;
+        playerAnimator.SetBool("IsChanneling", false);
     }
 
     private void ExitActivatedAbility()

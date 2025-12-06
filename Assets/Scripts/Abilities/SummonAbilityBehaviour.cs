@@ -42,6 +42,11 @@ public class SummonAbilityBehaviour : AbilityBehaviour<SummonRuntimeAbility>
         }
     }
 
+    public override void OnChannelTick(float deltaTime)
+    {
+        
+    }
+
     public override void OnExit()
     {
 

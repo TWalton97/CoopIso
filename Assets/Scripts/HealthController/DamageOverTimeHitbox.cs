@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,10 @@ using UnityEngine;
 public class DamageOverTimeHitbox : Hitbox
 {
     public float DamageTickDuration = 0.2f;
-    public List<IDamageable> damagedColliders = new();
 
     public bool DamageOnTriggerStay;
     public List<StatusSO> statusesToApply;
+
 
     public void Init(int damage, LayerMask targetLayer, Entity controller, bool destroyHitboxOnHit = false, float DamageTickDuration = 0.2f, bool DamageOnTriggerStay = false, List<StatusSO> status = null)
     {
@@ -39,10 +40,12 @@ public class DamageOverTimeHitbox : Hitbox
             {
                 damageToDeal = newPlayerController.PlayerStatsBlackboard.CalculateCritical(_damage);
                 damageable.TakeDamage(damageToDeal, _controller, false, true);
+                OnTargetDamaged?.Invoke(damageToDeal);
             }
             else
             {
                 damageable.TakeDamage(damageToDeal, _controller);
+                OnTargetDamaged?.Invoke(damageToDeal);
             }
 
             if (other.gameObject.TryGetComponent(out StatusController statusController) && statusesToApply != null)
@@ -53,7 +56,7 @@ public class DamageOverTimeHitbox : Hitbox
                 }
             }
             damagedColliders.Add(damageable);
-            OnTargetDamaged?.Invoke();
+
         }
 
         if (DestroyHitboxOnHit) Destroy(gameObject);
@@ -79,10 +82,12 @@ public class DamageOverTimeHitbox : Hitbox
             {
                 damageToDeal = newPlayerController.PlayerStatsBlackboard.CalculateCritical(_damage);
                 damageable.TakeDamage(damageToDeal, _controller, false, true);
+                OnTargetDamaged?.Invoke(damageToDeal);
             }
             else
             {
                 damageable.TakeDamage(damageToDeal, _controller);
+                OnTargetDamaged?.Invoke(damageToDeal);
             }
 
             if (other.gameObject.TryGetComponent(out StatusController statusController) && statusesToApply != null)
@@ -93,7 +98,6 @@ public class DamageOverTimeHitbox : Hitbox
                 }
             }
             damagedColliders.Add(damageable);
-            OnTargetDamaged?.Invoke();
         }
 
         if (DestroyHitboxOnHit) Destroy(gameObject);

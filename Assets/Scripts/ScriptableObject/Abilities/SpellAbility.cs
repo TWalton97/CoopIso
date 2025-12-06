@@ -4,8 +4,8 @@ using UnityEngine;
 public class SpellAbility : AbilitySO
 {
     public WeaponRangeType RequiredWeaponRangeType;
-    public int AbilityDamage;
-    public int AbilityDamageIncreasePerLevel;
+    public int[] DamagePerLevel;
+    public SpellAbilityBehaviour abilityBehaviourPrefab;
     public override RuntimeAbility CreateRuntimeAbility()
     {
         return new SpellRuntimeAbility(this);
@@ -18,11 +18,25 @@ public class SpellAbility : AbilitySO
 
     public override string GetLevelDescription(int currentLevel)
     {
-        return LevelDescriptionTemplate;
+        string s = LevelDescriptionTemplate;
+
+        float dam = DamagePerLevel[currentLevel - 1];
+
+        s = s.Replace("{DAM}", dam.ToString());
+
+        return s;
     }
 
     public override string GetUpgradeDescription(int currentLevel)
     {
-        return UpgradeDescriptionTemplate;
+        string s = UpgradeDescriptionTemplate;
+
+        float curr = DamagePerLevel[currentLevel - 1];
+        float next = DamagePerLevel[currentLevel];
+
+        s = s.Replace("{DAM_CURR}", curr.ToString());
+        s = s.Replace("{DAM_NEXT}", next.ToString());
+
+        return s;
     }
 }

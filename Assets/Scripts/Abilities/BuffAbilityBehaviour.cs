@@ -100,6 +100,11 @@ public class BuffAbilityBehaviour : AbilityBehaviour<BuffRuntimeAbility>
 
         statusControllers.Clear();
     }
+
+    public override void OnChannelTick(float deltaTime)
+    {
+        
+    }
 }
 
 public enum BuffApplicationTime

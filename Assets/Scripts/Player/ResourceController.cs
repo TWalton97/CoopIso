@@ -30,7 +30,7 @@ public class ResourceController : MonoBehaviour
         }
     }
 
-    public IEnumerator RestoreResourceOverDuration(int amountOfResource, int duration, Action endAction)
+    public IEnumerator RestoreResourceOverDuration(int amountOfResource, int duration)
     {
         resource.remainingRestoreAmount = amountOfResource;
         float accumulatedRegen = 0f;
@@ -50,7 +50,6 @@ public class ResourceController : MonoBehaviour
                 resource.AddResource(gained);
             }
         }
-        endAction?.Invoke();
     }
 }
 

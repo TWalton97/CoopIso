@@ -77,7 +77,7 @@ public class StatIncreaseFeat : FeatSO
                 controller.PlayerController.PlayerStatsBlackboard.WeightMax += ValuePerLevel[safeIndex];
                 break;
             case StatToIncrease.AttackSpeed:
-                controller.PlayerController.PlayerStatsBlackboard.AttackSpeedMultiplier += ValuePerLevel[safeIndex];
+                controller.PlayerController.PlayerStatsBlackboard.AttackSpeedMultiplier += ValuePerLevel[safeIndex] * 0.01f;
                 break;
         }
     }

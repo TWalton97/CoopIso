@@ -43,11 +43,11 @@ public class Projectile : MonoBehaviour
 
         if (_elapsedTime >= _maximumProjectileDuration)
         {
-            DestroyProjectile();
+            DestroyProjectile(0);
         }
     }
 
-    private void DestroyProjectile()
+    private void DestroyProjectile(int damage)
     {
         Destroy(gameObject);
     }

@@ -100,7 +100,7 @@ public class HealthController : MonoBehaviour, IDamageable
         OnDie?.Invoke();
     }
 
-    public IEnumerator RestoreHealthOverDuration(int amountOfHealth, int duration, Action endAction)
+    public IEnumerator RestoreHealthOverDuration(int amountOfHealth, int duration)
     {
         remainingRestoreAmount = amountOfHealth;
         float accumulatedRegen = 0f;
@@ -120,7 +120,6 @@ public class HealthController : MonoBehaviour, IDamageable
                 Heal(gained);
             }
         }
-        endAction?.Invoke();
     }
 
     public void IncreaseMaximumHealth(int amountOfHealth)

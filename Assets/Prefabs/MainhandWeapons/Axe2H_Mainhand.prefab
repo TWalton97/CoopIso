@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5537983291576836649}
   - component: {fileID: 2686235297691863934}
   - component: {fileID: 2172288613997609918}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Axe2H_Mainhand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,23 +99,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad5d46b7afddf7428ccd964161ee659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Data>k__BackingField: {fileID: 11400000, guid: e5f1ef78c2c63b14d90c9f72f0e99f29, type: 2}
+  Data: {fileID: 0}
+  PlayerContext:
+    PlayerIndex: 0
+    UserInterfaceController: {fileID: 0}
+    PlayerController: {fileID: 0}
+    PlayerInput: {fileID: 0}
+    InventoryManager: {fileID: 0}
+    InteractionManager: {fileID: 0}
+    SpawnedItemDatabase: {fileID: 0}
+    PlayerPreviewManager: {fileID: 0}
+    InventoryController: {fileID: 0}
+    UIStateManager: {fileID: 0}
   weaponRangeType: 0
   ItemData:
-    itemID: 
-    itemName: 
-    quantity: 0
-    sprite: {fileID: 0}
-    itemValue: 0
-    itemWeight: 0
-    itemDescription: 
-    objectPrefab: {fileID: 0}
-    floorObjectPrefab: {fileID: 0}
-    vfxPrefab: {fileID: 0}
-    itemType: 0
-    weaponRangeType: 0
-    data: {fileID: 0}
-    itemQuality: 0
+    ItemID: 
+    ItemSO: {fileID: 0}
+    Quality: 0
+    Quantity: 1
   weaponHand: 0
   weaponAttackType: 1
   itemID: 

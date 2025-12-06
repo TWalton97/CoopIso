@@ -9,6 +9,7 @@ public abstract class AbilitySO : ScriptableObject
     public float ResourceAmount;
     public bool CanMoveWhileUsing = false;
     public bool CanRotateDuringCast = true;
+    public bool IsChannelingAbility = false;
     public int MaxLevel;
     [TextArea] public string AbilityDescription;
 

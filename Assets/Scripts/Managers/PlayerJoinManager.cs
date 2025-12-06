@@ -27,8 +27,6 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     public InputSystemUIInputModule player1UI;
     public InputSystemUIInputModule player2UI;
 
-    public List<ClassPresetSO> classPresets;
-
     public MainMenuController mainMenuController;
 
     public int TargetSpawnID;
@@ -181,15 +179,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
         playerContext.PlayerController.Init();
 
-        ClassPresetSO classPresetSO;
-        if (mainMenuController != null)
-        {
-            classPresetSO = mainMenuController.gameSetupData.chosenClassPresets[playerInput.playerIndex];
-        }
-        else
-        {
-            classPresetSO = ChooseRandomClassPreset();
-        }
+        ClassPresetSO classPresetSO = mainMenuController.gameSetupData.chosenClassPresets[playerInput.playerIndex];
 
         playerUserInterfaceController.Init(playerContext);
 
@@ -213,13 +203,6 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.UserInterfaceController.inventoryController.FeatsMenu.CreateFeatButtons(playerContext);
 
         //playerAveragePositionTracker.AddPlayer(playerInput.gameObject);
-    }
-
-    private ClassPresetSO ChooseRandomClassPreset()
-    {
-        if (classPresets.Count == 0) return null;
-
-        return classPresets[UnityEngine.Random.Range(0, classPresets.Count)];
     }
 }
 

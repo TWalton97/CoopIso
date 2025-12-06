@@ -35,6 +35,7 @@ public class PlayerInputController : MonoBehaviour
     private float attackHeldRepeatTime = 0.1f;
     public Action<CallbackContext> OnJumpPerformed;
     public Action<CallbackContext> OnAbilityPerformed;
+    public bool AbilityButtonHeldDown;
     public Action<CallbackContext> OnBlockPerformed;
     public Action<CallbackContext> OnInteractPerformed;
     public Action<CallbackContext> OnDrinkPotionOnePerformed;
@@ -175,7 +176,15 @@ public class PlayerInputController : MonoBehaviour
     #region Player Input Actions
     public void OnAbility(CallbackContext context)
     {
-        OnAbilityPerformed?.Invoke(context);
+        if (context.started)
+        {
+            OnAbilityPerformed?.Invoke(context);
+            AbilityButtonHeldDown = true;
+        }
+        else if (context.canceled)
+        {
+            AbilityButtonHeldDown = false;
+        }
     }
 
     public void OnAttack(CallbackContext context)

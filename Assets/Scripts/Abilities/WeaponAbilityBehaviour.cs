@@ -15,6 +15,11 @@ public class WeaponAbilityBehaviour : AbilityBehaviour<WeaponRuntimeAbility>
     {
     }
 
+    public override void OnChannelTick(float deltaTime)
+    {
+
+    }
+
     public override bool CanUse(ResourceController resourceController)
     {
         if (weaponRangeType == WeaponRangeType.Melee || weaponRangeType == WeaponRangeType.Ranged)

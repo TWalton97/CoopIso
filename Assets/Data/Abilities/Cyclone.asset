@@ -16,9 +16,11 @@ MonoBehaviour:
   AbilityIcon: {fileID: 21300000, guid: 82e232c4b7118c044b006d312574bb11, type: 3}
   AnimationClip: {fileID: 7400000, guid: 63b3d9ed541af004bbdf824144fb5459, type: 2}
   ResourceType: 1
-  ResourceAmount: 25
+  ResourceAmount: 9
   CanMoveWhileUsing: 1
-  CanRotateDuringCast: 1
+  CanRotateDuringCast: 0
+  IsChannelingAbility: 1
+  ResourceAmountPerSecond: 3
   MaxLevel: 3
   AbilityDescription: Spins around, rapidly dealing damage to all nearby enemies.
   LevelDescriptionTemplate: Deals {DMG} weapon damage to nearby enemies every {TICK}s.

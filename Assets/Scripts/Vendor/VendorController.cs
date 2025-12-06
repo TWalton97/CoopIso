@@ -29,9 +29,6 @@ public class VendorController : MonoBehaviour, IInteractable
     private List<InventoryItemView> vendorItemViews2 = new();
 
     private bool spawnedItems = false;
-    public float VendorWeaponPriceMultiplier;
-    public float VendorArmorPriceMultiplier;
-    public float ConsumablePriceMultiplier;
 
     public static Action<string> OnItemPurchased;
 
@@ -99,14 +96,12 @@ public class VendorController : MonoBehaviour, IInteractable
         foreach (var vendorItem in ItemsForSale1)
         {
             InventoryItemView view = new InventoryItemView(vendorItem.itemSO, null, (vendorItem.itemSO.ItemType == ItemType.Consumable) ? 1 : 1, vendorItem.itemQuality, false, vendorItem.itemID);
-            view.GoldValue = (int)(view.DisplayGoldValue * vendorItem.priceMultiplier);
             vendorItemViews1.Add(view);
         }
 
         foreach (var vendorItem in ItemsForSale2)
         {
             InventoryItemView view = new InventoryItemView(vendorItem.itemSO, null, (vendorItem.itemSO.ItemType == ItemType.Consumable) ? 1 : 1, vendorItem.itemQuality, false, vendorItem.itemID);
-            view.GoldValue = (int)(view.DisplayGoldValue * vendorItem.priceMultiplier);
             vendorItemViews2.Add(view);
         }
     }
@@ -117,7 +112,6 @@ public class VendorController : MonoBehaviour, IInteractable
         foreach (VendorItem item in ItemsForSale1)
         {
             item.itemID = Guid.NewGuid().ToString();
-            item.priceMultiplier = ConsumablePriceMultiplier;
         }
 
         for (int i = 0; i < 5; i++)
@@ -126,7 +120,6 @@ public class VendorController : MonoBehaviour, IInteractable
             vendorItem.itemID = Guid.NewGuid().ToString();
             vendorItem.itemSO = SpawnedItemDataBase.Instance.ReturnRandomWeaponSO();
             vendorItem.itemQuality = LootCalculator.RollQuality();
-            vendorItem.priceMultiplier = VendorWeaponPriceMultiplier;
             ItemsForSale1.Add(vendorItem);
         }
 
@@ -136,14 +129,12 @@ public class VendorController : MonoBehaviour, IInteractable
             vendorItem.itemID = Guid.NewGuid().ToString();
             vendorItem.itemSO = SpawnedItemDataBase.Instance.ReturnRandomArmorSO();
             vendorItem.itemQuality = LootCalculator.RollQuality();
-            vendorItem.priceMultiplier = VendorArmorPriceMultiplier;
             ItemsForSale1.Add(vendorItem);
         }
 
         foreach (VendorItem item in ItemsForSale2)
         {
             item.itemID = Guid.NewGuid().ToString();
-            item.priceMultiplier = ConsumablePriceMultiplier;
         }
 
         for (int i = 0; i < 5; i++)
@@ -152,7 +143,6 @@ public class VendorController : MonoBehaviour, IInteractable
             vendorItem.itemID = Guid.NewGuid().ToString();
             vendorItem.itemSO = SpawnedItemDataBase.Instance.ReturnRandomWeaponSO();
             vendorItem.itemQuality = LootCalculator.RollQuality();
-            vendorItem.priceMultiplier = VendorWeaponPriceMultiplier;
             ItemsForSale2.Add(vendorItem);
         }
 
@@ -162,7 +152,6 @@ public class VendorController : MonoBehaviour, IInteractable
             vendorItem.itemID = Guid.NewGuid().ToString();
             vendorItem.itemSO = SpawnedItemDataBase.Instance.ReturnRandomArmorSO();
             vendorItem.itemQuality = LootCalculator.RollQuality();
-            vendorItem.priceMultiplier = VendorArmorPriceMultiplier;
             ItemsForSale2.Add(vendorItem);
         }
         WrapVendorItemsForInventoryView();

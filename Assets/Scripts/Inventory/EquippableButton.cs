@@ -14,13 +14,14 @@ public class EquippableButton : ItemButton
     private ArmorController armorController;
     public TMP_Text StatValue;
 
-    public override void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false)
+    public override void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false, InventoryMode mode = InventoryMode.Normal)
     {
         InventoryItemController = inventoryItemController;
         PlayerContext = playerContext;
         this.inventoryItemView = inventoryItemView;
         ItemSO = inventoryItemView.ItemSO;
         ButtonID = inventoryItemView.SlotID;
+        ItemMode = mode;
 
         if (inventoryItemView.HasItemData)
             ItemData = inventoryItemView.ItemData;
@@ -50,8 +51,16 @@ public class EquippableButton : ItemButton
     {
         ItemName.text = inventoryItemView.ItemQuality.ToString() + " " + inventoryItemView.ItemSO.ItemName;
         ItemButtonImage.sprite = inventoryItemView.ItemSO.ItemSprite;
-        ItemValue.text = inventoryItemView.GoldValue.ToString();
         ItemWeight.text = inventoryItemView.ItemSO.Weight.ToString("0.0");
+
+        if (ItemMode == InventoryMode.Buy)
+        {
+            ItemValue.text = (inventoryItemView.DisplayGoldValue * 10f).ToString();
+        }
+        else
+        {
+            ItemValue.text = inventoryItemView.DisplayGoldValue.ToString();
+        }
 
         if (inventoryItemView.ItemSO is WeaponSO)
         {
@@ -154,7 +163,7 @@ public class EquippableButton : ItemButton
 
     private void CheckIfButtonCanBeActivatedBuyMode()
     {
-        if (inventoryItemView.GoldValue > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
+        if ((inventoryItemView.DisplayGoldValue * 10) > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
         {
             SetBackgroundColor(CannotBeUsedColor);
             buttonState = ButtonState.CannotActivate;
@@ -238,7 +247,7 @@ public class EquippableButton : ItemButton
             }
         }
 
-        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(inventoryItemView.GoldValue);
+        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(inventoryItemView.DisplayGoldValue);
         InventoryItemController.RemoveButtonAtID(ButtonID);
     }
 
@@ -247,7 +256,7 @@ public class EquippableButton : ItemButton
         if (buttonState == ButtonState.CannotActivate)
             return;
 
-        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-inventoryItemView.GoldValue);
+        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-inventoryItemView.DisplayGoldValue * 10);
         ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(ItemSO, inventoryItemView.ItemQuality);
         inventoryItemView.ItemData = itemData;
         VendorController.OnItemPurchased?.Invoke(ButtonID);

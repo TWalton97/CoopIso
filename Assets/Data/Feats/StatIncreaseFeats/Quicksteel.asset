@@ -16,9 +16,9 @@ MonoBehaviour:
   SkillPointCostPerLevel: 02000000030000000400000005000000
   Stat: 8
   ValuePerLevel:
-  - 0.05
-  - 0.1
-  - 0.15
-  - 0.2
+  - 5
+  - 10
+  - 15
+  - 20
   FeatDescription: Increases your attack speed
-  isPercentage: 0
+  isPercentage: 1

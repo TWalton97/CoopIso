@@ -249,7 +249,15 @@ public class AbilityScrollController : MonoBehaviour
     public void UpdateAbilityDescription(AbilityData ability)
     {
         AbilityName.text = ability.AbilitySO.AbilityName;
-        AbilityCost.text = ability.AbilitySO.ResourceAmount.ToString() + " " + ability.AbilitySO.ResourceType.ToString();
+        if (ability.AbilitySO.IsChannelingAbility)
+        {
+            AbilityCost.text = ability.AbilitySO.ResourceAmount.ToString() + " " + ability.AbilitySO.ResourceType.ToString() + "/s";
+        }
+        else
+        {
+            AbilityCost.text = ability.AbilitySO.ResourceAmount.ToString() + " " + ability.AbilitySO.ResourceType.ToString();
+        }
+
         RuntimeAbility runtime = controller.playerContext.PlayerController.AbilityController.GetRuntime(ability.AbilitySO);
 
         if (ability.AbilityBehaviour is WeaponAbilityBehaviour weaponAbilityBehaviour)

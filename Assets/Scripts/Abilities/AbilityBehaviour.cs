@@ -5,7 +5,7 @@ public abstract class AbilityBehaviour<T> : AbilityBehaviourBase
     where T : RuntimeAbility
 {
     protected NewPlayerController player;
-    protected T runtime; // typed runtime instance
+    public T runtime; // typed runtime instance
     protected List<StatusSO> statuses;
 
     public override void Initialize(NewPlayerController player, RuntimeAbility runtime, List<StatusSO> statuses = null)

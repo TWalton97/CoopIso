@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class Hitbox : MonoBehaviour
 {
     public int _damage;
     protected LayerMask _targetLayer;
-    public Action OnTargetDamaged;
+    public Action<int> OnTargetDamaged;
+    public List<IDamageable> damagedColliders = new();
     protected Collider[] colls;
     public Entity _controller;
     public bool DestroyHitboxOnHit = true;
@@ -33,27 +35,27 @@ public class Hitbox : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-
-    }
-
     public virtual void OnTriggerEnter(Collider other)
     {
         //if ((_targetLayer & (1 << other.gameObject.layer)) == 0) return;
 
         if (other.gameObject.TryGetComponent(out IDamageable damageable))
         {
+            if (damagedColliders.Contains(damageable)) return;
+
             if (_controller is NewPlayerController newPlayerController && newPlayerController.PlayerStatsBlackboard.IsCritical())
             {
-                damageable.TakeDamage(newPlayerController.PlayerStatsBlackboard.CalculateCritical(_damage), _controller, false, true);
+                int dam = newPlayerController.PlayerStatsBlackboard.CalculateCritical(_damage);
+                damageable.TakeDamage(dam, _controller, false, true);
+                damagedColliders.Add(damageable);
+                OnTargetDamaged?.Invoke(dam);
             }
             else
             {
                 damageable.TakeDamage(_damage, _controller);
+                damagedColliders.Add(damageable);
+                OnTargetDamaged?.Invoke(_damage);
             }
-
-            OnTargetDamaged?.Invoke();
         }
 
         if (DestroyHitboxOnHit) Destroy(gameObject);
@@ -76,5 +78,7 @@ public class Hitbox : MonoBehaviour
         {
             coll.enabled = false;
         }
+
+        damagedColliders.Clear();
     }
 }

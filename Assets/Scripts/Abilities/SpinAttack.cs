@@ -33,4 +33,9 @@ public class SpinAttack : AbilityBehaviour<WeaponRuntimeAbility>
     {
 
     }
+
+    public override void OnChannelTick(float deltaTime)
+    {
+        
+    }
 }

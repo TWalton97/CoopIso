@@ -46,6 +46,6 @@ public class StatsPanelController : MonoBehaviour
         MovementSpeed.text = playerStatsBlackboard.MovementSpeed.ToString();
         CriticalChance.text = playerStatsBlackboard.CriticalChance.ToString() + "%";
         CriticalDamage.text = playerStatsBlackboard.CriticalDamage.ToString() + "%";
-        AttackSpeed.text = playerStatsBlackboard.AttackSpeedMultiplier.ToString() + "%";
+        AttackSpeed.text = ((playerStatsBlackboard.AttackSpeedMultiplier - 1) * 100f).ToString() + "%";
     }
 }

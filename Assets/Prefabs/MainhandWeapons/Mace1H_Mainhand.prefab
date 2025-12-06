@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3167874120120784451}
   - component: {fileID: 7046780015103169921}
   - component: {fileID: 8708477560105992372}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mace1H_Mainhand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,11 +99,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad5d46b7afddf7428ccd964161ee659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Data>k__BackingField: {fileID: 11400000, guid: bbbccc37672a63f4f8ccc1ffb0373135, type: 2}
+  Data: {fileID: 0}
+  PlayerContext:
+    PlayerIndex: 0
+    UserInterfaceController: {fileID: 0}
+    PlayerController: {fileID: 0}
+    PlayerInput: {fileID: 0}
+    InventoryManager: {fileID: 0}
+    InteractionManager: {fileID: 0}
+    SpawnedItemDatabase: {fileID: 0}
+    PlayerPreviewManager: {fileID: 0}
+    InventoryController: {fileID: 0}
+    UIStateManager: {fileID: 0}
+  weaponRangeType: 0
+  ItemData:
+    ItemID: 
+    ItemSO: {fileID: 0}
+    Quality: 0
+    Quantity: 1
   weaponHand: 0
   weaponAttackType: 0
-  affixes: []
   itemID: 
+  averageWeaponDamage: 0
 --- !u!114 &3167874120120784451
 MonoBehaviour:
   m_ObjectHideFlags: 0

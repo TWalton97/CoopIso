@@ -122,7 +122,15 @@ public class PlayerFeatsPanelController : MonoBehaviour
 
         if (feat is AbilityUnlockFeat abilityUnlockFeat)
         {
-            FeatPreviewResourceCost.text = "Mana: " + abilityUnlockFeat.AbilityToUnlock.ResourceAmount.ToString();
+            if (abilityUnlockFeat.AbilityToUnlock.IsChannelingAbility)
+            {
+                FeatPreviewResourceCost.text = "Mana: " + abilityUnlockFeat.AbilityToUnlock.ResourceAmount.ToString() + "/s";
+            }
+            else
+            {
+                FeatPreviewResourceCost.text = "Mana: " + abilityUnlockFeat.AbilityToUnlock.ResourceAmount.ToString();
+            }
+
             if (abilityUnlockFeat.AbilityToUnlock is WeaponAbility weaponAbility)
             {
                 FeatPreviewWeaponRequirement.text = weaponAbility.RequiredWeaponRangeType.ToString();
