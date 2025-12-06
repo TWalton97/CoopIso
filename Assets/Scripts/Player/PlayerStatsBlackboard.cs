@@ -71,6 +71,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         ResourceController.resource.OnResourceValueChanged += UpdateResourceStats;
         PlayerController.HealthController.OnMaximumHealthChanged += UpdateHealthStats;
         PlayerController.HealthController.OnArmorAmountChanged += UpdateArmorStats;
+        PlayerController.HealthController.OnHeal += UpdateHealthStats;
     }
 
     private void OnDisable()
@@ -80,6 +81,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         ResourceController.resource.OnResourceValueChanged -= UpdateResourceStats;
         PlayerController.HealthController.OnMaximumHealthChanged -= UpdateHealthStats;
         PlayerController.HealthController.OnArmorAmountChanged -= UpdateArmorStats;
+        PlayerController.HealthController.OnHeal -= UpdateHealthStats;
     }
 
     private void UpdateHealthStats(int amount = 0, Entity controller = null)
@@ -89,12 +91,20 @@ public class PlayerStatsBlackboard : MonoBehaviour
         CurrentHealth = PlayerController.HealthController.CurrentHealth;
         HealthRegen = PlayerController.HealthController.HealthRegenPerSecond;
     }
-
-    private void UpdateHealthStats()
+    public void UpdateHealthStats(int amount = 0)
     {
         if (PlayerController.HealthController == null) return;
         MaximumHealth = PlayerController.HealthController.MaximumHealth;
         CurrentHealth = PlayerController.HealthController.CurrentHealth;
+        HealthRegen = PlayerController.HealthController.HealthRegenPerSecond;
+    }
+
+    public void UpdateHealthStats()
+    {
+        if (PlayerController.HealthController == null) return;
+        MaximumHealth = PlayerController.HealthController.MaximumHealth;
+        CurrentHealth = PlayerController.HealthController.CurrentHealth;
+        HealthRegen = PlayerController.HealthController.HealthRegenPerSecond;
     }
 
     public void UpdateArmorStats()
@@ -156,7 +166,7 @@ public class PlayerStatsBlackboard : MonoBehaviour
         AttacksPerSecond = attacksPerSecond * AttackSpeedMultiplier;
     }
 
-    private void UpdateResourceStats()
+    public void UpdateResourceStats()
     {
         if (ResourceController == null) return;
         ResourceType = ResourceController.resource.resourceType;

@@ -37,7 +37,7 @@ public class StatsPanelController : MonoBehaviour
 
     public void UpdateUI()
     {
-        CharacterLevelAndClass.text = "Level " + experienceController.level + " " + playerStatsBlackboard.ClassName;
+        CharacterLevelAndClass.text = "Level " + (experienceController.level + 1) + " " + playerStatsBlackboard.ClassName;
         CurrentExperience.text = experienceController.experience.ToString();
         NextLevelExperience.text = experienceController.levelExperienceRequirements[experienceController.level + 1].ToString();
         Health.text = playerStatsBlackboard.CurrentHealth + "/" + playerStatsBlackboard.MaximumHealth + " [" + playerStatsBlackboard.HealthRegen + "/s]";

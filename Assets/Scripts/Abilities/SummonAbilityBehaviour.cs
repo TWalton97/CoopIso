@@ -4,29 +4,40 @@ using UnityEngine;
 
 public class SummonAbilityBehaviour : AbilityBehaviour<SummonRuntimeAbility>
 {
-    public FriendlySkeletonArcher friendlySkeletonArcher;
+    public Enemy unitToSpawn;
     public int Health;
     public int MaximumNumberOfSummons;
-    private List<FriendlySkeletonArcher> SummonedArchers = new();
+    private List<Enemy> SummonedUnits = new();
 
     public override void OnEnter()
     {
-        if (SummonedArchers.Count < MaximumNumberOfSummons)
+        MaximumNumberOfSummons = runtime.MaxSummons;
+
+        if (SummonedUnits.Count < MaximumNumberOfSummons)
         {
-            FriendlySkeletonArcher archer = Instantiate(friendlySkeletonArcher, player.transform.position + player.transform.forward, Quaternion.identity);
-            archer.Init(player);
-            archer.HealthController.MaximumHealth = Health;
-            archer.HealthController.CurrentHealth = Health;
-            archer.HealthController.IncreaseMaximumHealth(0);
+            Enemy unit = Instantiate(unitToSpawn, player.transform.position + player.transform.forward, Quaternion.identity);
+            if (unit is FriendlySkeletonArcher archer)
+            {
+                archer.Init(player);
+                archer.OnFriendlyArcherDied += RemoveUnitFromList;
+            }
+            else if (unit is FriendlySkeletonWarrior warrior)
+            {
+                warrior.Init(player);
+                warrior.OnFriendlyWarriorDied += RemoveUnitFromList;
+            }
 
-            archer.damage = runtime.Damage;
+            unit.HealthController.MaximumHealth = runtime.Health;
+            unit.HealthController.CurrentHealth = runtime.Health;
+            unit.HealthController.IncreaseMaximumHealth(0);
 
-            SummonedArchers.Add(archer);
-            archer.OnFriendlyArcherDied += RemoveArcherFromList;
+            unit.damage = runtime.Damage;
+
+            SummonedUnits.Add(unit);
         }
         else
         {
-            RemoveArcherFromList(SummonedArchers[0]);
+            RemoveUnitFromList(SummonedUnits[0]);
             OnEnter();
         }
     }
@@ -41,10 +52,18 @@ public class SummonAbilityBehaviour : AbilityBehaviour<SummonRuntimeAbility>
 
     }
 
-    public void RemoveArcherFromList(FriendlySkeletonArcher archer)
+    public void RemoveUnitFromList(Enemy unit)
     {
-        SummonedArchers.Remove(archer);
-        Destroy(archer.gameObject);
-        archer.OnFriendlyArcherDied -= RemoveArcherFromList;
+        SummonedUnits.Remove(unit);
+        Destroy(unit.gameObject);
+
+        if (unit is FriendlySkeletonArcher archer)
+        {
+            archer.OnFriendlyArcherDied -= RemoveUnitFromList;
+        }
+        else if (unit is FriendlySkeletonWarrior warrior)
+        {
+            warrior.OnFriendlyWarriorDied -= RemoveUnitFromList;
+        }
     }
 }

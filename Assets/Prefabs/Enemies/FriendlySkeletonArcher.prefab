@@ -780,6 +780,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 7433324669054062663, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7459167237891194524, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -847,6 +851,10 @@ PrefabInstance:
     - target: {fileID: 8319418694957247947, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
       propertyPath: m_Layer
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8371414246281985758, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+      propertyPath: isPriorityObject
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8378208984030141512, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
       propertyPath: m_Layer
@@ -938,6 +946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9138885414497719036, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+    - {fileID: 8371414246281985758, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -977,7 +986,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8977019219616172884}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c1da0a55fea32547974589887159cfa, type: 3}
   m_Name: 

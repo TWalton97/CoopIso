@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e879f8d9c936e6b45a740cc2895821d8, type: 3}
   m_Name: KnightStats
   m_EditorClassIdentifier: 
-  MaximumHealth: 50
+  MaximumHealth: 75
   MovementSpeed: 4
   CriticalChance: 10
   CriticalDamage: 100

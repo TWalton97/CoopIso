@@ -18,12 +18,12 @@ MonoBehaviour:
   GroundItemPrefab: {fileID: 1573130268152827418, guid: fb01e8b49a5a1944fa1eb30a8af1ff8b, type: 3}
   ItemType: 5
   ItemDropType: 0
-  BaseLootBudget: 6
+  BaseLootBudget: 16
   BaseLootWeight: 4
   GoldValue: 45
   Weight: 8
-  <WeaponMinDamage>k__BackingField: 12
-  <WeaponMaxDamage>k__BackingField: 16
-  <AttacksPerSecond>k__BackingField: 0.76
+  <WeaponMinDamage>k__BackingField: 15
+  <WeaponMaxDamage>k__BackingField: 22
+  <AttacksPerSecond>k__BackingField: 0.9
   <NumberOfAttacksInCombo>k__BackingField: 3
   WeaponRangeType: 1

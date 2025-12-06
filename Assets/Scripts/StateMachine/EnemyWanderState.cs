@@ -43,7 +43,6 @@ public class EnemyWanderState : EnemyBaseState
         }
 
         agent.speed = enemyStats.WanderSpeed;
-        animator.SetFloat("MovementAnimationMultiplier", agent.speed / enemy.StartWanderSpeed);
 
         if (waiting)
         {

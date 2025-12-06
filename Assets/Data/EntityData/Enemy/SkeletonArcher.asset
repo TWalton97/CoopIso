@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f843c9ad00ca034895a8a00699ab3a1, type: 3}
   m_Name: SkeletonArcher
   m_EditorClassIdentifier: 
-  MaximumHealth: 12
+  MaximumHealth: 30
   MovementSpeed: 2.5
   CriticalChance: 10
   CriticalDamage: 100
-  AttackDamage: 6
+  AttackDamage: 12
   WanderSpeed: 1.5
   WanderRadius: 2
   AggroRange: 15

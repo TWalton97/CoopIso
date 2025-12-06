@@ -23,6 +23,6 @@ MonoBehaviour:
   ChaseSpeed: 3
   AttackRange: 13
   AttackCooldown: 2
-  RotationSpeed: 10
+  RotationSpeed: 25
   LeashRange: 5
   TeleportRange: 10

@@ -15385,7 +15385,8 @@ MonoBehaviour:
     IsDead: 0
   HealthController: {fileID: 9157711023718106382}
   IsBlocking: 0
-  FriendlySkeletonArcher: {fileID: 6624118268835372258, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
+  IsDead: 0
+  FriendlySkeletonWarrior: {fileID: 4905347976658615171, guid: 332f87ff35010b548b418e2ddb9f2eb8, type: 3}
   PlayerContext:
     PlayerIndex: 0
     UserInterfaceController: {fileID: 0}
@@ -15587,7 +15588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   experience: 0
-  SkillPoints: 9
+  SkillPoints: 0
   levelExperienceRequirements: 90010000bc020000e8030000140500006c070000280a0000480d000068100000
   LevelUpParticle: {fileID: 412665536095753354}
 --- !u!114 &4202505148022750934

@@ -19,7 +19,7 @@ public class EnemyDieState : EnemyBaseState
 
         if (enemy.HasSpawnedItems)
         {
-            animator.Play(DieHash, 0, 1f);
+            animator.CrossFade(DieHash, 0f);
             animator.Update(0f);
         }
         else

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5f5c5c88f44794eb3c11566ba6fb10, type: 3}
+  m_Name: NecromancerClassPreset
+  m_EditorClassIdentifier: 
+  PresetName: Necromancer
+  StartingMainHandWeapon: {fileID: 11400000, guid: f51fc31e76faabb4a9e6f21390f39b71, type: 2}
+  StartingOffhandWeapon: {fileID: 0}
+  StartingHelmet: {fileID: 11400000, guid: 0d5b8a94a775a294db54a54aad66e59d, type: 2}
+  StartingBodyArmor: {fileID: 11400000, guid: 84b29a839b598634d9ea7bcaa223c831, type: 2}
+  StartingLegArmor: {fileID: 11400000, guid: fac939d4ede380545b4abeb874ff1a4d, type: 2}
+  StartingConsumables:
+  - {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
+  - {fileID: 11400000, guid: ae07c51b79f60cd4ea616b538a9709eb, type: 2}
+  classFeatConfig:
+    startingFeats:
+    - feat: {fileID: 11400000, guid: 757b099d6ceccd943a3af92d089b8f0e, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: c0a2fd92f7d7525419e1039c0b2b9088, type: 2}
+      startingLevel: 1
+    - feat: {fileID: 11400000, guid: 84c183a314a138845b84f428ef388812, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 57144b2257e65ed4cab8e04965dce972, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 1440bc528cbdddc4a9bb92bcf55a4c7e, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 93097580943abb044bfd719000317c7b, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 24d540c74b5878d4b81671c9c8509dcb, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 86d4e2fcc63cf0e48b5ab2dff94db207, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: ead8f73057b896e43b78397be961015e, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
+      startingLevel: 0
+    - feat: {fileID: 11400000, guid: 7dc30e1d8a72dc442ba6ee6353cb68eb, type: 2}
+      startingLevel: 0
+  PlayerStatsSO: {fileID: 11400000, guid: dc2c471d5baf0924da73a531c07517a9, type: 2}

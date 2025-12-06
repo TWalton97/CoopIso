@@ -61,6 +61,24 @@ public class StatIncreaseFeat : FeatSO
             case StatToIncrease.CriticalDamage:
                 controller.PlayerController.PlayerStatsBlackboard.CriticalDamage += ValuePerLevel[safeIndex];
                 break;
+            case StatToIncrease.HealthRegen:
+                controller.PlayerController.HealthController.HealthRegenPerSecond += ValuePerLevel[safeIndex];
+                controller.PlayerController.PlayerStatsBlackboard.UpdateHealthStats();
+                break;
+            case StatToIncrease.MaximumMana:
+                controller.PlayerController.ResourceController.resource.resourceMax += ValuePerLevel[safeIndex];
+                controller.PlayerController.PlayerStatsBlackboard.UpdateResourceStats();
+                break;
+            case StatToIncrease.ManaRegen:
+                controller.PlayerController.ResourceController.resource.RegenPerSecond += ValuePerLevel[safeIndex];
+                controller.PlayerController.PlayerStatsBlackboard.UpdateResourceStats();
+                break;
+            case StatToIncrease.MaximumCarryWeight:
+                controller.PlayerController.PlayerStatsBlackboard.WeightMax += ValuePerLevel[safeIndex];
+                break;
+            case StatToIncrease.AttackSpeed:
+                controller.PlayerController.PlayerStatsBlackboard.AttackSpeedMultiplier += ValuePerLevel[safeIndex];
+                break;
         }
     }
 
@@ -82,4 +100,9 @@ public enum StatToIncrease
     MovementSpeed,
     CriticalChance,
     CriticalDamage,
+    HealthRegen,
+    MaximumMana,
+    ManaRegen,
+    MaximumCarryWeight,
+    AttackSpeed
 }

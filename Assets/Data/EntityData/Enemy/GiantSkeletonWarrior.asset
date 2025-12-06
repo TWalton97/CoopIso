@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f843c9ad00ca034895a8a00699ab3a1, type: 3}
+  m_Name: GiantSkeletonWarrior
+  m_EditorClassIdentifier: 
+  MaximumHealth: 165
+  MovementSpeed: 3.5
+  CriticalChance: 10
+  CriticalDamage: 100
+  AttackDamage: 24
+  WanderSpeed: 1.5
+  WanderRadius: 2
+  AggroRange: 10
+  ChaseSpeed: 3.5
+  AttackRange: 2.5
+  AttackCooldown: 1.5
+  RotationSpeed: 15

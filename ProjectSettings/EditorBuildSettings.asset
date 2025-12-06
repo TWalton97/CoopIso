@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/S_ZoneProgressionScenes/S_Celestia.unity
     guid: 75a4d84dcdf8e844eb36b889d8351291
+  - enabled: 1
+    path: Assets/Scenes/S_ZoneProgressionScenes/S_ShorecrestHollows.unity
+    guid: 78b199e4a723c4f4485781ed55beb597
   m_configObjects: {}

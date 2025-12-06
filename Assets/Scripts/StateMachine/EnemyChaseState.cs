@@ -27,7 +27,6 @@ public class EnemyChaseState : EnemyBaseState
     public override void Update()
     {
         agent.speed = enemy.chaseSpeed;
-        animator.SetFloat("MovementAnimationMultiplier", agent.speed / enemy.StartChaseSpeed);
         enemy.UpdateTarget();
         if (enemy.target == null) return;
 

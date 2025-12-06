@@ -55,6 +55,8 @@ public class PlayerFeatsPanelController : MonoBehaviour
             index++;
         }
 
+        SortButtonsAlphabetically();
+
         Navigation rightTabNavigation = new Navigation();
         rightTabNavigation.mode = Navigation.Mode.Explicit;
         rightTabNavigation.selectOnLeft = LeftTab;
@@ -66,6 +68,18 @@ public class PlayerFeatsPanelController : MonoBehaviour
         leftTabNavigation.selectOnRight = RightTab;
         leftTabNavigation.selectOnDown = featButtons[0].GetComponent<Button>();
         LeftTab.navigation = leftTabNavigation;
+    }
+
+    private void SortButtonsAlphabetically()
+    {
+
+        featButtons.Sort((a, b) =>
+        string.Compare(a.feat.FeatName, b.feat.FeatName, System.StringComparison.OrdinalIgnoreCase));
+
+        for (int i = 0; i < featButtons.Count; i++)
+        {
+            featButtons[i].transform.SetSiblingIndex(i);
+        }
     }
 
     public void OnEnable()

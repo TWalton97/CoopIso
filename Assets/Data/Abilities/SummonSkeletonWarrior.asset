@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05cdef1cac19f1e44ac7a8e62bffa689, type: 3}
+  m_Name: SummonSkeletonWarrior
+  m_EditorClassIdentifier: 
+  AbilityName: Summon Skeleton Warrior
+  AbilityIcon: {fileID: 21300000, guid: cc29e76e567526846b49a9e5da4784be, type: 3}
+  AnimationClip: {fileID: 7400000, guid: 955ce1e234ee7c44b91a0d53bb720995, type: 2}
+  ResourceType: 1
+  ResourceAmount: 25
+  CanMoveWhileUsing: 0
+  CanRotateDuringCast: 1
+  MaxLevel: 3
+  AbilityDescription: Summons a skeletal warrior you assist you in combat.
+  LevelDescriptionTemplate: Summons up to {NUM_SUMMONS} skeletons to fight for you.
+    Skeleton warriors have {HEALTH} health and deal {DMG} damage.
+  UpgradeDescriptionTemplate: Increases damage from {DMG_CURR} to {DMG_NEXT}, health
+    from {HEALTH_CURR} to {HEALTH_NEXT} and max summons to {NUM_SUMMONS_NEXT}.
+  RequiredWeaponRangeType: 0
+  abilityBehaviourPrefab: {fileID: 6284882083578312484, guid: ab56490afedb8c346aa65459a7ef8545, type: 3}
+  DamagePerLevel: 050000000600000007000000
+  HealthPerLevel: 180000001e00000024000000
+  MaximumSummonsPerLevel: 010000000100000002000000

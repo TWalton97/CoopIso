@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bf9e0c76dd5a846a391d1546f1f811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  friendlySkeletonArcher: {fileID: 6624118268835372258, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
-  Damage: 4
+  unitToSpawn: {fileID: 6624118268835372258, guid: 28424154dcc7ac540ba3aaa7fee00aa8, type: 3}
   Health: 28
   MaximumNumberOfSummons: 1

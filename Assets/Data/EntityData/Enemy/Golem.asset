@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f843c9ad00ca034895a8a00699ab3a1, type: 3}
   m_Name: Golem
   m_EditorClassIdentifier: 
-  MaximumHealth: 65
+  MaximumHealth: 150
   MovementSpeed: 2.5
   CriticalChance: 10
   CriticalDamage: 100
-  AttackDamage: 20
+  AttackDamage: 22
   WanderSpeed: 2
   WanderRadius: 2
   AggroRange: 12
