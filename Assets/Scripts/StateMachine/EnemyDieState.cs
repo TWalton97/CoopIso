@@ -15,7 +15,7 @@ public class EnemyDieState : EnemyBaseState
 
     public override void OnEnter()
     {
-        agent.isStopped = true;
+        agent.enabled = false;
 
         if (enemy.HasSpawnedItems)
         {

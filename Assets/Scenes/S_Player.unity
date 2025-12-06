@@ -13158,7 +13158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &782027019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13187,7 +13187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
   m_CollectObjects: 1
-  m_Size: {x: 70, y: 25, z: 70}
+  m_Size: {x: 70, y: 15, z: 70}
   m_Center: {x: 0, y: -5, z: 0}
   m_LayerMask:
     serializedVersion: 2

@@ -153,12 +153,14 @@ public class Enemy : Entity
     {
         if (!spawned) return;
         stateMachine.Update();
+        if (IsDead) return;
         UpdateAnimatorParameters();
         PushAwayFromNearbyEnemies();
     }
 
     public virtual void FixedUpdate()
     {
+        if (IsDead) return;
         if (!spawned) return;
         stateMachine.FixedUpdate();
     }

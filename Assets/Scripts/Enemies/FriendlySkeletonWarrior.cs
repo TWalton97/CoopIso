@@ -62,6 +62,7 @@ public class FriendlySkeletonWarrior : Enemy
 
     public override void FixedUpdate()
     {
+        if (IsDead) return;
         if (Owner == null) return;
         base.FixedUpdate();
     }

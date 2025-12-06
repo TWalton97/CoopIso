@@ -61,6 +61,7 @@ public class FriendlySkeletonArcher : SkeletonArcher
 
     public override void FixedUpdate()
     {
+        if (IsDead) return;
         if (Owner == null) return;
         base.FixedUpdate();
     }
