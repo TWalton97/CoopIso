@@ -7,7 +7,6 @@ using static UnityEngine.InputSystem.InputAction;
 public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public PlayerContext PlayerContext;
-    public InventoryController InventoryController;
     public InventoryItemController InventoryItemController;
     public ItemSO ItemSO;
     public ItemData ItemData;
@@ -73,12 +72,14 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
+        if (eventData.pointerId != PlayerContext.PlayerIndex) return;
         ToggleHighlight(true);
         selectable.Select();
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
+        if (eventData.pointerId != PlayerContext.PlayerIndex) return;
         ToggleHighlight(false);
     }
 
@@ -100,5 +101,10 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
         {
             OnRightClick();
         }
+    }
+
+    public virtual void CheckIfButtonCanBeActivated()
+    {
+
     }
 }

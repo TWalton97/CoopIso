@@ -64,6 +64,11 @@ public class ConsumableButton : ItemButton
         }
     }
 
+    void OnDisable()
+    {
+        ToggleHighlight(false);
+    }
+
     public void UpdateQuantity(int amount)
     {
         Quantity += amount;
@@ -83,7 +88,7 @@ public class ConsumableButton : ItemButton
         }
     }
 
-    private void CheckIfButtonCanBeActivated()
+    public override void CheckIfButtonCanBeActivated()
     {
         if (InventoryItemController.InventoryMode == InventoryMode.Buy)
         {
@@ -129,22 +134,30 @@ public class ConsumableButton : ItemButton
 
         InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-inventoryItemView.DisplayGoldValue * 2);
         InventoryItemController.PlayerContext.InventoryController.AddConsumableToInventory(ItemSO, 1);
+
+        InventoryItemController.CheckStatusOfButtons();
     }
 
     public void OnLeftClickSellMode()
     {
         InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(inventoryItemView.DisplayGoldValue);
         UpdateQuantity(-1);
+
+        InventoryItemController.CheckStatusOfButtons();
     }
 
     public override void OnRightClick()
     {
+        if (InventoryItemController.InventoryMode != InventoryMode.Normal) return;
+
         Vector3 spawnPos = NavMeshUtils.ReturnRandomPointOnXZ(PlayerContext.PlayerController.transform.position, 1f);
         spawnPos.y = 0f;
         Item item = Instantiate(inventoryItemView.ItemSO.GroundItemPrefab, spawnPos, Quaternion.identity).GetComponent<Item>();
         item.ItemSO = ItemSO;
         item.Quantity = 1;
         UpdateQuantity(-1);
+
+        InventoryItemController.CheckStatusOfButtons();
     }
 
     public override void OnSelect(BaseEventData eventData)

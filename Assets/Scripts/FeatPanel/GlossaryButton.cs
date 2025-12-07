@@ -27,6 +27,7 @@ public class GlossaryButton : MonoBehaviour, ISelectHandler, IDeselectHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (eventData.pointerId != GlossaryController.PlayerContext.PlayerIndex) return;
         selectable.Select();
     }
 }

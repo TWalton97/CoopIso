@@ -170,6 +170,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""06e1a8f2-8ae8-4da5-b340-82f60505253c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RotateButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""01efc130-fcab-4741-b73e-21583efd79eb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -577,6 +595,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""CycleWeaponSetDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa7de86c-932b-4ca8-a0d9-f8d56fbf9d19"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MouseDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00f4d267-a44c-4d84-8a63-677fc730a74b"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RotateButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1399,6 +1439,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_ResetCameraRotation = m_Player.FindAction("ResetCameraRotation", throwIfNotFound: true);
         m_Player_CycleWeaponSetUp = m_Player.FindAction("CycleWeaponSetUp", throwIfNotFound: true);
         m_Player_CycleWeaponSetDown = m_Player.FindAction("CycleWeaponSetDown", throwIfNotFound: true);
+        m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
+        m_Player_RotateButton = m_Player.FindAction("RotateButton", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1500,6 +1542,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ResetCameraRotation;
     private readonly InputAction m_Player_CycleWeaponSetUp;
     private readonly InputAction m_Player_CycleWeaponSetDown;
+    private readonly InputAction m_Player_MouseDelta;
+    private readonly InputAction m_Player_RotateButton;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1520,6 +1564,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @ResetCameraRotation => m_Wrapper.m_Player_ResetCameraRotation;
         public InputAction @CycleWeaponSetUp => m_Wrapper.m_Player_CycleWeaponSetUp;
         public InputAction @CycleWeaponSetDown => m_Wrapper.m_Player_CycleWeaponSetDown;
+        public InputAction @MouseDelta => m_Wrapper.m_Player_MouseDelta;
+        public InputAction @RotateButton => m_Wrapper.m_Player_RotateButton;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1577,6 +1623,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CycleWeaponSetDown.started += instance.OnCycleWeaponSetDown;
             @CycleWeaponSetDown.performed += instance.OnCycleWeaponSetDown;
             @CycleWeaponSetDown.canceled += instance.OnCycleWeaponSetDown;
+            @MouseDelta.started += instance.OnMouseDelta;
+            @MouseDelta.performed += instance.OnMouseDelta;
+            @MouseDelta.canceled += instance.OnMouseDelta;
+            @RotateButton.started += instance.OnRotateButton;
+            @RotateButton.performed += instance.OnRotateButton;
+            @RotateButton.canceled += instance.OnRotateButton;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1629,6 +1681,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CycleWeaponSetDown.started -= instance.OnCycleWeaponSetDown;
             @CycleWeaponSetDown.performed -= instance.OnCycleWeaponSetDown;
             @CycleWeaponSetDown.canceled -= instance.OnCycleWeaponSetDown;
+            @MouseDelta.started -= instance.OnMouseDelta;
+            @MouseDelta.performed -= instance.OnMouseDelta;
+            @MouseDelta.canceled -= instance.OnMouseDelta;
+            @RotateButton.started -= instance.OnRotateButton;
+            @RotateButton.performed -= instance.OnRotateButton;
+            @RotateButton.canceled -= instance.OnRotateButton;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1875,6 +1933,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnResetCameraRotation(InputAction.CallbackContext context);
         void OnCycleWeaponSetUp(InputAction.CallbackContext context);
         void OnCycleWeaponSetDown(InputAction.CallbackContext context);
+        void OnMouseDelta(InputAction.CallbackContext context);
+        void OnRotateButton(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -120,9 +120,10 @@ public class NewPlayerController : Entity
 
     private void SubscribeToInputEvents()
     {
-        InventoryManager.OnMenuOpened += () => PlayerInputController.EnableUIActionMap();
-        InventoryManager.OnMenuClosed += () => PlayerInputController.EnablePlayerActionMap();
-        InventoryManager.OnMenuClosed += () => attackStateMachine.ChangeState(idleState);
+        // InventoryManager.OnMenuOpened += () => PlayerInputController.EnableUIActionMap();
+        // InventoryManager.OnMenuClosed += () => PlayerInputController.EnablePlayerActionMap();
+
+        //InventoryManager.OnMenuClosed += () => attackStateMachine.ChangeState(idleState);
 
         PlayerInputController.OnLookMousePerformed += RotateTowardsMouse;
         PlayerInputController.OnLookStickPerformed += RotateTowardsStick;
@@ -138,9 +139,10 @@ public class NewPlayerController : Entity
 
     private void UnsubscribeFromInputEvents()
     {
-        InventoryManager.OnMenuOpened -= () => PlayerInputController.EnableUIActionMap();
-        InventoryManager.OnMenuClosed -= () => PlayerInputController.EnablePlayerActionMap();
-        InventoryManager.OnMenuClosed -= () => attackStateMachine.ChangeState(idleState);
+        // InventoryManager.OnMenuOpened -= () => PlayerInputController.EnableUIActionMap();
+        // InventoryManager.OnMenuClosed -= () => PlayerInputController.EnablePlayerActionMap();
+
+        //InventoryManager.OnMenuClosed -= () => attackStateMachine.ChangeState(idleState);
 
         //PlayerInputController.OnLookMousePerformed -= RotateTowardsMouse;
         //PlayerInputController.OnLookStickPerformed -= RotateTowardsStick;

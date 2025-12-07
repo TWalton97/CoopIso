@@ -179,12 +179,14 @@ public class InventoryItemController : MonoBehaviour
         if (instantiatedBuyItemButtons.Count == 1)
         {
             Destroy(itemButton.gameObject);
+            instantiatedBuyItemButtons.Remove(id);
             PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
         }
         else
         {
             int childNumber = itemButton.transform.GetSiblingIndex();
             Destroy(itemButton.gameObject);
+            instantiatedBuyItemButtons.Remove(id);
             if (childNumber == 0)
             {
                 SelectButton(childNumber + 1);
@@ -302,7 +304,7 @@ public class InventoryItemController : MonoBehaviour
         InventoryMode = inventoryMode;
         if (inventoryMode == InventoryMode.Normal || inventoryMode == InventoryMode.Sell)
         {
-            var sortedItemButtons = instantiatedItemButtons.Values.OrderBy(b => b.inventoryItemView.GoldValue).ToList();
+            var sortedItemButtons = instantiatedItemButtons.Values.OrderBy(b => b.inventoryItemView.DisplayGoldValue).ToList();
             for (int i = 0; i < sortedItemButtons.Count; i++)
             {
                 sortedItemButtons[i].transform.SetSiblingIndex(i);
@@ -312,7 +314,7 @@ public class InventoryItemController : MonoBehaviour
         }
         else if (inventoryMode == InventoryMode.Buy)
         {
-            var sortedBuyItemButtons = instantiatedBuyItemButtons.Values.OrderBy(b => b.inventoryItemView.GoldValue).ToList();
+            var sortedBuyItemButtons = instantiatedBuyItemButtons.Values.OrderBy(b => b.inventoryItemView.DisplayGoldValue).ToList();
             for (int i = 0; i < sortedBuyItemButtons.Count; i++)
             {
                 sortedBuyItemButtons[i].transform.SetSiblingIndex(i);
@@ -333,6 +335,24 @@ public class InventoryItemController : MonoBehaviour
         else
         {
             instantiatedBuyItemButtons[inventoryItemView.SlotID].gameObject.SetActive(true);
+        }
+    }
+
+    public void CheckStatusOfButtons()
+    {
+        if (InventoryMode == InventoryMode.Normal || InventoryMode == InventoryMode.Sell)
+        {
+            foreach (ItemButton button in instantiatedItemButtons.Values)
+            {
+                button.CheckIfButtonCanBeActivated();
+            }
+        }
+        else
+        {
+            foreach (ItemButton button in instantiatedBuyItemButtons.Values)
+            {
+                button.CheckIfButtonCanBeActivated();
+            }
         }
     }
 }

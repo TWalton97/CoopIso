@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class InventoryController : MonoBehaviour
     public PlayerFeatsPanelController FeatsMenu;
     public GameObject PlayerStatsMenu;
     public GlossaryController GlossaryMenu;
+
+    public ConfirmPanel ConfirmPanel;
 
     public GameObject[] inventoryPanelGameObjects;
     private int currentIndex = 0;
@@ -104,6 +107,8 @@ public class InventoryController : MonoBehaviour
         {
             inventoryPanelGameObjects[i].SetActive(false);
         }
+
+        ConfirmPanel.Decline();
     }
 
     private void OpenMenu(int index)
@@ -152,6 +157,11 @@ public class InventoryController : MonoBehaviour
         {
             FindCorrectInventory(itemData.ItemSO).CreateButtonForBuyItem(itemData);
         }
+    }
+
+    public void CallConfirmPanelForAction(Action action, GameObject obj)
+    {
+        ConfirmPanel.ToggleConfirmPanelForAction(action, obj);
     }
 }
 

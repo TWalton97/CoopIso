@@ -110,6 +110,7 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (eventData.pointerId != playerFeatsPanelController.PlayerContext.PlayerIndex) return;
         selectable.Select();
     }
 }

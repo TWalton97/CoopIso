@@ -19,13 +19,13 @@ public class InventoryManager : MonoBehaviour
         PauseRequests++;
         if (PauseRequests > 0)
         {
-            Time.timeScale = 0;
-            foreach (PlayerUserInterfaceController playerUserInterfaceController in playerUserInterfaceControllers)
-            {
-                playerUserInterfaceController.ToggleResourcePanel(false);
-            }
+            // Time.timeScale = 0;
+            // foreach (PlayerUserInterfaceController playerUserInterfaceController in playerUserInterfaceControllers)
+            // {
+            //     playerUserInterfaceController.ToggleResourcePanel(false);
+            // }
 
-            PlayerPreview.SetActive(true);
+            // PlayerPreview.SetActive(true);
             OnMenuOpened?.Invoke();
         }
     }
@@ -35,15 +35,15 @@ public class InventoryManager : MonoBehaviour
         PauseRequests--;
         if (PauseRequests <= 0)
         {
-            PauseRequests = 0;
-            Time.timeScale = 1;
-            foreach (PlayerUserInterfaceController playerUserInterfaceController in playerUserInterfaceControllers)
-            {
-                playerUserInterfaceController.ToggleResourcePanel(true);
-            }
+            // PauseRequests = 0;
+            // Time.timeScale = 1;
+            // foreach (PlayerUserInterfaceController playerUserInterfaceController in playerUserInterfaceControllers)
+            // {
+            //     playerUserInterfaceController.ToggleResourcePanel(true);
+            // }
 
             CloseVendorPanel();
-            PlayerPreview.SetActive(false);
+            //PlayerPreview.SetActive(false);
             OnMenuClosed?.Invoke();
         }
     }

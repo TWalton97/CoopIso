@@ -96,10 +96,12 @@ public class PlayerUserInterfaceController : MonoBehaviour
     {
         if (playerUIState == PlayerUIState.None)
         {
+            playerContext.PlayerController.PlayerInputController.EnableUIActionMap();
             OpenInventoryInMode(InventoryMode.Normal);
         }
         else if (playerUIState == PlayerUIState.Inventory_Normal)
         {
+            playerContext.PlayerController.PlayerInputController.EnablePlayerActionMap();
             CloseInventory();
         }
         else if (playerUIState == PlayerUIState.Vendor_Waiting || playerUIState == PlayerUIState.Vendor_Menu)
@@ -149,12 +151,14 @@ public class PlayerUserInterfaceController : MonoBehaviour
     public void OpenVendorMenu()
     {
         VendorPanelController.OpenVendorMenu();
+        playerContext.PlayerController.PlayerInputController.EnableUIActionMap();
         playerUIState = PlayerUIState.Vendor_Menu;
     }
 
     public void CloseVendorMenu()
     {
         VendorPanelController.CloseVendorMenu();
+        playerContext.PlayerController.PlayerInputController.EnablePlayerActionMap();
         playerUIState = PlayerUIState.None;
     }
 

@@ -94,6 +94,11 @@ public class EquippableButton : ItemButton
         CheckIfButtonCanBeActivated();
     }
 
+    void OnDisable()
+    {
+        ToggleHighlight(false);
+    }
+
     void OnDestroy()
     {
         armorController.OnArmorUnequipped -= CheckIfItemUnequipped;
@@ -120,7 +125,7 @@ public class EquippableButton : ItemButton
         }
     }
 
-    private void CheckIfButtonCanBeActivated()
+    public override void CheckIfButtonCanBeActivated()
     {
         if (InventoryItemController.InventoryMode == InventoryMode.Normal || InventoryItemController.InventoryMode == InventoryMode.Sell)
         {
@@ -161,7 +166,7 @@ public class EquippableButton : ItemButton
         buttonState = ButtonState.CannotActivate;
     }
 
-    private void CheckIfButtonCanBeActivatedBuyMode()
+    public void CheckIfButtonCanBeActivatedBuyMode()
     {
         if ((inventoryItemView.DisplayGoldValue * 10) > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
         {
@@ -229,6 +234,8 @@ public class EquippableButton : ItemButton
                 buttonState = ButtonState.Default;
             }
         }
+
+        InventoryItemController.CheckStatusOfButtons();
     }
 
     public void OnLeftClickSellMode()
@@ -237,18 +244,33 @@ public class EquippableButton : ItemButton
 
         if (buttonState == ButtonState.Activated)
         {
-            if (IsItemWeapon() || ItemSO.ItemType == ItemType.Offhand)
-            {
-                weaponController.UnequipWeapon(ItemData);
-            }
-            else if (IsItemArmor())
-            {
-                armorController.UnequipArmor(ItemData);
-            }
+            PlayerContext.InventoryController.CallConfirmPanelForAction(UnequipAndSellItem, gameObject);
+            return;
         }
 
         InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(inventoryItemView.DisplayGoldValue);
+        InventoryItemController.CreateButtonForBuyItem(inventoryItemView);
         InventoryItemController.RemoveButtonAtID(ButtonID);
+
+        InventoryItemController.CheckStatusOfButtons();
+    }
+
+    public void UnequipAndSellItem()
+    {
+        if (IsItemWeapon() || ItemSO.ItemType == ItemType.Offhand)
+        {
+            weaponController.UnequipWeapon(ItemData);
+        }
+        else if (IsItemArmor())
+        {
+            armorController.UnequipArmor(ItemData);
+        }
+
+        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(inventoryItemView.DisplayGoldValue);
+        InventoryItemController.CreateButtonForBuyItem(inventoryItemView);
+        InventoryItemController.RemoveButtonAtID(ButtonID);
+
+        InventoryItemController.CheckStatusOfButtons();
     }
 
     public void OnLeftClickBuyMode()
@@ -262,6 +284,8 @@ public class EquippableButton : ItemButton
         VendorController.OnItemPurchased?.Invoke(ButtonID);
         InventoryItemController.CreateButtonForItem(inventoryItemView);
         InventoryItemController.RemoveBuyButtonAtID(ButtonID);
+
+        InventoryItemController.CheckStatusOfButtons();
     }
 
     public bool CanEquipOffhand()
@@ -303,6 +327,8 @@ public class EquippableButton : ItemButton
     {
         if (!inventoryItemView.HasItemData) return;
 
+        if (InventoryItemController.InventoryMode != InventoryMode.Normal) return;
+
         if (buttonState == ButtonState.Activated)
         {
             if (IsItemWeapon() || ItemSO.ItemType == ItemType.Offhand)
@@ -323,6 +349,8 @@ public class EquippableButton : ItemButton
             SpawnedItemDataBase.Instance.SpawnItemFromDatabase(ItemData.ItemID, ReturnSpawnPositionInRadius(), ItemData.GroundPrefab.transform.rotation);
             InventoryItemController.RemoveButtonAtID(ButtonID);
         }
+
+        InventoryItemController.CheckStatusOfButtons();
     }
 
     private Vector3 ReturnSpawnPositionInRadius()

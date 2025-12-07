@@ -98,6 +98,7 @@ public class PlayerInputController : MonoBehaviour
         SubscribeToInputAction(playerInputActions.Player.ResetCameraRotation.id.ToString(), OnResetCameraRotation, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.CycleWeaponSetUp.id.ToString(), OnCycleWeaponSetUp, gameplayMap);
         SubscribeToInputAction(playerInputActions.Player.CycleWeaponSetDown.id.ToString(), OnCycleWeaponSetDown, gameplayMap);
+        SubscribeToInputAction(playerInputActions.Player.MouseDelta.id.ToString(), OnMouseDelta, gameplayMap);
 
         SubscribeToInputAction(playerInputActions.UI.OpenEquipmentMenu.id.ToString(), OnEquipmentMenu, UIMap);
         SubscribeToInputAction(playerInputActions.UI.DropItem.id.ToString(), OnDropItem, UIMap);
@@ -130,6 +131,10 @@ public class PlayerInputController : MonoBehaviour
         action.started += OnDisplayMoreInformation;
         action.canceled += OnDisplayMoreInformation;
 
+        action = playerInput.currentActionMap.FindAction(playerInputActions.Player.RotateButton.id);
+        action.started += OnRotateButton;
+        action.canceled += OnRotateButton;
+
         attackCountdownTimer.OnTimerStop += ResetAttackTimer;
     }
 
@@ -139,6 +144,9 @@ public class PlayerInputController : MonoBehaviour
         LookStickVal = LookStick.ReadValue<Vector2>();
 
         attackCountdownTimer.Tick(Time.deltaTime);
+
+        if (FreeLookCameraManager.Instance == null) return;
+        FreeLookCameraManager.Instance.stickDelta = LookStickVal;
     }
 
     private void SubscribeToInputAction(string id, Action<CallbackContext> function, InputActionMap map)
@@ -274,6 +282,19 @@ public class PlayerInputController : MonoBehaviour
     public void OnCycleWeaponSetDown(CallbackContext context)
     {
         playerController.WeaponController.CycleActiveWeaponSetDown();
+    }
+
+    public void OnMouseDelta(CallbackContext context)
+    {
+        if (FreeLookCameraManager.Instance == null) return;
+        FreeLookCameraManager.Instance.OnMouseDelta(context);
+    }
+
+    public void OnRotateButton(CallbackContext context)
+    {
+        Debug.Log($"On Rotate Button");
+        if (FreeLookCameraManager.Instance == null) return;
+        FreeLookCameraManager.Instance.OnRotateButton(context);
     }
     #endregion
 
