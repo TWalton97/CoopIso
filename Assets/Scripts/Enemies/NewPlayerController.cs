@@ -8,7 +8,6 @@ using System.Collections;
 
 public class NewPlayerController : Entity
 {
-    public FriendlySkeletonWarrior FriendlySkeletonWarrior;
     public PlayerContext PlayerContext;
     //Object references
     public Rigidbody Rigidbody { get; private set; }
@@ -110,12 +109,16 @@ public class NewPlayerController : Entity
                 rend.material.color = Color.blue;
             }
         }
+
+        HealthController.OnDie += Die;
     }
 
     void OnDisable()
     {
         UnsubscribeFromInputEvents();
         PlayerInputController.attackCountdownTimer.OnTimerStop -= () => attackButtonPressed = true;
+
+        HealthController.OnDie -= Die;
     }
 
     private void SubscribeToInputEvents()
@@ -208,6 +211,7 @@ public class NewPlayerController : Entity
         attackState = new PlayerAttackState(this, Animator);
         blockState = new PlayerBlockState(this, Animator);
         castState = new PlayerCastState(this, Animator);
+        var dieState = new PlayerDieState(this, Animator);
 
         At(idleState, blockState, attackStateMachine, new FuncPredicate(() => blockButtonPressed));
         At(blockState, idleState, attackStateMachine, new FuncPredicate(() => !blockButtonPressed));
@@ -218,6 +222,7 @@ public class NewPlayerController : Entity
         At(idleState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && PlayerUserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed()));
         At(blockState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && PlayerUserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed()));
 
+        Any(dieState, attackStateMachine, new FuncPredicate(() => IsDead));
         //Any(attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
 
         attackStateMachine.SetState(idleState);
@@ -241,6 +246,7 @@ public class NewPlayerController : Entity
     #region Movement
     private void Move()
     {
+        if (IsDead) return;
         _moveInput = PlayerInputController.MoveVal;
 
         Vector3 camForward = mainCam.transform.forward;
@@ -302,6 +308,7 @@ public class NewPlayerController : Entity
 
     private void Jump(CallbackContext context)
     {
+        if (IsDead) return;
         if (!GroundCheck.Grounded) return;
         Animator.CrossFade(Animator.StringToHash("Jump"), 0.2f, (int)PlayerAnimatorLayers.FullBody);
         Rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
@@ -350,16 +357,19 @@ public class NewPlayerController : Entity
 
     private void Ability(CallbackContext context)
     {
+        if (IsDead) return;
         TryCastAbility();
     }
 
     private void Attack(CallbackContext context)
     {
+        if (IsDead) return;
         attackButtonPressed = true;
     }
 
     private void Block(CallbackContext context)
     {
+        if (IsDead) return;
         if (context.started)
         {
             blockButtonPressed = true;
@@ -375,6 +385,7 @@ public class NewPlayerController : Entity
 
     private void TryCastAbility()
     {
+        if (IsDead) return;
         if (attackStateMachine.current.State == idleState || attackStateMachine.current.State == blockState)
         {
             if (PlayerContext.UserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed())
@@ -391,11 +402,13 @@ public class NewPlayerController : Entity
 
     private void Interact(CallbackContext context)
     {
+        if (IsDead) return;
         Interactor.Interact();
     }
 
     private void DrinkPotionOne(CallbackContext context)
     {
+        if (IsDead) return;
         ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(Resources.ResourceType.Health);
         if (button == null) return;
 
@@ -405,6 +418,7 @@ public class NewPlayerController : Entity
 
     private void DrinkPotionTwo(CallbackContext context)
     {
+        if (IsDead) return;
         ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(Resources.ResourceType.Mana);
         if (button == null) return;
 
@@ -413,13 +427,6 @@ public class NewPlayerController : Entity
     }
 
     #endregion
-
-    [ContextMenu("Spawn Friendly Skeleton")]
-    public void SpawnFriendlySkeleton()
-    {
-        FriendlySkeletonWarrior archer = Instantiate(FriendlySkeletonWarrior, transform.position + transform.forward, Quaternion.identity);
-        archer.Init(this);
-    }
 
     // private IEnumerator WaitForSetup()
     // {

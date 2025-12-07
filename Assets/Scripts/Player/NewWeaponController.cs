@@ -377,8 +377,8 @@ public class NewWeaponController : MonoBehaviour
 
         if (shootFromAiming)
         {
-            instantiatedPrimaryWeapon.Enter(OnActionCompleted, numAttacks);
             newPlayerController.Animator.SetBool("ShootFromAiming", true);
+            instantiatedPrimaryWeapon.Enter(OnActionCompleted, numAttacks);
             numAttacks++;
             canAttack = false;
         }

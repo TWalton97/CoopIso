@@ -1444,6 +1444,7 @@ MonoBehaviour:
     IsDead: 0
   HealthController: {fileID: 0}
   IsBlocking: 0
+  IsDead: 0
   statusController: {fileID: 0}
   spawnedItemDataBase: {fileID: 0}
   ExpValue: 60
@@ -1459,7 +1460,6 @@ MonoBehaviour:
   rotationSpeed: 80
   wanderRadius: 2
   timeBetweenAttacks: 0.6
-  IsDead: 0
   IsStaggered: 0
   StateName: 
   spawned: 0
@@ -1476,6 +1476,8 @@ MonoBehaviour:
   InAttackRange: 0
   CanAttack: 0
   NextAttackTime: 0
+  damage: 0
+  Level: 1
 --- !u!195 &2546661760642592051
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1558,10 +1560,12 @@ MonoBehaviour:
   entity: {fileID: 0}
   MaximumHealth: 0
   CurrentHealth: 0
+  HealthRegenPerSecond: 0
   ArmorAmount: 0
   BlockAngle: 0
   PrintDamageTaken: 0
   DisplayDamageNumbers: 1
+  remainingRestoreAmount: 0
 --- !u!136 &7839878868582317200
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3173,7 +3177,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

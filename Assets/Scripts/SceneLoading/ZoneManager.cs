@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ZoneManager : MonoBehaviour
+public class ZoneManager : Singleton<ZoneManager>
 {
     //Every time a zone gets unloaded we store a reference to that zone along with a list of all entity
     public SceneLoadingManager sceneLoadingManager;
@@ -68,8 +68,9 @@ public class ZoneManager : MonoBehaviour
         }
 
     }
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         sceneLoadingManager = SceneLoadingManager.Instance;
     }
     void OnEnable()
@@ -104,8 +105,9 @@ public class ZoneManager : MonoBehaviour
 
         return null;
     }
-    private void GenerateZoneData(string sceneName)
+    public void GenerateZoneData(string sceneName)
     {
+        Debug.Log($"Generating zone data for {sceneName}");
         if (HasZoneDataForScene(sceneName))
         {
             UpdateZoneData(sceneName);

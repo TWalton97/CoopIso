@@ -14,8 +14,14 @@ public class PlayerAttackState : PlayerBaseState
     {
         player.RotateToFaceLookPoint();
         player.MovementLocked = true;
+        if (player.attackStateMachine.previous.State == player.blockState)
+        {
+            player.WeaponController.Attack(AttackCompleted, true);
+            return;
+        }
 
         player.WeaponController.Attack(AttackCompleted);
+
     }
 
     private void AttackCompleted()
@@ -31,6 +37,8 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void OnExit()
     {
+        player.Animator.SetBool("ShootFromAiming", false);
+
         player.attackButtonPressed = false;
         if (ReduceSpeedCoroutine != null)
         {

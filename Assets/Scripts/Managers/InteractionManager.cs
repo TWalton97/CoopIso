@@ -67,4 +67,5 @@ public enum InteractionType
     Close,
     Travel,
     TalkTo,
+    SaveAt
 }

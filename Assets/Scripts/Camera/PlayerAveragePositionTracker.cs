@@ -7,7 +7,7 @@ public class PlayerAveragePositionTracker : MonoBehaviour
 {
     public float LeashRange = 10f;
 
-    public List<GameObject> playerObjects;
+    public List<NewPlayerController> playerObjects;
 
     public PlayerJoinManager playerJoinManager;
 
@@ -18,7 +18,7 @@ public class PlayerAveragePositionTracker : MonoBehaviour
         playerJoinManager = PlayerJoinManager.Instance;
         for (int i = 0; i < playerJoinManager.playerControllers.Count; i++)
         {
-            playerObjects.Add(playerJoinManager.GetPlayerControllerByIndex(i).gameObject);
+            playerObjects.Add(playerJoinManager.GetPlayerControllerByIndex(i));
         }
     }
 
@@ -33,6 +33,9 @@ public class PlayerAveragePositionTracker : MonoBehaviour
 
         foreach (var p in playerObjects)
         {
+            if (p.IsDead)
+                return;
+
             Vector3 offset = p.transform.position - transform.position;
             float distance = offset.magnitude;
 
@@ -45,22 +48,25 @@ public class PlayerAveragePositionTracker : MonoBehaviour
         }
     }
 
-    public void AddPlayer(GameObject obj)
-    {
-        playerObjects.Add(obj);
-    }
-
     private void CalculateAveragePosition()
     {
         if (playerObjects.Count == 0) return;
 
+        int numberOfPlayers = playerObjects.Count;
         Vector3 tempPos = Vector3.zero;
 
-        foreach (GameObject player in playerObjects)
+        foreach (NewPlayerController player in playerObjects)
         {
-            tempPos += player.transform.position;
+            if (player.IsDead)
+            {
+                numberOfPlayers--;
+            }
+            else
+            {
+                tempPos += player.transform.position;
+            }
         }
 
-        transform.position = tempPos / playerObjects.Count;
+        transform.position = tempPos / numberOfPlayers;
     }
 }

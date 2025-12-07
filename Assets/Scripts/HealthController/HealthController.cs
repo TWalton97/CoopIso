@@ -23,7 +23,7 @@ public class HealthController : MonoBehaviour, IDamageable
 
     public bool PrintDamageTaken = false;
     public bool DisplayDamageNumbers = true;
-    protected bool IsDead = false;
+    public bool IsDead = false;
 
     public float remainingRestoreAmount = 0;
 
