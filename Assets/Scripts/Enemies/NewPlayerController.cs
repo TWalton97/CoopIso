@@ -409,7 +409,7 @@ public class NewPlayerController : Entity
     private void DrinkPotionOne(CallbackContext context)
     {
         if (IsDead) return;
-        ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(Resources.ResourceType.Health);
+        ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(PlayerResource.ResourceType.Health);
         if (button == null) return;
 
         PotionController.UsePotion(button.inventoryItemView.ItemSO as PotionSO);
@@ -419,7 +419,7 @@ public class NewPlayerController : Entity
     private void DrinkPotionTwo(CallbackContext context)
     {
         if (IsDead) return;
-        ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(Resources.ResourceType.Mana);
+        ConsumableButton button = PlayerContext.UserInterfaceController.inventoryController.ConsumablesInventory.TryFindLargestPotionOfType(PlayerResource.ResourceType.Mana);
         if (button == null) return;
 
         PotionController.UsePotion(button.inventoryItemView.ItemSO as PotionSO);

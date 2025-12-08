@@ -5,40 +5,34 @@ using System;
 
 public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 {
-    public Dictionary<string, SpawnedItemData> spawnedItemData = new Dictionary<string, SpawnedItemData>();
+    public Dictionary<string, ItemData> spawnedItemData = new Dictionary<string, ItemData>();
 
     public List<ItemSO> spawnableItems;
     public List<ConsumableDrop> spawnableConsumables;
 
     public void SpawnItemFromDatabase(string itemID, Vector3 worldPosition, Quaternion worldRotation)
     {
-        ItemData itemData = GetSpawnedItemDataFromDataBase(itemID).itemData;
-
-        GameObject itemToDrop = new GameObject(itemData.Name);
-        Item newItem = itemToDrop.AddComponent<Item>();
-        newItem.ItemData = itemData;
+        ItemData itemData = GetSpawnedItemDataFromDataBase(itemID);
+        Item spawnedItem;
 
         if (itemData.GroundPrefab == null)
         {
-            Instantiate(itemData.ItemPrefab, Vector3.zero, itemData.ItemPrefab.transform.rotation, itemToDrop.transform);
+            spawnedItem = Instantiate(itemData.ItemPrefab, Vector3.zero, itemData.ItemPrefab.transform.rotation).GetComponent<Item>();
         }
         else
         {
-            Instantiate(itemData.GroundPrefab, Vector3.zero, itemData.GroundPrefab.transform.rotation, itemToDrop.transform);
+            spawnedItem = Instantiate(itemData.GroundPrefab, Vector3.zero, itemData.GroundPrefab.transform.rotation).GetComponent<Item>();
         }
-
-        SceneManager.MoveGameObjectToScene(itemToDrop, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
-        itemToDrop.transform.SetPositionAndRotation(worldPosition, worldRotation);
-
-        //Add collider
-        itemToDrop.AddComponent<SphereCollider>().isTrigger = true;
+        spawnedItem.ItemData = itemData;
+        SceneManager.MoveGameObjectToScene(spawnedItem.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
+        spawnedItem.transform.SetPositionAndRotation(worldPosition, worldRotation);
     }
 
     public string RegisterItemToDatabase(ItemData itemData)
     {
         string id = Guid.NewGuid().ToString();
-        SpawnedItemData spawnedItem = new SpawnedItemData(id, itemData, itemData.Quality);
-        spawnedItemData.Add(id, spawnedItem);
+        // SpawnedItemData spawnedItem = new SpawnedItemData(id, itemData, itemData.Quality);
+        spawnedItemData.Add(id, itemData);
         return id;
     }
 
@@ -87,28 +81,37 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         SceneManager.MoveGameObjectToScene(item.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
     }
 
-    public SpawnedItemData GetSpawnedItemDataFromDataBase(string id)
+    public ItemData GetSpawnedItemDataFromDataBase(string id)
     {
-        SpawnedItemData data = null;
+        ItemData data = null;
         if (spawnedItemData.ContainsKey(id))
         {
             data = spawnedItemData[id];
+            return data;
         }
+        Debug.Log("No ItemData found at id");
         return data;
     }
 
-    public class SpawnedItemData
+    public ItemSO GetItemByID(string itemSO_ID)
     {
-        public string uniqueID;
-        public ItemData itemData;
-        public ItemQuality itemQuality;
-
-        public SpawnedItemData(string id, ItemData data, ItemQuality quality)
+        foreach (ItemSO itemSO in spawnableItems)
         {
-            uniqueID = id;
-            itemData = data;
-            itemQuality = quality;
+            if (itemSO.ItemName == itemSO_ID)
+            {
+                return itemSO;
+            }
         }
+
+        foreach (ConsumableDrop consumableDrop in spawnableConsumables)
+        {
+            if (consumableDrop.ItemSO.ItemName == itemSO_ID)
+            {
+                return consumableDrop.ItemSO;
+            }
+        }
+
+        return null;
     }
 }
 

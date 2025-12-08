@@ -56,7 +56,7 @@ public class ResourceController : MonoBehaviour
 [Serializable]
 public class Resource
 {
-    public Resources.ResourceType resourceType;
+    public PlayerResource.ResourceType resourceType;
     public float resourceMax;
     public float resourceCurrent;
     public float resourceMin = 0;
@@ -70,7 +70,7 @@ public class Resource
 
     public float remainingRestoreAmount;
 
-    public Resource(Resources.ResourceType _resourceType, float _resourceMax, float _resourceCurrent, float _resourceMin = 0)
+    public Resource(PlayerResource.ResourceType _resourceType, float _resourceMax, float _resourceCurrent, float _resourceMin = 0)
     {
         resourceType = _resourceType;
         resourceMax = _resourceMax;

@@ -4,7 +4,7 @@ public abstract class RuntimeAbility
     public AbilitySO source;
     public int currentLevel;
 
-    public Resources.ResourceType resourceType;
+    public PlayerResource.ResourceType resourceType;
     public float resourceAmount;
 
     protected RuntimeAbility(AbilitySO source)

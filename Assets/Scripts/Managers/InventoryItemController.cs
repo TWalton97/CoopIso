@@ -22,8 +22,8 @@ public class InventoryItemController : MonoBehaviour
 
     public ScrollRect scrollRect;
 
-    private Dictionary<string, ItemButton> instantiatedItemButtons = new Dictionary<string, ItemButton>();
-    private Dictionary<string, ItemButton> instantiatedBuyItemButtons = new Dictionary<string, ItemButton>();
+    public Dictionary<string, ItemButton> instantiatedItemButtons = new Dictionary<string, ItemButton>();
+    public Dictionary<string, ItemButton> instantiatedBuyItemButtons = new Dictionary<string, ItemButton>();
 
     public List<ControlData> NormalModeControlData;
     public List<ControlData> SellModeControlData;
@@ -213,7 +213,7 @@ public class InventoryItemController : MonoBehaviour
         return null;
     }
 
-    public ConsumableButton TryFindLargestPotionOfType(Resources.ResourceType resourceType)
+    public ConsumableButton TryFindLargestPotionOfType(PlayerResource.ResourceType resourceType)
     {
         if (instantiatedItemButtons.Count == 0) return null;
 
@@ -457,14 +457,14 @@ public class InventoryItemView
         }
     }
 
-    public Resources.ResourceType DisplayResourceType
+    public PlayerResource.ResourceType DisplayResourceType
     {
         get
         {
             if (HasItemData)
                 return ItemData.ResourceType;
             else
-                return (ItemSO as PotionSO)?.ResourceToRestore ?? Resources.ResourceType.Health;
+                return (ItemSO as PotionSO)?.ResourceToRestore ?? PlayerResource.ResourceType.Health;
         }
     }
 

@@ -1619,6 +1619,7 @@ MonoBehaviour:
   RightTab: {fileID: 29415304}
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -1980,6 +1981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -8355,6 +8357,7 @@ Transform:
   - {fileID: 764331785}
   - {fileID: 1907941607}
   - {fileID: 511571353}
+  - {fileID: 1023669963}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &399251215
@@ -13609,6 +13612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -14363,6 +14367,7 @@ MonoBehaviour:
   RightTab: {fileID: 856975366}
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -21741,6 +21746,60 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1023669962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1023669963}
+  - component: {fileID: 1023669964}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1023669963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023669962}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 397393751}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1023669964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023669962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbfabd538f394af4d88aecf3fc6461c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerJoinManager: {fileID: 1872936569}
+  SceneLoadingManager: {fileID: 0}
+  ZoneManager: {fileID: 511571354}
+  CurrentSave:
+    ZoneDatas: []
+    PlayerStateDatas: []
+    LastCheckpointSaveData:
+      sceneGroup: 
+      checkpointIndex: 0
+    SpawnedItemData: []
 --- !u!1 &1034126133
 GameObject:
   m_ObjectHideFlags: 0
@@ -24066,6 +24125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -24974,6 +25034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -32344,7 +32405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1c53f486bdebd4fa56a35a133b8a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
+  controller: {fileID: 615394364}
   iconSlots:
   - {fileID: 1641892928}
   - {fileID: 529904288}
@@ -35486,6 +35547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -38321,6 +38383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -42877,6 +42940,7 @@ MonoBehaviour:
   RightTab: {fileID: 326556013}
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -43389,6 +43453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -46234,6 +46299,7 @@ MonoBehaviour:
   RightTab: {fileID: 5314070279697406817}
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -46737,6 +46803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -47363,6 +47430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -49847,6 +49915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -52486,6 +52555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -54568,6 +54638,7 @@ MonoBehaviour:
   RightTab: {fileID: 3498528800068437113}
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -56558,7 +56629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1c53f486bdebd4fa56a35a133b8a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
+  controller: {fileID: 7460053768214671875}
   iconSlots:
   - {fileID: 703552035783356970}
   - {fileID: 1515408071522516441}
@@ -56766,6 +56837,7 @@ MonoBehaviour:
   RightTab: {fileID: 4590804318785562995}
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -58503,6 +58575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}

@@ -30,7 +30,7 @@ MonoBehaviour:
     - feat: {fileID: 11400000, guid: 84c183a314a138845b84f428ef388812, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 52786cc3f55e7214197de8915bb7a8fb, type: 2}
-      startingLevel: 0
+      startingLevel: 1
     - feat: {fileID: 11400000, guid: 1440bc528cbdddc4a9bb92bcf55a4c7e, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 93097580943abb044bfd719000317c7b, type: 2}

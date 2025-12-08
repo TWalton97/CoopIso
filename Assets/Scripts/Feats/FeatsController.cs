@@ -129,6 +129,18 @@ public class FeatsController : MonoBehaviour
             }
         }
     }
+
+    public void SetupLoadedCharacter(List<RuntimeFeat> runtimeFeats)
+    {
+        foreach (RuntimeFeat feat in runtimeFeats)
+        {
+            AllFeats.Add(feat.BaseFeatSO);
+            for (int i = 0; i < feat.CurrentFeatLevel; i++)
+            {
+                UnlockFeatBypassReqs(feat.BaseFeatSO);
+            }
+        }
+    }
 }
 
 [Serializable]

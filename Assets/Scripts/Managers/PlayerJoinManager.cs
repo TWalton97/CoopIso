@@ -30,6 +30,8 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     public MainMenuController mainMenuController;
 
     public int TargetSpawnID;
+
+    public GameStateData LoadGameStateData;
     protected override void Awake()
     {
         base.Awake();
@@ -38,19 +40,56 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         sceneLoadingManager = SceneLoadingManager.Instance;
         sceneLoadingManager.OnUnloadingStarted += DisablePlayerGravity;
         sceneLoadingManager.OnSceneGroupLoaded += EnablePlayerGravity;
+
         if (mainMenuController != null)
-            SpawnPlayers();
-    }
-
-    void OnEnable()
-    {
-
+        {
+            if (mainMenuController.gameLoadMode == GameLoadMode.NewGame)
+            {
+                StartNewGame();
+            }
+            else
+            {
+                LoadSavedGame();
+            }
+        }
     }
 
     void OnDisable()
     {
         sceneLoadingManager.OnUnloadingStarted -= DisablePlayerGravity;
         sceneLoadingManager.OnSceneGroupLoaded -= EnablePlayerGravity;
+    }
+
+    private void StartNewGame()
+    {
+        SpawnPlayers();
+    }
+
+    private void LoadSavedGame()
+    {
+        LoadGameStateData = mainMenuController.GameStateDataToLoad;
+
+        InitializeSpawnedItemDataBase();
+
+        foreach (var savedPlayer in LoadGameStateData.PlayerStateDatas)
+        {
+            PlayerInput spawned = playerInputManager.JoinPlayer(savedPlayer.playerIndex, -1);
+            var controller = spawned.GetComponent<NewPlayerController>();
+            controller.gameObject.transform.position = NavMeshUtils.ReturnRandomPointOnXZ(Vector3.zero, 4f);
+        }
+    }
+
+    private void InitializeSpawnedItemDataBase()
+    {
+        foreach (ItemDataSaveEntry itemData in LoadGameStateData.SpawnedItemData)
+        {
+            ItemSO itemSO = ItemDatabase.GetItemSO(itemData.ItemSO_ID);
+            ItemData newItemData = itemData.itemData;
+            newItemData.ItemSO = itemSO;
+            spawnedItemDatabase.spawnedItemData.Add(newItemData.ItemID, newItemData);
+        }
+
+        Debug.Log("SpawnedItemBase initialized with load data");
     }
 
     private void DisablePlayerGravity()
@@ -140,12 +179,9 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     {
         //InputSystemUIInputModule inputModule;
         PlayerUserInterfaceController playerUserInterfaceController = null;
-        PlayerContext playerContext;
         switch (playerInput.playerIndex)
         {
             case 0:
-                //Setting up the player input module and sending it to the player's player input component
-                //inputModule = Instantiate(player1UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
                 playerInput.uiInputModule = player1UI;
                 player1UI.gameObject.SetActive(true);
                 playerUserInterfaceController = player1UI.GetComponent<PlayerUserInterfaceController>();
@@ -154,15 +190,86 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
                 playerInput.uiInputModule = player2UI;
                 player2UI.gameObject.SetActive(true);
                 playerUserInterfaceController = player2UI.GetComponent<PlayerUserInterfaceController>();
-                // inputModule = Instantiate(player2UI, inventoryManager.transform).GetComponent<InputSystemUIInputModule>();
-                // playerInput.uiInputModule = inputModule;
-
-                // playerUserInterfaceController = inputModule.GetComponent<PlayerUserInterfaceController>();
                 break;
         }
 
+        if (mainMenuController.gameLoadMode == GameLoadMode.NewGame)
+        {
+            SetupNewPlayer(playerUserInterfaceController, playerInput);
+        }
+        else
+        {
+            SetupLoadedPlayer(playerUserInterfaceController, playerInput);
+        }
+
+        //playerAveragePositionTracker.AddPlayer(playerInput.gameObject);
+    }
+
+    public void SetupLoadedPlayer(PlayerUserInterfaceController playerUserInterfaceController, PlayerInput playerInput)
+    {
+        PlayerContext playerContext;
+        PlayerStateData playerStateData = LoadGameStateData.PlayerStateDatas[playerInput.playerIndex];
         playerContext = new PlayerContext();
         playerContext.PlayerIndex = playerInput.playerIndex;
+        ClassPresetSO classPreset = ClassPresetDatabase.GetClassPreset(playerStateData.classPresetID);
+        Debug.Log($"Loaded class preset is {classPreset.PresetName}");
+        playerContext.PlayerClassPreset = classPreset;
+        playerContext.UserInterfaceController = playerUserInterfaceController;
+        playerContext.PlayerController = GetPlayerControllerByIndex(playerInput.playerIndex);
+        playerContext.PlayerInput = playerInput;
+        playerContext.InventoryManager = inventoryManager;
+        playerContext.InteractionManager = interactionManager;
+        playerContext.SpawnedItemDatabase = spawnedItemDatabase;
+        playerContext.PlayerPreviewManager = playerPreviewManager;
+        playerContext.InventoryController = playerUserInterfaceController.inventoryController;
+        playerContext.UIStateManager = UIStateManager;
+
+        playerUserInterfaceController.playerContext = playerContext;
+
+        playerContext.PlayerController.PlayerContext = playerContext;
+
+        playerContext.PlayerController.Init();
+
+        playerUserInterfaceController.Init(playerContext);
+
+        List<RuntimeFeat> runtimeFeats = new();
+        foreach (RuntimeFeatSaveData rfsd in playerStateData.unlockedFeats)
+        {
+            RuntimeFeat runtimeFeat = new RuntimeFeat(FeatPresetDatabase.GetFeat(rfsd.featID));
+            runtimeFeat.CurrentFeatLevel = rfsd.currentLevel;
+            runtimeFeats.Add(runtimeFeat);
+        }
+        playerContext.PlayerController.FeatsController.SetupLoadedCharacter(runtimeFeats);
+
+        foreach (ItemSaveData isd in playerStateData.weapons)
+        {
+            playerContext.InventoryController.AddItemToInventory(spawnedItemDatabase.GetSpawnedItemDataFromDataBase(isd.itemID), isd.isEquipped);
+        }
+
+        foreach (ItemSaveData isd in playerStateData.armor)
+        {
+            playerContext.InventoryController.AddItemToInventory(spawnedItemDatabase.GetSpawnedItemDataFromDataBase(isd.itemID), isd.isEquipped);
+        }
+
+        foreach (ConsumableSaveData csd in playerStateData.misc)
+        {
+            //Get the ItemSO
+            ItemSO so = ItemDatabase.GetItemSO(csd.ItemSO_ID);
+            playerContext.InventoryController.AddConsumableToInventory(so, csd.quantity);
+        }
+
+        playerContext.PlayerController.PlayerStatsBlackboard.ClassName = classPreset.PresetName;
+        playerContext.PlayerController.EntityData = classPreset.PlayerStatsSO;
+        playerContext.PlayerController.ApplyStats();
+        playerContext.UserInterfaceController.inventoryController.FeatsMenu.CreateFeatButtons(playerContext);
+    }
+
+    public void SetupNewPlayer(PlayerUserInterfaceController playerUserInterfaceController, PlayerInput playerInput)
+    {
+        PlayerContext playerContext;
+        playerContext = new PlayerContext();
+        playerContext.PlayerIndex = playerInput.playerIndex;
+        playerContext.PlayerClassPreset = mainMenuController.gameSetupData.chosenClassPresets[playerInput.playerIndex];
         playerContext.UserInterfaceController = playerUserInterfaceController;
         playerContext.PlayerController = GetPlayerControllerByIndex(playerInput.playerIndex);
         playerContext.PlayerInput = playerInput;
@@ -201,8 +308,6 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.PlayerController.ApplyStats();
 
         playerContext.UserInterfaceController.inventoryController.FeatsMenu.CreateFeatButtons(playerContext);
-
-        //playerAveragePositionTracker.AddPlayer(playerInput.gameObject);
     }
 }
 
@@ -210,6 +315,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 public class PlayerContext
 {
     public int PlayerIndex;
+    public ClassPresetSO PlayerClassPreset;
     public PlayerUserInterfaceController UserInterfaceController;
     public NewPlayerController PlayerController;
     public PlayerInput PlayerInput;

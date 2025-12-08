@@ -8,7 +8,7 @@ public class PotionSO : ItemSO
     public string PotionName;
     public Sprite PotionSprite;
     public GameObject PotionPrefab;
-    public Resources.ResourceType ResourceToRestore;
+    public PlayerResource.ResourceType ResourceToRestore;
     public int AmountOfResourceToRestore;
     public int RestoreDuration;
 }

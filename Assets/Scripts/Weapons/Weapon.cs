@@ -24,7 +24,6 @@ public class Weapon : MonoBehaviour
     public NewWeaponController.WeaponAttackTypes weaponAttackType;
 
     public string itemID;
-    protected SpawnedItemDataBase.SpawnedItemData spawnedWeaponData;
     protected int minDamage;
     protected int maxDamage;
     public int averageWeaponDamage;
@@ -41,10 +40,6 @@ public class Weapon : MonoBehaviour
         this.weaponHand = weaponHand;
         this.itemID = itemData.ItemID;
         weaponRangeType = itemData.WeaponRangeType;
-
-        spawnedWeaponData = playerContext.PlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(itemID);// as SpawnedItemDataBase.SpawnedWeaponsData;
-
-
 
         if (itemData.ItemSO is WeaponSO weaponData)
         {

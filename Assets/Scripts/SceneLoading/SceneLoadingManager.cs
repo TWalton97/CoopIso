@@ -25,7 +25,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     public Action OnUnloadingStarted;
     public Action OnUnloadingCompleted;
     private AsyncOperationGroup asyncOperationGroup;
-    private SceneGroup activeSceneGroup;
+    public SceneGroup activeSceneGroup;
     private int _indexToLoad;
     private List<string> loadedScenes;
 
@@ -181,7 +181,6 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
                 s = SceneManager.GetSceneByName(sceneData.Name);
             }
         }
-
         return s;
     }
 

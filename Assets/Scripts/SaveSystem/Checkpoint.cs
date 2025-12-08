@@ -84,7 +84,7 @@ public class Checkpoint : MonoBehaviour, IInteractable
         ZoneManager zoneManager = ZoneManager.Instance;
         if (zoneManager != null)
         {
-            zoneManager.GenerateZoneData(SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene().ToString());
+            zoneManager.GenerateZoneData(SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene().name);
         }
     }
 

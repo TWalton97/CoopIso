@@ -83,6 +83,14 @@ public class Item : MonoBehaviour, IInteractable
 
     public ItemStatus ReturnItemStatus()
     {
+        Debug.Log($"Returning ItemStatus for {interactableName}");
+        if (ItemData.ItemID == null)
+        {
+            ItemData.ItemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(ItemData);
+        }
+
+
+        ItemStatus.GUID = ItemData.ItemID;
         ItemStatus.WorldPosition = targetPosition;
         return ItemStatus;
     }
@@ -102,6 +110,7 @@ public class ItemData
 {
     public string ItemID;
     public ItemSO ItemSO;
+    public string ItemSO_ID;
     public ItemQuality Quality;
 
     public string Name { get => ItemSO.ItemName; set => Name = value; }
@@ -121,7 +130,7 @@ public class ItemData
 
     public int ShieldArmorAmount => (ItemSO as ShieldSO)?.ArmorAmount != null ? Mathf.FloorToInt((ItemSO as ShieldSO).ArmorAmount * LootCalculator.QualityFactor(Quality)) : 0;
 
-    public Resources.ResourceType ResourceType => (ItemSO as PotionSO)?.ResourceToRestore ?? Resources.ResourceType.Health;
+    public PlayerResource.ResourceType ResourceType => (ItemSO as PotionSO)?.ResourceToRestore ?? PlayerResource.ResourceType.Health;
     public int ResourceAmount => (ItemSO as PotionSO)?.AmountOfResourceToRestore ?? 0;
 }
 

@@ -5,7 +5,7 @@ public abstract class AbilitySO : ScriptableObject
     public string AbilityName;
     public Sprite AbilityIcon;
     public AnimationClip AnimationClip;
-    public Resources.ResourceType ResourceType;
+    public PlayerResource.ResourceType ResourceType;
     public float ResourceAmount;
     public bool CanMoveWhileUsing = false;
     public bool CanRotateDuringCast = true;

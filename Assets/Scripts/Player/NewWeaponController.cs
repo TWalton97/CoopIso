@@ -525,8 +525,8 @@ public class NewWeaponController : MonoBehaviour
                     newPlayerController.PlayerContext.PlayerPreviewManager.UnequipWeaponFromPlayer(newPlayerController.PlayerInputController.playerIndex, Weapon.WeaponHand.OffHand);
                     if (HasShieldEquipped)
                     {
-                        SpawnedItemDataBase.SpawnedItemData spawnedShieldData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID);
-                        if (spawnedShieldData.itemData.ItemSO is ShieldSO shieldData)
+                        ItemData itemData = newPlayerController.PlayerContext.SpawnedItemDatabase.GetSpawnedItemDataFromDataBase(instantiatedSecondaryWeapon.itemID);
+                        if (itemData.ItemSO is ShieldSO shieldData)
                             newPlayerController.HealthController.UpdateArmorAmount(shieldData.ArmorAmount);
                     }
                     Destroy(instantiatedSecondaryWeapon.gameObject);

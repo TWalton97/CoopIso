@@ -1,4 +1,4 @@
-public static class Resources
+public static class PlayerResource
 {
     public enum ResourceType
     {

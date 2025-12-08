@@ -50,7 +50,6 @@ public class AbilityScrollController : MonoBehaviour
     // ================================
     void Start()
     {
-        controller = GetComponentInParent<PlayerUserInterfaceController>();
         LayoutSlots();
         RefreshIcons();
         ApplyInstantScales();

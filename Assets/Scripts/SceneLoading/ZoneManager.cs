@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,75 +9,32 @@ public class ZoneManager : Singleton<ZoneManager>
     //Every time a zone gets unloaded we store a reference to that zone along with a list of all entity
     public SceneLoadingManager sceneLoadingManager;
     public SpawnedItemDataBase SpawnedItemDataBase;
+    private MainMenuController mainMenuController;
 
     public List<ZoneData> ZoneDatas;
 
-    [System.Serializable]
-    //Need to store all enemy data
-    //ID
-    //Position
-    //Is Dead
-
-    //Need to store all item data
-    //ID
-    //Position
-    //Is Dead
-
-    //Need to store all interactable data
-    //ID
-    //Interacted
-
-    public class ZoneData
-    {
-        public string ZoneName;
-        private Dictionary<string, EntityStatus> EntityStatusDict = new Dictionary<string, EntityStatus>();
-        public List<ItemStatus> ItemStatuses = new();
-        public Dictionary<string, ChestStatus> ChestStatuses = new();
-
-        public ZoneData(string _zoneName, Dictionary<string, EntityStatus> _entityStatusDict, List<ItemStatus> _itemStatuses, Dictionary<string, ChestStatus> _chestStatuses)
-        {
-            ZoneName = _zoneName;
-            EntityStatusDict = _entityStatusDict;
-            ItemStatuses = _itemStatuses;
-            ChestStatuses = _chestStatuses;
-        }
-
-        public void UpdateEntityStatus(EntityStatus newStatus)
-        {
-            EntityStatusDict[newStatus.GUID] = newStatus;
-        }
-
-        public bool TryGetEnemyStatus(string guid, out EntityStatus status)
-        {
-            return EntityStatusDict.TryGetValue(guid, out status);
-        }
-
-        public void ReplaceItemStatuses(List<ItemStatus> itemStatuses)
-        {
-            ItemStatuses.Clear();
-            ItemStatuses = itemStatuses;
-        }
-
-        public void UpdateChestStatus(ChestStatus newStatus)
-        {
-            ChestStatuses[newStatus.GUID] = newStatus;
-        }
-
-        public bool TryGetChestStatus(string guid, out ChestStatus status)
-        {
-            return ChestStatuses.TryGetValue(guid, out status);
-        }
-
-    }
     protected override void Awake()
     {
         base.Awake();
         sceneLoadingManager = SceneLoadingManager.Instance;
-    }
-    void OnEnable()
-    {
+
         sceneLoadingManager.OnSceneUnloadStarted += GenerateZoneData;
         sceneLoadingManager.OnSceneLoaded += CallWaitForScene;
+
+        mainMenuController = FindObjectOfType<MainMenuController>();
+        if (mainMenuController.gameLoadMode == GameLoadMode.LoadedGame)
+        {
+            ZoneDatas = mainMenuController.GameStateDataToLoad.ZoneDatas;
+            foreach (ZoneData zd in ZoneDatas)
+            {
+                zd.RebuildDictionaries();
+            }
+        }
+    }
+
+    void Start()
+    {
+        DistributeEntityStatuses(sceneLoadingManager.ReturnActiveEnvironmentalScene().name);
     }
     void OnDisable()
     {
@@ -107,7 +65,6 @@ public class ZoneManager : Singleton<ZoneManager>
     }
     public void GenerateZoneData(string sceneName)
     {
-        Debug.Log($"Generating zone data for {sceneName}");
         if (HasZoneDataForScene(sceneName))
         {
             UpdateZoneData(sceneName);
@@ -215,6 +172,7 @@ public class ZoneManager : Singleton<ZoneManager>
     }
     private IEnumerator WaitForSceneToBeLoaded(string sceneName)
     {
+        Debug.Log("Waiting for scene to be loaded before distributing entity statuses");
         Scene scene = SceneManager.GetSceneByName(sceneName);
         while (!scene.IsValid() || !scene.isLoaded)
         {
@@ -293,3 +251,81 @@ public class ZoneManager : Singleton<ZoneManager>
         return foundComponents;
     }
 }
+
+[System.Serializable]
+public class ZoneData
+{
+    public string ZoneName;
+
+    [NonSerialized] public Dictionary<string, EntityStatus> EntityStatusDict = new Dictionary<string, EntityStatus>();
+    public List<SerializableKeyValuePair<string, EntityStatus>> EntityStatusList;
+
+    public List<ItemStatus> ItemStatuses = new();
+
+    [NonSerialized] public Dictionary<string, ChestStatus> ChestStatusDict = new();
+    public List<SerializableKeyValuePair<string, ChestStatus>> ChestStatusList;
+
+    public ZoneData(string _zoneName, Dictionary<string, EntityStatus> _entityStatusDict, List<ItemStatus> _itemStatuses, Dictionary<string, ChestStatus> _chestStatuses)
+    {
+        ZoneName = _zoneName;
+        EntityStatusDict = _entityStatusDict;
+        ItemStatuses = _itemStatuses;
+        ChestStatusDict = _chestStatuses;
+    }
+
+    public void UpdateEntityStatus(EntityStatus newStatus)
+    {
+        EntityStatusDict[newStatus.GUID] = newStatus;
+    }
+
+    public bool TryGetEnemyStatus(string guid, out EntityStatus status)
+    {
+        return EntityStatusDict.TryGetValue(guid, out status);
+    }
+
+    public void ReplaceItemStatuses(List<ItemStatus> itemStatuses)
+    {
+        ItemStatuses.Clear();
+        ItemStatuses = itemStatuses;
+    }
+
+    public void UpdateChestStatus(ChestStatus newStatus)
+    {
+        ChestStatusDict[newStatus.GUID] = newStatus;
+    }
+
+    public bool TryGetChestStatus(string guid, out ChestStatus status)
+    {
+        return ChestStatusDict.TryGetValue(guid, out status);
+    }
+
+    public void PrepareForSave()
+    {
+        EntityStatusList = new List<SerializableKeyValuePair<string, EntityStatus>>();
+        foreach (var kv in EntityStatusDict)
+            EntityStatusList.Add(new SerializableKeyValuePair<string, EntityStatus> { Key = kv.Key, Value = kv.Value });
+
+        ChestStatusList = new List<SerializableKeyValuePair<string, ChestStatus>>();
+        foreach (var kv in ChestStatusDict)
+            ChestStatusList.Add(new SerializableKeyValuePair<string, ChestStatus> { Key = kv.Key, Value = kv.Value });
+    }
+
+    public void RebuildDictionaries()
+    {
+        EntityStatusDict = new Dictionary<string, EntityStatus>();
+        foreach (var kv in EntityStatusList)
+            EntityStatusDict[kv.Key] = kv.Value;
+
+        ChestStatusDict = new Dictionary<string, ChestStatus>();
+        foreach (var kv in ChestStatusList)
+            ChestStatusDict[kv.Key] = kv.Value;
+    }
+}
+
+[System.Serializable]
+public class SerializableKeyValuePair<TKey, TValue>
+{
+    public TKey Key;
+    public TValue Value;
+}
+

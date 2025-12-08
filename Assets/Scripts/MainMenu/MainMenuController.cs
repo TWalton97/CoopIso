@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,9 @@ public class MainMenuController : MonoBehaviour
 
     public string GameplaySceneName;
 
+    public GameStateData GameStateDataToLoad;
+
+    public GameLoadMode gameLoadMode;
     public SceneGroup SceneGroupToLoad;
 
     private void Awake()
@@ -21,8 +25,21 @@ public class MainMenuController : MonoBehaviour
 
     public void OnNewGamePressed()
     {
+        gameLoadMode = GameLoadMode.NewGame;
         gameSetupData.Initialize(2);
         ShowCharacterSelectMenu();
+    }
+
+    public void OnLoadGamePressed()
+    {
+        gameLoadMode = GameLoadMode.LoadedGame;
+
+        string path = Path.Combine(Application.persistentDataPath, "save1.json");
+        if (!File.Exists(path)) return;
+        string json = File.ReadAllText(path);
+        GameStateDataToLoad = JsonUtility.FromJson<GameStateData>(json);
+
+        SceneLoadingManager.Instance.LoadSceneGroup(SceneGroupDatabase.GetSceneGroup(GameStateDataToLoad.LastCheckpointSaveData.sceneGroup));
     }
 
     public void ShowMainMenu()
@@ -54,4 +71,10 @@ public class MainMenuController : MonoBehaviour
         }
         return true;
     }
+}
+
+public enum GameLoadMode
+{
+    NewGame,
+    LoadedGame
 }
