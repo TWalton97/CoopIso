@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using static UnityEngine.InputSystem.InputAction;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.InputSystem;
 
 public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -72,7 +74,9 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        if (eventData.pointerId != PlayerContext.PlayerIndex) return;
+        if (InventoryItemController.PlayerContext.PlayerInput.currentControlScheme != InventoryItemController.PlayerContext.PlayerController.KEYBOARD_SCHEME)
+            return;
+
         ToggleHighlight(true);
         selectable.Select();
     }

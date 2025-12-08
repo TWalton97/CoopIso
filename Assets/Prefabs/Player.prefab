@@ -15366,6 +15366,7 @@ MonoBehaviour:
   BlockAngle: 180
   PrintDamageTaken: 0
   DisplayDamageNumbers: 0
+  IsDead: 0
   remainingRestoreAmount: 0
 --- !u!114 &7230535324818502119
 MonoBehaviour:
@@ -15387,9 +15388,9 @@ MonoBehaviour:
   HealthController: {fileID: 9157711023718106382}
   IsBlocking: 0
   IsDead: 0
-  FriendlySkeletonWarrior: {fileID: 4905347976658615171, guid: 332f87ff35010b548b418e2ddb9f2eb8, type: 3}
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -15458,11 +15459,13 @@ MonoBehaviour:
     PrimaryWeaponData:
       ItemID: 
       ItemSO: {fileID: 0}
+      ItemSO_ID: 
       Quality: 0
       Quantity: 1
     SecondaryWeaponData:
       ItemID: 
       ItemSO: {fileID: 0}
+      ItemSO_ID: 
       Quality: 0
       Quantity: 1
   TwoHandedWeaponSet:
@@ -15472,11 +15475,13 @@ MonoBehaviour:
     PrimaryWeaponData:
       ItemID: 
       ItemSO: {fileID: 0}
+      ItemSO_ID: 
       Quality: 0
       Quantity: 1
     SecondaryWeaponData:
       ItemID: 
       ItemSO: {fileID: 0}
+      ItemSO_ID: 
       Quality: 0
       Quantity: 1
   RangedWeaponSet:
@@ -15486,11 +15491,13 @@ MonoBehaviour:
     PrimaryWeaponData:
       ItemID: 
       ItemSO: {fileID: 0}
+      ItemSO_ID: 
       Quality: 0
       Quantity: 1
     SecondaryWeaponData:
       ItemID: 
       ItemSO: {fileID: 0}
+      ItemSO_ID: 
       Quality: 0
       Quantity: 1
   ActiveWeaponSet:
@@ -15500,11 +15507,13 @@ MonoBehaviour:
     PrimaryWeaponData:
       ItemID: 
       ItemSO: {fileID: 0}
+      ItemSO_ID: 
       Quality: 0
       Quantity: 1
     SecondaryWeaponData:
       ItemID: 
       ItemSO: {fileID: 0}
+      ItemSO_ID: 
       Quality: 0
       Quantity: 1
   CombinedWeaponDamage: 0

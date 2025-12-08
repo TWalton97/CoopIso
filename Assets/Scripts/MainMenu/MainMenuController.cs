@@ -39,7 +39,7 @@ public class MainMenuController : MonoBehaviour
         string json = File.ReadAllText(path);
         GameStateDataToLoad = JsonUtility.FromJson<GameStateData>(json);
 
-        SceneLoadingManager.Instance.LoadSceneGroup(SceneGroupDatabase.GetSceneGroup(GameStateDataToLoad.LastCheckpointSaveData.sceneGroup));
+        SceneLoadingManager.Instance.LoadSceneGroup(SceneGroupDatabase.GetSceneGroup(GameStateDataToLoad.LastCheckpointSaveData.sceneGroup), true);
     }
 
     public void ShowMainMenu()

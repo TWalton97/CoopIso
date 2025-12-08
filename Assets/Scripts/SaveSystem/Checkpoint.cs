@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Checkpoint : MonoBehaviour, IInteractable
 {
+    public int CheckpointIndex;
+    
     public List<NewPlayerController> NearbyPlayers;
     public float RespawnRadius;
 
@@ -17,6 +19,11 @@ public class Checkpoint : MonoBehaviour, IInteractable
     private bool _isInteractable = true;
     public bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
 
+    private void Awake() 
+    {
+        ZoneController zoneController = FindObjectOfType<ZoneController>();
+        zoneController.RegisterCheckpoint(this);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -63,9 +70,14 @@ public class Checkpoint : MonoBehaviour, IInteractable
         }
     }
 
-    public void RespawnPlayer(NewPlayerController controller)
+    public void MovePlayerToCheckpoint(NewPlayerController controller)
     {
         controller.transform.position = ReturnPositionInRadius();
+    }
+
+    public void RespawnPlayer(NewPlayerController controller)
+    {
+        MovePlayerToCheckpoint(controller);
         controller.HealthController.IsDead = false;
         controller.HealthController.Heal(controller.HealthController.MaximumHealth / 2);
         controller.IsDead = false;
@@ -81,11 +93,10 @@ public class Checkpoint : MonoBehaviour, IInteractable
 
     public void OnInteract(PlayerContext playerContext, int playerIndex)
     {
-        ZoneManager zoneManager = ZoneManager.Instance;
-        if (zoneManager != null)
-        {
-            zoneManager.GenerateZoneData(SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene().name);
-        }
+        SaveGame saveGame = SaveGame.Instance;
+
+        saveGame.LastCheckpointIndex = CheckpointIndex;
+        saveGame.Save();
     }
 
     public string GetInteractableName()

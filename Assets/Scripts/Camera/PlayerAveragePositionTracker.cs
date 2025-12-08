@@ -12,6 +12,7 @@ public class PlayerAveragePositionTracker : MonoBehaviour
     public PlayerJoinManager playerJoinManager;
 
     public bool DisableLeashing = false;
+    private Vector3 currentPos;
 
     private void Start()
     {
@@ -67,6 +68,10 @@ public class PlayerAveragePositionTracker : MonoBehaviour
             }
         }
 
-        transform.position = tempPos / numberOfPlayers;
+        if (numberOfPlayers == 0)
+            return;
+
+        currentPos = tempPos / numberOfPlayers;
+        transform.position = currentPos;
     }
 }

@@ -81,13 +81,13 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     #region  Scene Loading
 
-    public void LoadSceneGroup(SceneGroup sceneGroup)
+    public void LoadSceneGroup(SceneGroup sceneGroup, bool reloadActiveScene = false)
     {
         activeSceneGroup = sceneGroup;
         loadedScenes = new List<string>();
 
         OnUnloadingStarted?.Invoke();
-        StartCoroutine(UnloadScenes());
+        StartCoroutine(UnloadScenes(reloadActiveScene));
     }
 
     private IEnumerator LoadSceneGroupCoroutine()
@@ -113,7 +113,6 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
         Scene activeScene = SceneManager.GetSceneByName(activeSceneGroup.FindSceneNameByType(SceneType.ActiveScene));
 
-        EnableLoadingCanvas();
         _loadingBar.fillAmount = 0f;
         targetProgress = 1f;
         LoadingProgress progress = new LoadingProgress();
@@ -136,8 +135,10 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
         yield return null;
     }
 
-    public IEnumerator UnloadScenes()
+    public IEnumerator UnloadScenes(bool unloadActiveScene = false)
     {
+        EnableLoadingCanvas();
+
         var scenes = new List<string>();
         var activeScene = SceneManager.GetActiveScene();
 
@@ -149,7 +150,8 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
             if (!sceneAt.isLoaded) continue;
 
             var sceneName = sceneAt.name;
-            if (sceneName.Equals(activeScene.name) || sceneName == "Bootstrapper") continue;
+            if (!unloadActiveScene && sceneName.Equals(activeScene.name)) continue;
+            if (sceneName == "Bootstrapper") continue;
             scenes.Add(sceneName);
         }
 

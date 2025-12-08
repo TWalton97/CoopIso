@@ -32,6 +32,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     public int TargetSpawnID;
 
     public GameStateData LoadGameStateData;
+    private bool firstLoad = false;
     protected override void Awake()
     {
         base.Awake();
@@ -49,15 +50,37 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
             }
             else
             {
+                firstLoad = true;
                 LoadSavedGame();
             }
         }
+
+        playerAveragePositionTracker.DisableLeashing = true;
     }
 
     void OnDisable()
     {
         sceneLoadingManager.OnUnloadingStarted -= DisablePlayerGravity;
         sceneLoadingManager.OnSceneGroupLoaded -= EnablePlayerGravity;
+    }
+
+    public void CheckIfAllPlayersAreDead()
+    {
+
+        int numPlayers = playerControllers.Count;
+        int numDeadPlayers = 0;
+        foreach (NewPlayerController controller in playerControllers.Values)
+        {
+            if (controller.HealthController.IsDead)
+            {
+                numDeadPlayers++;
+            }
+        }
+
+        if (numDeadPlayers == numPlayers)
+        {
+            mainMenuController.OnLoadGamePressed();
+        }
     }
 
     private void StartNewGame()
@@ -88,8 +111,6 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
             newItemData.ItemSO = itemSO;
             spawnedItemDatabase.spawnedItemData.Add(newItemData.ItemID, newItemData);
         }
-
-        Debug.Log("SpawnedItemBase initialized with load data");
     }
 
     private void DisablePlayerGravity()
@@ -106,6 +127,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     {
         SpawnPoint targetSpawnPoint = null;
 
+
         SpawnPoint[] spawnPoints = FindObjectsOfType<SpawnPoint>();
         foreach (SpawnPoint spawnPoint in spawnPoints)
         {
@@ -117,17 +139,21 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
         for (int i = 0; i < playerControllers.Count; i++)
         {
-            if (targetSpawnPoint != null)
+            if (!firstLoad)
             {
-                playerControllers[i].transform.SetPositionAndRotation(targetSpawnPoint.transform.GetChild(i).position, targetSpawnPoint.transform.GetChild(i).rotation);
-            }
-            else
-            {
-                playerControllers[i].transform.position = Vector3.zero;
+                if (targetSpawnPoint != null)
+                {
+                    playerControllers[i].transform.SetPositionAndRotation(targetSpawnPoint.transform.GetChild(i).position, targetSpawnPoint.transform.GetChild(i).rotation);
+                }
+                else
+                {
+                    playerControllers[i].transform.position = Vector3.zero;
+                }
             }
 
             playerControllers[i].GetComponent<Rigidbody>().useGravity = true;
         }
+
 
         StartCoroutine(EnableCulling());
     }
@@ -138,6 +164,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         cullingManager.CanCull = true;
         cullingManager.InitialStateCheck();
         playerAveragePositionTracker.DisableLeashing = false;
+        firstLoad = false;
         yield return null;
     }
 
@@ -150,12 +177,14 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     public void OnPlayerJoined(PlayerInput playerInput)
     {
         playerControllers.Add(playerInput.playerIndex, playerInput.GetComponent<NewPlayerController>());
+        playerControllers[playerInput.playerIndex].HealthController.OnDie += CheckIfAllPlayersAreDead;
         CreatePlayerCanvas(playerInput);
         OnPlayerJoinedEvent?.Invoke(playerInput.gameObject);
     }
 
     public void OnPlayerLeft(PlayerInput playerInput)
     {
+        playerControllers[playerInput.playerIndex].HealthController.OnDie -= CheckIfAllPlayersAreDead;
         playerControllers.Remove(playerInput.playerIndex);
         OnPlayerLeftEvent?.Invoke(playerInput.gameObject);
     }
@@ -239,7 +268,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
             runtimeFeat.CurrentFeatLevel = rfsd.currentLevel;
             runtimeFeats.Add(runtimeFeat);
         }
-        playerContext.PlayerController.FeatsController.SetupLoadedCharacter(runtimeFeats);
+        playerContext.PlayerController.FeatsController.SetupLoadedCharacter(runtimeFeats, classPreset.classFeatConfig);
 
         foreach (ItemSaveData isd in playerStateData.weapons)
         {

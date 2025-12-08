@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class SaveGame : MonoBehaviour
+public class SaveGame : Singleton<SaveGame>
 {
     public PlayerJoinManager PlayerJoinManager;
     public SceneLoadingManager SceneLoadingManager;
     public ZoneManager ZoneManager;
 
     public GameStateData CurrentSave = new();
+    public int LastCheckpointIndex;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         SceneLoadingManager = SceneLoadingManager.Instance;
     }
 
@@ -115,7 +117,7 @@ public class SaveGame : MonoBehaviour
     public void GatherLastCheckpointSaveData()
     {
         CurrentSave.LastCheckpointSaveData.sceneGroup = SceneLoadingManager.activeSceneGroup.GroupName;
-        CurrentSave.LastCheckpointSaveData.checkpointIndex = 0; //todo: create checkpoint indexes
+        CurrentSave.LastCheckpointSaveData.checkpointIndex = LastCheckpointIndex;
     }
 
     public void GatherSpawnedItemData()

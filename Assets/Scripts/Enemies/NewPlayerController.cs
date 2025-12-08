@@ -216,8 +216,8 @@ public class NewPlayerController : Entity
         At(idleState, blockState, attackStateMachine, new FuncPredicate(() => blockButtonPressed));
         At(blockState, idleState, attackStateMachine, new FuncPredicate(() => !blockButtonPressed));
 
-        At(idleState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
-        At(blockState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
+        At(idleState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed && WeaponController.canAttack));
+        At(blockState, attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed && WeaponController.canAttack));
 
         At(idleState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && PlayerUserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed()));
         At(blockState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && PlayerUserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed()));

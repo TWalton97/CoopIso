@@ -716,7 +716,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToNextMenu
         m_Mode: 1
@@ -4989,7 +4989,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToNextMenu
         m_Mode: 1
@@ -6604,7 +6604,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToNextMenu
         m_Mode: 1
@@ -9095,7 +9095,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToPreviousMenu
         m_Mode: 1
@@ -10863,6 +10863,7 @@ MonoBehaviour:
   sceneLoadingManager: {fileID: 0}
   SpawnedItemDataBase: {fileID: 373696305}
   ZoneDatas: []
+  LastCheckpointIndex: 0
 --- !u!1 &513275806
 GameObject:
   m_ObjectHideFlags: 0
@@ -13146,7 +13147,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToPreviousMenu
         m_Mode: 1
@@ -15010,7 +15011,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToNextMenu
         m_Mode: 1
@@ -18732,7 +18733,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToNextMenu
         m_Mode: 1
@@ -21800,6 +21801,7 @@ MonoBehaviour:
       sceneGroup: 
       checkpointIndex: 0
     SpawnedItemData: []
+  LastCheckpointIndex: 0
 --- !u!1 &1034126133
 GameObject:
   m_ObjectHideFlags: 0
@@ -28900,7 +28902,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToPreviousMenu
         m_Mode: 1
@@ -33867,7 +33869,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToPreviousMenu
         m_Mode: 1
@@ -43140,7 +43142,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToNextMenu
         m_Mode: 1
@@ -43837,7 +43839,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToPreviousMenu
         m_Mode: 1
@@ -44172,7 +44174,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2993513321820309726}
+      - m_Target: {fileID: 2116994088}
         m_TargetAssemblyTypeName: InventoryController, Assembly-CSharp
         m_MethodName: GoToPreviousMenu
         m_Mode: 1

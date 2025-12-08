@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3988157984046638382}
   - component: {fileID: 6986564133725807609}
   - component: {fileID: 6835199973450193225}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4151468299306020045}
   - component: {fileID: 2197734430188441358}
   - component: {fileID: 2888711959649426867}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,8 +225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e70556004841ac438da9667f6137cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CheckpointIndex: 0
   NearbyPlayers: []
   RespawnRadius: 3
+  InteractionType: 0
 --- !u!135 &2888711959649426867
 SphereCollider:
   m_ObjectHideFlags: 0

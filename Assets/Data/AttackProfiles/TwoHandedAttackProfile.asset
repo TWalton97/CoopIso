@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TwoHandedAttackProfile
   m_EditorClassIdentifier: 
   altAttack: {fileID: -517674273957482040, guid: 5cc53a90696edc1408fdda805eebb809, type: 3}
-  attack1: {fileID: 7400000, guid: a9cf1cdfceb04164aaf2d300e32ca0f0, type: 2}
-  attack2: {fileID: 7400000, guid: e7d65374e3991f74a933e48529676871, type: 2}
-  attack3: {fileID: 7400000, guid: a9cf1cdfceb04164aaf2d300e32ca0f0, type: 2}
+  attack1: {fileID: 7400000, guid: c448c2020a909ba42aba29d20625be00, type: 2}
+  attack2: {fileID: 7400000, guid: 5f279b6a0f7c6c94daa4a1c70affc38f, type: 2}
+  attack3: {fileID: 7400000, guid: 2d972f116c3a5d4468f872edbe7537ae, type: 2}
   comboAttack: {fileID: 7400000, guid: 42dda8e7ae087254cade381bb161483c, type: 2}

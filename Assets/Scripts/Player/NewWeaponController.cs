@@ -549,9 +549,9 @@ public class NewWeaponController : MonoBehaviour
             animator.SetBool("HasBow", false);
         }
         newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("BlockingLoop", attackProfile.altAttack);
-        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchLeft", attackProfile.attack1);
-        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchRight", attackProfile.attack2);
-        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("PunchLeft", attackProfile.attack3);
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("Attack_Default_1", attackProfile.attack1);
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("Attack_Default_2", attackProfile.attack2);
+        newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("Attack_Default_3", attackProfile.attack3);
         newPlayerController.PlayerAnimationController.SetOverrideByPlaceholderName("SpinAttack_TwoWeapons", attackProfile.comboAttack);
     }
 

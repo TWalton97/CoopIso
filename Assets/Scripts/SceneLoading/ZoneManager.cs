@@ -13,6 +13,9 @@ public class ZoneManager : Singleton<ZoneManager>
 
     public List<ZoneData> ZoneDatas;
 
+    public int LastCheckpointIndex;
+    public bool ShouldApplySavedCheckpoint { get; set; } = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -29,13 +32,17 @@ public class ZoneManager : Singleton<ZoneManager>
             {
                 zd.RebuildDictionaries();
             }
+
+            LastCheckpointIndex = mainMenuController.GameStateDataToLoad.LastCheckpointSaveData.checkpointIndex;
+            ShouldApplySavedCheckpoint = true;
         }
     }
 
     void Start()
     {
-        DistributeEntityStatuses(sceneLoadingManager.ReturnActiveEnvironmentalScene().name);
+        CallWaitForScene(sceneLoadingManager.ReturnActiveEnvironmentalScene().name);
     }
+
     void OnDisable()
     {
         sceneLoadingManager.OnSceneUnloadStarted -= GenerateZoneData;
@@ -172,13 +179,22 @@ public class ZoneManager : Singleton<ZoneManager>
     }
     private IEnumerator WaitForSceneToBeLoaded(string sceneName)
     {
-        Debug.Log("Waiting for scene to be loaded before distributing entity statuses");
         Scene scene = SceneManager.GetSceneByName(sceneName);
         while (!scene.IsValid() || !scene.isLoaded)
         {
             yield return null;
         }
         DistributeEntityStatuses(sceneName);
+        if (ShouldApplySavedCheckpoint)
+        {
+            ZoneController zoneController = FindObjectOfType<ZoneController>();
+            Checkpoint checkpoint = zoneController.FindCheckpointByIndex(LastCheckpointIndex);
+            foreach (NewPlayerController controller in PlayerJoinManager.Instance.playerControllers.Values)
+            {
+                checkpoint.RespawnPlayer(controller);
+            }
+            ShouldApplySavedCheckpoint = false;
+        }
         yield return null;
     }
     public void DistributeEntityStatuses(string sceneName)

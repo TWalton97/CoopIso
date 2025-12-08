@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEngine.InputSystem.InputAction;
 
 public class InventoryItemController : MonoBehaviour
 {
