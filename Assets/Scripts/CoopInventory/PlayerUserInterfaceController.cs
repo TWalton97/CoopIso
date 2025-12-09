@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerUserInterfaceController : MonoBehaviour
@@ -20,13 +21,13 @@ public class PlayerUserInterfaceController : MonoBehaviour
     public TMP_Text GoldAmountText;
     public TMP_Text WeightText;
 
-    public EventSystem eventSystem;
+    public MultiplayerEventSystem eventSystem;
 
     public PlayerUIState playerUIState = PlayerUIState.None;
 
     public void Init(PlayerContext context)
     {
-        eventSystem = GetComponent<EventSystem>();
+        eventSystem = GetComponent<MultiplayerEventSystem>();
 
         playerContext = context;
 

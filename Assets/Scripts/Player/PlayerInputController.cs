@@ -15,8 +15,10 @@ public class PlayerInputController : MonoBehaviour
 
     public string gameplayMapName { get; private set; } = "Player";
     public string UIMapName { get; private set; } = "UI";
+    public string saveMenuMapName { get; private set; } = "SaveMenu";
     private InputActionMap gameplayMap;
     private InputActionMap UIMap;
+    private InputActionMap saveMenuMap;
 
     //Input actions that need constant values
     private InputAction Move;
@@ -64,6 +66,7 @@ public class PlayerInputController : MonoBehaviour
 
         gameplayMap = playerInput.actions.FindActionMap(gameplayMapName);
         UIMap = playerInput.actions.FindActionMap(UIMapName);
+        saveMenuMap = playerInput.actions.FindActionMap(saveMenuMapName);
 
         attackCountdownTimer = new CountdownTimer(attackHeldRepeatTime);
     }
@@ -107,6 +110,8 @@ public class PlayerInputController : MonoBehaviour
         SubscribeToInputAction(playerInputActions.UI.EquipOffhand.id.ToString(), OnEquipOffhand, UIMap);
         SubscribeToInputAction(playerInputActions.UI.Cancel.id.ToString(), OnCancel, UIMap);
         SubscribeToInputAction(playerInputActions.UI.Submit.id.ToString(), OnSubmit, UIMap);
+
+        SubscribeToInputAction(playerInputActions.SaveMenu.Cancel.id.ToString(), OnCancelSaveMenu, saveMenuMap);
 
         //Specific cases//
 
@@ -332,6 +337,18 @@ public class PlayerInputController : MonoBehaviour
     {
         OnEquipOffhandPerformed?.Invoke(context);
     }
+    #endregion
+
+    #region Save Menu Input Actions
+
+    public void OnCancelSaveMenu(CallbackContext context)
+    {
+        SaveMenuManager saveMenuManager = SaveMenuManager.Instance;
+        if (saveMenuManager == null) return;
+
+        saveMenuManager.CloseSaveMenu();
+    }
+
     #endregion
 
     #region Shared Input Actions

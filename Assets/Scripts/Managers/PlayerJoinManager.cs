@@ -79,7 +79,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
         if (numDeadPlayers == numPlayers)
         {
-            mainMenuController.OnLoadGamePressed();
+            mainMenuController.LoadGame(mainMenuController.GameStateDataToLoad);
         }
     }
 
@@ -241,7 +241,6 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext = new PlayerContext();
         playerContext.PlayerIndex = playerInput.playerIndex;
         ClassPresetSO classPreset = ClassPresetDatabase.GetClassPreset(playerStateData.classPresetID);
-        Debug.Log($"Loaded class preset is {classPreset.PresetName}");
         playerContext.PlayerClassPreset = classPreset;
         playerContext.UserInterfaceController = playerUserInterfaceController;
         playerContext.PlayerController = GetPlayerControllerByIndex(playerInput.playerIndex);

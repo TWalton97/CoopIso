@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class SaveGame : Singleton<SaveGame>
@@ -10,6 +12,7 @@ public class SaveGame : Singleton<SaveGame>
     public ZoneManager ZoneManager;
 
     public GameStateData CurrentSave = new();
+    public SaveSlotMetaData CurrentSaveMetaData = new();
     public int LastCheckpointIndex;
 
     protected override void Awake()
@@ -18,7 +21,7 @@ public class SaveGame : Singleton<SaveGame>
         SceneLoadingManager = SceneLoadingManager.Instance;
     }
 
-    public void Save()
+    public void Save(int slotIndex)
     {
         if (CurrentSave.PlayerStateDatas == null)
             CurrentSave.PlayerStateDatas = new();
@@ -28,10 +31,36 @@ public class SaveGame : Singleton<SaveGame>
         GatherLastCheckpointSaveData();
         GatherSpawnedItemData();
 
-        string path = Path.Combine(Application.persistentDataPath, "save1.json");
+        string slotFolder = GetSlotFolder(slotIndex);
+        Directory.CreateDirectory(slotFolder);
+
+        SaveMetaData(slotIndex, CurrentSave);
+
+        string savePath = GetSavePath(slotIndex);
         string json = JsonUtility.ToJson(CurrentSave, true);
-        File.WriteAllText(path, json);
-        Debug.Log($"Saved game to {path}");
+        File.WriteAllText(savePath, json);
+    }
+
+    public void SaveMetaData(int slotIndex, GameStateData data)
+    {
+        if (CurrentSaveMetaData == null)
+            CurrentSaveMetaData = new SaveSlotMetaData();
+
+        CurrentSaveMetaData.currentZone = data.LastCheckpointSaveData.sceneGroup;
+        CurrentSaveMetaData.saveTimestamp = DateTime.UtcNow.Ticks;
+        if (CurrentSaveMetaData.newGame)
+        {
+            CurrentSaveMetaData.startTimestamp = DateTime.UtcNow.Ticks;
+            CurrentSaveMetaData.newGame = false;
+        }
+        CurrentSaveMetaData.totalPlaytimeSeconds = (int)((DateTime.UtcNow.Ticks - CurrentSaveMetaData.startTimestamp) / TimeSpan.TicksPerSecond);
+        CurrentSaveMetaData.playerCount = data.PlayerStateDatas.Count;
+        CurrentSaveMetaData.playerClasses = data.PlayerStateDatas.Select(p => p.classPresetID).ToList();
+        CurrentSaveMetaData.isValid = true;
+
+        string metaPath = GetMetaPath(slotIndex);
+        string json = JsonUtility.ToJson(CurrentSaveMetaData, true);
+        File.WriteAllText(metaPath, json);
     }
 
     public void GatherPlayerState()
@@ -135,10 +164,30 @@ public class SaveGame : Singleton<SaveGame>
         }
     }
 
-    [ContextMenu("Save Game")]
-    public void SaveGameTest()
+    private string GetSlotRoot()
     {
-        Save();
+        return Path.Combine(Application.persistentDataPath, "Saves");
+    }
+
+    private string GetSlotFolder(int slotIndex)
+    {
+        return Path.Combine(GetSlotRoot(), $"Slot{slotIndex}");
+    }
+
+    private string GetSavePath(int slotIndex)
+    {
+        return Path.Combine(GetSlotFolder(slotIndex), "save.json");
+    }
+
+    private string GetMetaPath(int slotIndex)
+    {
+        return Path.Combine(GetSlotFolder(slotIndex), "metadata.json");
+    }
+
+    [ContextMenu("Save")]
+    public void SaveToSlotOne()
+    {
+        Save(0);
     }
 }
 
@@ -150,6 +199,8 @@ public class GameStateData
     public LastCheckpointSaveData LastCheckpointSaveData;
 
     public List<ItemDataSaveEntry> SpawnedItemData;
+    public long startTimeStamp;
+    public int playtimeSeconds;
 }
 
 [System.Serializable]
@@ -212,4 +263,18 @@ public class ItemDataSaveEntry
     public string itemID;
     public ItemData itemData;
     public string ItemSO_ID;
+}
+
+public class SaveSlotMetaData
+{
+    public string currentZone;
+    public long saveTimestamp;
+    public long startTimestamp;
+    public int totalPlaytimeSeconds;
+
+    public int playerCount;
+    public List<string> playerClasses;
+
+    public bool isValid;
+    public bool newGame = true;
 }

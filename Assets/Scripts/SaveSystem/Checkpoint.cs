@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Checkpoint : MonoBehaviour, IInteractable
 {
     public int CheckpointIndex;
-    
+
     public List<NewPlayerController> NearbyPlayers;
     public float RespawnRadius;
 
@@ -19,7 +19,7 @@ public class Checkpoint : MonoBehaviour, IInteractable
     private bool _isInteractable = true;
     public bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
 
-    private void Awake() 
+    private void Awake()
     {
         ZoneController zoneController = FindObjectOfType<ZoneController>();
         zoneController.RegisterCheckpoint(this);
@@ -93,10 +93,11 @@ public class Checkpoint : MonoBehaviour, IInteractable
 
     public void OnInteract(PlayerContext playerContext, int playerIndex)
     {
-        SaveGame saveGame = SaveGame.Instance;
+        SaveMenuManager.Instance.OpenSaveMenu(playerContext);
+        // SaveGame saveGame = SaveGame.Instance;
 
-        saveGame.LastCheckpointIndex = CheckpointIndex;
-        saveGame.Save();
+        // saveGame.LastCheckpointIndex = CheckpointIndex;
+        // saveGame.Save();
     }
 
     public string GetInteractableName()
