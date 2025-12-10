@@ -44,7 +44,7 @@ public class EnemyWaitToAttackState : EnemyBaseState
         // --- Rotate toward target ---
         Vector3 direction = (enemy.target.transform.position - enemy.transform.position).normalized;
         direction.y = 0;
-        if (direction.sqrMagnitude > 0.001f)
+        if (direction.sqrMagnitude > 0.5f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, enemyStats.RotationSpeed * Time.deltaTime);
@@ -52,7 +52,7 @@ public class EnemyWaitToAttackState : EnemyBaseState
 
         // --- Check if enemy can attack ---
         float angleToTarget = Vector3.Angle(enemy.transform.forward, direction);
-        if (Time.time >= enemy.NextAttackTime && angleToTarget < 1f)
+        if (Time.time >= enemy.NextAttackTime && angleToTarget < 3f)
         {
             enemy.CanAttack = true;
         }

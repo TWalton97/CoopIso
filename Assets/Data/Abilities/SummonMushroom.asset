@@ -24,8 +24,8 @@ MonoBehaviour:
   AbilityDescription: Summons a little mushroom man.
   LevelDescriptionTemplate: Summons up to {NUM_SUMMONS} mushrooms to help you, or
     try to.
-  UpgradeDescriptionTemplate: Summons up to {NUM_SUMMONS} mushrooms to help you,
-    or try to.
+  UpgradeDescriptionTemplate: Summons up to {NUM_SUMMONS_NEXT} mushrooms to help
+    you, or try to.
   RequiredWeaponRangeType: 2
   abilityBehaviourPrefab: {fileID: 6284882083578312484, guid: 6849366b5eb61e7498ba20fe8c2b8550, type: 3}
   DamagePerLevel: 020000000200000002000000

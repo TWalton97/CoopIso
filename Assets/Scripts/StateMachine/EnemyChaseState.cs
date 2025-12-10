@@ -27,7 +27,9 @@ public class EnemyChaseState : EnemyBaseState
     public override void Update()
     {
         agent.speed = enemy.chaseSpeed;
+        enemy.FindTargetsInAggroRange();
         enemy.UpdateTarget();
+
         if (enemy.target == null) return;
 
         float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.target.transform.position);

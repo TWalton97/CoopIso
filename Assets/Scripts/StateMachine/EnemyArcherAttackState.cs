@@ -29,7 +29,6 @@ public class EnemyArcherAttackState : EnemyBaseState
 
     public override void OnExit()
     {
-        enemy.StartCoroutine(enemy.AttackCooldown());
         if (attackCoroutine != null)
         {
             enemy.StopCoroutine(attackCoroutine);

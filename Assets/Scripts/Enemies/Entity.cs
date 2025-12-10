@@ -9,12 +9,14 @@ public class Entity : MonoBehaviour, IDamageable
     public EntityStatus EntityStatus;
     public HealthController HealthController;
 
+    public float AttackSpeedMultiplier = 1;
+
     public bool IsBlocking;
     public bool IsDead = false;
 
     public virtual void Awake()
     {
-        
+
         HealthController = GetComponent<HealthController>();
     }
 

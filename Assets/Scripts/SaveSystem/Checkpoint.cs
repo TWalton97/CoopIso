@@ -93,11 +93,7 @@ public class Checkpoint : MonoBehaviour, IInteractable
 
     public void OnInteract(PlayerContext playerContext, int playerIndex)
     {
-        SaveMenuManager.Instance.OpenSaveMenu(playerContext);
-        // SaveGame saveGame = SaveGame.Instance;
-
-        // saveGame.LastCheckpointIndex = CheckpointIndex;
-        // saveGame.Save();
+        SaveMenuManager.Instance.OpenSaveMenu(playerContext, CheckpointIndex);
     }
 
     public string GetInteractableName()

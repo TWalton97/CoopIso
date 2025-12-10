@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bf9e0c76dd5a846a391d1546f1f811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitToSpawn: {fileID: 696869229060878931, guid: d03a1473a5a74ad47bcb89e56aaaf1c0, type: 3}
+  unitToSpawn: {fileID: 4580764988110487538, guid: d03a1473a5a74ad47bcb89e56aaaf1c0, type: 3}
   Health: 20
   MaximumNumberOfSummons: 1

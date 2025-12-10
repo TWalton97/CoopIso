@@ -8,7 +8,6 @@ using System.Collections;
 
 public class NewPlayerController : Entity, ISaveable
 {
-    public Enemy UnitToSpawn;
     public PlayerContext PlayerContext;
     //Object references
     public Rigidbody Rigidbody { get; private set; }
@@ -247,6 +246,7 @@ public class NewPlayerController : Entity, ISaveable
         Animator.SetFloat("VelocityZ", localVelocity.z / EntityData.MovementSpeed);
 
         Animator.SetFloat("SpeedMultiplier", Mathf.Clamp(_movementSpeed / _maximumMovementSpeed, 0.5f, 1));
+        Animator.SetFloat("AttackSpeedMultiplier", AttackSpeedMultiplier);
     }
     #endregion
 
@@ -497,16 +497,6 @@ public class NewPlayerController : Entity, ISaveable
 
     #region Debug
 
-    [ContextMenu("Spawn Mushroom")]
-    public void SpawnMushroomBaby()
-    {
-        Enemy unit = Instantiate(UnitToSpawn, transform.position + transform.forward, Quaternion.identity);
-        if (unit is FriendlySkeletonWarrior warrior)
-        {
-            warrior.Init(this);
-            warrior.ApplyStats();
-        }
-    }
 
     #endregion
 

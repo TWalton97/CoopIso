@@ -57,22 +57,22 @@ public class Weapon : MonoBehaviour
 
     public virtual void Enter(Action endAction, int attackNum)
     {
-        if (weaponAttackType == NewWeaponController.WeaponAttackTypes.OneHanded)
-        {
-            PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
-        }
-        else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded && PlayerContext.PlayerController.WeaponController.instantiatedSecondaryWeapon != null)
-        {
-            PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
-        }
-        else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded)
-        {
-            PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.TwoHandedAttack);
-        }
-        else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.Bow)
-        {
-            PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.BowAttack);
-        }
+        // if (weaponAttackType == NewWeaponController.WeaponAttackTypes.OneHanded)
+        // {
+        //     PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
+        // }
+        // else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded && PlayerContext.PlayerController.WeaponController.instantiatedSecondaryWeapon != null)
+        // {
+        //     PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
+        // }
+        // else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded)
+        // {
+        //     PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.TwoHandedAttack);
+        // }
+        // else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.Bow)
+        // {
+        //     PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.BowAttack);
+        // }
 
         PlayerContext.PlayerController.AnimationStatusTracker.OnAttackCompleted += Exit;
         active = true;

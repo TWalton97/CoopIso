@@ -23,6 +23,8 @@ public class SaveButton : UIButton
 
     public SaveSlotMetaData saveSlotMetaData;
 
+    public int CheckpointIndex;
+
     void OnEnable()
     {
         UpdateButtonInfo();
@@ -93,6 +95,7 @@ public class SaveButton : UIButton
     {
         //SaveGame.Instance.Save(slotIndex);
 
+        ZoneManager.Instance.LastCheckpointIndex = CheckpointIndex;
         SaveManager.Instance.SaveGame(slotIndex);
         SaveMenuManager.Instance.CloseSaveMenu();
     }

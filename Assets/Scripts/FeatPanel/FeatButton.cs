@@ -23,6 +23,8 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 
     public int currentFeatLevel;
 
+    public bool IsSelected;
+
     public void InitializeButton(FeatSO _feat, FeatsController _controller, PlayerFeatsPanelController _playerFeatsPanelController, int _featIndex)
     {
         FeatIndex = _featIndex;
@@ -99,18 +101,31 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
 
     public void OnSelect(BaseEventData eventData)
     {
+        IsSelected = true;
         playerFeatsPanelController.UpdateFeatPreviewWindow(currentFeatLevel, feat);
         playerFeatsPanelController.UpdateViewPosition(rectTransform);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-
+        IsSelected = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (eventData.pointerId != playerFeatsPanelController.PlayerContext.PlayerIndex) return;
-        selectable.Select();
+        if (playerFeatsPanelController.PlayerContext.PlayerInput.currentControlScheme != playerFeatsPanelController.PlayerContext.PlayerController.KEYBOARD_SCHEME)
+            return;
+
+        IsSelected = true;
+        playerFeatsPanelController.UpdateFeatPreviewWindow(currentFeatLevel, feat);
+        playerFeatsPanelController.UpdateViewPosition(rectTransform);
+    }
+
+    public virtual void OnPointerExit(PointerEventData eventData)
+    {
+        if (playerFeatsPanelController.PlayerContext.PlayerInput.currentControlScheme != playerFeatsPanelController.PlayerContext.PlayerController.KEYBOARD_SCHEME)
+            return;
+
+        IsSelected = false;
     }
 }

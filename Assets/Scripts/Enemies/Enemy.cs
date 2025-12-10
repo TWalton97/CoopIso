@@ -1,8 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Utilities;
 
 [RequireComponent(typeof(EntityIdentity))]
 public class Enemy : Entity
@@ -24,7 +23,6 @@ public class Enemy : Entity
     public float rotationSpeed;
 
     [SerializeField] protected float wanderRadius = 10f;
-    public float timeBetweenAttacks = 1f;
 
     protected StateMachine stateMachine;
     protected Hitbox hitbox;
@@ -59,6 +57,9 @@ public class Enemy : Entity
     public int damage;
     public int Level = 1;
 
+    private bool hasTakenDamage = false;
+    private float nextTargetSwapTime;
+
     public override void Awake()
     {
         base.Awake();
@@ -78,7 +79,7 @@ public class Enemy : Entity
         StartWanderSpeed = wanderSpeed;
         StartChaseSpeed = chaseSpeed;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
-        agent.avoidancePriority = Random.Range(0, 99);
+        agent.avoidancePriority = UnityEngine.Random.Range(0, 99);
         if (enemyStats.AttackRange < 3)
         {
             agent.stoppingDistance = enemyStats.AttackRange * 0.9f;
@@ -168,6 +169,7 @@ public class Enemy : Entity
     private void UpdateAnimatorParameters()
     {
         animator.SetFloat("Velocity", agent.velocity.magnitude / chaseSpeed);
+        animator.SetFloat("AttackSpeedMultiplier", AttackSpeedMultiplier);
     }
 
     public virtual void Attack()
@@ -200,14 +202,6 @@ public class Enemy : Entity
         }
     }
 
-    public IEnumerator AttackCooldown()
-    {
-        attackOnCooldown = true;
-        yield return new WaitForSeconds(timeBetweenAttacks);
-        attackOnCooldown = false;
-        yield return null;
-    }
-
     public EntityStatus ReturnEntityStatus()
     {
         EntityStatus.GUID = entityIdentity.GUID;
@@ -221,13 +215,13 @@ public class Enemy : Entity
         this.target = target;
     }
 
-    public Entity FindTargetInAggroRange()
+    public void FindTargetsInAggroRange()
     {
         EnemyStatsSO enemyStats = EntityData as EnemyStatsSO;
         Collider[] colliders = Physics.OverlapSphere(transform.position, enemyStats.AggroRange, targetLayer);
         if (colliders.Length == 0)
         {
-            return null;
+            return;
         }
 
         foreach (Collider coll in colliders)
@@ -240,13 +234,16 @@ public class Enemy : Entity
                 {
                     if (!entity.IsDead)
                     {
-                        return entity;
+                        if (!damageTable.ContainsKey(entity))
+                        {
+                            UpdateDamageTable(0, entity);
+                        }
                     }
                 }
             }
         }
 
-        return null;
+        return;
     }
 
     public void PushAwayFromNearbyEnemies()
@@ -271,11 +268,14 @@ public class Enemy : Entity
         agent.Move(repulsion);
     }
 
-    private void UpdateDamageTable(int damage, Entity entity)
+    public void UpdateDamageTable(int damage, Entity entity)
     {
+        if (damage > 0)
+            hasTakenDamage = true;
+
         if (!damageTable.ContainsKey(entity))
         {
-            damageTable.Add(entity, 0f);
+            damageTable.Add(entity, damage);
         }
 
         damageTable[entity] += damage;
@@ -324,8 +324,39 @@ public class Enemy : Entity
         if (damageTable.Count == 0)
             return;
 
+        if (!hasTakenDamage)
+        {
+            if (Time.time < nextTargetSwapTime)
+                return;
+
+            float shortestDist = Mathf.Infinity;
+            Entity nearestEntity = null;
+            foreach (var kvp in damageTable.Keys)
+            {
+                float dist = Vector3.Distance(kvp.transform.position, transform.position);
+
+                if (dist < shortestDist)
+                {
+                    shortestDist = dist;
+                    nearestEntity = kvp;
+                }
+            }
+
+            if (target != nearestEntity)
+            {
+                target = nearestEntity;
+                nextTargetSwapTime = Time.time + 1f;
+            }
+            return;
+        }
+
         Entity topAttacker = null;
         float maxDamage = 0f;
+        if (target != null)
+        {
+            topAttacker = target;
+            maxDamage = damageTable[target] * 5f;
+        }
 
         foreach (var kvp in damageTable)
         {
@@ -357,4 +388,7 @@ public class Enemy : Entity
             }
         }
     }
+
+    //If we haven't taken damage yet, then we search in a smaller radius around us for closer targets
+    //Until we taken damage, we swap to the closest target
 }

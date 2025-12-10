@@ -118,7 +118,6 @@ GameObject:
   - component: {fileID: 4732267131090984951}
   - component: {fileID: 4151468299306020045}
   - component: {fileID: 2197734430188441358}
-  - component: {fileID: 2888711959649426867}
   m_Layer: 6
   m_Name: CheckPoint
   m_TagString: Untagged
@@ -140,6 +139,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6092219314076407831}
+  - {fileID: 7900996467679099491}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &460976545054758436
@@ -229,13 +229,45 @@ MonoBehaviour:
   NearbyPlayers: []
   RespawnRadius: 3
   InteractionType: 0
---- !u!135 &2888711959649426867
+--- !u!1 &4584563163638807855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7900996467679099491}
+  - component: {fileID: 718000445083736865}
+  m_Layer: 0
+  m_Name: Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7900996467679099491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4584563163638807855}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7355153379191166100}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &718000445083736865
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391277992908359156}
+  m_GameObject: {fileID: 4584563163638807855}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

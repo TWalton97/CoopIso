@@ -20,6 +20,7 @@ public class EnemyAttackState : EnemyBaseState
     {
         animator.CrossFade(AttackHash, crossFadeDuration);
         agent.isStopped = true;
+        agent.velocity = Vector3.zero;
         enemy.animationStatusTracker.OnAttackCompleted += CompleteAttack;
     }
 
@@ -43,7 +44,7 @@ public class EnemyAttackState : EnemyBaseState
 
     private void CompleteAttack()
     {
-        enemy.NextAttackTime = Time.time + enemyStats.AttackCooldown;
+        enemy.NextAttackTime = Time.time + (enemyStats.AttackCooldown / enemy.AttackSpeedMultiplier);
         enemy.CanAttack = false;
         AttackCompleted = true;
         enemy.CanAttack = false;

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,10 +30,10 @@ public class EnemyWanderState : EnemyBaseState
 
     public override void Update()
     {
-        Entity potentialTarget = enemy.FindTargetInAggroRange();
-        if (potentialTarget != null)
+        enemy.FindTargetsInAggroRange();
+        if (enemy.damageTable.Count != 0)
         {
-            enemy.SetTarget(potentialTarget);
+            enemy.SetTarget(enemy.damageTable.First().Key);
         }
 
         if (!agent.isActiveAndEnabled) return;

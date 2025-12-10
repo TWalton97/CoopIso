@@ -91,7 +91,9 @@ public class SaveManager : Singleton<SaveManager>
             meta.newGame = false;
         }
 
-        meta.TotalSessionPlaytimeSeconds = (int)((DateTime.UtcNow.Ticks - meta.SessionStartTimestamp) / TimeSpan.TicksPerSecond);
+        meta.TotalSessionPlaytimeSeconds += (int)((DateTime.UtcNow.Ticks - meta.SessionStartTimestamp) / TimeSpan.TicksPerSecond);
+
+        meta.SessionStartTimestamp = DateTime.UtcNow.Ticks;
 
         if (data.PlayerStateDatas != null)
         {

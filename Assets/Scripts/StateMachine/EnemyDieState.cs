@@ -19,11 +19,15 @@ public class EnemyDieState : EnemyBaseState
 
         if (enemy.HasSpawnedItems)
         {
-            animator.CrossFade(DieHash, 0f, 1, 1f);
+            animator.SetLayerWeight(0, 0f);
+            animator.SetLayerWeight(1, 0f);
+            animator.CrossFade(DieHash, 0f, 2, 1f);
             animator.Update(0f);
         }
         else
         {
+            animator.SetLayerWeight(0, 0f);
+            animator.SetLayerWeight(1, 0f);
             animator.CrossFade(DieHash, 0f);
             enemy.StartCoroutine(SpawnItems());
             enemy.HasSpawnedItems = true;

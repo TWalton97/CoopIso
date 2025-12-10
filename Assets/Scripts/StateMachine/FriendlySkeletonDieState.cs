@@ -12,8 +12,10 @@ public class FriendlySkeletonDieState : EnemyBaseState
 
     public override void OnEnter()
     {
-        agent.isStopped = true;
+        agent.enabled = false;
 
+        animator.SetLayerWeight(0, 0f);
+        animator.SetLayerWeight(1, 0f);
         animator.Play(DieHash);
 
         enemy.coll.enabled = false;

@@ -19,11 +19,14 @@ public class SaveMenuManager : Singleton<SaveMenuManager>
 
     public bool SaveMenuOpened = false;
 
-    public void OpenSaveMenu(PlayerContext playerContext)
+    private int _checkpointIndex;
+
+    public void OpenSaveMenu(PlayerContext playerContext, int checkpointIndex)
     {
         SaveMenuOpened = true;
 
         this.playerContext = playerContext;
+        _checkpointIndex = checkpointIndex;
 
         Time.timeScale = 0;
 
@@ -69,6 +72,7 @@ public class SaveMenuManager : Singleton<SaveMenuManager>
 
         for (int i = 0; i < metadata.Count; i++)
         {
+            SaveButtons[i].CheckpointIndex = _checkpointIndex;
             SaveButtons[i].ZoneName = metadata[i].LastZoneName;
             SaveButtons[i].SaveDate = metadata[i].LastSavedTimestamp;
             SaveButtons[i].PlayTime = metadata[i].TotalSessionPlaytimeSeconds;

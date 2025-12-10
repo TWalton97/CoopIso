@@ -13,7 +13,7 @@ public class FriendlySkeletonWarrior : Enemy
 
     }
 
-    public void Init(NewPlayerController controller)
+    public virtual void Init(NewPlayerController controller)
     {
         Owner = controller;
         friendlyUnitSO = EntityData as FriendlyUnitSO;
