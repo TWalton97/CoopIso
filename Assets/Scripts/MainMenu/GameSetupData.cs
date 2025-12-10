@@ -43,3 +43,10 @@ public class PlayerSelectionData
     public InputDevice PlayerDevices;
     public string PlayerControlSchemes;
 }
+
+[Serializable]
+public enum GameLoadMode
+{
+    NewGame,
+    LoadedGame,
+}

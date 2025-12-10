@@ -22,9 +22,16 @@ public class WeaponAbilityBehaviour : AbilityBehaviour<WeaponRuntimeAbility>
 
     public override bool CanUse(ResourceController resourceController)
     {
-        if (weaponRangeType == WeaponRangeType.Melee || weaponRangeType == WeaponRangeType.Ranged)
+        if (weaponRangeType == WeaponRangeType.Melee)
         {
-            if (resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon == null || resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon.weaponRangeType != weaponRangeType)
+            if (resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon == null || resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon.weaponRangeType != WeaponRangeType.Melee)
+            {
+                return false;
+            }
+        }
+        else if (weaponRangeType == WeaponRangeType.Ranged)
+        {
+            if (resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon == null || resourceController.newPlayerController.WeaponController.instantiatedPrimaryWeapon.weaponRangeType != WeaponRangeType.Ranged)
             {
                 return false;
             }

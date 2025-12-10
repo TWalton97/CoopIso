@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AbilityScrollController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class AbilityScrollController : MonoBehaviour
 
     [Header("References")]
     public List<RectTransform> iconSlots;
-    public List<AbilityCell> iconCells;
+    public List<Image> iconImages;
 
     [Header("Ability Data")]
     public AbilityData ActiveAbility;
@@ -107,7 +108,7 @@ public class AbilityScrollController : MonoBehaviour
             // Wrap ability index
             int abilityIndex = (centerIndex + offset + Abilities.Count) % Abilities.Count;
 
-            iconCells[slot].icon.sprite = Abilities[abilityIndex].AbilitySO.AbilityIcon;
+            iconImages[slot].sprite = Abilities[abilityIndex].AbilitySO.AbilityIcon;
         }
     }
 
