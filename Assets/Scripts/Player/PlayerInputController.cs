@@ -141,6 +141,9 @@ public class PlayerInputController : MonoBehaviour
         action.canceled += OnRotateButton;
 
         attackCountdownTimer.OnTimerStop += ResetAttackTimer;
+
+        playerInput.actions.FindActionMap(UIMapName).Disable();
+        playerInput.actions.FindActionMap(saveMenuMapName).Disable();
     }
 
     void Update()
@@ -297,7 +300,6 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnRotateButton(CallbackContext context)
     {
-        Debug.Log($"On Rotate Button");
         if (FreeLookCameraManager.Instance == null) return;
         FreeLookCameraManager.Instance.OnRotateButton(context);
     }
@@ -310,6 +312,12 @@ public class PlayerInputController : MonoBehaviour
     }
     public void OnCancel(CallbackContext context)
     {
+        if (SaveMenuManager.Instance.SaveMenuOpened)
+        {
+            if (SaveMenuManager.Instance.playerContext.PlayerIndex == playerInput.playerIndex)
+                SaveMenuManager.Instance.CloseSaveMenu();
+            return;
+        }
         OnCancelPerformed?.Invoke(context);
     }
 
@@ -354,6 +362,13 @@ public class PlayerInputController : MonoBehaviour
     #region Shared Input Actions
     public void OnEquipmentMenu(CallbackContext context)
     {
+        if (SaveMenuManager.Instance.SaveMenuOpened)
+        {
+            if (SaveMenuManager.Instance.playerContext.PlayerIndex == playerInput.playerIndex)
+                SaveMenuManager.Instance.CloseSaveMenu();
+            return;
+        }
+
         playerController.PlayerContext.UserInterfaceController.TryToggleInventory();
     }
     #endregion

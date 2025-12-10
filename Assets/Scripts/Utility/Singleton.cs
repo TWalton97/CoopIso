@@ -5,6 +5,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
     protected static T instance;
     public static bool HasInstance => instance != null;
     public static T TryGetInstance() => HasInstance ? instance : null;
+    public bool DestroyObjectOnLoad = true;
 
     public static T Instance
     {
@@ -23,6 +24,16 @@ public class Singleton<T> : MonoBehaviour where T : Component
     {
         if (!Application.isPlaying) return;
 
-        instance = this as T;
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        else
+
+        {
+            if (!DestroyObjectOnLoad)
+                DontDestroyOnLoad(this);
+            instance = this as T;
+        }
     }
 }

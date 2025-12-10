@@ -21,7 +21,14 @@ public class SaveButton : UIButton
     public long DateStarted;
     public List<string> Players;
 
+    public SaveSlotMetaData saveSlotMetaData;
+
     void OnEnable()
+    {
+        UpdateButtonInfo();
+    }
+
+    public void UpdateButtonInfo()
     {
         if (ZoneName == "")
         {
@@ -34,14 +41,14 @@ public class SaveButton : UIButton
 
         if (SaveDate == 0)
         {
-            SaveDateText.text = "";
-            SaveTimeText.text = "";
+            SaveDateText.text = "-";
+            SaveTimeText.text = "-";
         }
         else
         {
             DateTime saveTime = new DateTime(SaveDate, DateTimeKind.Utc).ToLocalTime();
             SaveDateText.text = saveTime.ToString("yyyy-MM-dd");
-            SaveTimeText.text = saveTime.ToString("HH:mm");
+            SaveTimeText.text = saveTime.ToString("h:mm tt");
         }
     }
 
@@ -58,8 +65,15 @@ public class SaveButton : UIButton
         int minutes = Mathf.FloorToInt((totalSeconds % 3600) / 60f);
         int seconds = Mathf.FloorToInt(totalSeconds % 60);
         PlayTimeText.text = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
-        DateTime saveTime = new DateTime(DateStarted, DateTimeKind.Utc).ToLocalTime();
-        DateStartedText.text = saveTime.ToString("yyyy-MM-dd");
+        if (DateStarted == 0)
+        {
+            DateStartedText.text = "-";
+        }
+        else
+        {
+            DateTime saveTime = new DateTime(DateStarted, DateTimeKind.Utc).ToLocalTime();
+            DateStartedText.text = saveTime.ToString("yyyy-MM-dd h:mm tt");
+        }
         NumberOfPlayersText.text = FormatClasses(Players);
     }
 
@@ -77,14 +91,18 @@ public class SaveButton : UIButton
 
     public void SaveGameToFile(int slotIndex)
     {
-        SaveGame.Instance.Save(slotIndex);
+        //SaveGame.Instance.Save(slotIndex);
+
+        SaveManager.Instance.SaveGame(slotIndex);
         SaveMenuManager.Instance.CloseSaveMenu();
     }
 
     public void LoadGameFromFile(int slotIndex)
     {
-        MainMenuController mainMenuController = FindObjectOfType<MainMenuController>();
-        mainMenuController.LoadGame(mainMenuController.LoadGameData(slotIndex));
+        if (saveSlotMetaData == null) return;
+
+        LoadManager.Instance.LoadGame(slotIndex);
+        PlaySessionData.Instance.StartLoadedGame();
     }
 
     string FormatClasses(List<string> classes)

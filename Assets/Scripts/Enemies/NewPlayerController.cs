@@ -6,7 +6,7 @@ using static UnityEngine.InputSystem.InputAction;
 using System.Collections.Generic;
 using System.Collections;
 
-public class NewPlayerController : Entity
+public class NewPlayerController : Entity, ISaveable
 {
     public PlayerContext PlayerContext;
     //Object references
@@ -63,6 +63,12 @@ public class NewPlayerController : Entity
     private Camera mainCam;
 
     #region MonoBehaviour
+
+    public override void Awake()
+    {
+        base.Awake();
+        SaveRegistry.Register(this);
+    }
 
     public void Init()
     {
@@ -424,6 +430,66 @@ public class NewPlayerController : Entity
 
         PotionController.UsePotion(button.inventoryItemView.ItemSO as PotionSO);
         button.UpdateQuantity(-1);
+    }
+
+    #endregion
+
+    #region Saving
+
+    public void Save(GameStateData data)
+    {
+        PlayerStateData playerData = data.GetPlayerStateFor(PlayerContext.PlayerIndex);
+
+        playerData.playerIndex = PlayerContext.PlayerIndex;
+        playerData.Level = ExperienceController.level;
+        playerData.GoldAmount = PlayerStatsBlackboard.GoldAmount;
+        playerData.SkillPoints = ExperienceController.SkillPoints;
+        playerData.currentExp = ExperienceController.experience;
+        playerData.currentHealth = HealthController.CurrentHealth;
+        playerData.currentMana = ResourceController.resource.resourceCurrent;
+        playerData.classPresetID = PlayerContext.PlayerClassPreset.PresetName;
+
+        playerData.unlockedFeats = new();
+        foreach (RuntimeFeat runtimeFeat in FeatsController.UnlockedFeats)
+        {
+            RuntimeFeatSaveData s = new RuntimeFeatSaveData();
+            s.featID = runtimeFeat.BaseFeatSO.FeatName;
+            s.currentLevel = runtimeFeat.CurrentFeatLevel;
+            playerData.unlockedFeats.Add(s);
+        }
+
+        playerData.weapons = new();
+        foreach (ItemButton button in PlayerContext.InventoryController.WeaponInventory.instantiatedItemButtons.Values)
+        {
+            ItemSaveData weapon = new ItemSaveData();
+            weapon.itemID = button.ItemData.ItemID;
+            weapon.isEquipped = false;
+            weapon.isEquipped = button.buttonState == ItemButton.ButtonState.Activated;
+            playerData.weapons.Add(weapon);
+        }
+
+        playerData.armor = new();
+        foreach (ItemButton button in PlayerContext.InventoryController.ArmorInventory.instantiatedItemButtons.Values)
+        {
+            ItemSaveData armor = new ItemSaveData();
+            armor.itemID = button.ItemData.ItemID;
+            armor.isEquipped = button.buttonState == ItemButton.ButtonState.Activated;
+            playerData.armor.Add(armor);
+        }
+
+        playerData.misc = new();
+        foreach (ItemButton button in PlayerContext.InventoryController.ConsumablesInventory.instantiatedItemButtons.Values)
+        {
+            ConsumableSaveData consumable = new ConsumableSaveData();
+            consumable.quantity = (button as ConsumableButton).Quantity;
+            consumable.ItemSO_ID = button.ItemSO.ItemName;
+            playerData.misc.Add(consumable);
+        }
+    }
+
+    public void Load(GameStateData data)
+    {
+
     }
 
     #endregion

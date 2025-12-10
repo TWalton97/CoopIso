@@ -9,18 +9,20 @@ public class MainMenuJoinManager : MonoBehaviour
     //When we spawn in a new player, we also spawn in a canvas and set the player
     public GameObject characterSelectionCanvas;
     public CharacterSelectUI[] characterSelectionUI;
-    public MainMenuController mainMenuController;
+    public MainMenuNavigationController mainMenuNavigationController;
+    public PlaySessionData playSessionData;
+
     public void OnPlayerJoined(PlayerInput playerInput)
     {
         playerInput.transform.parent = transform;
         InputSystemUIInputModule inputModule;
         CharacterSelectUI ui = characterSelectionUI[playerInput.playerIndex];
-        ui.mainMenuController = mainMenuController;
+        ui.mainMenuNavigationController = mainMenuNavigationController;
         inputModule = ui.GetComponent<InputSystemUIInputModule>();
         playerInput.uiInputModule = inputModule;
         ui.PlayerIndex = playerInput.playerIndex;
-        mainMenuController.gameSetupData.Selections[playerInput.playerIndex].PlayerDevices = playerInput.devices[0];
-        mainMenuController.gameSetupData.Selections[playerInput.playerIndex].PlayerControlSchemes = playerInput.currentControlScheme;
+        playSessionData.gameSetupData.Selections[playerInput.playerIndex].PlayerDevices = playerInput.devices[0];
+        playSessionData.gameSetupData.Selections[playerInput.playerIndex].PlayerControlSchemes = playerInput.currentControlScheme;
         characterSelectionUI[playerInput.playerIndex].EnableSelectionButtons();
     }
 

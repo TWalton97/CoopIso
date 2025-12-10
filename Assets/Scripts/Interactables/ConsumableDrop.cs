@@ -8,6 +8,9 @@ public class ConsumableDrop : Item, IInteractable
 
     protected override void CollectItem(PlayerContext playerContext)
     {
+        if (ItemSO == null)
+            ItemSO = ItemData.ItemSO;
+            
         if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + ItemSO.Weight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
         {
             StartCoroutine(RotateRandomly());

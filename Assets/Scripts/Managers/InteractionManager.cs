@@ -55,6 +55,10 @@ public class InteractionManager : MonoBehaviour
                 return "close ";
             case InteractionType.Travel:
                 return "travel to ";
+            case InteractionType.TalkTo:
+                return "talk to ";
+            case InteractionType.SaveAt:
+                return "save at ";
         }
         return "";
     }

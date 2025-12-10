@@ -7,14 +7,9 @@ using UnityEngine.InputSystem;
 [Serializable]
 public class GameSetupData
 {
-    public int PlayerCount = 1;
+    public int PlayerCount = 2;
     public PlayerSelectionData[] Selections = new PlayerSelectionData[2];
-    public ClassPresetSO[] chosenClassPresets;
-
-    public void Initialize(int numPlayers)
-    {
-        PlayerCount = numPlayers;
-    }
+    public ClassPresetSO[] chosenClassPresets = new ClassPresetSO[2];
 
     public void SelectPlayerClass(int playerIndex, ClassPresetSO preset)
     {
@@ -24,6 +19,19 @@ public class GameSetupData
     public void ReadyUp(int playerIndex, bool isReady)
     {
         Selections[playerIndex].isReady = isReady;
+        PlaySessionData.Instance.CheckIfPlayersAreReady();
+    }
+
+    public void LockInPlayerCount()
+    {
+        PlayerCount = 0;
+        for (int i = 0; i < 2; i++)
+        {
+            if (chosenClassPresets[i] != null)
+            {
+                PlayerCount++;
+            }
+        }
     }
 }
 

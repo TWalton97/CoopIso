@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stomp
   m_EditorClassIdentifier: 
   FeatName: Stomp
-  SkillPointCostPerLevel: 010000000200000002000000
+  SkillPointCostPerLevel: 010000000200000003000000
   AbilityToUnlock: {fileID: 11400000, guid: 37e7c57e2311d6f45b8dca5e58a67585, type: 2}

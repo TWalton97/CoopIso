@@ -16,8 +16,7 @@ public class ReadyButton : UIButton
     public void ToggleButton()
     {
         ToggledOn = !ToggledOn;
-        selectUI.mainMenuController.gameSetupData.ReadyUp(selectUI.PlayerIndex, ToggledOn);
-        selectUI.mainMenuController.CheckIfPlayersAreReady();
+        selectUI.mainMenuNavigationController.playSessionData.gameSetupData.ReadyUp(selectUI.PlayerIndex, ToggledOn);
 
         if (ToggledOn)
         {

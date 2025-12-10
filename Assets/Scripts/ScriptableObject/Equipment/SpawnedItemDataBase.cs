@@ -22,6 +22,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         else
         {
             spawnedItem = Instantiate(itemData.GroundPrefab, Vector3.zero, itemData.GroundPrefab.transform.rotation).GetComponent<Item>();
+            spawnedItem.Quantity = itemData.Quantity;
         }
         spawnedItem.ItemData = itemData;
         SceneManager.MoveGameObjectToScene(spawnedItem.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());

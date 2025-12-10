@@ -24,10 +24,12 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     public Dictionary<int, NewPlayerController> playerControllers = new();
 
+    public LoadMenuManager LoadMenuManager;
+
     public InputSystemUIInputModule player1UI;
     public InputSystemUIInputModule player2UI;
 
-    public MainMenuController mainMenuController;
+    public PlaySessionData playSessionData;
 
     public int TargetSpawnID;
 
@@ -36,15 +38,15 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
     protected override void Awake()
     {
         base.Awake();
+        playSessionData = PlaySessionData.Instance;
         playerInputManager = GetComponent<PlayerInputManager>();
-        mainMenuController = FindObjectOfType<MainMenuController>();
         sceneLoadingManager = SceneLoadingManager.Instance;
         sceneLoadingManager.OnUnloadingStarted += DisablePlayerGravity;
         sceneLoadingManager.OnSceneGroupLoaded += EnablePlayerGravity;
 
-        if (mainMenuController != null)
+        if (playSessionData != null)
         {
-            if (mainMenuController.gameLoadMode == GameLoadMode.NewGame)
+            if (playSessionData.PlaySessionLoadMode == GameLoadMode.NewGame)
             {
                 StartNewGame();
             }
@@ -79,8 +81,14 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
         if (numDeadPlayers == numPlayers)
         {
-            mainMenuController.LoadGame(mainMenuController.GameStateDataToLoad);
+            OpenLoadMenu();
         }
+    }
+
+    public void OpenLoadMenu()
+    {
+        inventoryManager.gameObject.SetActive(false);
+        LoadMenuManager.OpenLoadMenu();
     }
 
     private void StartNewGame()
@@ -90,7 +98,9 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     private void LoadSavedGame()
     {
-        LoadGameStateData = mainMenuController.GameStateDataToLoad;
+
+        LoadGameStateData = playSessionData.PlaySessionGameData;
+        playSessionData.PlaySessionMetaData.SessionStartTimestamp = DateTime.UtcNow.Ticks;
 
         InitializeSpawnedItemDataBase();
 
@@ -109,7 +119,8 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
             ItemSO itemSO = ItemDatabase.GetItemSO(itemData.ItemSO_ID);
             ItemData newItemData = itemData.itemData;
             newItemData.ItemSO = itemSO;
-            spawnedItemDatabase.spawnedItemData.Add(newItemData.ItemID, newItemData);
+            if (!spawnedItemDatabase.spawnedItemData.ContainsKey(newItemData.ItemID))
+                spawnedItemDatabase.spawnedItemData.Add(newItemData.ItemID, newItemData);
         }
     }
 
@@ -191,7 +202,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     public void SpawnPlayers()
     {
-        var data = mainMenuController.gameSetupData;
+        var data = playSessionData.gameSetupData;
         int playerCount = data.PlayerCount;
 
         for (int i = 0; i < playerCount; i++)
@@ -222,7 +233,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
                 break;
         }
 
-        if (mainMenuController.gameLoadMode == GameLoadMode.NewGame)
+        if (playSessionData.PlaySessionLoadMode == GameLoadMode.NewGame)
         {
             SetupNewPlayer(playerUserInterfaceController, playerInput);
         }
@@ -244,6 +255,10 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.PlayerClassPreset = classPreset;
         playerContext.UserInterfaceController = playerUserInterfaceController;
         playerContext.PlayerController = GetPlayerControllerByIndex(playerInput.playerIndex);
+        playerContext.PlayerController.ExperienceController.level = playerStateData.Level;
+        playerContext.PlayerController.PlayerStatsBlackboard.GoldAmount = playerStateData.GoldAmount;
+        playerContext.PlayerController.ExperienceController.SkillPoints = playerStateData.SkillPoints;
+        playerContext.PlayerController.ExperienceController.experience = playerStateData.currentExp;
         playerContext.PlayerInput = playerInput;
         playerContext.InventoryManager = inventoryManager;
         playerContext.InteractionManager = interactionManager;
@@ -297,7 +312,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         PlayerContext playerContext;
         playerContext = new PlayerContext();
         playerContext.PlayerIndex = playerInput.playerIndex;
-        playerContext.PlayerClassPreset = mainMenuController.gameSetupData.chosenClassPresets[playerInput.playerIndex];
+        playerContext.PlayerClassPreset = playSessionData.gameSetupData.chosenClassPresets[playerInput.playerIndex];
         playerContext.UserInterfaceController = playerUserInterfaceController;
         playerContext.PlayerController = GetPlayerControllerByIndex(playerInput.playerIndex);
         playerContext.PlayerInput = playerInput;
@@ -314,7 +329,7 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
         playerContext.PlayerController.Init();
 
-        ClassPresetSO classPresetSO = mainMenuController.gameSetupData.chosenClassPresets[playerInput.playerIndex];
+        ClassPresetSO classPresetSO = playSessionData.gameSetupData.chosenClassPresets[playerInput.playerIndex];
 
         playerUserInterfaceController.Init(playerContext);
 

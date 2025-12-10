@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Chest : MonoBehaviour, IInteractable
+public class Chest : MonoBehaviour, IInteractable, ISaveable
 {
     public int minBudget;
     public int maxBudget;
@@ -31,6 +30,7 @@ public class Chest : MonoBehaviour, IInteractable
 
     private void Awake()
     {
+        SaveRegistry.Register(this);
         animator = GetComponent<Animator>();
         entityIdentity = GetComponent<EntityIdentity>();
         ChestStatus = new ChestStatus(entityIdentity.GUID, !_isInteractable);
@@ -77,6 +77,16 @@ public class Chest : MonoBehaviour, IInteractable
     public string GetInteractableName()
     {
         return interactableName;
+    }
+
+    public void Save(GameStateData data)
+    {
+
+    }
+
+    public void Load(GameStateData data)
+    {
+
     }
 }
 

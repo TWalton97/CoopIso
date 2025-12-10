@@ -26,7 +26,6 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     public Action OnUnloadingCompleted;
     private AsyncOperationGroup asyncOperationGroup;
     public SceneGroup activeSceneGroup;
-    private int _indexToLoad;
     private List<string> loadedScenes;
 
     #region Unity Methods
@@ -34,7 +33,7 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     protected override void Awake()
     {
         base.Awake();
-        LoadSceneGroup(StartingSceneGroup);
+        LoadMainMenu();
     }
 
     void Update()
@@ -54,6 +53,11 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
     {
         //OnSceneLoaded -= sceneName => Debug.Log("Loaded: " + sceneName);
         OnUnloadingCompleted -= () => StartCoroutine(LoadSceneGroupCoroutine());
+    }
+
+    public void LoadMainMenu()
+    {
+        LoadSceneGroup(StartingSceneGroup, true);
     }
 
     #endregion
@@ -81,12 +85,13 @@ public class SceneLoadingManager : Singleton<SceneLoadingManager>
 
     #region  Scene Loading
 
-    public void LoadSceneGroup(SceneGroup sceneGroup, bool reloadActiveScene = false)
+    public void LoadSceneGroup(SceneGroup sceneGroup, bool reloadActiveScene = false, bool isDeathReload = false)
     {
         activeSceneGroup = sceneGroup;
         loadedScenes = new List<string>();
 
-        OnUnloadingStarted?.Invoke();
+        if (!isDeathReload)
+            OnUnloadingStarted?.Invoke();
         StartCoroutine(UnloadScenes(reloadActiveScene));
     }
 

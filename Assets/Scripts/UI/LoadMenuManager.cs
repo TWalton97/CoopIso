@@ -16,14 +16,21 @@ public class LoadMenuManager : MonoBehaviour
 
     public void OpenLoadMenu()
     {
+        gameObject.SetActive(true);
         LoadSaveSlotUI();
 
         eventSystem.SetSelectedGameObject(SaveButtons[0].gameObject);
         SaveButtons[0].UpdatePreview();
+        foreach (SaveButton button in SaveButtons)
+        {
+            button.UpdateButtonInfo();
+        }
     }
 
-    public void CloseSaveMenu()
+    public void CloseLoadMenu()
     {
+        gameObject.SetActive(false);
+
         MenuPanel.SetActive(false);
 
         foreach (SaveButton button in SaveButtons)
@@ -38,10 +45,11 @@ public class LoadMenuManager : MonoBehaviour
 
         for (int i = 0; i < metadata.Count; i++)
         {
-            SaveButtons[i].ZoneName = metadata[i].currentZone;
-            SaveButtons[i].SaveDate = metadata[i].saveTimestamp;
-            SaveButtons[i].PlayTime = metadata[i].totalPlaytimeSeconds;
-            SaveButtons[i].DateStarted = metadata[i].startTimestamp;
+            SaveButtons[i].saveSlotMetaData = metadata[i];
+            SaveButtons[i].ZoneName = metadata[i].LastZoneName;
+            SaveButtons[i].SaveDate = metadata[i].LastSavedTimestamp;
+            SaveButtons[i].PlayTime = metadata[i].TotalSessionPlaytimeSeconds;
+            SaveButtons[i].DateStarted = metadata[i].SaveCreatedTimestamp;
             List<string> players = new();
             foreach (string c in metadata[i].playerClasses)
             {
@@ -79,5 +87,10 @@ public class LoadMenuManager : MonoBehaviour
         }
 
         return metadataList;
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneLoadingManager.Instance.LoadMainMenu();
     }
 }

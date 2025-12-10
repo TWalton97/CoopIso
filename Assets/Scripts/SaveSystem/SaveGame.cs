@@ -46,15 +46,23 @@ public class SaveGame : Singleton<SaveGame>
         if (CurrentSaveMetaData == null)
             CurrentSaveMetaData = new SaveSlotMetaData();
 
-        CurrentSaveMetaData.currentZone = data.LastCheckpointSaveData.sceneGroup;
-        CurrentSaveMetaData.saveTimestamp = DateTime.UtcNow.Ticks;
+        long now = DateTime.UtcNow.Ticks;
+
         if (CurrentSaveMetaData.newGame)
         {
-            CurrentSaveMetaData.startTimestamp = DateTime.UtcNow.Ticks;
+            CurrentSaveMetaData.SaveCreatedTimestamp = now;
+            CurrentSaveMetaData.SessionStartTimestamp = now;
             CurrentSaveMetaData.newGame = false;
         }
-        CurrentSaveMetaData.totalPlaytimeSeconds = (int)((DateTime.UtcNow.Ticks - CurrentSaveMetaData.startTimestamp) / TimeSpan.TicksPerSecond);
-        CurrentSaveMetaData.playerCount = data.PlayerStateDatas.Count;
+
+        long sessionSeconds = (now - CurrentSaveMetaData.SessionStartTimestamp) / TimeSpan.TicksPerSecond;
+
+        CurrentSaveMetaData.TotalSessionPlaytimeSeconds += (int)sessionSeconds;
+        CurrentSaveMetaData.SessionStartTimestamp = now;
+
+        CurrentSaveMetaData.LastSavedTimestamp = now;
+
+        CurrentSaveMetaData.LastZoneName = data.LastCheckpointSaveData.sceneGroup;
         CurrentSaveMetaData.playerClasses = data.PlayerStateDatas.Select(p => p.classPresetID).ToList();
         CurrentSaveMetaData.isValid = true;
 
@@ -97,7 +105,6 @@ public class SaveGame : Singleton<SaveGame>
             {
                 ItemSaveData weapon = new ItemSaveData();
                 weapon.itemID = button.ItemData.ItemID;
-                weapon.itemData = button.ItemData;
                 weapon.isEquipped = false;
                 if (button.buttonState == ItemButton.ButtonState.Activated)
                 {
@@ -111,7 +118,6 @@ public class SaveGame : Singleton<SaveGame>
             {
                 ItemSaveData armor = new ItemSaveData();
                 armor.itemID = button.ItemData.ItemID;
-                armor.itemData = button.ItemData;
                 armor.isEquipped = false;
                 if (button.buttonState == ItemButton.ButtonState.Activated)
                 {
@@ -124,7 +130,6 @@ public class SaveGame : Singleton<SaveGame>
             foreach (ItemButton button in player.PlayerContext.InventoryController.ConsumablesInventory.instantiatedItemButtons.Values)
             {
                 ConsumableSaveData consumable = new ConsumableSaveData();
-                consumable.consumableSO = button.ItemSO;
                 consumable.quantity = (button as ConsumableButton).Quantity;
                 consumable.ItemSO_ID = button.ItemSO.ItemName;
                 playerStateData.misc.Add(consumable);
@@ -199,8 +204,20 @@ public class GameStateData
     public LastCheckpointSaveData LastCheckpointSaveData;
 
     public List<ItemDataSaveEntry> SpawnedItemData;
-    public long startTimeStamp;
-    public int playtimeSeconds;
+
+    public PlayerStateData GetPlayerStateFor(int playerId)
+    {
+        // Look for an existing entry
+        for (int i = 0; i < PlayerStateDatas.Count; i++)
+        {
+            if (PlayerStateDatas[i].playerIndex == playerId)
+                return PlayerStateDatas[i];
+        }
+
+        PlayerStateData newData = new PlayerStateData();
+        PlayerStateDatas.Add(newData);
+        return newData;
+    }
 }
 
 [System.Serializable]
@@ -230,7 +247,6 @@ public class PlayerStateData
 public class ItemSaveData
 {
     public string itemID;
-    public ItemData itemData;
     public bool isEquipped;
 }
 
@@ -245,7 +261,6 @@ public class LastCheckpointSaveData
 [System.Serializable]
 public class ConsumableSaveData
 {
-    public ItemSO consumableSO;
     public int quantity;
     public string ItemSO_ID;
 }
@@ -265,12 +280,14 @@ public class ItemDataSaveEntry
     public string ItemSO_ID;
 }
 
+[Serializable]
 public class SaveSlotMetaData
 {
-    public string currentZone;
-    public long saveTimestamp;
-    public long startTimestamp;
-    public int totalPlaytimeSeconds;
+    public string LastZoneName;                 //Last zone players were in
+    public long LastSavedTimestamp;             //When the game was last saved
+    public long SaveCreatedTimestamp;           //When the save was created
+    public long SessionStartTimestamp;          //When this play session was started
+    public int TotalSessionPlaytimeSeconds;     //Total seconds played
 
     public int playerCount;
     public List<string> playerClasses;

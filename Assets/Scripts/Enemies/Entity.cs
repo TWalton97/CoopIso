@@ -14,6 +14,7 @@ public class Entity : MonoBehaviour, IDamageable
 
     public virtual void Awake()
     {
+        
         HealthController = GetComponent<HealthController>();
     }
 

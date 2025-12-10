@@ -9,9 +9,9 @@ public class ZoneManager : Singleton<ZoneManager>
     //Every time a zone gets unloaded we store a reference to that zone along with a list of all entity
     public SceneLoadingManager sceneLoadingManager;
     public SpawnedItemDataBase SpawnedItemDataBase;
-    private MainMenuController mainMenuController;
-
     public List<ZoneData> ZoneDatas;
+
+    public PlaySessionData playSessionData;
 
     public int LastCheckpointIndex;
     public bool ShouldApplySavedCheckpoint { get; set; } = false;
@@ -24,16 +24,17 @@ public class ZoneManager : Singleton<ZoneManager>
         sceneLoadingManager.OnSceneUnloadStarted += GenerateZoneData;
         sceneLoadingManager.OnSceneLoaded += CallWaitForScene;
 
-        mainMenuController = FindObjectOfType<MainMenuController>();
-        if (mainMenuController.gameLoadMode == GameLoadMode.LoadedGame)
+        playSessionData = PlaySessionData.Instance;
+
+        if (playSessionData.PlaySessionLoadMode == GameLoadMode.LoadedGame)
         {
-            ZoneDatas = mainMenuController.GameStateDataToLoad.ZoneDatas;
+            ZoneDatas = playSessionData.PlaySessionGameData.ZoneDatas;
             foreach (ZoneData zd in ZoneDatas)
             {
                 zd.RebuildDictionaries();
             }
 
-            LastCheckpointIndex = mainMenuController.GameStateDataToLoad.LastCheckpointSaveData.checkpointIndex;
+            LastCheckpointIndex = playSessionData.PlaySessionGameData.LastCheckpointSaveData.checkpointIndex;
             ShouldApplySavedCheckpoint = true;
         }
     }
@@ -70,6 +71,7 @@ public class ZoneManager : Singleton<ZoneManager>
 
         return null;
     }
+
     public void GenerateZoneData(string sceneName)
     {
         if (HasZoneDataForScene(sceneName))
@@ -124,6 +126,7 @@ public class ZoneManager : Singleton<ZoneManager>
 
         ZoneDatas.Add(new ZoneData(sceneName, tempDict, tempList, chestStatusDict));
     }
+
     private void UpdateZoneData(string sceneName)
     {
         ZoneData zoneData = ReturnZoneDataByName(sceneName);
@@ -184,6 +187,7 @@ public class ZoneManager : Singleton<ZoneManager>
         {
             yield return null;
         }
+
         DistributeEntityStatuses(sceneName);
         if (ShouldApplySavedCheckpoint)
         {
@@ -329,12 +333,18 @@ public class ZoneData
     public void RebuildDictionaries()
     {
         EntityStatusDict = new Dictionary<string, EntityStatus>();
-        foreach (var kv in EntityStatusList)
-            EntityStatusDict[kv.Key] = kv.Value;
+        if (EntityStatusList != null)
+        {
+            foreach (var kv in EntityStatusList)
+                EntityStatusDict[kv.Key] = kv.Value;
+        }
 
-        ChestStatusDict = new Dictionary<string, ChestStatus>();
-        foreach (var kv in ChestStatusList)
-            ChestStatusDict[kv.Key] = kv.Value;
+        if (ChestStatusList != null)
+        {
+            ChestStatusDict = new Dictionary<string, ChestStatus>();
+            foreach (var kv in ChestStatusList)
+                ChestStatusDict[kv.Key] = kv.Value;
+        }
     }
 }
 

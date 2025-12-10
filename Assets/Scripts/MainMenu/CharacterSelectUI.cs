@@ -5,10 +5,12 @@ public class CharacterSelectUI : MonoBehaviour
 {
     public int PlayerIndex;
     public List<ClassButton> classButtons = new();
-    public MainMenuController mainMenuController;
+    public MainMenuNavigationController mainMenuNavigationController;
 
     public GameObject PressToJoinText;
     public GameObject SelectionButtons;
+
+    public PlaySessionData playSessionData;
 
     public void EnableSelectionButtons()
     {
@@ -20,7 +22,7 @@ public class CharacterSelectUI : MonoBehaviour
 
     public void OnClassSelected(ClassPresetSO classPresetSO)
     {
-        mainMenuController.gameSetupData.SelectPlayerClass(PlayerIndex, classPresetSO);
+        playSessionData.gameSetupData.SelectPlayerClass(PlayerIndex, classPresetSO);
 
         foreach (ClassButton classButton in classButtons)
         {
@@ -30,7 +32,7 @@ public class CharacterSelectUI : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        mainMenuController.ShowMainMenu();
+        mainMenuNavigationController.ShowMainMenu();
     }
 }
 

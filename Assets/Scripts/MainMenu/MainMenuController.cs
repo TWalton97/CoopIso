@@ -13,12 +13,13 @@ public class MainMenuController : MonoBehaviour
 
     public GameSetupData gameSetupData;
 
-    public string GameplaySceneName;
-
     public GameStateData GameStateDataToLoad;
+    public SaveSlotMetaData SaveSlotMetaDataToLoad;
 
     public GameLoadMode gameLoadMode;
     public SceneGroup SceneGroupToLoad;
+
+    public UIButton[] buttons;
 
     private void Awake()
     {
@@ -28,7 +29,6 @@ public class MainMenuController : MonoBehaviour
     public void OnNewGamePressed()
     {
         gameLoadMode = GameLoadMode.NewGame;
-        gameSetupData.Initialize(2);
         ShowCharacterSelectMenu();
     }
 
@@ -51,7 +51,9 @@ public class MainMenuController : MonoBehaviour
 
     public void ShowMainMenu()
     {
+        DisableAllButtonHighlights();
         CharacterSelectMenu.SetActive(false);
+        LoadGameMenu.gameObject.SetActive(false);
         MainMenu.SetActive(true);
     }
 
@@ -81,7 +83,7 @@ public class MainMenuController : MonoBehaviour
 
     public GameStateData LoadGameData(int slotIndex)
     {
-        string slotFolder = Path.Combine(Application.persistentDataPath, "Saves", $"save{slotIndex}");
+        string slotFolder = Path.Combine(Application.persistentDataPath, "Saves", $"Slot{slotIndex}");
         string savePath = Path.Combine(slotFolder, "save.json");
 
         if (!File.Exists(savePath))
@@ -100,6 +102,14 @@ public class MainMenuController : MonoBehaviour
         {
             Debug.LogError($"Failed to load save data for slot {slotIndex} at {savePath}\n{e}");
             return null;
+        }
+    }
+
+    private void DisableAllButtonHighlights()
+    {
+        foreach (UIButton button in buttons)
+        {
+            button.ToggleHighlight(false);
         }
     }
 }

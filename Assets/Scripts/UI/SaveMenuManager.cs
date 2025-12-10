@@ -9,7 +9,7 @@ public class SaveMenuManager : Singleton<SaveMenuManager>
 {
     public GameObject MenuPanel;
 
-    private PlayerContext playerContext;
+    public PlayerContext playerContext;
     private MultiplayerEventSystem storedEventSystem;
     private GameObject storedRoot;
 
@@ -17,8 +17,12 @@ public class SaveMenuManager : Singleton<SaveMenuManager>
 
     public SaveButton[] SaveButtons;
 
+    public bool SaveMenuOpened = false;
+
     public void OpenSaveMenu(PlayerContext playerContext)
     {
+        SaveMenuOpened = true;
+
         this.playerContext = playerContext;
 
         Time.timeScale = 0;
@@ -26,7 +30,8 @@ public class SaveMenuManager : Singleton<SaveMenuManager>
         LoadSaveSlotUI();
         MenuPanel.SetActive(true);
 
-        playerContext.PlayerInput.SwitchCurrentActionMap("SaveMenu");
+        playerContext.PlayerInput.SwitchCurrentActionMap("UI");
+
 
         storedEventSystem = playerContext.UserInterfaceController.eventSystem;
         storedRoot = playerContext.UserInterfaceController.eventSystem.playerRoot;
@@ -39,6 +44,8 @@ public class SaveMenuManager : Singleton<SaveMenuManager>
 
     public void CloseSaveMenu()
     {
+        SaveMenuOpened = false;
+
         Time.timeScale = 1;
 
         playerContext.PlayerInput.SwitchCurrentActionMap("Player");
@@ -62,10 +69,10 @@ public class SaveMenuManager : Singleton<SaveMenuManager>
 
         for (int i = 0; i < metadata.Count; i++)
         {
-            SaveButtons[i].ZoneName = metadata[i].currentZone;
-            SaveButtons[i].SaveDate = metadata[i].saveTimestamp;
-            SaveButtons[i].PlayTime = metadata[i].totalPlaytimeSeconds;
-            SaveButtons[i].DateStarted = metadata[i].startTimestamp;
+            SaveButtons[i].ZoneName = metadata[i].LastZoneName;
+            SaveButtons[i].SaveDate = metadata[i].LastSavedTimestamp;
+            SaveButtons[i].PlayTime = metadata[i].TotalSessionPlaytimeSeconds;
+            SaveButtons[i].DateStarted = metadata[i].SaveCreatedTimestamp;
             List<string> players = new();
             foreach (string c in metadata[i].playerClasses)
             {

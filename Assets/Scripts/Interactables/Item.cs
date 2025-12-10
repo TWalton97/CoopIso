@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Item : MonoBehaviour, IInteractable
+public class Item : MonoBehaviour, IInteractable, ISaveable
 {
 
     public ItemStatus ItemStatus;
@@ -22,6 +22,11 @@ public class Item : MonoBehaviour, IInteractable
     public virtual InteractionType interactionType { get => InteractionType; set => InteractionType = value; }
 
     protected bool itemCollected { get; set; }
+
+    void Awake()
+    {
+        SaveRegistry.Register(this);
+    }
 
     void Start()
     {
@@ -83,12 +88,11 @@ public class Item : MonoBehaviour, IInteractable
 
     public ItemStatus ReturnItemStatus()
     {
-        Debug.Log($"Returning ItemStatus for {interactableName}");
-        if (ItemData.ItemID == null)
+        if (ItemData == null || ItemData.ItemID == "")
         {
+            ItemData = SpawnedItemDataBase.Instance.CreateItemData(ItemSO, Quality, Quantity);
             ItemData.ItemID = SpawnedItemDataBase.Instance.RegisterItemToDatabase(ItemData);
         }
-
 
         ItemStatus.GUID = ItemData.ItemID;
         ItemStatus.WorldPosition = targetPosition;
@@ -102,6 +106,16 @@ public class Item : MonoBehaviour, IInteractable
             return Quality.ToString() + " " + ItemSO.ItemName;
         }
         return ItemData.Quality.ToString() + " " + ItemData.ItemSO.ItemName;
+    }
+
+    public void Save(GameStateData data)
+    {
+        
+    }
+
+    public void Load(GameStateData data)
+    {
+        
     }
 }
 
