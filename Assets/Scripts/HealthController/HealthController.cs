@@ -32,6 +32,22 @@ public class HealthController : MonoBehaviour, IDamageable
         entity = GetComponent<Entity>();
     }
 
+    void OnEnable()
+    {
+        if (entity is NewPlayerController controller)
+        {
+            controller.ExperienceController.OnLevelUp += HealToFull;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (entity is NewPlayerController controller)
+        {
+            controller.ExperienceController.OnLevelUp -= HealToFull;
+        }
+    }
+
     void Start()
     {
         RegenCoroutine = StartCoroutine(RegenerateHealth());
@@ -170,5 +186,12 @@ public class HealthController : MonoBehaviour, IDamageable
                 Heal(gained);
             }
         }
+    }
+
+    public void HealToFull()
+    {
+        int healthToHeal = MaximumHealth - CurrentHealth;
+        Heal(healthToHeal);
+        remainingRestoreAmount = 0;
     }
 }

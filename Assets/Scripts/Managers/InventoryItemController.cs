@@ -385,7 +385,7 @@ public class InventoryItemView
             if (HasItemData)
                 return ItemData.GoldValue;
             else
-                return Mathf.RoundToInt(ItemSO.GoldValue * LootCalculator.QualityFactor(ItemQuality));
+                return Mathf.RoundToInt(ItemSO.GoldValue * LootCalculator.QualitySellMultiplier[ItemQuality]);
         }
     }
 
@@ -396,7 +396,7 @@ public class InventoryItemView
             if (HasItemData)
                 return ItemData.MinDamage;
             else
-                return (ItemSO as WeaponSO)?.WeaponMinDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMinDamage * LootCalculator.QualityFactor(ItemQuality)) : 0;
+                return (ItemSO as WeaponSO)?.WeaponMinDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMinDamage * LootCalculator.QualityStatMultiplier[ItemQuality]) : 0;
         }
     }
 
@@ -407,7 +407,7 @@ public class InventoryItemView
             if (HasItemData)
                 return ItemData.MaxDamage;
             else
-                return (ItemSO as WeaponSO)?.WeaponMaxDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMaxDamage * LootCalculator.QualityFactor(ItemQuality)) : 0;
+                return (ItemSO as WeaponSO)?.WeaponMaxDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMaxDamage * LootCalculator.QualityStatMultiplier[ItemQuality]) : 0;
         }
     }
 
@@ -429,7 +429,7 @@ public class InventoryItemView
             if (HasItemData)
                 return ItemData.ArmorAmount;
             else
-                return (ItemSO as ArmorSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ArmorSO).ArmorAmount * LootCalculator.QualityFactor(ItemQuality)) : 0;
+                return (ItemSO as ArmorSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ArmorSO).ArmorAmount * LootCalculator.QualityStatMultiplier[ItemQuality]) : 0;
         }
     }
 
@@ -451,7 +451,7 @@ public class InventoryItemView
             if (HasItemData)
                 return ItemData.ShieldArmorAmount;
             else
-                return (ItemSO as ShieldSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ShieldSO).ArmorAmount * LootCalculator.QualityFactor(ItemQuality)) : 0;
+                return (ItemSO as ShieldSO)?.ArmorAmount != null ? Mathf.RoundToInt((ItemSO as ShieldSO).ArmorAmount * LootCalculator.QualityStatMultiplier[ItemQuality]) : 0;
         }
     }
 

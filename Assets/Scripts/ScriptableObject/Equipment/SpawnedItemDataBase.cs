@@ -49,7 +49,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
     public ItemSO ReturnRandomWeaponSO()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 50; i++)
         {
             int rand = UnityEngine.Random.Range(0, spawnableItems.Count);
             if (spawnableItems[rand] is WeaponSO)
@@ -62,7 +62,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
     public ItemSO ReturnRandomArmorSO()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 50; i++)
         {
             int rand = UnityEngine.Random.Range(0, spawnableItems.Count);
             if (spawnableItems[rand] is ArmorSO || spawnableItems[rand] is ShieldSO)

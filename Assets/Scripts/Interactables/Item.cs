@@ -110,12 +110,12 @@ public class Item : MonoBehaviour, IInteractable, ISaveable
 
     public void Save(GameStateData data)
     {
-        
+
     }
 
     public void Load(GameStateData data)
     {
-        
+
     }
 }
 
@@ -131,18 +131,18 @@ public class ItemData
     public Sprite Sprite => ItemSO.ItemSprite;
     public GameObject ItemPrefab => ItemSO.ItemPrefab;
     public GameObject GroundPrefab => ItemSO.GroundItemPrefab;
-    public int GoldValue => Mathf.RoundToInt(ItemSO.GoldValue * LootCalculator.QualityFactor(Quality));
+    public int GoldValue => Mathf.RoundToInt(ItemSO.GoldValue * LootCalculator.QualitySellMultiplier[Quality]);
     public float Weight => ItemSO.BaseLootWeight;
     public int Quantity = 1;
 
-    public int MinDamage => (ItemSO as WeaponSO)?.WeaponMinDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMinDamage * LootCalculator.QualityFactor(Quality)) : 0;
-    public int MaxDamage => (ItemSO as WeaponSO)?.WeaponMaxDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMaxDamage * LootCalculator.QualityFactor(Quality)) : 0;
+    public int MinDamage => (ItemSO as WeaponSO)?.WeaponMinDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMinDamage * LootCalculator.QualityStatMultiplier[Quality]) : 0;
+    public int MaxDamage => (ItemSO as WeaponSO)?.WeaponMaxDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMaxDamage * LootCalculator.QualityStatMultiplier[Quality]) : 0;
     public WeaponRangeType WeaponRangeType => (ItemSO as WeaponSO)?.WeaponRangeType != null ? (ItemSO as WeaponSO).WeaponRangeType : WeaponRangeType.None;
 
-    public int ArmorAmount => (ItemSO as ArmorSO)?.ArmorAmount != null ? Mathf.FloorToInt((ItemSO as ArmorSO).ArmorAmount * LootCalculator.QualityFactor(Quality)) : 0;
+    public int ArmorAmount => (ItemSO as ArmorSO)?.ArmorAmount != null ? Mathf.FloorToInt((ItemSO as ArmorSO).ArmorAmount * LootCalculator.QualityStatMultiplier[Quality]) : 0;
     public ArmorType ArmorType => (ItemSO as ArmorSO)?.ArmorType != null ? (ItemSO as ArmorSO).ArmorType : ArmorType.None;
 
-    public int ShieldArmorAmount => (ItemSO as ShieldSO)?.ArmorAmount != null ? Mathf.FloorToInt((ItemSO as ShieldSO).ArmorAmount * LootCalculator.QualityFactor(Quality)) : 0;
+    public int ShieldArmorAmount => (ItemSO as ShieldSO)?.ArmorAmount != null ? Mathf.FloorToInt((ItemSO as ShieldSO).ArmorAmount * LootCalculator.QualityStatMultiplier[Quality]) : 0;
 
     public PlayerResource.ResourceType ResourceType => (ItemSO as PotionSO)?.ResourceToRestore ?? PlayerResource.ResourceType.Health;
     public int ResourceAmount => (ItemSO as PotionSO)?.AmountOfResourceToRestore ?? 0;

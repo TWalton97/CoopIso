@@ -55,7 +55,7 @@ public class EquippableButton : ItemButton
 
         if (ItemMode == InventoryMode.Buy)
         {
-            ItemValue.text = (inventoryItemView.DisplayGoldValue * 10f).ToString();
+            ItemValue.text = (inventoryItemView.DisplayGoldValue * VendorPriceMultipliers.EquippableItemPriceMultiplier).ToString();
         }
         else
         {
@@ -168,7 +168,7 @@ public class EquippableButton : ItemButton
 
     public void CheckIfButtonCanBeActivatedBuyMode()
     {
-        if ((inventoryItemView.DisplayGoldValue * 10) > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
+        if ((inventoryItemView.DisplayGoldValue * VendorPriceMultipliers.EquippableItemPriceMultiplier) > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
         {
             SetBackgroundColor(CannotBeUsedColor);
             buttonState = ButtonState.CannotActivate;
@@ -278,7 +278,7 @@ public class EquippableButton : ItemButton
         if (buttonState == ButtonState.CannotActivate)
             return;
 
-        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-inventoryItemView.DisplayGoldValue * 10);
+        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-(int)(inventoryItemView.DisplayGoldValue * VendorPriceMultipliers.EquippableItemPriceMultiplier));
         ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(ItemSO, inventoryItemView.ItemQuality);
         inventoryItemView.ItemData = itemData;
         VendorController.OnItemPurchased?.Invoke(ButtonID);

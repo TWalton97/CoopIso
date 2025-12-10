@@ -13,6 +13,16 @@ public class ResourceController : MonoBehaviour
         StartCoroutine(RegenerateResource());
     }
 
+    void OnEnable()
+    {
+        newPlayerController.ExperienceController.OnLevelUp += RestoreResourceToFull;
+    }
+
+    void OnDisable()
+    {
+        newPlayerController.ExperienceController.OnLevelUp -= RestoreResourceToFull;
+    }
+
     private IEnumerator RegenerateResource()
     {
         while (true)
@@ -28,6 +38,13 @@ public class ResourceController : MonoBehaviour
                 resource.AddResource(gained);
             }
         }
+    }
+
+    public void RestoreResourceToFull()
+    {
+        float amountToRestore = resource.resourceMax - resource.resourceCurrent;
+        resource.AddResource(amountToRestore);
+        resource.remainingRestoreAmount = 0;
     }
 
     public IEnumerator RestoreResourceOverDuration(int amountOfResource, int duration)
@@ -77,6 +94,7 @@ public class Resource
         resourceCurrent = _resourceCurrent;
         resourceMin = _resourceMin;
     }
+
 
     public bool RemoveResource(float amount)
     {

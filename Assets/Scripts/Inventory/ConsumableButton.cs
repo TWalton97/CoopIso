@@ -44,7 +44,7 @@ public class ConsumableButton : ItemButton
 
         if (ItemMode == InventoryMode.Buy)
         {
-            ItemValue.text = (inventoryItemView.DisplayGoldValue * 2f).ToString();
+            ItemValue.text = (inventoryItemView.DisplayGoldValue * VendorPriceMultipliers.ConsumableItemPriceMultiplier).ToString();
         }
         else
         {
@@ -92,7 +92,7 @@ public class ConsumableButton : ItemButton
     {
         if (InventoryItemController.InventoryMode == InventoryMode.Buy)
         {
-            if (inventoryItemView.DisplayGoldValue * 2f > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
+            if (inventoryItemView.DisplayGoldValue * VendorPriceMultipliers.ConsumableItemPriceMultiplier > PlayerContext.PlayerController.PlayerStatsBlackboard.GoldAmount)
             {
                 SetBackgroundColor(CannotBeUsedColor);
                 buttonState = ButtonState.CannotActivate;
@@ -132,7 +132,7 @@ public class ConsumableButton : ItemButton
         if (buttonState == ButtonState.CannotActivate)
             return;
 
-        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-inventoryItemView.DisplayGoldValue * 2);
+        InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-(int)(inventoryItemView.DisplayGoldValue * VendorPriceMultipliers.ConsumableItemPriceMultiplier));
         InventoryItemController.PlayerContext.InventoryController.AddConsumableToInventory(ItemSO, 1);
 
         InventoryItemController.CheckStatusOfButtons();

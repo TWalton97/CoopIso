@@ -45,19 +45,19 @@ public class ResourcePanelController : MonoBehaviour
     private void UpdateHealthBarFill(int damage, Entity entity)
     {
         HealthBarFill.fillAmount = (float)HealthController.CurrentHealth / HealthController.MaximumHealth;
-        HealthBarHealingFill.fillAmount = (float)(HealthController.CurrentHealth + HealthController.remainingRestoreAmount) / HealthController.MaximumHealth;
+        HealthBarHealingFill.fillAmount = (float)Mathf.Clamp01((HealthController.CurrentHealth + HealthController.remainingRestoreAmount) / HealthController.MaximumHealth);
     }
 
     private void UpdateHealthBarFill(int amount)
     {
         HealthBarFill.fillAmount = (float)HealthController.CurrentHealth / HealthController.MaximumHealth;
-        HealthBarHealingFill.fillAmount = (float)(HealthController.CurrentHealth + HealthController.remainingRestoreAmount) / HealthController.MaximumHealth;
+        HealthBarHealingFill.fillAmount = (float)Mathf.Clamp01((HealthController.CurrentHealth + HealthController.remainingRestoreAmount) / HealthController.MaximumHealth);
     }
 
     private void UpdateResourceBarFill()
     {
         ResourceBarFill.fillAmount = (float)(ResourceController.resource.resourceCurrent - ResourceController.resource.resourceMin) / (ResourceController.resource.resourceMax - ResourceController.resource.resourceMin);
-        ResourceBarRestoreFill.fillAmount = (float)(ResourceController.resource.resourceCurrent + ResourceController.resource.remainingRestoreAmount - ResourceController.resource.resourceMin) / (ResourceController.resource.resourceMax - ResourceController.resource.resourceMin);
+        ResourceBarRestoreFill.fillAmount = (float)Mathf.Clamp01((ResourceController.resource.resourceCurrent + ResourceController.resource.remainingRestoreAmount - ResourceController.resource.resourceMin) / (ResourceController.resource.resourceMax - ResourceController.resource.resourceMin));
     }
 
     private void UpdateExperienceBarFill()

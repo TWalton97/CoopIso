@@ -19,7 +19,7 @@ MonoBehaviour:
   ItemType: 0
   ItemDropType: 1
   BaseLootBudget: 6
-  BaseLootWeight: 10
+  BaseLootWeight: 35
   GoldValue: 25
   Weight: 1
   PotionName: Small Health Potion

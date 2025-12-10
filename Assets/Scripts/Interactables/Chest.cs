@@ -28,6 +28,8 @@ public class Chest : MonoBehaviour, IInteractable, ISaveable
     private bool _isInteractable = true;
     public bool isInteractable { get => _isInteractable; set => _isInteractable = value; }
 
+    public int Level;
+
     private void Awake()
     {
         SaveRegistry.Register(this);
@@ -50,8 +52,7 @@ public class Chest : MonoBehaviour, IInteractable, ISaveable
 
     private IEnumerator SpawnItems(SpawnedItemDataBase spawnedItemDataBase)
     {
-        int budget = LootCalculator.RollBudget(minBudget, maxBudget);
-        var loot = LootCalculator.RollItemsWithBudget(budget);
+        var loot = LootCalculator.RollLoot(Level, maxBudget);
 
         foreach (var item in loot)
         {
