@@ -8,6 +8,7 @@ using System.Collections;
 
 public class NewPlayerController : Entity, ISaveable
 {
+    public Enemy UnitToSpawn;
     public PlayerContext PlayerContext;
     //Object references
     public Rigidbody Rigidbody { get; private set; }
@@ -494,15 +495,19 @@ public class NewPlayerController : Entity, ISaveable
 
     #endregion
 
-    // private IEnumerator WaitForSetup()
-    // {
-    //     while (InventoryController == null)
-    //     {
-    //         InventoryController = InventoryManager.Instance.GetInventoryControllerByIndex(PlayerInputController.playerIndex);
-    //         PlayerUserInterfaceController = InventoryManager.Instance.GetPlayerUserInterfaceControllerByIndex(PlayerInputController.playerIndex);
-    //         yield return new WaitForSeconds(0.1f);
-    //     }
-    //     yield return null;
-    // }
+    #region Debug
+
+    [ContextMenu("Spawn Mushroom")]
+    public void SpawnMushroomBaby()
+    {
+        Enemy unit = Instantiate(UnitToSpawn, transform.position + transform.forward, Quaternion.identity);
+        if (unit is FriendlySkeletonWarrior warrior)
+        {
+            warrior.Init(this);
+            warrior.ApplyStats();
+        }
+    }
+
+    #endregion
 
 }

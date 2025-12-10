@@ -44,7 +44,7 @@ public class SummonAbilityBehaviour : AbilityBehaviour<SummonRuntimeAbility>
 
     public override void OnChannelTick(float deltaTime)
     {
-        
+
     }
 
     public override void OnExit()
@@ -60,7 +60,7 @@ public class SummonAbilityBehaviour : AbilityBehaviour<SummonRuntimeAbility>
     public void RemoveUnitFromList(Enemy unit)
     {
         SummonedUnits.Remove(unit);
-        Destroy(unit.gameObject);
+        Destroy(unit.gameObject, 3f);
 
         if (unit is FriendlySkeletonArcher archer)
         {

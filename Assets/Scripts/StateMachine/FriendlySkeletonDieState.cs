@@ -14,7 +14,7 @@ public class FriendlySkeletonDieState : EnemyBaseState
     {
         agent.isStopped = true;
 
-        animator.Play(DieHash, 0, 0f);
+        animator.Play(DieHash);
 
         enemy.coll.enabled = false;
 
