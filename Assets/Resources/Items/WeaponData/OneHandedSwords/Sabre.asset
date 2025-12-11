@@ -26,4 +26,4 @@ MonoBehaviour:
   <WeaponMaxDamage>k__BackingField: 11
   <AttacksPerSecond>k__BackingField: 1.4
   <NumberOfAttacksInCombo>k__BackingField: 3
-  WeaponRangeType: 0
+  WeaponRangeType: 1
