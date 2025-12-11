@@ -43,6 +43,7 @@ public static class LootCalculator
     private static readonly Dictionary<int, List<(ItemQuality quality, float weight)>> EnemyLevelQualityTables =
         new()
         {
+            { 0, new() { (ItemQuality.Shoddy, 60f), (ItemQuality.Normal, 35f), (ItemQuality.Fine, 5f) } },
             // Level 1 enemies
             { 1, new() { (ItemQuality.Shoddy, 60f), (ItemQuality.Normal, 35f), (ItemQuality.Fine, 5f) } },
 
@@ -136,7 +137,7 @@ public static class LootCalculator
     // ------------------------------------------------------------
     // QUALITY ROLLING
     // ------------------------------------------------------------
-    private static ItemQuality RollQualityForEnemyLevel(int enemyLevel)
+    public static ItemQuality RollQualityForEnemyLevel(int enemyLevel)
     {
         var table = GetQualityTable(enemyLevel);
 

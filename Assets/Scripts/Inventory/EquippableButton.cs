@@ -279,9 +279,7 @@ public class EquippableButton : ItemButton
             return;
 
         InventoryItemController.PlayerContext.PlayerController.PlayerStatsBlackboard.AddGold(-(int)(inventoryItemView.DisplayGoldValue * VendorPriceMultipliers.EquippableItemPriceMultiplier));
-        ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(ItemSO, inventoryItemView.ItemQuality);
-        inventoryItemView.ItemData = itemData;
-        VendorController.OnItemPurchased?.Invoke(ButtonID);
+        VendorController.OnItemPurchased?.Invoke(inventoryItemView.ItemData.ItemID);
         InventoryItemController.CreateButtonForItem(inventoryItemView);
         InventoryItemController.RemoveBuyButtonAtID(ButtonID);
 

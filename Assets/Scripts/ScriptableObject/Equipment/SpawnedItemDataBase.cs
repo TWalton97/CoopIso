@@ -90,7 +90,6 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
             data = spawnedItemData[id];
             return data;
         }
-        Debug.Log("No ItemData found at id");
         return data;
     }
 
