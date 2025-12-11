@@ -229,6 +229,8 @@ public class NewPlayerController : Entity, ISaveable
         At(blockState, castState, attackStateMachine, new FuncPredicate(() => abilityButtonPressed && PlayerUserInterfaceController.AbilityScrollController.AbilityReadyToBeUsed()));
 
         Any(dieState, attackStateMachine, new FuncPredicate(() => IsDead));
+
+        At(dieState, idleState, attackStateMachine, new FuncPredicate(() => !IsDead));
         //Any(attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
 
         attackStateMachine.SetState(idleState);

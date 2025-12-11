@@ -9,17 +9,19 @@ public class MainMenuJoinManager : MonoBehaviour
     //When we spawn in a new player, we also spawn in a canvas and set the player
     public GameObject characterSelectionCanvas;
     public CharacterSelectUI[] characterSelectionUI;
+    public List<PlayerInput> PlayerInputs;
     public MainMenuNavigationController mainMenuNavigationController;
     public PlaySessionData playSessionData;
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
+        PlayerInputs.Add(playerInput);
         playerInput.transform.parent = transform;
-        InputSystemUIInputModule inputModule;
+        // InputSystemUIInputModule inputModule;
         CharacterSelectUI ui = characterSelectionUI[playerInput.playerIndex];
         ui.mainMenuNavigationController = mainMenuNavigationController;
-        inputModule = ui.GetComponent<InputSystemUIInputModule>();
-        playerInput.uiInputModule = inputModule;
+        // inputModule = ui.GetComponent<InputSystemUIInputModule>();
+        // playerInput.uiInputModule = inputModule;
         ui.PlayerIndex = playerInput.playerIndex;
         playSessionData.gameSetupData.Selections[playerInput.playerIndex].PlayerDevices = playerInput.devices[0];
         playSessionData.gameSetupData.Selections[playerInput.playerIndex].PlayerControlSchemes = playerInput.currentControlScheme;

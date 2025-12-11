@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 
 public class CharacterSelectUI : MonoBehaviour
 {
     public int PlayerIndex;
     public List<ClassButton> classButtons = new();
     public MainMenuNavigationController mainMenuNavigationController;
+    public MainMenuJoinManager MainMenuJoinManager;
+
+    public InputSystemUIInputModule uiInputModule;
 
     public GameObject PressToJoinText;
     public GameObject SelectionButtons;
@@ -14,6 +18,7 @@ public class CharacterSelectUI : MonoBehaviour
 
     public void EnableSelectionButtons()
     {
+        MainMenuJoinManager.PlayerInputs[PlayerIndex].uiInputModule = uiInputModule;
         PressToJoinText.SetActive(false);
         SelectionButtons.SetActive(true);
         classButtons[0].ToggleHighlight(true);

@@ -104,6 +104,7 @@ public class SaveButton : UIButton
     {
         if (saveSlotMetaData == null) return;
 
+        Debug.Log($"Loading game from save slot {slotIndex}");
         LoadManager.Instance.LoadGame(slotIndex);
         PlaySessionData.Instance.StartLoadedGame();
     }

@@ -14,7 +14,7 @@ public class UIButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointe
         button = GetComponent<Button>();
     }
 
-    public void ToggleHighlight(bool toggle)
+    public virtual void ToggleHighlight(bool toggle)
     {
         HighlightIcon.SetActive(toggle);
         IsSelected = toggle;
