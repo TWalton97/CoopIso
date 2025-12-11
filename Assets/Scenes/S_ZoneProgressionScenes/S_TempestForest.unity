@@ -298,6 +298,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8048806835455225239, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+      propertyPath: guid
+      value: e0d9a91a-8594-4cc5-afbc-a003479f383e
+      objectReference: {fileID: 0}
     - target: {fileID: 8458699510939732860, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
       propertyPath: m_Name
       value: SkeletonArcher (11)
@@ -491,6 +495,10 @@ PrefabInstance:
     - target: {fileID: 1101443617580340800, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8048806835455225239, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+      propertyPath: guid
+      value: 48b12b3b-9805-47ab-9712-3c0721f0a119
       objectReference: {fileID: 0}
     - target: {fileID: 8458699510939732860, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
       propertyPath: m_Name
@@ -778,6 +786,10 @@ PrefabInstance:
     - target: {fileID: 1101443617580340800, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8048806835455225239, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
+      propertyPath: guid
+      value: 17b07876-b191-4972-b839-cddf2b8a7175
       objectReference: {fileID: 0}
     - target: {fileID: 8458699510939732860, guid: 136bba65c600e6e40b49d5224fb8eb39, type: 3}
       propertyPath: m_Name
