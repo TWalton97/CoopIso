@@ -20293,28 +20293,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673555f260223c541a778a38231f79e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Blacksmith
   InteractionType: 4
-  ItemsForSale1:
-  - itemID: 
-    itemSO: {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
-    itemQuality: 0
-    priceMultiplier: 0
-  - itemID: 
-    itemSO: {fileID: 11400000, guid: ae07c51b79f60cd4ea616b538a9709eb, type: 2}
-    itemQuality: 0
-    priceMultiplier: 0
-  ItemsForSale2:
-  - itemID: 
-    itemSO: {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
-    itemQuality: 0
-    priceMultiplier: 0
-  - itemID: 
-    itemSO: {fileID: 11400000, guid: ae07c51b79f60cd4ea616b538a9709eb, type: 2}
-    itemQuality: 0
-    priceMultiplier: 0
-  VendorWeaponPriceMultiplier: 8
-  VendorArmorPriceMultiplier: 8
-  ConsumablePriceMultiplier: 2
+  ItemsForSale1: []
+  ItemsForSale2: []
+  Potions:
+  - {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
+  - {fileID: 11400000, guid: ae07c51b79f60cd4ea616b538a9709eb, type: 2}
+  - {fileID: 11400000, guid: f893456a3859b44429bb7e9126aa3eb2, type: 2}
 --- !u!136 &6539678573920091770
 CapsuleCollider:
   m_ObjectHideFlags: 0

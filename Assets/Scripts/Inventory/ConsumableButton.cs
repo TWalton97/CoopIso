@@ -54,7 +54,7 @@ public class ConsumableButton : ItemButton
     void OnEnable()
     {
         CheckIfButtonCanBeActivated();
-        if (InventoryItemController.InventoryMode == InventoryMode.Buy)
+        if (InventoryItemController.InventoryMode == InventoryMode.Buy || Quantity <= 1)
         {
             QuantityText.enabled = false;
         }
@@ -78,6 +78,15 @@ public class ConsumableButton : ItemButton
             return;
         }
         QuantityText.text = "x" + Quantity.ToString();
+
+        if (Quantity <= 1)
+        {
+            QuantityText.enabled = false;
+        }
+        else
+        {
+            QuantityText.enabled = true;
+        }
     }
 
     private void SetBackgroundColor(Color color)

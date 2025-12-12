@@ -13,6 +13,7 @@ public class PlayerBlockState : PlayerBaseState
         {
             ToggleAimLine(true);
         }
+        player.HealthController.BlockTime = Time.time;
         player.IsBlocking = true;
         player.MovementLocked = true;
         animator.SetBool("Blocking", true);

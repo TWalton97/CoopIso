@@ -28,6 +28,8 @@ public class HealthController : MonoBehaviour, IDamageable
 
     public float remainingRestoreAmount = 0;
 
+    public float BlockTime;
+
     private void Awake()
     {
         entity = GetComponent<Entity>();

@@ -14,7 +14,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         player.RotateToFaceLookPoint();
         player.MovementLocked = true;
-        if (player.attackStateMachine.previous.State == player.blockState)
+        if (player.attackStateMachine.previous.State == player.blockState && player.WeaponController.instantiatedPrimaryWeapon.weaponRangeType == WeaponRangeType.Ranged)
         {
             player.WeaponController.Attack(AttackCompleted, true);
             return;

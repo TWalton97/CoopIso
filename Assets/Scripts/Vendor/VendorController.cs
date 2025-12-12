@@ -46,6 +46,8 @@ public class VendorController : MonoBehaviour, IInteractable
 
     private bool createdVendorStocks = false;
 
+    public PotionSO[] Potions;
+
     //------------------------------------------------------------
     // EVENT BINDINGS (unchanged)
     //------------------------------------------------------------
@@ -179,6 +181,11 @@ public class VendorController : MonoBehaviour, IInteractable
         for (int i = 0; i < 10; i++)
         {
             vs.VendorItems.Add(CreateVendorItem(SpawnedItemDataBase.Instance.ReturnRandomArmorSO(), level));
+        }
+
+        for (int i = 0; i < Potions.Length; i++)
+        {
+            vs.VendorItems.Add(CreateVendorItem(Potions[i], level));
         }
     }
 

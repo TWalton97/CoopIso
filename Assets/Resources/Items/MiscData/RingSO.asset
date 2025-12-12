@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d91be771898de140b9c0a590aad65f3, type: 3}
+  m_Name: RingSO
+  m_EditorClassIdentifier: 
+  ItemName: Ring
+  ItemSprite: {fileID: 21300000, guid: 928b0f07fdd4e374cb94424a91488a53, type: 3}
+  ItemPrefab: {fileID: 1518567389617205102, guid: 3fc91ae867dab934393a1d9734cbed9a, type: 3}
+  GroundItemPrefab: {fileID: 1518567389617205102, guid: 3fc91ae867dab934393a1d9734cbed9a, type: 3}
+  ItemType: 0
+  ItemDropType: 0
+  BaseLootBudget: 12
+  BaseLootWeight: 3
+  GoldValue: 150
+  Weight: 1

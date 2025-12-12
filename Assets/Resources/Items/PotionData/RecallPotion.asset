@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a56bfbce48bcdc40985eb6b511ba798, type: 3}
+  m_Name: RecallPotion
+  m_EditorClassIdentifier: 
+  ItemName: Recall Potion
+  ItemSprite: {fileID: 21300000, guid: 597d01b22596a204d8c2a1961f356ce7, type: 3}
+  ItemPrefab: {fileID: 155352792193692170, guid: 90b46a5250efcf041a1618b69328112d, type: 3}
+  GroundItemPrefab: {fileID: 155352792193692170, guid: 90b46a5250efcf041a1618b69328112d, type: 3}
+  ItemType: 0
+  ItemDropType: 1
+  BaseLootBudget: 6
+  BaseLootWeight: 25
+  GoldValue: 25
+  Weight: 1
+  PotionName: Small Mana Potion
+  PotionSprite: {fileID: 21300000, guid: 597d01b22596a204d8c2a1961f356ce7, type: 3}
+  PotionPrefab: {fileID: 155352792193692170, guid: 90b46a5250efcf041a1618b69328112d, type: 3}
+  ResourceToRestore: 0
+  AmountOfResourceToRestore: 0
+  RestoreDuration: 0

@@ -10,7 +10,7 @@ public class ConsumableDrop : Item, IInteractable
     {
         if (ItemSO == null)
             ItemSO = ItemData.ItemSO;
-            
+
         if (playerContext.PlayerController.PlayerStatsBlackboard.WeightCurrent + ItemSO.Weight > playerContext.PlayerController.PlayerStatsBlackboard.WeightMax)
         {
             StartCoroutine(RotateRandomly());
@@ -18,7 +18,18 @@ public class ConsumableDrop : Item, IInteractable
         }
         if (itemCollected) return;
         itemCollected = true;
-        playerContext.InventoryController.AddConsumableToInventory(ItemSO, Quantity);
+        if (ItemSO.ItemDropType == ItemDropType.Consumable)
+        {
+            playerContext.InventoryController.AddConsumableToInventory(ItemSO, Quantity);
+        }
+        else
+        {
+            if (ItemData.ItemSO == null)
+            {
+                ItemData = SpawnedItemDataBase.Instance.CreateItemData(ItemSO, Quality, Quantity);
+            }
+            playerContext.InventoryController.AddItemToInventory(ItemData);
+        }
         Destroy(gameObject);
     }
 

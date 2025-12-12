@@ -10391,6 +10391,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 95f050d40d978344bb0312cc392d323d, type: 2}
   - {fileID: 11400000, guid: 165ab5adf320878488cca25319a3f056, type: 2}
   - {fileID: 11400000, guid: ae07c51b79f60cd4ea616b538a9709eb, type: 2}
+  - {fileID: 11400000, guid: ed0b86c36f947a643b2b1afee7152d34, type: 2}
   spawnableConsumables: []
 --- !u!1 &375989246
 GameObject:

@@ -43,6 +43,9 @@ public class RetaliateAbilityBehaviour : SpellAbilityBehaviour
         if (Time.time < nextActivateTime)
             return;
 
+        if (Time.time - player.HealthController.BlockTime > 1f)
+            return;
+
         nextActivateTime = Time.time + 7f;
         RetaliateVFX.Play();
         RetaliateHitbox.Init(runtime.Damage, TargetLayer, player);
