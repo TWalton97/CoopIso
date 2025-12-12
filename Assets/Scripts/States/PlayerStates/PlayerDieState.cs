@@ -10,12 +10,14 @@ public class PlayerDieState : PlayerBaseState
 
     public override void OnEnter()
     {
+        player.PlayerContext.PlayerInput.actions.Disable();
+        player.Rigidbody.velocity = Vector3.zero;
         player.Animator.SetBool("Dead", true);
         player.Animator.CrossFade(DieHash, 0f);
     }
 
     public override void OnExit()
     {
-
+        player.PlayerContext.PlayerInput.actions.Enable();
     }
 }

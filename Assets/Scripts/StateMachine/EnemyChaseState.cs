@@ -32,7 +32,7 @@ public class EnemyChaseState : EnemyBaseState
 
         if (enemy.target == null) return;
 
-        float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.target.transform.position);
+        float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.target.GetComponent<Collider>().ClosestPoint(enemy.transform.position));
 
         // If outside personal attack range, approach player
         if (distanceToPlayer > enemyStats.AttackRange)

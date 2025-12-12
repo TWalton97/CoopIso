@@ -9,7 +9,6 @@ using System.Collections;
 public class NewPlayerController : Entity, ISaveable
 {
     public PlayerContext PlayerContext;
-    //Object references
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public NewWeaponController WeaponController;
@@ -62,6 +61,8 @@ public class NewPlayerController : Entity, ISaveable
 
     private Camera mainCam;
 
+    public string AttackStateMachineState;
+
     #region MonoBehaviour
 
     public override void Awake()
@@ -97,7 +98,6 @@ public class NewPlayerController : Entity, ISaveable
         SetupMovementStateMachine();
         SetupAttackStateMachine();
         SubscribeToInputEvents();
-        // StartCoroutine(WaitForSetup());
 
         PlayerInputController.attackCountdownTimer.OnTimerStop += () => attackButtonPressed = true;
 
@@ -125,15 +125,11 @@ public class NewPlayerController : Entity, ISaveable
         PlayerInputController.attackCountdownTimer.OnTimerStop -= () => attackButtonPressed = true;
 
         HealthController.OnDie -= Die;
+        attackStateMachine.OnStateChanged -= () => AttackStateMachineState = attackStateMachine.current.State.ToString();
     }
 
     private void SubscribeToInputEvents()
     {
-        // InventoryManager.OnMenuOpened += () => PlayerInputController.EnableUIActionMap();
-        // InventoryManager.OnMenuClosed += () => PlayerInputController.EnablePlayerActionMap();
-
-        //InventoryManager.OnMenuClosed += () => attackStateMachine.ChangeState(idleState);
-
         PlayerInputController.OnLookMousePerformed += RotateTowardsMouse;
         PlayerInputController.OnLookStickPerformed += RotateTowardsStick;
 
@@ -148,14 +144,6 @@ public class NewPlayerController : Entity, ISaveable
 
     private void UnsubscribeFromInputEvents()
     {
-        // InventoryManager.OnMenuOpened -= () => PlayerInputController.EnableUIActionMap();
-        // InventoryManager.OnMenuClosed -= () => PlayerInputController.EnablePlayerActionMap();
-
-        //InventoryManager.OnMenuClosed -= () => attackStateMachine.ChangeState(idleState);
-
-        //PlayerInputController.OnLookMousePerformed -= RotateTowardsMouse;
-        //PlayerInputController.OnLookStickPerformed -= RotateTowardsStick;
-
         PlayerInputController.OnAbilityPerformed -= Ability;
         PlayerInputController.OnAttackPerformed -= Attack;
         PlayerInputController.OnJumpPerformed -= Jump;
@@ -234,6 +222,7 @@ public class NewPlayerController : Entity, ISaveable
         //Any(attackState, attackStateMachine, new FuncPredicate(() => attackButtonPressed));
 
         attackStateMachine.SetState(idleState);
+        attackStateMachine.OnStateChanged += () => AttackStateMachineState = attackStateMachine.current.State.ToString();
     }
 
     #endregion

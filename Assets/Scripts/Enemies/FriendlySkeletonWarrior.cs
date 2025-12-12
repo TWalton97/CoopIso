@@ -38,8 +38,8 @@ public class FriendlySkeletonWarrior : Enemy
         At(attackState, idleState, new FuncPredicate(() => target == null));
 
         At(idleState, leashState, new FuncPredicate(() => !OwnerInLeashRange()));
-        At(chaseState, leashState, new FuncPredicate(() => !OwnerInLeashRange()));
-        At(waitToAttackState, leashState, new FuncPredicate(() => !OwnerInLeashRange()));
+        At(chaseState, leashState, new FuncPredicate(() => !OwnerInTeleportRange()));
+        At(waitToAttackState, leashState, new FuncPredicate(() => !OwnerInTeleportRange()));
 
         At(leashState, idleState, new FuncPredicate(() => OwnerInLeashRange()));
 

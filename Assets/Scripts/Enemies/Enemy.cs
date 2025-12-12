@@ -265,7 +265,8 @@ public class Enemy : Entity
             }
         }
 
-        agent.Move(repulsion);
+        if (agent.isOnNavMesh)
+            agent.Move(repulsion);
     }
 
     public void UpdateDamageTable(int damage, Entity entity)

@@ -30,7 +30,7 @@ public class EnemyWaitToAttackState : EnemyBaseState
         if (enemy.target == null) return;
 
         // --- Check distance to player ---
-        float distance = Vector3.Distance(enemy.transform.position, enemy.target.transform.position);
+        float distance = Vector3.Distance(enemy.transform.position, enemy.target.GetComponent<Collider>().ClosestPoint(enemy.transform.position));
         if (distance > enemyStats.AttackRange + 0.05f)
         {
             // Outside attack range → go back to chase

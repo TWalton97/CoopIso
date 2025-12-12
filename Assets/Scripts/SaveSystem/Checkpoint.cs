@@ -60,7 +60,7 @@ public class Checkpoint : MonoBehaviour, IInteractable
                 return;
             }
         }
-
+        
         foreach (NewPlayerController controller in PlayerJoinManager.Instance.playerControllers.Values)
         {
             if (controller.IsDead)

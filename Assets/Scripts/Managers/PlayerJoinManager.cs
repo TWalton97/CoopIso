@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem.UI;
 using Cinemachine;
 using System.Collections;
+using System.Linq;
+using UnityEngine.InputSystem.Controls;
 
 public class PlayerJoinManager : Singleton<PlayerJoinManager>
 {
@@ -35,6 +37,10 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
     public GameStateData LoadGameStateData;
     private bool firstLoad = false;
+
+    public bool player2Loaded = false;
+    public bool awaitingSecondPlayer;
+
     protected override void Awake()
     {
         base.Awake();
@@ -104,13 +110,92 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
 
         InitializeSpawnedItemDataBase();
 
-        foreach (var savedPlayer in LoadGameStateData.PlayerStateDatas)
+        GameSetupData data = playSessionData.gameSetupData;
+
+        for (int i = 0; i < LoadGameStateData.PlayerStateDatas.Count; i++)
         {
-            PlayerInput spawned = playerInputManager.JoinPlayer(savedPlayer.playerIndex, -1);
-            var controller = spawned.GetComponent<NewPlayerController>();
-            controller.gameObject.transform.position = NavMeshUtils.ReturnRandomPointOnXZ(Vector3.zero, 4f);
+            if (data.Selections[i].PlayerDevices != null)
+            {
+                InputDevice device = data.Selections[i].PlayerDevices;
+                string scheme = data.Selections[i].PlayerControlSchemes;
+
+                PlayerInput playerInput = playerInputManager.JoinPlayer(LoadGameStateData.PlayerStateDatas[i].playerIndex, -1, scheme, device);
+                playerInput.gameObject.transform.position = NavMeshUtils.ReturnRandomPointOnXZ(Vector3.zero, 4f);
+            }
+            else
+            {
+                awaitingSecondPlayer = true;
+            }
         }
     }
+
+    private void Update()
+    {
+        if (!awaitingSecondPlayer || player2Loaded) return;
+
+        InputDevice newDevice = DetectUnusedDevice();
+
+        if (newDevice != null)
+        {
+            SpawnPlayer2UsingSavedData(newDevice);
+            awaitingSecondPlayer = false;
+            player2Loaded = true;
+        }
+    }
+
+    private InputDevice DetectUnusedDevice()
+    {
+        var used = new HashSet<InputDevice>(
+            playerControllers[0].PlayerContext.PlayerInput.devices
+        );
+
+        // Keyboard
+        if (Keyboard.current != null &&
+            !used.Contains(Keyboard.current) &&
+            Keyboard.current.anyKey.wasPressedThisFrame)
+        {
+            return Keyboard.current;
+        }
+
+        // Gamepads
+        foreach (var gp in Gamepad.all)
+        {
+            if (used.Contains(gp)) continue;
+
+            if (gp.allControls.Any(c => c is ButtonControl b && b.wasPressedThisFrame))
+                return gp;
+        }
+
+        return null;
+    }
+
+    private void SpawnPlayer2UsingSavedData(InputDevice device)
+    {
+        var player2Data = LoadGameStateData.PlayerStateDatas[1];
+        string controlScheme = DetermineSchemeFor(device);
+
+        PlayerInput input = playerInputManager.JoinPlayer(player2Data.playerIndex, -1, controlScheme, device);
+
+        playSessionData.gameSetupData.Selections[1].PlayerDevices = device;
+        playSessionData.gameSetupData.Selections[1].PlayerControlSchemes = controlScheme;
+
+        Vector3 spawnPos = NavMeshUtils.ReturnRandomPointOnXZ(playerAveragePositionTracker.transform.position, 2f);
+        spawnPos.y = 0;
+        input.gameObject.transform.position = spawnPos;
+    }
+
+    private string DetermineSchemeFor(InputDevice device)
+    {
+        switch (device)
+        {
+            case Gamepad:
+                return "Gamepad";
+            case Keyboard:
+                return "Keyboard&Mouse";
+        }
+        return "";
+    }
+
 
     private void InitializeSpawnedItemDataBase()
     {
@@ -304,6 +389,10 @@ public class PlayerJoinManager : Singleton<PlayerJoinManager>
         playerContext.PlayerController.PlayerStatsBlackboard.ClassName = classPreset.PresetName;
         playerContext.PlayerController.EntityData = classPreset.PlayerStatsSO;
         playerContext.PlayerController.ApplyStats();
+        playerContext.PlayerController.HealthController.CurrentHealth = playerStateData.currentHealth;
+        playerContext.PlayerController.Heal(0);
+        playerContext.PlayerController.ResourceController.resource.resourceCurrent = playerStateData.currentMana;
+        playerContext.PlayerController.ResourceController.resource.AddResource(0);
         playerContext.UserInterfaceController.inventoryController.FeatsMenu.CreateFeatButtons(playerContext);
     }
 

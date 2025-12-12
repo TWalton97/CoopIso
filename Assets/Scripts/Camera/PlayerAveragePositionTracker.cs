@@ -19,8 +19,21 @@ public class PlayerAveragePositionTracker : MonoBehaviour
         playerJoinManager = PlayerJoinManager.Instance;
         for (int i = 0; i < playerJoinManager.playerControllers.Count; i++)
         {
-            playerObjects.Add(playerJoinManager.GetPlayerControllerByIndex(i));
+            if (!playerObjects.Contains(playerJoinManager.playerControllers[i]))
+                playerObjects.Add(playerJoinManager.playerControllers[i]);
         }
+        PlayerJoinManager.OnPlayerJoinedEvent += AddPlayerObject;
+    }
+
+    void OnDestroy()
+    {
+
+    }
+
+    private void AddPlayerObject(GameObject obj)
+    {
+        Debug.Log($"Adding player object");
+        playerObjects.Add(obj.GetComponent<NewPlayerController>());
     }
 
     private void Update()
