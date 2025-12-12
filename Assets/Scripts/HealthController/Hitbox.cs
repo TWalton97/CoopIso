@@ -6,7 +6,7 @@ using System.Linq;
 public class Hitbox : MonoBehaviour
 {
     public int _damage;
-    protected LayerMask _targetLayer;
+    public LayerMask _targetLayer;
     public Action<int> OnTargetDamaged;
     public List<IDamageable> damagedColliders = new();
     protected Collider[] colls;
@@ -37,7 +37,7 @@ public class Hitbox : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        //if ((_targetLayer & (1 << other.gameObject.layer)) == 0) return;
+        if (!IsInLayerMask(other.gameObject)) return;
 
         if (other.gameObject.TryGetComponent(out IDamageable damageable))
         {
@@ -80,5 +80,10 @@ public class Hitbox : MonoBehaviour
         }
 
         damagedColliders.Clear();
+    }
+
+    public bool IsInLayerMask(GameObject obj)
+    {
+        return (_targetLayer.value & (1 << obj.layer)) != 0;
     }
 }

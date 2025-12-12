@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5aa5cb6c016094f8fd43fc7da72523, type: 3}
+  m_Name: Beguile
+  m_EditorClassIdentifier: 
+  statusID: Beguile
+  statusDescription: Converts an enemy to fight for you
+  baseDuration: 10
+  isStackable: 0
+  refreshDurationOnReapply: 1
+  VFX: {fileID: 5766691976136461342, guid: a85fd92cb3dd38e418b6193eb892d65b, type: 3}
+  NewTargetLayer:
+    serializedVersion: 2
+    m_Bits: 256

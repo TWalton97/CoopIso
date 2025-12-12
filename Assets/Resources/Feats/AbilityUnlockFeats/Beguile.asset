@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64ee4eca2fa83f84e9560c11e68baf1c, type: 3}
-  m_Name: SecondWind
+  m_Name: Beguile
   m_EditorClassIdentifier: 
-  FeatName: Second Wind
-  SkillPointCostPerLevel: 020000000300000004000000
-  AbilityToUnlock: {fileID: 11400000, guid: 9f03f916eb88f3b41abdb03a5d44c137, type: 2}
+  FeatName: Beguile
+  SkillPointCostPerLevel: 010000000100000001000000
+  AbilityToUnlock: {fileID: 11400000, guid: ac2f20cf8cf00c546b35be58aa2549e8, type: 2}

@@ -33,6 +33,11 @@ public class BuffAbilityBehaviour : AbilityBehaviour<BuffRuntimeAbility>
             movementSpeedBuffSO.baseDuration = runtime.Duration;
         }
 
+        if (Status is BeguileSO beguileSO)
+        {
+            beguileSO.baseDuration = runtime.Duration;
+        }
+
         if (buffApplicationTime == BuffApplicationTime.OnEnter)
         {
             ApplyBuff();
@@ -103,7 +108,7 @@ public class BuffAbilityBehaviour : AbilityBehaviour<BuffRuntimeAbility>
 
     public override void OnChannelTick(float deltaTime)
     {
-        
+
     }
 }
 

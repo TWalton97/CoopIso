@@ -174,6 +174,9 @@ public class Enemy : Entity
 
     public virtual void Attack()
     {
+        if (target != null)
+            hitbox.Init(enemyStats.AttackDamage, 1 << target.gameObject.layer, this, false);
+
         hitbox.ActivateHitbox(enemyStats.AttackDamage);
     }
 
@@ -232,11 +235,14 @@ public class Enemy : Entity
             {
                 if (coll.TryGetComponent(out Entity entity))
                 {
-                    if (!entity.IsDead)
+                    if (entity != this)
                     {
-                        if (!damageTable.ContainsKey(entity))
+                        if (!entity.IsDead)
                         {
-                            UpdateDamageTable(0, entity);
+                            if (!damageTable.ContainsKey(entity))
+                            {
+                                UpdateDamageTable(0, entity);
+                            }
                         }
                     }
                 }
@@ -388,6 +394,12 @@ public class Enemy : Entity
                 }
             }
         }
+    }
+
+    public void ClearDamageTable()
+    {
+        damageTable.Clear();
+        target = null;
     }
 
     //If we haven't taken damage yet, then we search in a smaller radius around us for closer targets
