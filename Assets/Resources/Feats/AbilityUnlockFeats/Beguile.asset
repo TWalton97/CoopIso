@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Beguile
   m_EditorClassIdentifier: 
   FeatName: Beguile
-  SkillPointCostPerLevel: 010000000100000001000000
-  AbilityToUnlock: {fileID: 11400000, guid: ac2f20cf8cf00c546b35be58aa2549e8, type: 2}
+  SkillPointCostPerLevel: 030000000300000003000000
+  AbilityToUnlock: {fileID: 11400000, guid: f52dedac71acb1340ba28fcd09582b41, type: 2}

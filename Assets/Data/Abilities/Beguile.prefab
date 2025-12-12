@@ -48,7 +48,7 @@ MonoBehaviour:
   TargetLayer:
     serializedVersion: 2
     m_Bits: 256
-  radius: 3
+  radius: 4
   Status: {fileID: 11400000, guid: e00894adbf824bb4ab5133a2a1667eeb, type: 2}
   NumberOfTargets: 1
   buffApplicationTime: 0

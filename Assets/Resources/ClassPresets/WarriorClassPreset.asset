@@ -46,5 +46,5 @@ MonoBehaviour:
     - feat: {fileID: 11400000, guid: 36bb84942176b4447a2f3d8e1a68a9ca, type: 2}
       startingLevel: 0
     - feat: {fileID: 11400000, guid: 81fc9079afd247e4b8dc5f1e43befdd6, type: 2}
-      startingLevel: 1
+      startingLevel: 0
   PlayerStatsSO: {fileID: 11400000, guid: 25bb4ff1fc7c0db4eb33557430bb8494, type: 2}

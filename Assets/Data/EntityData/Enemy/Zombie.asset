@@ -21,6 +21,6 @@ MonoBehaviour:
   WanderRadius: 2
   AggroRange: 10
   ChaseSpeed: 2.5
-  AttackRange: 1.1
+  AttackRange: 0.9
   AttackCooldown: 1.2
   RotationSpeed: 10
