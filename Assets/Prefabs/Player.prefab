@@ -15368,6 +15368,7 @@ MonoBehaviour:
   DisplayDamageNumbers: 0
   IsDead: 0
   remainingRestoreAmount: 0
+  BlockTime: 0
 --- !u!114 &7230535324818502119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15427,6 +15428,7 @@ MonoBehaviour:
   lookPoint: {x: 0, y: 0, z: 0}
   rotatedInputDirection: {x: 0, y: 0, z: 0}
   AbilityBeingUsed: {fileID: 0}
+  AttackStateMachineState: 
 --- !u!114 &7874169709706284734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15564,6 +15566,8 @@ MonoBehaviour:
   DualWieldMastery: 0
   BowMastery: 0
   ClassName: 
+  HasPreparationBuff: 0
+  PreparationCriticalDamageIncrease: 0
 --- !u!114 &6695485961067399900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25398,6 +25402,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 10
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _controller: {fileID: 7230535324818502119}
   DestroyHitboxOnHit: 0
 --- !u!65 &4192519872264568688
