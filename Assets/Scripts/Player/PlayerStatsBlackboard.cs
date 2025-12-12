@@ -53,6 +53,10 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
     public string ClassName;
 
+    [Header("Temporary Buffs")]
+    public bool HasPreparationBuff = false;
+    public int PreparationCriticalDamageIncrease = 0;
+
     private void Start()
     {
         UpdateHealthStats(0, null);
@@ -178,6 +182,9 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
     public bool IsCritical()
     {
+        if (HasPreparationBuff)
+            return true;
+
         int rand = UnityEngine.Random.Range(0, 101);
         if (rand <= CriticalChance)
         {
@@ -188,8 +195,30 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
     public int CalculateCritical(int damage)
     {
-        float newDamage = damage;
-        newDamage = newDamage * (1 + CriticalDamage / 100);
-        return (int)newDamage;
+        // CriticalDamage represents bonus % (50 => +50% => 1.5x)
+        float critBonusPercent = CriticalDamage;
+
+        // PreparationDamageIncrease is also a bonus % 
+        float prepBonusPercent = 0;
+        if (HasPreparationBuff)
+        {
+            prepBonusPercent = PreparationCriticalDamageIncrease;
+            HasPreparationBuff = false;
+        }
+
+        // Combine them additively (50% + 100% = 150% total bonus)
+        float totalBonusPercent = critBonusPercent + prepBonusPercent;
+
+        // Convert to multiplier: 150% bonus = 1 + 1.5 = 2.5x
+        float multiplier = 1f + (totalBonusPercent / 100f);
+
+        // Calculate final
+        float rawDamage = damage * multiplier;
+
+        // Round to nearest integer (best for player-friendly damage)
+        int finalDamage = Mathf.RoundToInt(rawDamage);
+
+        // Make sure crit never drops below 1
+        return Mathf.Max(1, finalDamage);
     }
 }

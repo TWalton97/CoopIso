@@ -119,6 +119,7 @@ public class DamageOverTimeHitbox : Hitbox
         {
             coll.enabled = false;
         }
+        damagedColliders.Clear();
     }
 
     private IEnumerator EmptyDamageablesList()

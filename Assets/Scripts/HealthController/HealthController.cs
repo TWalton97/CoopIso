@@ -20,6 +20,7 @@ public class HealthController : MonoBehaviour, IDamageable
     public Action OnDie;
     public Action OnMaximumHealthChanged;
     public Action OnArmorAmountChanged;
+    public Action OnBlock;
 
     public bool PrintDamageTaken = false;
     public bool DisplayDamageNumbers = true;
@@ -67,6 +68,7 @@ public class HealthController : MonoBehaviour, IDamageable
             {
                 if (CheckAngleToAttacker(controller.gameObject, BlockAngle))
                 {
+                    OnBlock?.Invoke();
                     DamageNumberManager.Instance.SpawnText("Blocked", transform.position + Vector3.up);
                     return;
                 }

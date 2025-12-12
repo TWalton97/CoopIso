@@ -53,7 +53,6 @@ public class AbilityController : MonoBehaviour
 
     public void UnlockAbility(AbilitySO abilitySO)
     {
-
         if (!activeAbilities.TryGetValue(abilitySO, out var runtime))
         {
             runtime = abilitySO.CreateRuntimeAbility();
@@ -72,7 +71,8 @@ public class AbilityController : MonoBehaviour
 
             behaviours.Add(abilitySO, behaviour);
 
-            newPlayerController.PlayerContext.UserInterfaceController.AddAbility(abilitySO, behaviour);
+            if (abilitySO.AbilityType == AbilityType.Active)
+                newPlayerController.PlayerContext.UserInterfaceController.AddAbility(abilitySO, behaviour);
 
             UnlockedAbilities.Add(abilitySO);
             Debug.Log($"Unlocked ability {abilitySO.AbilityName}");

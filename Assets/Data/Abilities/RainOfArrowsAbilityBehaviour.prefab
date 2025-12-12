@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6980498549238560618}
   - component: {fileID: 1777890230724462431}
   m_Layer: 0
-  m_Name: RainOfArrowBehaviour
+  m_Name: RainOfArrowsAbilityBehaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -7,6 +7,7 @@ public abstract class AbilitySO : ScriptableObject
     public AnimationClip AnimationClip;
     public PlayerResource.ResourceType ResourceType;
     public float ResourceAmount;
+    public AbilityType AbilityType = AbilityType.Active;
     public bool CanMoveWhileUsing = false;
     public bool CanRotateDuringCast = true;
     public bool IsChannelingAbility = false;
@@ -23,4 +24,10 @@ public abstract class AbilitySO : ScriptableObject
 
     public abstract string GetUpgradeDescription(int currentLevel);
 
+}
+
+public enum AbilityType
+{
+    Active,
+    Passive
 }

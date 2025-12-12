@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cfbc1e2e59443a46b4b4fee0a2638b5, type: 3}
+  m_Name: Retaliate
+  m_EditorClassIdentifier: 
+  AbilityName: Retaliate
+  AbilityIcon: {fileID: 21300000, guid: fbc991a4cc408a44c95f71e2ebaa8b3b, type: 3}
+  AnimationClip: {fileID: 0}
+  ResourceType: 1
+  ResourceAmount: 0
+  AbilityType: 1
+  CanMoveWhileUsing: 1
+  CanRotateDuringCast: 1
+  IsChannelingAbility: 0
+  MaxLevel: 3
+  AbilityDescription: Deal {DAM} damage to nearby enemies on block. Can only activate
+    once every 7s.
+  LevelDescriptionTemplate: Deal {DAM} damage to nearby enemies on block. Can only
+    activate once every 7s.
+  UpgradeDescriptionTemplate: Deal {DAM_NEXT} damage to nearby enemies on block.
+    Can only activate once every 7s.
+  RequiredWeaponRangeType: 1
+  DamagePerLevel: 050000000a0000000f000000
+  abilityBehaviourPrefab: {fileID: 5874985748845391156, guid: aa283cb5434be754ba0937b85c75c35c, type: 3}

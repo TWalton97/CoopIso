@@ -5,14 +5,21 @@ using UnityEngine;
 public class BleedDotSO : DamageOverTimeSO
 {
     public float percentPerTick = 0.2f;
+    public float bleedRemainder = 0;
 
     protected override int CalculateDamage(StatusInstance instance, StatusController target)
     {
-        // Flat damage, scales with stacks if desired
-        int baseHit = instance.initialHitDamage;
+        float baseHit = instance.initialHitDamage * percentPerTick * instance.stacks;
 
-        int damage = (int)(baseHit * percentPerTick);
+        // Add fractional remainder from previous ticks
+        float total = baseHit + bleedRemainder;
 
-        return damage * instance.stacks;
+        // Damage applied this tick must be an integer
+        int damageThisTick = Mathf.FloorToInt(total);
+
+        // Store the leftover fraction for next tick
+        bleedRemainder = total - damageThisTick;
+
+        return damageThisTick;
     }
 }

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: effebc64236282c47aedb1a5b0c192b0, type: 3}
   m_Name: FriendlyBear
   m_EditorClassIdentifier: 
-  MaximumHealth: 36
-  MovementSpeed: 3.5
+  MaximumHealth: 150
+  MovementSpeed: 6
   CriticalChance: 10
   CriticalDamage: 100
-  AttackDamage: 6
-  WanderSpeed: 2
-  WanderRadius: 4
+  AttackDamage: 18
+  WanderSpeed: 4.5
+  WanderRadius: 5
   AggroRange: 12
-  ChaseSpeed: 3.5
-  AttackRange: 1.4
-  AttackCooldown: 1
-  RotationSpeed: 25
-  LeashRange: 5
-  TeleportRange: 10
+  ChaseSpeed: 6
+  AttackRange: 1.8
+  AttackCooldown: 1.5
+  RotationSpeed: 15
+  LeashRange: 6
+  TeleportRange: 15

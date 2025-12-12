@@ -9690,7 +9690,7 @@ GameObject:
   - component: {fileID: 4678103677468820507}
   - component: {fileID: 3359297173717597582}
   m_Layer: 0
-  m_Name: Healing
+  m_Name: SecondWindVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
