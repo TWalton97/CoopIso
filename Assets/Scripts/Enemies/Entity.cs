@@ -15,6 +15,7 @@ public class Entity : MonoBehaviour, IDamageable
     public bool IsDead = false;
 
     public Action<HitData> OnHitTarget;
+    public Action<Entity> OnCritTarget;
 
     public virtual void Awake()
     {

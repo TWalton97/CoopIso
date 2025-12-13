@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf6c85c4a125f4428035ffabf05639f, type: 3}
+  m_Name: Ruby_VFXOnCrit
+  m_EditorClassIdentifier: 
+  AppliesTo: 0
+  HitVFX: {fileID: 358637981425055526, guid: 418682b0746b6fa40b4216d547fc72ea, type: 3}

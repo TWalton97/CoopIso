@@ -1541,6 +1541,7 @@ MonoBehaviour:
   DisplayDamageNumbers: 1
   IsDead: 0
   remainingRestoreAmount: 0
+  BlockTime: 0
 --- !u!136 &7839878868582317200
 CapsuleCollider:
   m_ObjectHideFlags: 0

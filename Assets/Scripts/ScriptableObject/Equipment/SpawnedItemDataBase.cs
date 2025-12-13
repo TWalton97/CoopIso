@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 
 public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 {
@@ -49,30 +50,23 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         return itemData;
     }
 
-    public ItemSO ReturnRandomWeaponSO()
+    public ItemSO ReturnRandomItemOfType(Func<ItemSO, bool> filter)
     {
-        for (int i = 0; i < 50; i++)
-        {
-            int rand = UnityEngine.Random.Range(0, spawnableItems.Count);
-            if (spawnableItems[rand] is WeaponSO)
-            {
-                return spawnableItems[rand];
-            }
-        }
-        return null;
+        var filtered = spawnableItems.Where(filter).ToList();
+        if (filtered.Count == 0) return null;
+
+        int rand = UnityEngine.Random.Range(0, filtered.Count);
+        return filtered[rand];
     }
 
-    public ItemSO ReturnRandomArmorSO()
+    public T ReturnRandomItemOfType<T>() where T : ItemSO
     {
-        for (int i = 0; i < 50; i++)
-        {
-            int rand = UnityEngine.Random.Range(0, spawnableItems.Count);
-            if (spawnableItems[rand] is ArmorSO || spawnableItems[rand] is ShieldSO)
-            {
-                return spawnableItems[rand];
-            }
-        }
-        return null;
+        var filtered = spawnableItems.OfType<T>().ToList();
+        if (filtered.Count == 0)
+            return null;
+
+        int rand = UnityEngine.Random.Range(0, filtered.Count);
+        return filtered[rand];
     }
 
     public void SpawnWorldDropAtPosition(LootResult lootResult, Vector3 worldPosition)
@@ -81,7 +75,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         item.ItemData = CreateItemData(lootResult.itemSO, lootResult.quality, lootResult.quantity);
         foreach (GemSO gem in lootResult.socketedGems)
         {
-            item.SocketGem(gem);
+            GemEffectHandler.SocketGem(gem, item.ItemData);
         }
         SceneManager.MoveGameObjectToScene(item.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
     }

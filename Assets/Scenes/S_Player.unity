@@ -17194,6 +17194,7 @@ MonoBehaviour:
   spawnableConsumables: []
   spawnableGems:
   - {fileID: 11400000, guid: 70ec4c253fa06f9419cac5a937a56a29, type: 2}
+  - {fileID: 11400000, guid: da17f8e58e0b9a144bbaf62fb075d310, type: 2}
 --- !u!1 &374922787
 GameObject:
   m_ObjectHideFlags: 0

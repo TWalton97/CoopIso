@@ -175,12 +175,17 @@ public class VendorController : MonoBehaviour, IInteractable
         // 5 weapons + 5 armor (your original logic)
         for (int i = 0; i < 15; i++)
         {
-            vs.VendorItems.Add(CreateVendorItem(SpawnedItemDataBase.Instance.ReturnRandomWeaponSO(), level));
+            vs.VendorItems.Add(CreateVendorItem(SpawnedItemDataBase.Instance.ReturnRandomItemOfType<WeaponSO>(), level));
         }
 
         for (int i = 0; i < 15; i++)
         {
-            vs.VendorItems.Add(CreateVendorItem(SpawnedItemDataBase.Instance.ReturnRandomArmorSO(), level));
+            vs.VendorItems.Add(CreateVendorItem(SpawnedItemDataBase.Instance.ReturnRandomItemOfType(x => x is ArmorSO || x is ShieldSO), level));
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            vs.VendorItems.Add(CreateVendorItem(SpawnedItemDataBase.Instance.ReturnRandomItemOfType<MiscSO>(), level));
         }
 
         for (int i = 0; i < Potions.Length; i++)

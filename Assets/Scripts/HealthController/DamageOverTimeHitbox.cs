@@ -62,6 +62,9 @@ public class DamageOverTimeHitbox : Hitbox
             hitData.isCritical = attackInstance.IsCritical;
             _controller.OnHitTarget?.Invoke(hitData);
 
+            if (attackInstance.IsCritical)
+                _controller.OnCritTarget?.Invoke(other.GetComponent<Entity>());
+
             if (other.gameObject.TryGetComponent(out StatusController statusController) && statusesToApply != null)
             {
                 foreach (StatusSO status in statusesToApply)
@@ -103,6 +106,9 @@ public class DamageOverTimeHitbox : Hitbox
                 hitData.damageAmount = damageToDeal;
                 hitData.isCritical = true;
                 _controller.OnHitTarget?.Invoke(hitData);
+
+                if (attackInstance.IsCritical)
+                    _controller.OnCritTarget?.Invoke(other.GetComponent<Entity>());
             }
             else
             {
@@ -114,6 +120,9 @@ public class DamageOverTimeHitbox : Hitbox
                 hitData.damageAmount = damageToDeal;
                 hitData.isCritical = false;
                 _controller.OnHitTarget?.Invoke(hitData);
+
+                if (attackInstance.IsCritical)
+                    _controller.OnCritTarget?.Invoke(other.GetComponent<Entity>());
             }
 
             if (other.gameObject.TryGetComponent(out StatusController statusController) && statusesToApply != null)

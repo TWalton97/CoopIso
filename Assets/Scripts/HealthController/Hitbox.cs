@@ -55,6 +55,9 @@ public class Hitbox : MonoBehaviour
                 hitData.damageAmount = dam;
                 hitData.isCritical = true;
                 _controller.OnHitTarget?.Invoke(hitData);
+
+                if (hitData.isCritical)
+                    _controller.OnCritTarget?.Invoke(other.GetComponent<Entity>());
             }
             else
             {
@@ -67,6 +70,9 @@ public class Hitbox : MonoBehaviour
                 hitData.damageAmount = _damage;
                 hitData.isCritical = false;
                 _controller.OnHitTarget?.Invoke(hitData);
+
+                if (hitData.isCritical)
+                    _controller.OnCritTarget?.Invoke(other.GetComponent<Entity>());
             }
         }
 

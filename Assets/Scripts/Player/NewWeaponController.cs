@@ -265,9 +265,9 @@ public class NewWeaponController : MonoBehaviour
         {
             foreach (GemSocket gemSocket in instantiatedPrimaryWeapon.ItemData.socketedGems)
             {
-                if (gemSocket.gemEffect != null)
+                foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
                 {
-                    gemSocket.gemEffect.Disable();
+                    gemEffect.Deregister();
                 }
             }
             Destroy(instantiatedPrimaryWeapon.gameObject);
@@ -283,34 +283,19 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.MainHand, weaponSet.PrimaryWeaponData);
             foreach (GemSocket gemSocket in instantiatedPrimaryWeapon.ItemData.socketedGems)
             {
-                if (gemSocket.gemEffect != null)
+                if (gemSocket.Gem != null)
                 {
-                    gemSocket.gemEffect.Initialize(instantiatedPrimaryWeapon.ItemData, newPlayerController, gemSocket.hitVFX);
-                }
+                    GemContext gemContext = new GemContext();
+                    gemContext.playerContext = newPlayerController.PlayerContext;
+                    gemContext.itemData = weaponSet.PrimaryWeaponData;
+                    gemContext.slotType = gemSocket.SlotType;
 
-                if (gemSocket.weaponVFX != null)
-                {
-                    ParticleSystem particleSystem = Instantiate(gemSocket.weaponVFX, instantiatedPrimaryWeapon.transform.position, instantiatedPrimaryWeapon.transform.rotation, instantiatedPrimaryWeapon.transform).GetComponent<ParticleSystem>();
-                    Mesh bakedMesh = null;
-                    Quaternion targetRotation = Quaternion.identity;
-                    if (instantiatedPrimaryWeapon.GetComponentInChildren<SkinnedMeshRenderer>() != null)
+                    foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
                     {
-                        SkinnedMeshRenderer mesh = instantiatedPrimaryWeapon.GetComponentInChildren<SkinnedMeshRenderer>();
-                        bakedMesh = new Mesh();
-                        mesh.BakeMesh(bakedMesh);
-                        targetRotation = mesh.transform.rotation;
-                    }
-                    else if (instantiatedPrimaryWeapon.GetComponent<MeshFilter>() != null)
-                    {
-                        bakedMesh = instantiatedPrimaryWeapon.GetComponent<MeshFilter>().sharedMesh;
-                        targetRotation = instantiatedPrimaryWeapon.GetComponent<MeshFilter>().transform.rotation;
-                    }
-
-                    if (bakedMesh != null)
-                    {
-                        var shape = particleSystem.shape;
-                        shape.mesh = bakedMesh;
-                        particleSystem.transform.rotation = targetRotation;
+                        if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        {
+                            gemEffect.Apply(gemContext);
+                        }
                     }
                 }
             }
@@ -322,13 +307,15 @@ public class NewWeaponController : MonoBehaviour
             {
                 newPlayerController.HealthController.UpdateArmorAmount(-instantiatedSecondaryWeapon.ItemData.ShieldArmorAmount);
             }
+
             foreach (GemSocket gemSocket in instantiatedSecondaryWeapon.ItemData.socketedGems)
             {
-                if (gemSocket.gemEffect != null)
+                foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
                 {
-                    gemSocket.gemEffect.Disable();
+                    gemEffect.Deregister();
                 }
             }
+
             Destroy(instantiatedSecondaryWeapon.gameObject);
             instantiatedSecondaryWeapon = null;
         }
@@ -340,34 +327,23 @@ public class NewWeaponController : MonoBehaviour
             instantiatedSecondaryWeapon.ItemData = weaponSet.SecondaryWeaponData;
             instantiatedSecondaryWeapon.transform.localRotation = weaponSet.SecondaryWeaponData.ItemPrefab.transform.rotation;
             instantiatedSecondaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.OffHand, weaponSet.SecondaryWeaponData);
+
             foreach (GemSocket gemSocket in instantiatedSecondaryWeapon.ItemData.socketedGems)
             {
-                if (gemSocket.gemEffect != null)
+                if (gemSocket.Gem != null)
                 {
-                    gemSocket.gemEffect.Initialize(instantiatedSecondaryWeapon.ItemData, newPlayerController, gemSocket.hitVFX);
-                }
+                    GemContext gemContext = new GemContext();
+                    gemContext.playerContext = newPlayerController.PlayerContext;
+                    gemContext.itemData = weaponSet.SecondaryWeaponData;
+                    gemContext.slotType = gemSocket.SlotType;
 
-                ParticleSystem particleSystem = Instantiate(gemSocket.weaponVFX, instantiatedSecondaryWeapon.transform.position, instantiatedSecondaryWeapon.transform.rotation, instantiatedSecondaryWeapon.transform).GetComponent<ParticleSystem>();
-                Mesh bakedMesh = null;
-                Quaternion targetRotation = Quaternion.identity;
-                if (instantiatedSecondaryWeapon.GetComponentInChildren<SkinnedMeshRenderer>() != null)
-                {
-                    SkinnedMeshRenderer mesh = instantiatedSecondaryWeapon.GetComponentInChildren<SkinnedMeshRenderer>();
-                    bakedMesh = new Mesh();
-                    mesh.BakeMesh(bakedMesh);
-                    targetRotation = mesh.transform.rotation;
-                }
-                else if (instantiatedSecondaryWeapon.GetComponent<MeshFilter>() != null)
-                {
-                    bakedMesh = instantiatedSecondaryWeapon.GetComponent<MeshFilter>().sharedMesh;
-                    targetRotation = instantiatedSecondaryWeapon.GetComponent<MeshFilter>().transform.rotation;
-                }
-
-                if (bakedMesh != null)
-                {
-                    var shape = particleSystem.shape;
-                    shape.mesh = bakedMesh;
-                    particleSystem.transform.rotation = targetRotation;
+                    foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
+                    {
+                        if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        {
+                            gemEffect.Apply(gemContext);
+                        }
+                    }
                 }
             }
         }

@@ -122,33 +122,11 @@ public class Item : MonoBehaviour, IInteractable, ISaveable
     {
 
     }
-    public void SocketGem(GemSO Gem)
-    {
-        if (ItemData.currentSockets >= ItemData.socketedGems.Count)
-        {
-            GemSocket gemSocket = new GemSocket();
-            gemSocket.gem = Gem;
-
-            var entry = Gem.GetEffectForSlot(ItemData.EquipmentSlotType);
-            Type type = Type.GetType(entry.EffectClassName);
-
-            if (type == null)
-                return;
-
-            IGemEffect effect = Activator.CreateInstance(type) as IGemEffect;
-
-            gemSocket.gemEffect = effect;
-
-            gemSocket.hitVFX = entry.HitVFX;
-            gemSocket.weaponVFX = entry.WeaponVFX;
-            ItemData.socketedGems.Add(gemSocket);
-        }
-    }
 
     [ContextMenu("Debug Socket Test")]
     public void DebugSocket()
     {
-        SocketGem(GemToSocket);
+        GemEffectHandler.SocketGem(GemToSocket, ItemData);
     }
 }
 
@@ -192,14 +170,14 @@ public class ItemData
 
         foreach (var socket in socketedGems)
         {
-            var entry = socket.gem.GetEffectForSlot(EquipmentSlotType);
+            var entry = socket.Gem.GetGemAFfixForSlot(EquipmentSlotType);
             if (entry == null) continue;
 
-            if (!string.IsNullOrEmpty(entry.namePrefix))
-                prefix += entry.namePrefix + " ";
+            if (entry.affixType == GemAffix.AffixType.Prefix)
+                prefix = entry.affixText + " ";
 
-            if (!string.IsNullOrEmpty(entry.nameSuffix))
-                suffix += " " + entry.nameSuffix;
+            if (entry.affixType == GemAffix.AffixType.Suffix)
+                suffix = " " + entry.affixText;
         }
 
         return $"{prefix}{Quality} {baseName}{suffix}";
@@ -235,11 +213,9 @@ public enum ItemDropType
     Gold
 }
 
-[System.Serializable]
+[Serializable]
 public class GemSocket
 {
-    public GemSO gem;
-    public IGemEffect gemEffect;
-    public GameObject hitVFX;
-    public GameObject weaponVFX;
+    public GemSO Gem;
+    public EquipmentSlotType SlotType;
 }

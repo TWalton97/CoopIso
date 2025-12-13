@@ -21,12 +21,17 @@ public class MovementSpeedDebuffSO : StatusSO
 
             enemy.wanderSpeed *= (100 - slowPercentage) * 0.01f;
             enemy.chaseSpeed *= (100 - slowPercentage) * 0.01f;
+
+            enemy.AttackSpeedMultiplier -= slowPercentage * 0.01f;
         }
         else if (target.TryGetComponent(out NewPlayerController player))
         {
             startChaseSpeed = player._maximumMovementSpeed;
 
             player._maximumMovementSpeed *= (100 - slowPercentage) * 0.01f;
+
+            player.AttackSpeedMultiplier -= slowPercentage * 0.01f;
+            player.PlayerStatsBlackboard.UpdateAttackStats();
         }
         if (VFX != null)
         {
@@ -47,10 +52,15 @@ public class MovementSpeedDebuffSO : StatusSO
         {
             enemy.wanderSpeed = startWanderSpeed;
             enemy.chaseSpeed = startChaseSpeed;
+
+            enemy.AttackSpeedMultiplier += slowPercentage * 0.01f;
         }
         else if (target.TryGetComponent(out NewPlayerController player))
         {
             player._maximumMovementSpeed = startChaseSpeed;
+
+            player.AttackSpeedMultiplier += slowPercentage * 0.01f;
+            player.PlayerStatsBlackboard.UpdateAttackStats();
         }
 
         if (instance.spawnedVFX != null)

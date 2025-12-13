@@ -441,14 +441,16 @@ public class EquippableButton : ItemButton
         for (int i = 0; i < 3; i++)
         {
             GemEntries[i].GemImage.sprite = GemEntries[i].DefaultSprite;
+            GemEntries[i].GemImage.color = Color.white;
             GemEntries[i].GemDescription.text = "";
         }
 
         int index = 0;
         foreach (GemSocket socket in ItemData.socketedGems)
         {
-            GemEntries[index].GemImage.sprite = socket.gem.GemSprite;
-            GemEntries[index].GemDescription.text = socket.gem.GetEffectForSlot(ItemData.EquipmentSlotType).EffectDescription;
+            GemEntries[index].GemImage.sprite = socket.Gem.GemSprite;
+            GemEntries[index].GemImage.color = socket.Gem.GemColor;
+            GemEntries[index].GemDescription.text = socket.Gem.GetDescriptionForSlot(ItemData.EquipmentSlotType);
             index++;
         }
     }
