@@ -22,6 +22,15 @@ public class DamageOverTimeHitbox : Hitbox
         this.DamageOnTriggerStay = DamageOnTriggerStay;
         statusesToApply = status;
 
+        CreateAttackInstance(controller, damage);
+
+        if (DamageOnTriggerStay)
+            StartCoroutine(EmptyDamageablesList());
+    }
+
+    public void CreateAttackInstance(Entity controller, int damage)
+    {
+        _controller = controller;
         attackInstance = new AttackInstance();
         attackInstance.Damage = damage;
 
@@ -33,9 +42,6 @@ public class DamageOverTimeHitbox : Hitbox
                 attackInstance.Damage = newPlayerController.PlayerStatsBlackboard.CalculateCritical(attackInstance.Damage);
             }
         }
-
-        if (DamageOnTriggerStay)
-            StartCoroutine(EmptyDamageablesList());
     }
 
     public override void OnTriggerEnter(Collider other)
@@ -125,7 +131,18 @@ public class DamageOverTimeHitbox : Hitbox
 
     public override void ActivateHitbox(int damage)
     {
-        _damage = damage;
+        attackInstance = new AttackInstance();
+        attackInstance.Damage = damage;
+
+        if (_controller is NewPlayerController newPlayerController)
+        {
+            attackInstance.IsCritical = newPlayerController.PlayerStatsBlackboard.IsCritical();
+            if (attackInstance.IsCritical)
+            {
+                attackInstance.Damage = newPlayerController.PlayerStatsBlackboard.CalculateCritical(attackInstance.Damage);
+            }
+        }
+
         foreach (Collider coll in colls)
         {
             coll.enabled = true;

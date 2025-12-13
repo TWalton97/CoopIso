@@ -3,74 +3,19 @@ using UnityEngine;
 
 public static class LootCalculator
 {
-    // ------------------------------------------------------------
-    // CONFIGURATION
-    // ------------------------------------------------------------
-
-    // How much budget an enemy has based on HP
     public static float BudgetScalingPower = 0.65f;
     public static float BudgetScalingFactor = 0.65f;
 
-    // Quality multipliers for stats (DA2 style)
-    public static readonly Dictionary<ItemQuality, float> QualityStatMultiplier = new()
-    {
-        { ItemQuality.Shoddy,      0.50f },
-        { ItemQuality.Normal,      1.00f },
-        { ItemQuality.Fine,        1.50f },
-        { ItemQuality.Remarkable,  2.00f },
-        { ItemQuality.Superior,    2.50f },
-        { ItemQuality.Grand,       3.00f },
-        { ItemQuality.Imperial,    3.50f },
-        { ItemQuality.Flawless,    4.00f }
-    };
-
-    // Sell multipliers (vendor uses this)
-    public static readonly Dictionary<ItemQuality, float> QualitySellMultiplier = new()
-    {
-        { ItemQuality.Shoddy,      0.15f },
-        { ItemQuality.Normal,      0.25f },
-        { ItemQuality.Fine,        0.40f },
-        { ItemQuality.Remarkable,  0.55f },
-        { ItemQuality.Superior,    0.70f },
-        { ItemQuality.Grand,       0.85f },
-        { ItemQuality.Imperial,    1.00f },
-        { ItemQuality.Flawless,    1.20f }
-    };
-
-    // ------------------------------------------------------------
-    // ENEMY LEVEL QUALITY TABLES
-    // ------------------------------------------------------------
-    private static readonly Dictionary<int, List<(ItemQuality quality, float weight)>> EnemyLevelQualityTables =
-        new()
-        {
-            { 0, new() { (ItemQuality.Shoddy, 60f), (ItemQuality.Normal, 35f), (ItemQuality.Fine, 5f) } },
-            // Level 1 enemies
-            { 1, new() { (ItemQuality.Shoddy, 60f), (ItemQuality.Normal, 35f), (ItemQuality.Fine, 5f) } },
-
-            // Level 2 enemies
-            { 2, new() { (ItemQuality.Shoddy, 30f), (ItemQuality.Normal, 55f), (ItemQuality.Fine, 12f), (ItemQuality.Remarkable, 3f) } },
-
-            // Level 3 enemies
-            { 3, new() { (ItemQuality.Shoddy, 10f), (ItemQuality.Normal, 55f), (ItemQuality.Fine, 25f), (ItemQuality.Remarkable, 10f) } },
-
-            // Level 4+ enemies (default)
-            { 4, new() { (ItemQuality.Normal, 40f), (ItemQuality.Fine, 35f), (ItemQuality.Remarkable, 15f), (ItemQuality.Superior, 10f) } }
-        };
-
-    const float GemSpawnChance = 0.3f;
+    public const float GemSpawnChance = 0.3f;
 
     private static List<(ItemQuality quality, float weight)> GetQualityTable(int enemyLevel)
     {
-        if (EnemyLevelQualityTables.ContainsKey(enemyLevel))
-            return EnemyLevelQualityTables[enemyLevel];
+        if (QualityTables.EnemyLevelQualityTables.ContainsKey(enemyLevel))
+            return QualityTables.EnemyLevelQualityTables[enemyLevel];
 
-        // fallback to the last defined table
-        return EnemyLevelQualityTables[4];
+        return QualityTables.EnemyLevelQualityTables[4];
     }
 
-    // ------------------------------------------------------------
-    // PUBLIC ENTRY POINT
-    // ------------------------------------------------------------
     public static List<LootResult> RollLoot(int enemyLevel, int enemyMaxHP)
     {
         int budget = CalculateBudgetFromHP(enemyMaxHP);
@@ -78,18 +23,12 @@ public static class LootCalculator
         return RollItemsWithBudget(budget, enemyLevel);
     }
 
-    // ------------------------------------------------------------
-    // BUDGET CALCULATION
-    // ------------------------------------------------------------
     private static int CalculateBudgetFromHP(int hp)
     {
         float scaled = Mathf.Pow(hp, BudgetScalingPower) * BudgetScalingFactor;
         return Mathf.FloorToInt(scaled);
     }
 
-    // ------------------------------------------------------------
-    // MAIN LOOT FUNCTION
-    // ------------------------------------------------------------
     private static List<LootResult> RollItemsWithBudget(int budget, int enemyLevel)
     {
         SpawnedItemDataBase db = SpawnedItemDataBase.Instance;
@@ -98,7 +37,6 @@ public static class LootCalculator
         if (db.spawnableItems.Count == 0)
             return results;
 
-        // Determine cheapest item so we know when to stop
         int cheapestCost = int.MaxValue;
         foreach (var item in db.spawnableItems)
             cheapestCost = Mathf.Min(cheapestCost, item.BaseLootBudget);
@@ -110,12 +48,10 @@ public static class LootCalculator
         {
             ItemSO itemSO = WeightedRandomItem(db.spawnableItems);
 
-            // Roll quality based on enemy level
             ItemQuality q = RollQualityForEnemyLevel(enemyLevel);
 
-            // Equipment uses quality multiplier for cost
             float costMultiplier = (itemSO.ItemDropType == ItemDropType.Equipment)
-                ? QualityStatMultiplier[q]
+                ? QualityTables.QualityStatMultiplier[q]
                 : 1f;
 
             int cost = Mathf.FloorToInt(itemSO.BaseLootBudget * costMultiplier);
@@ -131,7 +67,6 @@ public static class LootCalculator
 
                 remaining -= cost;
 
-                // Roll gems for equipment
                 if (itemSO.ItemDropType == ItemDropType.Equipment && Random.value < GemSpawnChance)
                 {
                     int maxSockets = 3;
@@ -139,8 +74,6 @@ public static class LootCalculator
 
                     for (int s = 0; s < socketsToRoll; s++)
                     {
-                        Debug.Log($"Remaining budget for gems is {remaining}");
-                        // Get all affordable gems
                         var affordableGems = db.spawnableGems
                             .FindAll(g => g.LootBudgetCost <= remaining);
 
@@ -161,9 +94,40 @@ public static class LootCalculator
         return CombineGold(results);
     }
 
-    // ------------------------------------------------------------
-    // QUALITY ROLLING
-    // ------------------------------------------------------------
+    public static List<GemSO> RollGemSockets(int level)
+    {
+        List<GemSO> returnedGems = new();
+        int socketsToRoll = GetMaxGems(level);
+
+        for (int s = 0; s < socketsToRoll; s++)
+        {
+            if (Random.value < GetGemChance(level))
+            {
+                var affordableGems = SpawnedItemDataBase.Instance.spawnableGems;
+
+                if (affordableGems.Count == 0)
+                    break;
+
+                GemSO gem = affordableGems[Random.Range(0, affordableGems.Count)];
+
+                returnedGems.Add(gem);
+            }
+        }
+        return returnedGems;
+    }
+
+    private static float GetGemChance(int enemyLevel)
+    {
+        return Mathf.Clamp01(0.05f + enemyLevel * 0.05f);
+    }
+
+    private static int GetMaxGems(int enemyLevel)
+    {
+        if (enemyLevel < 3) return 1;
+        if (enemyLevel < 6) return 2;
+        return 3;
+    }
+
     public static ItemQuality RollQualityForEnemyLevel(int enemyLevel)
     {
         var table = GetQualityTable(enemyLevel);
@@ -184,9 +148,6 @@ public static class LootCalculator
         return table[^1].quality; // fallback
     }
 
-    // ------------------------------------------------------------
-    // ITEM SELECTION
-    // ------------------------------------------------------------
     private static ItemSO WeightedRandomItem(List<ItemSO> list)
     {
         float total = 0f;
@@ -205,9 +166,6 @@ public static class LootCalculator
         return list[list.Count - 1];
     }
 
-    // ------------------------------------------------------------
-    // GOLD / STACKING
-    // ------------------------------------------------------------
     private static int ResolveAmount(ItemSO item)
     {
         switch (item.ItemDropType)
@@ -265,9 +223,6 @@ public static class LootCalculator
     }
 }
 
-// ------------------------------------------------------------
-// RESULT CLASS
-// ------------------------------------------------------------
 public class LootResult
 {
     public ItemSO itemSO;

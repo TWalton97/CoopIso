@@ -81,7 +81,6 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         item.ItemData = CreateItemData(lootResult.itemSO, lootResult.quality, lootResult.quantity);
         foreach (GemSO gem in lootResult.socketedGems)
         {
-            Debug.Log($"Socketing {gem} into {item}");
             item.SocketGem(gem);
         }
         SceneManager.MoveGameObjectToScene(item.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());

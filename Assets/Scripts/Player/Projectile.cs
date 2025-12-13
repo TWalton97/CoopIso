@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
     {
         _speed = speed;
         _maximumProjectileDuration = maximumProjectileDuration;
-        _hitbox._damage = damage;
+        _hitbox.CreateAttackInstance(spawner, damage);
         _hitbox._controller = spawner;
 
         foreach (StatusSO s in appliedStatus)

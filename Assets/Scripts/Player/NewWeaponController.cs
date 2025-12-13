@@ -290,7 +290,28 @@ public class NewWeaponController : MonoBehaviour
 
                 if (gemSocket.weaponVFX != null)
                 {
-                    Instantiate(gemSocket.weaponVFX, instantiatedPrimaryWeapon.transform.position, instantiatedPrimaryWeapon.transform.rotation, instantiatedPrimaryWeapon.transform);
+                    ParticleSystem particleSystem = Instantiate(gemSocket.weaponVFX, instantiatedPrimaryWeapon.transform.position, instantiatedPrimaryWeapon.transform.rotation, instantiatedPrimaryWeapon.transform).GetComponent<ParticleSystem>();
+                    Mesh bakedMesh = null;
+                    Quaternion targetRotation = Quaternion.identity;
+                    if (instantiatedPrimaryWeapon.GetComponentInChildren<SkinnedMeshRenderer>() != null)
+                    {
+                        SkinnedMeshRenderer mesh = instantiatedPrimaryWeapon.GetComponentInChildren<SkinnedMeshRenderer>();
+                        bakedMesh = new Mesh();
+                        mesh.BakeMesh(bakedMesh);
+                        targetRotation = mesh.transform.rotation;
+                    }
+                    else if (instantiatedPrimaryWeapon.GetComponent<MeshFilter>() != null)
+                    {
+                        bakedMesh = instantiatedPrimaryWeapon.GetComponent<MeshFilter>().sharedMesh;
+                        targetRotation = instantiatedPrimaryWeapon.GetComponent<MeshFilter>().transform.rotation;
+                    }
+
+                    if (bakedMesh != null)
+                    {
+                        var shape = particleSystem.shape;
+                        shape.mesh = bakedMesh;
+                        particleSystem.transform.rotation = targetRotation;
+                    }
                 }
             }
         }
@@ -326,9 +347,27 @@ public class NewWeaponController : MonoBehaviour
                     gemSocket.gemEffect.Initialize(instantiatedSecondaryWeapon.ItemData, newPlayerController, gemSocket.hitVFX);
                 }
 
-                if (gemSocket.weaponVFX != null)
+                ParticleSystem particleSystem = Instantiate(gemSocket.weaponVFX, instantiatedSecondaryWeapon.transform.position, instantiatedSecondaryWeapon.transform.rotation, instantiatedSecondaryWeapon.transform).GetComponent<ParticleSystem>();
+                Mesh bakedMesh = null;
+                Quaternion targetRotation = Quaternion.identity;
+                if (instantiatedSecondaryWeapon.GetComponentInChildren<SkinnedMeshRenderer>() != null)
                 {
-                    Instantiate(gemSocket.weaponVFX, instantiatedSecondaryWeapon.transform.position, instantiatedSecondaryWeapon.transform.rotation, instantiatedSecondaryWeapon.transform);
+                    SkinnedMeshRenderer mesh = instantiatedSecondaryWeapon.GetComponentInChildren<SkinnedMeshRenderer>();
+                    bakedMesh = new Mesh();
+                    mesh.BakeMesh(bakedMesh);
+                    targetRotation = mesh.transform.rotation;
+                }
+                else if (instantiatedSecondaryWeapon.GetComponent<MeshFilter>() != null)
+                {
+                    bakedMesh = instantiatedSecondaryWeapon.GetComponent<MeshFilter>().sharedMesh;
+                    targetRotation = instantiatedSecondaryWeapon.GetComponent<MeshFilter>().transform.rotation;
+                }
+
+                if (bakedMesh != null)
+                {
+                    var shape = particleSystem.shape;
+                    shape.mesh = bakedMesh;
+                    particleSystem.transform.rotation = targetRotation;
                 }
             }
         }

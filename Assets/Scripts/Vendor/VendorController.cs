@@ -115,7 +115,7 @@ public class VendorController : MonoBehaviour, IInteractable
             VendorStock vs = new VendorStock
             {
                 playerIndex = controller.PlayerContext.PlayerIndex,
-                playerLevel = controller.ExperienceController.level,
+                playerLevel = controller.ExperienceController.level + 2,
                 spawnedItems = false,
                 VendorItems = new List<VendorItem>()
             };
@@ -136,7 +136,7 @@ public class VendorController : MonoBehaviour, IInteractable
 
         foreach (VendorStock vs in VendorStocks)
         {
-            int currentLevel = PlayerJoinManager.Instance.playerControllers[vs.playerIndex].ExperienceController.level;
+            int currentLevel = PlayerJoinManager.Instance.playerControllers[vs.playerIndex].ExperienceController.level + 2;
 
             bool levelChanged = currentLevel != vs.playerLevel;
 
@@ -173,12 +173,12 @@ public class VendorController : MonoBehaviour, IInteractable
         vs.VendorItems.Clear();
 
         // 5 weapons + 5 armor (your original logic)
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 15; i++)
         {
             vs.VendorItems.Add(CreateVendorItem(SpawnedItemDataBase.Instance.ReturnRandomWeaponSO(), level));
         }
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 15; i++)
         {
             vs.VendorItems.Add(CreateVendorItem(SpawnedItemDataBase.Instance.ReturnRandomArmorSO(), level));
         }
@@ -194,6 +194,19 @@ public class VendorController : MonoBehaviour, IInteractable
         VendorItem v = new VendorItem();
         ItemData data = SpawnedItemDataBase.Instance.CreateItemData(so);
         data.Quality = LootCalculator.RollQualityForEnemyLevel(level);
+        if (data.ItemSO.ItemDropType == ItemDropType.Equipment)
+        {
+            List<GemSO> gemSOs = LootCalculator.RollGemSockets(level);
+            foreach (GemSO gem in gemSOs)
+            {
+                GemEffectHandler.SocketGem(gem, data);
+            }
+        }
+
+        if (so.ItemType == ItemType.Consumable)
+        {
+            data.Quality = ItemQuality.Normal;
+        }
         return new VendorItem
         {
             itemData = data,

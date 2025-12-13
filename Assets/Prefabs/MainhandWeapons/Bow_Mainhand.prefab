@@ -764,6 +764,7 @@ MonoBehaviour:
   Data: {fileID: 0}
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -777,8 +778,12 @@ MonoBehaviour:
   ItemData:
     ItemID: 
     ItemSO: {fileID: 0}
+    ItemSO_ID: 
     Quality: 0
+    EquipmentSlotType: 0
     Quantity: 1
+    currentSockets: 0
+    socketedGems: []
   weaponHand: 0
   weaponAttackType: 4
   itemID: 
