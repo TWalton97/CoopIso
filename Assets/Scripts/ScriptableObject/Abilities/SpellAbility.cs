@@ -18,7 +18,7 @@ public class SpellAbility : AbilitySO
 
     public override string GetLevelDescription(int currentLevel)
     {
-        string s = LevelDescriptionTemplate;
+        string s = CurrentLevelDescription;
 
         float dam = DamagePerLevel[currentLevel - 1];
 
@@ -29,7 +29,7 @@ public class SpellAbility : AbilitySO
 
     public override string GetUpgradeDescription(int currentLevel)
     {
-        string s = UpgradeDescriptionTemplate;
+        string s = NextLevelDescription;
 
         float curr = DamagePerLevel[currentLevel - 1];
         float next = DamagePerLevel[currentLevel];

@@ -14,6 +14,8 @@ public class Entity : MonoBehaviour, IDamageable
     public bool IsBlocking;
     public bool IsDead = false;
 
+    public Action<HitData> OnHitTarget;
+
     public virtual void Awake()
     {
 

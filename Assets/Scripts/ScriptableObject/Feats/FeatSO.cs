@@ -12,9 +12,8 @@ public abstract class FeatSO : ScriptableObject
         return SkillPointCostPerLevel[Mathf.Clamp(level - 1, 0, SkillPointCostPerLevel.Length - 1)];
     }
 
-    public abstract string GetCurrentEffect(int level);
-    public abstract string GetNextLevelEffect(int level);
-    public abstract string GetDescription();
+    public abstract string GetCurrentLevelDescription(int level);
+    public abstract string GetNextLevelDescription(int level);
 
     public virtual void OnActivate(int CurrentFeatLevel, NewPlayerController controller)
     {

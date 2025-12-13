@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RogueClassPreset
   m_EditorClassIdentifier: 
   PresetName: Rogue
-  StartingMainHandWeapon: {fileID: 11400000, guid: f51fc31e76faabb4a9e6f21390f39b71, type: 2}
+  StartingMainHandWeapon: {fileID: 11400000, guid: 61e38e58a8ecf2d44b64943ef3541909, type: 2}
   StartingOffhandWeapon: {fileID: 0}
   StartingHelmet: {fileID: 11400000, guid: 0d5b8a94a775a294db54a54aad66e59d, type: 2}
   StartingBodyArmor: {fileID: 11400000, guid: 84b29a839b598634d9ea7bcaa223c831, type: 2}

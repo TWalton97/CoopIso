@@ -338,7 +338,16 @@ public class PlayerInputController : MonoBehaviour
 
     public void OnDisplayMoreInformation(CallbackContext context)
     {
-        OnDisplayMoreInformationPerformed?.Invoke(context);
+        if (context.started)
+        {
+            playerController.PlayerContext.UserInterfaceController.OnAltInfoPressed?.Invoke();
+        }
+
+        if (context.canceled)
+        {
+            playerController.PlayerContext.UserInterfaceController.OnAltInfoReleased?.Invoke();
+        }
+
     }
 
     public void OnEquipOffhand(CallbackContext context)

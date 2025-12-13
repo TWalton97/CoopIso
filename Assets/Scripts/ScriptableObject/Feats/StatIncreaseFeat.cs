@@ -10,7 +10,7 @@ public class StatIncreaseFeat : FeatSO
 
     public bool isPercentage = false;
 
-    public override string GetCurrentEffect(int level)
+    public override string GetCurrentLevelDescription(int level)
     {
         if (level == 0) return $"Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)}";
 
@@ -22,7 +22,7 @@ public class StatIncreaseFeat : FeatSO
         return $"Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {CalculateCurrentValue(level)}";
     }
 
-    public override string GetNextLevelEffect(int level)
+    public override string GetNextLevelDescription(int level)
     {
         if (level >= ValuePerLevel.Length) return "Maximum level reached";
 
@@ -32,11 +32,6 @@ public class StatIncreaseFeat : FeatSO
         }
 
         return $"Next Level: Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {ValuePerLevel[level]}";
-    }
-
-    public override string GetDescription()
-    {
-        return FeatDescription;
     }
 
     public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller)

@@ -16,7 +16,8 @@ MonoBehaviour:
   AbilityIcon: {fileID: 21300000, guid: c29162d11d03499498205196908712a5, type: 3}
   AnimationClip: {fileID: 7400000, guid: 93e8c454c5fd49842bba85c4f036258a, type: 2}
   ResourceType: 1
-  ResourceAmount: 6
+  ResourceAmount: 7
+  AbilityType: 0
   CanMoveWhileUsing: 0
   CanRotateDuringCast: 1
   IsChannelingAbility: 1

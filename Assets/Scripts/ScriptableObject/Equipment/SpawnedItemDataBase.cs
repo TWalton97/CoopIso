@@ -9,6 +9,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
 
     public List<ItemSO> spawnableItems;
     public List<ConsumableDrop> spawnableConsumables;
+    public List<GemSO> spawnableGems;
 
     public void SpawnItemFromDatabase(string itemID, Vector3 worldPosition, Quaternion worldRotation)
     {
@@ -43,6 +44,7 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
         itemData.ItemSO = itemSO;
         itemData.Quality = quality;
         itemData.Quantity = quantity;
+        itemData.EquipmentSlotType = itemSO.EquipmentSlotType;
         itemData.ItemID = RegisterItemToDatabase(itemData);
         return itemData;
     }
@@ -76,9 +78,12 @@ public class SpawnedItemDataBase : Singleton<SpawnedItemDataBase>
     public void SpawnWorldDropAtPosition(LootResult lootResult, Vector3 worldPosition)
     {
         Item item = Instantiate(lootResult.itemSO.GroundItemPrefab, worldPosition, lootResult.itemSO.ItemPrefab.transform.rotation).GetComponent<Item>();
-        item.ItemSO = lootResult.itemSO;
-        item.Quality = lootResult.quality;
-        item.Quantity = lootResult.quantity;
+        item.ItemData = CreateItemData(lootResult.itemSO, lootResult.quality, lootResult.quantity);
+        foreach (GemSO gem in lootResult.socketedGems)
+        {
+            Debug.Log($"Socketing {gem} into {item}");
+            item.SocketGem(gem);
+        }
         SceneManager.MoveGameObjectToScene(item.gameObject, SceneLoadingManager.Instance.ReturnActiveEnvironmentalScene());
     }
 

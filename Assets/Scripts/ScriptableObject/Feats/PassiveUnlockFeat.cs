@@ -9,23 +9,18 @@ public class PassiveUnlockFeat : FeatSO
     [TextArea] public string FeatDescription;
     public string[] FeatUpgradeDescriptionPerLevel;
 
-    public override string GetCurrentEffect(int level)
+    public override string GetCurrentLevelDescription(int level)
     {
         if (level == 0) return "";
 
         return FeatUpgradeDescriptionPerLevel[level - 1];
     }
 
-    public override string GetNextLevelEffect(int level)
+    public override string GetNextLevelDescription(int level)
     {
         if (level >= FeatUpgradeDescriptionPerLevel.Length) return "Maximum level reached";
 
         return "Next Level: " + FeatUpgradeDescriptionPerLevel[level];
-    }
-
-    public override string GetDescription()
-    {
-        return FeatDescription;
     }
 
     public override void OnActivate(int CurrentFeatLevel, NewPlayerController controller)

@@ -20,7 +20,7 @@ public class WeaponAbility : AbilitySO
 
     public override string GetLevelDescription(int currentLevel)
     {
-        string s = LevelDescriptionTemplate;
+        string s = CurrentLevelDescription;
 
         float dmg = DamagePercentPerLevel[currentLevel - 1];
         float tick = 0;
@@ -40,7 +40,7 @@ public class WeaponAbility : AbilitySO
 
     public override string GetCalculatedLevelDescription(int currentLevel, int damage)
     {
-        string s = LevelDescriptionTemplate;
+        string s = CurrentLevelDescription;
 
         float tick = 0;
         if (DealsDamageOverTime)
@@ -62,7 +62,7 @@ public class WeaponAbility : AbilitySO
         if (currentLevel >= DamagePercentPerLevel.Length)
             return "Max level reached.";
 
-        string s = UpgradeDescriptionTemplate;
+        string s = NextLevelDescription;
 
         float curr = DamagePercentPerLevel[currentLevel - 1];
         float next = DamagePercentPerLevel[currentLevel];

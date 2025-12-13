@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RangerClassPreset
   m_EditorClassIdentifier: 
   PresetName: Ranger
-  StartingMainHandWeapon: {fileID: 11400000, guid: e94e84abde490be43af35fca3eb68374, type: 2}
+  StartingMainHandWeapon: {fileID: 11400000, guid: dea483a8dff82584394305826891dd37, type: 2}
   StartingOffhandWeapon: {fileID: 0}
   StartingHelmet: {fileID: 11400000, guid: 0d5b8a94a775a294db54a54aad66e59d, type: 2}
   StartingBodyArmor: {fileID: 11400000, guid: 84b29a839b598634d9ea7bcaa223c831, type: 2}

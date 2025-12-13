@@ -23,7 +23,7 @@ public class BuffAbility : AbilitySO
 
     public override string GetLevelDescription(int currentLevel)
     {
-        string s = LevelDescriptionTemplate;
+        string s = CurrentLevelDescription;
 
         float val = BuffValuePerLevel[currentLevel - 1];
         float dur = BuffDurationPerLevel[currentLevel - 1];
@@ -36,7 +36,7 @@ public class BuffAbility : AbilitySO
 
     public override string GetUpgradeDescription(int currentLevel)
     {
-        string s = UpgradeDescriptionTemplate;
+        string s = NextLevelDescription;
 
         float curr = BuffValuePerLevel[currentLevel - 1];
         float next = BuffValuePerLevel[currentLevel];

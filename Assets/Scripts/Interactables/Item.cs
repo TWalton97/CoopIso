@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -23,6 +25,8 @@ public class Item : MonoBehaviour, IInteractable, ISaveable
 
     protected bool itemCollected { get; set; }
 
+    public GemSO GemToSocket;
+
     void Awake()
     {
         SaveRegistry.Register(this);
@@ -43,7 +47,7 @@ public class Item : MonoBehaviour, IInteractable, ISaveable
         float elapsedTime = 0f;
         while (elapsedTime < 0.3f)
         {
-            transform.rotation = Random.rotation;
+            transform.rotation = UnityEngine.Random.rotation;
             transform.position = Vector3.Lerp(startPos, targetPosition, elapsedTime / 0.3f);
             elapsedTime += 0.05f;
             yield return new WaitForSeconds(0.05f);
@@ -105,7 +109,8 @@ public class Item : MonoBehaviour, IInteractable, ISaveable
         {
             return Quality.ToString() + " " + ItemSO.ItemName;
         }
-        return ItemData.Quality.ToString() + " " + ItemData.ItemSO.ItemName;
+        // return ItemData.Quality.ToString() + " " + ItemData.ItemSO.ItemName;
+        return ItemData.GetModifiedItemName();
     }
 
     public void Save(GameStateData data)
@@ -117,6 +122,34 @@ public class Item : MonoBehaviour, IInteractable, ISaveable
     {
 
     }
+    public void SocketGem(GemSO Gem)
+    {
+        if (ItemData.currentSockets >= ItemData.socketedGems.Count)
+        {
+            GemSocket gemSocket = new GemSocket();
+            gemSocket.gem = Gem;
+
+            var entry = Gem.GetEffectForSlot(ItemData.EquipmentSlotType);
+            Type type = Type.GetType(entry.EffectClassName);
+
+            if (type == null)
+                return;
+
+            IGemEffect effect = Activator.CreateInstance(type) as IGemEffect;
+
+            gemSocket.gemEffect = effect;
+
+            gemSocket.hitVFX = entry.HitVFX;
+            gemSocket.weaponVFX = entry.WeaponVFX;
+            ItemData.socketedGems.Add(gemSocket);
+        }
+    }
+
+    [ContextMenu("Debug Socket Test")]
+    public void DebugSocket()
+    {
+        SocketGem(GemToSocket);
+    }
 }
 
 [System.Serializable]
@@ -126,6 +159,7 @@ public class ItemData
     public ItemSO ItemSO;
     public string ItemSO_ID;
     public ItemQuality Quality;
+    public EquipmentSlotType EquipmentSlotType;
 
     public string Name { get => ItemSO.ItemName; set => Name = value; }
     public Sprite Sprite => ItemSO.ItemSprite;
@@ -134,6 +168,9 @@ public class ItemData
     public int GoldValue => Mathf.RoundToInt(ItemSO.GoldValue * LootCalculator.QualitySellMultiplier[Quality]);
     public float Weight => ItemSO.BaseLootWeight;
     public int Quantity = 1;
+
+    public int currentSockets = 0;
+    public List<GemSocket> socketedGems = new List<GemSocket>();
 
     public int MinDamage => (ItemSO as WeaponSO)?.WeaponMinDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMinDamage * LootCalculator.QualityStatMultiplier[Quality]) : 0;
     public int MaxDamage => (ItemSO as WeaponSO)?.WeaponMaxDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMaxDamage * LootCalculator.QualityStatMultiplier[Quality]) : 0;
@@ -146,6 +183,27 @@ public class ItemData
 
     public PlayerResource.ResourceType ResourceType => (ItemSO as PotionSO)?.ResourceToRestore ?? PlayerResource.ResourceType.Health;
     public int ResourceAmount => (ItemSO as PotionSO)?.AmountOfResourceToRestore ?? 0;
+
+    public string GetModifiedItemName()
+    {
+        string baseName = ItemSO.ItemName;
+        string prefix = "";
+        string suffix = "";
+
+        foreach (var socket in socketedGems)
+        {
+            var entry = socket.gem.GetEffectForSlot(EquipmentSlotType);
+            if (entry == null) continue;
+
+            if (!string.IsNullOrEmpty(entry.namePrefix))
+                prefix += entry.namePrefix + " ";
+
+            if (!string.IsNullOrEmpty(entry.nameSuffix))
+                suffix += " " + entry.nameSuffix;
+        }
+
+        return $"{prefix}{Quality} {baseName}{suffix}";
+    }
 }
 
 [System.Serializable]
@@ -163,9 +221,25 @@ public class ItemStatus
     }
 }
 
+public enum EquipmentSlotType
+{
+    Weapon,
+    Armor,
+    Jewelry
+}
+
 public enum ItemDropType
 {
     Equipment,
     Consumable,
     Gold
+}
+
+[System.Serializable]
+public class GemSocket
+{
+    public GemSO gem;
+    public IGemEffect gemEffect;
+    public GameObject hitVFX;
+    public GameObject weaponVFX;
 }

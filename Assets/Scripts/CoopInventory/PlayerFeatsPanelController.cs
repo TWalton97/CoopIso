@@ -20,10 +20,11 @@ public class PlayerFeatsPanelController : MonoBehaviour
 
     public TMP_Text FeatPreviewTitle;
     public TMP_Text FeatPreviewCost;
-    public TMP_Text FeatPreviewStats;
-    public TMP_Text FeatPreviewDescription;
     public TMP_Text FeatPreviewWeaponRequirement;
     public TMP_Text FeatPreviewResourceCost;
+
+    public TMP_Text NextLevelDescription;
+    public TMP_Text CurrentLevelDescription;
 
     public ScrollRect scrollRect;
     public RectTransform contentPanel;
@@ -92,6 +93,11 @@ public class PlayerFeatsPanelController : MonoBehaviour
             featButton.CheckIfPlayerHasEnoughSkillpoints();
         }
 
+        PlayerContext.UserInterfaceController.OnAltInfoPressed += () => ToggleCurrentLevelDescription(true);
+        PlayerContext.UserInterfaceController.OnAltInfoReleased += () => ToggleCurrentLevelDescription(false);
+
+        ToggleCurrentLevelDescription(false);
+
         if (!setupCompleted)
         {
             setupCompleted = true;
@@ -99,6 +105,20 @@ public class PlayerFeatsPanelController : MonoBehaviour
         }
         UpdateViewPosition(featButtons[0].rectTransform);
         PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(ControlData);
+    }
+
+    void OnDisable()
+    {
+        PlayerContext.UserInterfaceController.OnAltInfoPressed -= () => ToggleCurrentLevelDescription(true);
+        PlayerContext.UserInterfaceController.OnAltInfoReleased -= () => ToggleCurrentLevelDescription(false);
+
+        ToggleCurrentLevelDescription(false);
+    }
+
+    public void ToggleCurrentLevelDescription(bool toggle)
+    {
+        CurrentLevelDescription.gameObject.SetActive(toggle);
+        NextLevelDescription.gameObject.SetActive(!toggle);
     }
 
     public void OnDestroy()
@@ -116,9 +136,9 @@ public class PlayerFeatsPanelController : MonoBehaviour
     {
         FeatPreviewTitle.text = feat.FeatName;
         FeatPreviewCost.text = "Cost:" + feat.GetCost(currentFeatLevel).ToString();
-        FeatPreviewStats.text = feat.GetNextLevelEffect(currentFeatLevel);
+        NextLevelDescription.text = feat.GetNextLevelDescription(currentFeatLevel);
 
-        FeatPreviewDescription.text = feat.GetCurrentEffect(currentFeatLevel);
+        CurrentLevelDescription.text = feat.GetCurrentLevelDescription(currentFeatLevel);
 
         if (feat is AbilityUnlockFeat abilityUnlockFeat)
         {

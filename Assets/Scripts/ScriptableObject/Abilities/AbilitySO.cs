@@ -12,10 +12,8 @@ public abstract class AbilitySO : ScriptableObject
     public bool CanRotateDuringCast = true;
     public bool IsChannelingAbility = false;
     public int MaxLevel;
-    [TextArea] public string AbilityDescription;
-
-    [TextArea] public string LevelDescriptionTemplate;
-    [TextArea] public string UpgradeDescriptionTemplate;
+    [TextArea] public string CurrentLevelDescription;
+    [TextArea] public string NextLevelDescription;
 
     public abstract RuntimeAbility CreateRuntimeAbility();
 

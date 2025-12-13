@@ -16,9 +16,11 @@ MonoBehaviour:
   AbilityIcon: {fileID: 21300000, guid: 1f4a0aae86ebe3a4abe7d92019f422cb, type: 3}
   AnimationClip: {fileID: 7400000, guid: 9db63ae14ef45d440ad15f07e788d887, type: 2}
   ResourceType: 1
-  ResourceAmount: 15
-  MovementSpeedMultiplierWhileUsing: 0
+  ResourceAmount: 17
+  AbilityType: 0
+  CanMoveWhileUsing: 0
   CanRotateDuringCast: 0
+  IsChannelingAbility: 0
   MaxLevel: 3
   AbilityDescription: Stomps the ground, dealing damage to all nearby enemies and
     slowing them.

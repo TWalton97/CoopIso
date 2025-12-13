@@ -49,12 +49,24 @@ public class Hitbox : MonoBehaviour
                 damageable.TakeDamage(dam, _controller, false, true);
                 damagedColliders.Add(damageable);
                 OnTargetDamaged?.Invoke(dam);
+
+                HitData hitData = new HitData();
+                hitData.target = other.GetComponent<Entity>();
+                hitData.damageAmount = dam;
+                hitData.isCritical = true;
+                _controller.OnHitTarget?.Invoke(hitData);
             }
             else
             {
                 damageable.TakeDamage(_damage, _controller);
                 damagedColliders.Add(damageable);
                 OnTargetDamaged?.Invoke(_damage);
+
+                HitData hitData = new HitData();
+                hitData.target = other.GetComponent<Entity>();
+                hitData.damageAmount = _damage;
+                hitData.isCritical = false;
+                _controller.OnHitTarget?.Invoke(hitData);
             }
         }
 
@@ -86,4 +98,11 @@ public class Hitbox : MonoBehaviour
     {
         return (_targetLayer.value & (1 << obj.layer)) != 0;
     }
+}
+
+public class HitData
+{
+    public Entity target;
+    public int damageAmount;
+    public bool isCritical;
 }

@@ -263,6 +263,13 @@ public class NewWeaponController : MonoBehaviour
     {
         if (instantiatedPrimaryWeapon != null)
         {
+            foreach (GemSocket gemSocket in instantiatedPrimaryWeapon.ItemData.socketedGems)
+            {
+                if (gemSocket.gemEffect != null)
+                {
+                    gemSocket.gemEffect.Disable();
+                }
+            }
             Destroy(instantiatedPrimaryWeapon.gameObject);
             instantiatedPrimaryWeapon = null;
         }
@@ -274,6 +281,18 @@ public class NewWeaponController : MonoBehaviour
             instantiatedPrimaryWeapon.ItemData = weaponSet.PrimaryWeaponData;
             instantiatedPrimaryWeapon.transform.localRotation = weaponSet.PrimaryWeaponData.ItemPrefab.transform.rotation;
             instantiatedPrimaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.MainHand, weaponSet.PrimaryWeaponData);
+            foreach (GemSocket gemSocket in instantiatedPrimaryWeapon.ItemData.socketedGems)
+            {
+                if (gemSocket.gemEffect != null)
+                {
+                    gemSocket.gemEffect.Initialize(instantiatedPrimaryWeapon.ItemData, newPlayerController, gemSocket.hitVFX);
+                }
+
+                if (gemSocket.weaponVFX != null)
+                {
+                    Instantiate(gemSocket.weaponVFX, instantiatedPrimaryWeapon.transform.position, instantiatedPrimaryWeapon.transform.rotation, instantiatedPrimaryWeapon.transform);
+                }
+            }
         }
 
         if (instantiatedSecondaryWeapon != null)
@@ -281,6 +300,13 @@ public class NewWeaponController : MonoBehaviour
             if (instantiatedSecondaryWeapon.ItemData.ItemSO is ShieldSO)
             {
                 newPlayerController.HealthController.UpdateArmorAmount(-instantiatedSecondaryWeapon.ItemData.ShieldArmorAmount);
+            }
+            foreach (GemSocket gemSocket in instantiatedSecondaryWeapon.ItemData.socketedGems)
+            {
+                if (gemSocket.gemEffect != null)
+                {
+                    gemSocket.gemEffect.Disable();
+                }
             }
             Destroy(instantiatedSecondaryWeapon.gameObject);
             instantiatedSecondaryWeapon = null;
@@ -293,6 +319,18 @@ public class NewWeaponController : MonoBehaviour
             instantiatedSecondaryWeapon.ItemData = weaponSet.SecondaryWeaponData;
             instantiatedSecondaryWeapon.transform.localRotation = weaponSet.SecondaryWeaponData.ItemPrefab.transform.rotation;
             instantiatedSecondaryWeapon.Init(newPlayerController.PlayerContext, Weapon.WeaponHand.OffHand, weaponSet.SecondaryWeaponData);
+            foreach (GemSocket gemSocket in instantiatedSecondaryWeapon.ItemData.socketedGems)
+            {
+                if (gemSocket.gemEffect != null)
+                {
+                    gemSocket.gemEffect.Initialize(instantiatedSecondaryWeapon.ItemData, newPlayerController, gemSocket.hitVFX);
+                }
+
+                if (gemSocket.weaponVFX != null)
+                {
+                    Instantiate(gemSocket.weaponVFX, instantiatedSecondaryWeapon.transform.position, instantiatedSecondaryWeapon.transform.rotation, instantiatedSecondaryWeapon.transform);
+                }
+            }
         }
 
         GameObject weaponPrefab = null;

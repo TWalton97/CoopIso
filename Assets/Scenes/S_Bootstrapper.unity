@@ -606,11 +606,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367e21121af94ba4890a792520e65c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyObjectOnLoad: 1
   _loadingCanvas: {fileID: 1488400809}
   _loadingBar: {fileID: 1976463039}
   fillSpeed: 0.5
   loadingCamera: {fileID: 1219148259}
   StartingSceneGroup: {fileID: 11400000, guid: d753cda9428ab59419cfc555ba1860df, type: 2}
+  activeSceneGroup: {fileID: 0}
 --- !u!4 &1871647628
 Transform:
   m_ObjectHideFlags: 0

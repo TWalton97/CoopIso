@@ -16,9 +16,11 @@ MonoBehaviour:
   AbilityIcon: {fileID: 21300000, guid: 186bae809cabc044c9149f1735ebbf25, type: 3}
   AnimationClip: {fileID: 7400000, guid: 955ce1e234ee7c44b91a0d53bb720995, type: 2}
   ResourceType: 1
-  ResourceAmount: 25
+  ResourceAmount: 15
+  AbilityType: 0
   CanMoveWhileUsing: 0
   CanRotateDuringCast: 1
+  IsChannelingAbility: 0
   MaxLevel: 3
   AbilityDescription: Summons a skeletal archer you assist you in combat.
   LevelDescriptionTemplate: Summons up to {NUM_SUMMONS} skeletons to fight for you.

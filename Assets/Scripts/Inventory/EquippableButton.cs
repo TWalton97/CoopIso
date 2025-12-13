@@ -14,6 +14,11 @@ public class EquippableButton : ItemButton
     private ArmorController armorController;
     public TMP_Text StatValue;
 
+    public GameObject DefaultInfoPanel;
+    public GameObject AltInfoPanel;
+
+    public GemEntry[] GemEntries;
+
     public override void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false, InventoryMode mode = InventoryMode.Normal)
     {
         InventoryItemController = inventoryItemController;
@@ -49,7 +54,8 @@ public class EquippableButton : ItemButton
 
     public override void UpdateUI()
     {
-        ItemName.text = inventoryItemView.ItemQuality.ToString() + " " + inventoryItemView.ItemSO.ItemName;
+        // ItemName.text = inventoryItemView.ItemQuality.ToString() + " " + inventoryItemView.ItemSO.ItemName;
+        ItemName.text = ItemData.GetModifiedItemName();
         ItemButtonImage.sprite = inventoryItemView.ItemSO.ItemSprite;
         ItemWeight.text = inventoryItemView.ItemSO.Weight.ToString("0.0");
 
@@ -92,11 +98,19 @@ public class EquippableButton : ItemButton
     void OnEnable()
     {
         CheckIfButtonCanBeActivated();
+        FillOutGemEntry();
+        PlayerContext.UserInterfaceController.OnAltInfoPressed += () => ToggleAltInfo(true);
+        PlayerContext.UserInterfaceController.OnAltInfoReleased += () => ToggleAltInfo(false);
     }
 
     void OnDisable()
     {
         ToggleHighlight(false);
+
+        PlayerContext.UserInterfaceController.OnAltInfoPressed -= () => ToggleAltInfo(true);
+        PlayerContext.UserInterfaceController.OnAltInfoReleased -= () => ToggleAltInfo(false);
+
+        ToggleAltInfo(false);
     }
 
     void OnDestroy()
@@ -104,6 +118,21 @@ public class EquippableButton : ItemButton
         armorController.OnArmorUnequipped -= CheckIfItemUnequipped;
         weaponController.OnWeaponUnequipped -= CheckIfItemUnequipped;
         PlayerContext.PlayerController.PlayerStatsBlackboard.OnGoldAmountChanged -= CheckIfButtonCanBeActivated;
+    }
+
+    private void ToggleAltInfo(bool toggle)
+    {
+        if (toggle)
+        {
+            if (!IsSelected)
+                return;
+        }
+
+        if (DefaultInfoPanel != null)
+            DefaultInfoPanel.SetActive(!toggle);
+
+        if (AltInfoPanel != null)
+            AltInfoPanel.SetActive(toggle);
     }
 
     private void SetBackgroundColor(Color color)
@@ -362,6 +391,16 @@ public class EquippableButton : ItemButton
     {
         base.OnSelect(eventData);
         InventoryItemController.UpdateViewPosition(GetComponent<RectTransform>(), GetComponentInParent<ScrollRect>());
+        if (PlayerContext.UserInterfaceController.AltInfoPressed)
+        {
+            ToggleAltInfo(true);
+        }
+    }
+
+    public override void OnDeselect(BaseEventData eventData)
+    {
+        base.OnDeselect(eventData);
+        ToggleAltInfo(false);
     }
 
     public bool IsItemArmor()
@@ -396,4 +435,29 @@ public class EquippableButton : ItemButton
     {
         OnLeftClick();
     }
+
+    public void FillOutGemEntry()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            GemEntries[i].GemImage.sprite = GemEntries[i].DefaultSprite;
+            GemEntries[i].GemDescription.text = "";
+        }
+
+        int index = 0;
+        foreach (GemSocket socket in ItemData.socketedGems)
+        {
+            GemEntries[index].GemImage.sprite = socket.gem.GemSprite;
+            GemEntries[index].GemDescription.text = socket.gem.GetEffectForSlot(ItemData.EquipmentSlotType).EffectDescription;
+            index++;
+        }
+    }
+}
+
+[System.Serializable]
+public class GemEntry
+{
+    public Image GemImage;
+    public Sprite DefaultSprite;
+    public TMP_Text GemDescription;
 }

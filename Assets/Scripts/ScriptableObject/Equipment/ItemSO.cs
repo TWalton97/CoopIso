@@ -9,6 +9,7 @@ public class ItemSO : ScriptableObject
 
     public ItemType ItemType;
     public ItemDropType ItemDropType;
+    public EquipmentSlotType EquipmentSlotType;
 
     public int BaseLootBudget;
     public int BaseLootWeight;

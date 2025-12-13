@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cb90b9c5b87cf4b92504e47a386d23, type: 3}
+  m_Name: Ruby
+  m_EditorClassIdentifier: 
+  GemName: Ruby
+  LootBudgetCost: 2
+  GemSprite: {fileID: 0}
+  GemEffects:
+  - Slot: 0
+    EffectClassName: RubyWeaponEffect
+    EffectDescription: Deals a burst of damage on crit
+    HitVFX: {fileID: 358637981425055526, guid: 418682b0746b6fa40b4216d547fc72ea, type: 3}
+    WeaponVFX: {fileID: 8439842959796728688, guid: 763f5e5b5fc020f45a0ab6a69ed12e4b, type: 3}
+    namePrefix: 
+    nameSuffix: of the Inferno
+  - Slot: 1
+    EffectClassName: RubyArmorEffect
+    EffectDescription: Has a chance to burn attackers
+    HitVFX: {fileID: 0}
+    WeaponVFX: {fileID: 0}
+    namePrefix: Flaming
+    nameSuffix: 
+  - Slot: 2
+    EffectClassName: 
+    EffectDescription: Increases the level of Fireball by 1
+    HitVFX: {fileID: 0}
+    WeaponVFX: {fileID: 0}
+    namePrefix: Burning
+    nameSuffix: 

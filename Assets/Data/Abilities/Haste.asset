@@ -16,9 +16,11 @@ MonoBehaviour:
   AbilityIcon: {fileID: 21300000, guid: 77077ad6096c0a54d9c99e2ad7128a0b, type: 3}
   AnimationClip: {fileID: 7400000, guid: 955ce1e234ee7c44b91a0d53bb720995, type: 2}
   ResourceType: 1
-  ResourceAmount: 25
+  ResourceAmount: 18
+  AbilityType: 0
   CanMoveWhileUsing: 0
   CanRotateDuringCast: 0
+  IsChannelingAbility: 0
   MaxLevel: 5
   AbilityDescription: Increases the movement and attack speed of nearby allies.
   LevelDescriptionTemplate: Increases movement and attack speed of nearby allies

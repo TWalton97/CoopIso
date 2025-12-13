@@ -18,6 +18,7 @@ MonoBehaviour:
   GroundItemPrefab: {fileID: 5679905921366818700, guid: 04478f353a783e74e89e6cec6e03b9e4, type: 3}
   ItemType: 2
   ItemDropType: 0
+  EquipmentSlotType: 1
   BaseLootBudget: 16
   BaseLootWeight: 2
   GoldValue: 50

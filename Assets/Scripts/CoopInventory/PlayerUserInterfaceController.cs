@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -25,6 +26,10 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
     public PlayerUIState playerUIState = PlayerUIState.None;
 
+    public Action OnAltInfoPressed;
+    public Action OnAltInfoReleased;
+    public bool AltInfoPressed = false;
+
     public void Init(PlayerContext context)
     {
         eventSystem = GetComponent<MultiplayerEventSystem>();
@@ -41,6 +46,9 @@ public class PlayerUserInterfaceController : MonoBehaviour
         playerContext.PlayerController.PlayerInputController.OnEquipOffhandPerformed += CallEquipOffhandOnButton;
         playerContext.PlayerController.PlayerInputController.OnCancelPerformed += OnCancel;
         VendorPanelController.PlayerContext = playerContext;
+
+        OnAltInfoPressed += () => AltInfoPressed = true;
+        OnAltInfoReleased += () => AltInfoPressed = false;
     }
 
     void OnEnable()
@@ -53,6 +61,9 @@ public class PlayerUserInterfaceController : MonoBehaviour
         playerContext.PlayerController.PlayerInputController.OnDropItemPerformed -= CallDropItemOnButton;
         playerContext.PlayerController.PlayerInputController.OnEquipOffhandPerformed -= CallEquipOffhandOnButton;
         playerContext.PlayerController.PlayerInputController.OnCancelPerformed -= OnCancel;
+
+        OnAltInfoPressed -= () => AltInfoPressed = true;
+        OnAltInfoReleased -= () => AltInfoPressed = false;
     }
 
     private void OnCancel(CallbackContext context)

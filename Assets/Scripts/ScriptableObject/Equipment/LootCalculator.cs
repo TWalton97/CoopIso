@@ -57,6 +57,8 @@ public static class LootCalculator
             { 4, new() { (ItemQuality.Normal, 40f), (ItemQuality.Fine, 35f), (ItemQuality.Remarkable, 15f), (ItemQuality.Superior, 10f) } }
         };
 
+    const float GemSpawnChance = 0.3f;
+
     private static List<(ItemQuality quality, float weight)> GetQualityTable(int enemyLevel)
     {
         if (EnemyLevelQualityTables.ContainsKey(enemyLevel))
@@ -120,14 +122,39 @@ public static class LootCalculator
 
             if (cost <= remaining)
             {
-                results.Add(new LootResult
+                var loot = new LootResult
                 {
                     itemSO = itemSO,
                     quality = q,
                     quantity = ResolveAmount(itemSO)
-                });
+                };
 
                 remaining -= cost;
+
+                // Roll gems for equipment
+                if (itemSO.ItemDropType == ItemDropType.Equipment && Random.value < GemSpawnChance)
+                {
+                    int maxSockets = 3;
+                    int socketsToRoll = Random.Range(1, maxSockets + 1);
+
+                    for (int s = 0; s < socketsToRoll; s++)
+                    {
+                        Debug.Log($"Remaining budget for gems is {remaining}");
+                        // Get all affordable gems
+                        var affordableGems = db.spawnableGems
+                            .FindAll(g => g.LootBudgetCost <= remaining);
+
+                        if (affordableGems.Count == 0)
+                            break;
+
+                        GemSO gem = affordableGems[Random.Range(0, affordableGems.Count)];
+
+                        loot.socketedGems.Add(gem);
+                        remaining -= gem.LootBudgetCost;
+                    }
+                }
+
+                results.Add(loot);
             }
         }
 
@@ -246,4 +273,6 @@ public class LootResult
     public ItemSO itemSO;
     public ItemQuality quality = ItemQuality.Normal;
     public int quantity = 1;
+
+    public List<GemSO> socketedGems = new();
 }

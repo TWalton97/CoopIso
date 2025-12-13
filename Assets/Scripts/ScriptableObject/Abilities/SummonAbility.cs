@@ -22,7 +22,7 @@ public class SummonAbility : AbilitySO
 
     public override string GetLevelDescription(int currentLevel)
     {
-        string s = LevelDescriptionTemplate;
+        string s = CurrentLevelDescription;
 
         int val = DamagePerLevel[currentLevel - 1];
         int healthVal = HealthPerLevel[currentLevel - 1];
@@ -37,7 +37,7 @@ public class SummonAbility : AbilitySO
 
     public override string GetUpgradeDescription(int currentLevel)
     {
-        string s = UpgradeDescriptionTemplate;
+        string s = NextLevelDescription;
 
         int curr = DamagePerLevel[currentLevel - 1];
         int next = DamagePerLevel[currentLevel];
