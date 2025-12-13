@@ -11,17 +11,17 @@ public class ProjectileSpellRuntimeAbility : RuntimeAbility
     public ProjectileSpellRuntimeAbility(ProjectileSpellAbility data) : base(data)
     {
         this.data = data;
-        Damage = data.DamagePerLevel[currentLevel - 1];
-        ProjectileSpeed = data.ProjectileSpeed[currentLevel - 1];
-        NumberOfProjectiles = data.NumberOfProjectiles[currentLevel - 1];
+        Damage = data.DMG_PerLevel[currentLevel - 1];
+        ProjectileSpeed = data.PROJ_SPEED_PerLevel[currentLevel - 1];
+        NumberOfProjectiles = data.NUM_PROJ_PerLevel[currentLevel - 1];
         Statuses = data.AppliedStatuses;
     }
 
     public override void Upgrade()
     {
         currentLevel++;
-        Damage = data.DamagePerLevel[currentLevel - 1];
-        ProjectileSpeed = data.ProjectileSpeed[currentLevel - 1];
-        NumberOfProjectiles = data.NumberOfProjectiles[currentLevel - 1];
+        Damage = data.DMG_PerLevel[currentLevel - 1];
+        ProjectileSpeed = data.PROJ_SPEED_PerLevel[currentLevel - 1];
+        NumberOfProjectiles = data.NUM_PROJ_PerLevel[currentLevel - 1];
     }
 }

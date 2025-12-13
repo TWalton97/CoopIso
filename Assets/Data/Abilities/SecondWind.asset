@@ -22,12 +22,14 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Restores {DAM}% of your maximum health when you fall below
-    25% health. Can only activate once every 60s.
-  LevelDescriptionTemplate: Restores {DAM}% of your maximum health when you fall
-    below 25% health. Can only activate once every 60s.
-  UpgradeDescriptionTemplate: Restores {DAM_NEXT}% of your maximum health when you
-    fall below 25% health. Can only activate once every 60s.
+  CurrentLevelDescription: 'Heals for {DMG_CURR}% of your max health when you fall
+    below 25% health.
+
+    Can only trigger once every 60s.'
+  NextLevelDescription: 'Heals for {DMG_NEXT}% of your max health when you fall below
+    25% health.
+
+    Can only trigger once every 60s.'
   RequiredWeaponRangeType: 0
-  DamagePerLevel: 1e0000002800000032000000
+  DMG_PerLevel: 230000003200000041000000
   abilityBehaviourPrefab: {fileID: 3865330208979059683, guid: 6b459d07b8d375e48bc197d19f1154d7, type: 3}

@@ -17,25 +17,26 @@ MonoBehaviour:
   AnimationClip: {fileID: 7400000, guid: d099426be33a89a439044a267d8c09b7, type: 2}
   ResourceType: 1
   ResourceAmount: 15
-  MovementSpeedMultiplierWhileUsing: 0
+  AbilityType: 0
+  CanMoveWhileUsing: 0
   CanRotateDuringCast: 0
+  IsChannelingAbility: 0
   MaxLevel: 5
-  AbilityDescription: Increases the armor of all nearby allies
-  LevelDescriptionTemplate: Increases armor of nearby allies by {VAL} for {DUR}s.
-  UpgradeDescriptionTemplate: Increases armor from {VAL_CURR} to {VAL_NEXT} and duration
-    from {DUR_CURR} to {DUR_NEXT}.
+  CurrentLevelDescription: Increases armor of all nearby allies by {VAL_CURR} for
+    {DUR_CURR}s.
+  NextLevelDescription: Increases armor of all nearby allies by {VAL_NEXT} for {DUR_NEXT}s.
   RequiredWeaponRangeType: 3
   statusSO: {fileID: 11400000, guid: 0ae180700c5b45747a904b6df15b9584, type: 2}
   buffBehaviourPrefab: {fileID: 1356468606317954617, guid: 11f246e1c9f17ca4f8e0a7269aa64ad3, type: 3}
-  BuffValuePerLevel:
+  VAL_PerLevel:
   - 4
   - 6
   - 8
   - 10
   - 12
-  BuffDurationPerLevel:
-  - 10
+  DUR_PerLevel:
   - 12
-  - 14
   - 16
-  - 18
+  - 20
+  - 24
+  - 28

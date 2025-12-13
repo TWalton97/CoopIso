@@ -29,7 +29,6 @@ public class FreeLookCameraManager : Singleton<FreeLookCameraManager>
 
     public void OnRotateButton(CallbackContext ctx)
     {
-        Debug.Log($"{ctx.phase}");
         if (ctx.started)
         {
             mouseHeld = true;

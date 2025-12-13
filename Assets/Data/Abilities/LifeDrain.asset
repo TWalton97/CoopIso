@@ -22,10 +22,10 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 1
   MaxLevel: 3
-  AbilityDescription: Drain life from nearby enemies every 0.6s.
-  LevelDescriptionTemplate: Deals {DAM} damage to all nearby enemies, healing you
-    for half of the amount.
-  UpgradeDescriptionTemplate: Increases damage from {DAM_CURR} to {DAM_NEXT}.
+  CurrentLevelDescription: Deals {DMG_CURR} to all nearby enemies every 0.6s, healing
+    for half of the damage dealt.
+  NextLevelDescription: Deals {DMG_NEXT} to all nearby enemies every 0.6s, healing
+    for half of the damage dealt.
   RequiredWeaponRangeType: 0
-  DamagePerLevel: 020000000300000004000000
+  DMG_PerLevel: 030000000500000007000000
   abilityBehaviourPrefab: {fileID: 1982851206342508484, guid: 126106f1fd1fb704888f89d48de24e24, type: 3}

@@ -22,24 +22,24 @@ MonoBehaviour:
   CanRotateDuringCast: 0
   IsChannelingAbility: 0
   MaxLevel: 5
-  AbilityDescription: Inflicts nearby enemies with poison. Effect spreads when targets
-    die.
-  LevelDescriptionTemplate: Poisons {DUR} enemies for {VAL} poison damage per second
-    for 10s. Effect spreads when targets die.
-  UpgradeDescriptionTemplate: Increases number of targets from {DUR_CURR} to {DUR_NEXT}
-    and damage from {VAL_CURR} to {VAL_NEXT}
+  CurrentLevelDescription: Applies poison to the nearest {DUR_CURR} targets, dealing
+    {VAL_CURR} poison damage for 10 seconds. If the effect is on a target when it
+    dies, the effect spreads.
+  NextLevelDescription: Applies poison to the nearest {DUR_NEXT} targets, dealing
+    {VAL_NEXT} poison damage for 10 seconds. If the effect is on a target when it
+    dies, the effect spreads.
   RequiredWeaponRangeType: 0
   statusSO: {fileID: 11400000, guid: d3f640c5350332b46a7e23b8c402ff72, type: 2}
   buffBehaviourPrefab: {fileID: 3455436430645050725, guid: 6727dfe8b29e30e4f85225cd14ae61ed, type: 3}
-  BuffValuePerLevel:
+  VAL_PerLevel:
   - 3
   - 4
   - 5
   - 6
   - 7
-  BuffDurationPerLevel:
+  DUR_PerLevel:
+  - 2
   - 2
   - 3
+  - 3
   - 4
-  - 5
-  - 6

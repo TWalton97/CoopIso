@@ -22,17 +22,20 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Fires a rain of arrows that travels along a column in front
-    of you.
-  LevelDescriptionTemplate: Deals {DMG} weapon damage to enemies, applying slow.
-  UpgradeDescriptionTemplate: Increases {DMG_CURR} to {DMG_NEXT}.
+  CurrentLevelDescription: Deal {DMG_CURR}% weapon damage to all enemies in a line
+    in front of you.
+  NextLevelDescription: Deal {DMG_NEXT}% weapon damage to all enemies in a line in
+    front of you.
   AppliedStatuses:
   - {fileID: 11400000, guid: d1863129665f3e64b868340812f925be, type: 2}
   RequiredWeaponRangeType: 2
   abilityBehaviourPrefab: {fileID: 1777890230724462431, guid: 193fb4ea80567b34aa22fe2aa2564992, type: 3}
-  DamagePercentPerLevel:
+  DMG_PerLevel:
+  - 0.6
   - 0.8
   - 1
-  - 1.2
   DealsDamageOverTime: 0
-  TickRatePerLevel: []
+  TICK_PerLevel:
+  - 0
+  - 0
+  - 0

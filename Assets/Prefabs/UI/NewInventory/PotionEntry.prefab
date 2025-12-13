@@ -682,7 +682,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 460, y: -91}
-  m_SizeDelta: {x: 920, y: 180}
+  m_SizeDelta: {x: 880, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &710962696653950170
 CanvasRenderer:
@@ -780,6 +780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerContext:
     PlayerIndex: 0
+    PlayerClassPreset: {fileID: 0}
     UserInterfaceController: {fileID: 0}
     PlayerController: {fileID: 0}
     PlayerInput: {fileID: 0}
@@ -788,23 +789,34 @@ MonoBehaviour:
     SpawnedItemDatabase: {fileID: 0}
     PlayerPreviewManager: {fileID: 0}
     InventoryController: {fileID: 0}
-  InventoryController: {fileID: 0}
+    UIStateManager: {fileID: 0}
   InventoryItemController: {fileID: 0}
+  ItemSO: {fileID: 0}
   ItemData:
-    itemID: 
-    itemName: 
-    quantity: 0
-    sprite: {fileID: 0}
-    itemValue: 0
-    itemWeight: 0
-    itemDescription: 
-    objectPrefab: {fileID: 0}
-    floorObjectPrefab: {fileID: 0}
-    vfxPrefab: {fileID: 0}
-    itemType: 0
-    weaponRangeType: 0
-    data: {fileID: 0}
-    affixes: []
+    ItemID: 
+    ItemSO: {fileID: 0}
+    ItemSO_ID: 
+    Quality: 0
+    EquipmentSlotType: 0
+    Quantity: 1
+    currentSockets: 0
+    socketedGems: []
+  inventoryItemView:
+    ItemSO: {fileID: 0}
+    ItemData:
+      ItemID: 
+      ItemSO: {fileID: 0}
+      ItemSO_ID: 
+      Quality: 0
+      EquipmentSlotType: 0
+      Quantity: 1
+      currentSockets: 0
+      socketedGems: []
+    Quantity: 0
+    ItemQuality: 0
+    GoldValue: 0
+    IsStackable: 0
+    SlotID: 
   BaseColor: {r: 0.3764706, g: 0.32156864, b: 0, a: 1}
   EquippedColor: {r: 0, g: 0.5647059, b: 0.039215688, a: 1}
   CannotBeUsedColor: {r: 0.49019608, g: 0, b: 0, a: 1}
@@ -818,6 +830,10 @@ MonoBehaviour:
   ItemWeight: {fileID: 5768320318445339805}
   ItemButtonImage: {fileID: 7344383749361080813}
   HighlightIcon: {fileID: 2085574477104641779}
+  ButtonID: 
+  buttonState: 0
+  ItemMode: 0
+  Quantity: 0
   QuantityText: {fileID: 5667655504526802867}
 --- !u!1 &6532454633623127756
 GameObject:

@@ -12,14 +12,12 @@ public class StatIncreaseFeat : FeatSO
 
     public override string GetCurrentLevelDescription(int level)
     {
-        if (level == 0) return $"Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)}";
-
         if (isPercentage)
         {
-            return $"Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {CalculateCurrentValue(level)}" + "%";
+            return $"Current: Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {CalculateCurrentValue(level)}" + "%";
         }
 
-        return $"Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {CalculateCurrentValue(level)}";
+        return $"Current: Increases {Utilities.EnumExtension.ConvertToDisplayName(Stat)} by {CalculateCurrentValue(level)}";
     }
 
     public override string GetNextLevelDescription(int level)

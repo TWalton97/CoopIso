@@ -22,13 +22,18 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Summons a little mushroom man.
-  LevelDescriptionTemplate: Summons up to {NUM_SUMMONS} mushrooms to help you, or
-    try to.
-  UpgradeDescriptionTemplate: Summons up to {NUM_SUMMONS_NEXT} mushrooms to help
-    you, or try to.
+  CurrentLevelDescription: 'Summons a mushroom with {HEALTH_CURR} health that deals
+    {DMG_CURR} damage per hit.
+
+    Can have up to {NUM_SUMMONS_CURR} active at a
+    time.'
+  NextLevelDescription: 'Summons a mushroom with {HEALTH_NEXT} health that deals
+    {DMG_NEXT} damage per hit.
+
+    Can have up to {NUM_SUMMONS_NEXT} active at a
+    time.'
   RequiredWeaponRangeType: 2
   abilityBehaviourPrefab: {fileID: 6284882083578312484, guid: 6849366b5eb61e7498ba20fe8c2b8550, type: 3}
-  DamagePerLevel: 020000000200000002000000
-  HealthPerLevel: 140000001400000014000000
-  MaximumSummonsPerLevel: 020000000300000004000000
+  DMG_PerLevel: 020000000200000002000000
+  HEALTH_PerLevel: 140000001400000014000000
+  NUM_SUMMONS_PerLevel: 020000000300000004000000

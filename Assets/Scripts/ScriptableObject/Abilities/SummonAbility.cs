@@ -6,9 +6,9 @@ public class SummonAbility : AbilitySO
     public WeaponRangeType RequiredWeaponRangeType;
     public SummonAbilityBehaviour abilityBehaviourPrefab;
 
-    public int[] DamagePerLevel;
-    public int[] HealthPerLevel;
-    public int[] MaximumSummonsPerLevel;
+    public int[] DMG_PerLevel;
+    public int[] HEALTH_PerLevel;
+    public int[] NUM_SUMMONS_PerLevel;
 
     public override RuntimeAbility CreateRuntimeAbility()
     {
@@ -20,41 +20,35 @@ public class SummonAbility : AbilitySO
         return "";
     }
 
-    public override string GetLevelDescription(int currentLevel)
+    public override string GetCurrentLevelDescription(int currentLevel)
     {
         string s = CurrentLevelDescription;
 
-        int val = DamagePerLevel[currentLevel - 1];
-        int healthVal = HealthPerLevel[currentLevel - 1];
-        int sumVal = MaximumSummonsPerLevel[currentLevel - 1];
+        int val = DMG_PerLevel[currentLevel - 1];
+        int healthVal = HEALTH_PerLevel[currentLevel - 1];
+        int sumVal = NUM_SUMMONS_PerLevel[currentLevel - 1];
 
-        s = s.Replace("{DMG}", val.ToString());
-        s = s.Replace("{HEALTH}", healthVal.ToString());
-        s = s.Replace("{NUM_SUMMONS}", sumVal.ToString());
+        s = s.Replace("{DMG_CURR}", val.ToString());
+        s = s.Replace("{HEALTH_CURR}", healthVal.ToString());
+        s = s.Replace("{NUM_SUMMONS_CURR}", sumVal.ToString());
 
         return s;
     }
 
-    public override string GetUpgradeDescription(int currentLevel)
+    public override string GetNextLevelDescription(int currentLevel)
     {
         string s = NextLevelDescription;
 
-        int curr = DamagePerLevel[currentLevel - 1];
-        int next = DamagePerLevel[currentLevel];
+        int next = DMG_PerLevel[currentLevel];
 
-        int healthValCurr = HealthPerLevel[currentLevel - 1];
-        int healthValNext = HealthPerLevel[currentLevel];
+        int healthValNext = HEALTH_PerLevel[currentLevel];
 
-        int sumValCurr = MaximumSummonsPerLevel[currentLevel - 1];
-        int sumValNext = MaximumSummonsPerLevel[currentLevel];
+        int sumValNext = NUM_SUMMONS_PerLevel[currentLevel];
 
-        s = s.Replace("{DMG_CURR}", curr.ToString());
         s = s.Replace("{DMG_NEXT}", next.ToString());
 
-        s = s.Replace("{HEALTH_CURR}", healthValCurr.ToString());
         s = s.Replace("{HEALTH_NEXT}", healthValNext.ToString());
 
-        s = s.Replace("{NUM_SUMMONS_CURR}", sumValCurr.ToString());
         s = s.Replace("{NUM_SUMMONS_NEXT}", sumValNext.ToString());
 
         return s;

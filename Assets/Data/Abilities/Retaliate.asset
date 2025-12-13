@@ -22,12 +22,14 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Deal {DAM} damage to nearby enemies on block. Can only activate
-    once every 7s.
-  LevelDescriptionTemplate: Deal {DAM} damage to nearby enemies on block. Can only
-    activate once every 7s.
-  UpgradeDescriptionTemplate: Deal {DAM_NEXT} damage to nearby enemies on block.
-    Can only activate once every 7s.
+  CurrentLevelDescription: 'Deals {DMG_CURR} damage to enemies in front of you when
+    you block an attack within 1s.
+
+    Effect can only trigger once every 7s.'
+  NextLevelDescription: 'Deals {DMG_NEXT} damage to enemies in front of you when
+    you block an attack within 1s.
+
+    Effect can only trigger once every 7s.'
   RequiredWeaponRangeType: 1
-  DamagePerLevel: 050000000a0000000f000000
+  DMG_PerLevel: 04000000080000000c000000
   abilityBehaviourPrefab: {fileID: 5874985748845391156, guid: aa283cb5434be754ba0937b85c75c35c, type: 3}

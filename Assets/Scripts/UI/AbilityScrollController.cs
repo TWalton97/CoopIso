@@ -267,7 +267,7 @@ public class AbilityScrollController : MonoBehaviour
         }
         else
         {
-            AbilityDescription.text = ability.AbilitySO.GetLevelDescription(runtime.currentLevel);
+            AbilityDescription.text = ability.AbilitySO.GetCurrentLevelDescription(runtime.currentLevel);
         }
 
         ToggleAbilityDescription(true);

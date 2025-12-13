@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class InventoryItemController : MonoBehaviour
 {
-    public Button LeftTab;
-    public Button RightTab;
+    // public Button LeftTab;
+    // public Button RightTab;
 
     public PlayerContext PlayerContext;
 
@@ -44,23 +44,23 @@ public class InventoryItemController : MonoBehaviour
             SelectButton();
         }
 
-        Navigation rightTabNavigation = new Navigation();
-        rightTabNavigation.mode = Navigation.Mode.Explicit;
-        rightTabNavigation.selectOnLeft = LeftTab;
-        if (ItemButtonParent.childCount != 0)
-        {
-            rightTabNavigation.selectOnDown = ItemButtonParent.GetChild(0).GetComponent<Button>();
-        }
-        RightTab.navigation = rightTabNavigation;
+        // Navigation rightTabNavigation = new Navigation();
+        // rightTabNavigation.mode = Navigation.Mode.Explicit;
+        // rightTabNavigation.selectOnLeft = LeftTab;
+        // if (ItemButtonParent.childCount != 0)
+        // {
+        //     rightTabNavigation.selectOnDown = ItemButtonParent.GetChild(0).GetComponent<Button>();
+        // }
+        // RightTab.navigation = rightTabNavigation;
 
-        Navigation leftTabNavigation = new Navigation();
-        leftTabNavigation.mode = Navigation.Mode.Explicit;
-        leftTabNavigation.selectOnRight = RightTab;
-        if (ItemButtonParent.childCount != 0)
-        {
-            leftTabNavigation.selectOnDown = ItemButtonParent.GetChild(0).GetComponent<Button>();
-        }
-        LeftTab.navigation = leftTabNavigation;
+        // Navigation leftTabNavigation = new Navigation();
+        // leftTabNavigation.mode = Navigation.Mode.Explicit;
+        // leftTabNavigation.selectOnRight = RightTab;
+        // if (ItemButtonParent.childCount != 0)
+        // {
+        //     leftTabNavigation.selectOnDown = ItemButtonParent.GetChild(0).GetComponent<Button>();
+        // }
+        // LeftTab.navigation = leftTabNavigation;
     }
 
     public void UpdateControlsPanel(ItemButton button = null)
@@ -150,7 +150,7 @@ public class InventoryItemController : MonoBehaviour
             PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(-itemButton.inventoryItemView.ItemSO.Weight);
             instantiatedItemButtons.Remove(id);
             Destroy(itemButton.gameObject);
-            PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
+            //PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
         }
         else
         {
@@ -178,7 +178,7 @@ public class InventoryItemController : MonoBehaviour
         {
             Destroy(itemButton.gameObject);
             instantiatedBuyItemButtons.Remove(id);
-            PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
+            //PlayerContext.UserInterfaceController.eventSystem.SetSelectedGameObject(LeftTab.gameObject);
         }
         else
         {

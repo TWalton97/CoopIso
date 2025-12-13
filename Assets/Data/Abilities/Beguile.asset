@@ -22,17 +22,16 @@ MonoBehaviour:
   CanRotateDuringCast: 0
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Beguiles the nearest enemy.
-  LevelDescriptionTemplate: Beguiles the nearest enemy for {DUR} seconds.
-  UpgradeDescriptionTemplate: Increases the duration from {DUR_CURR}s to {DUR_NEXT}s.
+  CurrentLevelDescription: Beguiles the nearest enemy for {DUR_CURR}s.
+  NextLevelDescription: Beguiles the nearest enemy for {DUR_NEXT}s.
   RequiredWeaponRangeType: 0
   statusSO: {fileID: 11400000, guid: e00894adbf824bb4ab5133a2a1667eeb, type: 2}
   buffBehaviourPrefab: {fileID: 3455436430645050725, guid: f8f2cd55676555143b397c3d488ab7a6, type: 3}
-  BuffValuePerLevel:
+  VAL_PerLevel:
   - 0
   - 0
   - 0
-  BuffDurationPerLevel:
-  - 6
-  - 10
-  - 14
+  DUR_PerLevel:
+  - 8
+  - 12
+  - 16

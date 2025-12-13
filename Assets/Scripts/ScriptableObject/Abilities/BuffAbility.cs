@@ -8,8 +8,8 @@ public class BuffAbility : AbilitySO
     public StatusSO statusSO;
     public BuffAbilityBehaviour buffBehaviourPrefab;
 
-    public float[] BuffValuePerLevel;
-    public float[] BuffDurationPerLevel;
+    public float[] VAL_PerLevel;
+    public float[] DUR_PerLevel;
 
     public override RuntimeAbility CreateRuntimeAbility()
     {
@@ -21,33 +21,29 @@ public class BuffAbility : AbilitySO
         throw new System.NotImplementedException();
     }
 
-    public override string GetLevelDescription(int currentLevel)
+    public override string GetCurrentLevelDescription(int currentLevel)
     {
         string s = CurrentLevelDescription;
 
-        float val = BuffValuePerLevel[currentLevel - 1];
-        float dur = BuffDurationPerLevel[currentLevel - 1];
+        float val = VAL_PerLevel[currentLevel - 1];
+        float dur = DUR_PerLevel[currentLevel - 1];
 
-        s = s.Replace("{VAL}", val.ToString());
-        s = s.Replace("{DUR}", dur.ToString());
+        s = s.Replace("{VAL_CURR}", val.ToString());
+        s = s.Replace("{DUR_CURR}", dur.ToString());
 
         return s;
     }
 
-    public override string GetUpgradeDescription(int currentLevel)
+    public override string GetNextLevelDescription(int currentLevel)
     {
         string s = NextLevelDescription;
 
-        float curr = BuffValuePerLevel[currentLevel - 1];
-        float next = BuffValuePerLevel[currentLevel];
+        float next = VAL_PerLevel[currentLevel];
 
-        s = s.Replace("{VAL_CURR}", curr.ToString());
         s = s.Replace("{VAL_NEXT}", next.ToString());
 
-        curr = BuffDurationPerLevel[currentLevel - 1];
-        next = BuffDurationPerLevel[currentLevel];
+        next = DUR_PerLevel[currentLevel];
 
-        s = s.Replace("{DUR_CURR}", curr.ToString());
         s = s.Replace("{DUR_NEXT}", next.ToString());
 
         return s;

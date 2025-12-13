@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GemName: Ruby
   LootBudgetCost: 2
-  GemSprite: {fileID: 0}
+  GemSprite: {fileID: 21300000, guid: 3c3a006bd25f76d41a12cd6b35a5d622, type: 3}
   GemEffects:
   - Slot: 0
     EffectClassName: RubyWeaponEffect

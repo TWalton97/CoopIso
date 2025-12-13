@@ -22,18 +22,17 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Performs a short range slash, applying bleed to all enemies
-    hit.
-  LevelDescriptionTemplate: Deals {DMG} weapon damage to nearby enemies, applying
-    bleed.
-  UpgradeDescriptionTemplate: Increases weapon damage from {DMG_CURR} to {DMG_NEXT}.
+  CurrentLevelDescription: Swings your weapon dealing {DMG_CURR}% weapon damage to
+    all enemies in front of you, applying bleed.
+  NextLevelDescription: Swings your weapon dealing {DMG_NEXT}% weapon damage to all
+    enemies in front of you, applying bleed.
   AppliedStatuses:
   - {fileID: 11400000, guid: 837ab8a5f9560354c80d1f39b78edcfd, type: 2}
   RequiredWeaponRangeType: 1
   abilityBehaviourPrefab: {fileID: 465124582816337510, guid: 9949500098f8bde4faa21e8f0d07108d, type: 3}
-  DamagePercentPerLevel:
+  DMG_PerLevel:
   - 0.8
   - 1
   - 1.2
   DealsDamageOverTime: 0
-  TickRatePerLevel: []
+  TICK_PerLevel: []

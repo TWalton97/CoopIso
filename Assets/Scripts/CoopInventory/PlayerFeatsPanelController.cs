@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerFeatsPanelController : MonoBehaviour
 {
     public PlayerContext PlayerContext;
-    public Button LeftTab;
-    public Button RightTab;
+    // public Button LeftTab;
+    // public Button RightTab;
 
     public TMP_Text SkillPointsRemainingText;
     public FeatButton FeatButtonPrefab;
@@ -58,17 +58,17 @@ public class PlayerFeatsPanelController : MonoBehaviour
 
         SortButtonsAlphabetically();
 
-        Navigation rightTabNavigation = new Navigation();
-        rightTabNavigation.mode = Navigation.Mode.Explicit;
-        rightTabNavigation.selectOnLeft = LeftTab;
-        rightTabNavigation.selectOnDown = featButtons[0].GetComponent<Button>();
-        RightTab.navigation = rightTabNavigation;
+        // Navigation rightTabNavigation = new Navigation();
+        // rightTabNavigation.mode = Navigation.Mode.Explicit;
+        // rightTabNavigation.selectOnLeft = LeftTab;
+        // rightTabNavigation.selectOnDown = featButtons[0].GetComponent<Button>();
+        // RightTab.navigation = rightTabNavigation;
 
-        Navigation leftTabNavigation = new Navigation();
-        leftTabNavigation.mode = Navigation.Mode.Explicit;
-        leftTabNavigation.selectOnRight = RightTab;
-        leftTabNavigation.selectOnDown = featButtons[0].GetComponent<Button>();
-        LeftTab.navigation = leftTabNavigation;
+        // Navigation leftTabNavigation = new Navigation();
+        // leftTabNavigation.mode = Navigation.Mode.Explicit;
+        // leftTabNavigation.selectOnRight = RightTab;
+        // leftTabNavigation.selectOnDown = featButtons[0].GetComponent<Button>();
+        // LeftTab.navigation = leftTabNavigation;
     }
 
     private void SortButtonsAlphabetically()
@@ -137,7 +137,6 @@ public class PlayerFeatsPanelController : MonoBehaviour
         FeatPreviewTitle.text = feat.FeatName;
         FeatPreviewCost.text = "Cost:" + feat.GetCost(currentFeatLevel).ToString();
         NextLevelDescription.text = feat.GetNextLevelDescription(currentFeatLevel);
-
         CurrentLevelDescription.text = feat.GetCurrentLevelDescription(currentFeatLevel);
 
         if (feat is AbilityUnlockFeat abilityUnlockFeat)

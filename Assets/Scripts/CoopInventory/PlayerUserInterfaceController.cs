@@ -128,6 +128,7 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
     public void OpenInventoryInMode(InventoryMode inventoryMode)
     {
+        inventoryController.gameObject.SetActive(true);
         inventoryController.ChangeInventoryMode(inventoryMode);
         inventoryController.OpenInventory();
 
@@ -148,6 +149,7 @@ public class PlayerUserInterfaceController : MonoBehaviour
 
     public void CloseInventory()
     {
+        inventoryController.gameObject.SetActive(false);
         inventoryController.ChangeInventoryMode(InventoryMode.Normal);
         inventoryController.CloseInventory();
         playerContext.InventoryManager.RequestUnpause();

@@ -22,13 +22,16 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Summons a bear
-  LevelDescriptionTemplate: Summons a bear to fight with you. Bear has {HEALTH} health
-    and deals {DMG} damage.
-  UpgradeDescriptionTemplate: Increases damage from {DMG_CURR} to {DMG_NEXT}, health
-    from {HEALTH_CURR} to {HEALTH_NEXT}.
+  CurrentLevelDescription: 'Summons a bear with {HEALTH_CURR} health that deals {DMG_CURR}
+    damage per hit.
+
+    Can have up to {NUM_SUMMONS_CURR} active at a time.'
+  NextLevelDescription: 'Summons a bear with {HEALTH_NEXT} health that deals {DMG_NEXT}
+    damage per hit.
+
+    Can have up to {NUM_SUMMONS_NEXT} active at a time.'
   RequiredWeaponRangeType: 0
   abilityBehaviourPrefab: {fileID: 6284882083578312484, guid: 215535304f114b745ae5dcc532a713ae, type: 3}
-  DamagePerLevel: 0c0000001000000014000000
-  HealthPerLevel: 640000007d00000096000000
-  MaximumSummonsPerLevel: 010000000100000001000000
+  DMG_PerLevel: 0f0000001400000019000000
+  HEALTH_PerLevel: 5000000078000000a0000000
+  NUM_SUMMONS_PerLevel: 010000000100000001000000

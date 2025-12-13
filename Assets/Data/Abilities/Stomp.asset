@@ -22,18 +22,20 @@ MonoBehaviour:
   CanRotateDuringCast: 0
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Stomps the ground, dealing damage to all nearby enemies and
-    slowing them.
-  LevelDescriptionTemplate: Deals {DMG} weapon damage nearby enemies and applies
+  CurrentLevelDescription: Deals {DMG_CURR}% weapon damage to all nearby enemies,
+    applying slow.
+  NextLevelDescription: Deals {DMG_NEXT}% weapon damage to all nearby enemies, applying
     slow.
-  UpgradeDescriptionTemplate: Increases weapon damage from {DMG_CURR} to {DMG_NEXT}.
   AppliedStatuses:
   - {fileID: 11400000, guid: 9d0c1984d669b3344bb299e266ffb1c8, type: 2}
   RequiredWeaponRangeType: 1
   abilityBehaviourPrefab: {fileID: 6815367309087051014, guid: 9690472dc5a261742a840848cae20e45, type: 3}
-  DamagePercentPerLevel:
-  - 1
-  - 1.2
+  DMG_PerLevel:
+  - 0.9
+  - 1.15
   - 1.4
   DealsDamageOverTime: 0
-  TickRatePerLevel: []
+  TICK_PerLevel:
+  - 0
+  - 0
+  - 0

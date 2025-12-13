@@ -22,11 +22,10 @@ MonoBehaviour:
   CanRotateDuringCast: 0
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Guarantees your next hit is a critical.
-  LevelDescriptionTemplate: Guarantees your next hit is a critical with {DAM}% more
-    critical damage.
-  UpgradeDescriptionTemplate: Increases critical damage bonus from {DAM_CURR}% to
-    {DAM_NEXT}%.
+  CurrentLevelDescription: Your next attack is guaranteed to be a critical hit with
+    {DMG_CURR}% more critical damage.
+  NextLevelDescription: Your next attack is guaranteed to be a critical hit with
+    {DMG_NEXT}% more critical damage.
   RequiredWeaponRangeType: 0
-  DamagePerLevel: 190000004b00000096000000
+  DMG_PerLevel: 190000004b00000096000000
   abilityBehaviourPrefab: {fileID: 7072264536624078572, guid: b4192916e61a84448b7c90248ad0f49c, type: 3}

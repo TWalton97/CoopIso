@@ -6,12 +6,12 @@ public class SpellRuntimeAbility : RuntimeAbility
     public SpellRuntimeAbility(SpellAbility data) : base(data)
     {
         this.data = data;
-        Damage = data.DamagePerLevel[currentLevel - 1];
+        Damage = data.DMG_PerLevel[currentLevel - 1];
     }
 
     public override void Upgrade()
     {
         currentLevel++;
-        Damage = data.DamagePerLevel[currentLevel - 1];
+        Damage = data.DMG_PerLevel[currentLevel - 1];
     }
 }

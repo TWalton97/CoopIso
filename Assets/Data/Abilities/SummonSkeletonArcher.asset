@@ -22,13 +22,18 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Summons a skeletal archer you assist you in combat.
-  LevelDescriptionTemplate: Summons up to {NUM_SUMMONS} skeletons to fight for you.
-    Skeleton archers have {HEALTH} health and deal {DMG} damage.
-  UpgradeDescriptionTemplate: Increases damage from {DMG_CURR} to {DMG_NEXT}, health
-    from {HEALTH_CURR} to {HEALTH_NEXT} and max summons to {NUM_SUMMONS_NEXT}.
+  CurrentLevelDescription: 'Summons a skeleton archer with {HEALTH_CURR} health that
+    deals {DMG_CURR} damage per hit.
+
+    Can have up to {NUM_SUMMONS_CURR} active
+    at a time.'
+  NextLevelDescription: 'Summons a skeleton archer with {HEALTH_NEXT} health that
+    deals {DMG_NEXT} damage per hit.
+
+    Can have up to {NUM_SUMMONS_NEXT} active
+    at a time.'
   RequiredWeaponRangeType: 0
   abilityBehaviourPrefab: {fileID: 6284882083578312484, guid: 82121738cd7fb2e49853d12eefcaf001, type: 3}
-  DamagePerLevel: 040000000600000008000000
-  HealthPerLevel: 100000001400000018000000
-  MaximumSummonsPerLevel: 010000000100000002000000
+  DMG_PerLevel: 0a0000000d00000010000000
+  HEALTH_PerLevel: 180000001c00000020000000
+  NUM_SUMMONS_PerLevel: 010000000100000002000000

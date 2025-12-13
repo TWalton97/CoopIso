@@ -8,31 +8,31 @@ public class WeaponAbility : AbilitySO
     public WeaponRangeType RequiredWeaponRangeType;
     public WeaponAbilityBehaviour abilityBehaviourPrefab;
 
-    public float[] DamagePercentPerLevel;
+    public float[] DMG_PerLevel;
 
     public bool DealsDamageOverTime = false;
-    public float[] TickRatePerLevel;
+    public float[] TICK_PerLevel;
 
     public override RuntimeAbility CreateRuntimeAbility()
     {
         return new WeaponRuntimeAbility(this);
     }
 
-    public override string GetLevelDescription(int currentLevel)
+    public override string GetCurrentLevelDescription(int currentLevel)
     {
         string s = CurrentLevelDescription;
 
-        float dmg = DamagePercentPerLevel[currentLevel - 1];
+        float dmg = DMG_PerLevel[currentLevel - 1];
         float tick = 0;
         if (DealsDamageOverTime)
         {
-            tick = TickRatePerLevel[currentLevel - 1];
+            tick = TICK_PerLevel[currentLevel - 1];
         }
 
-        s = s.Replace("{DMG}", (dmg * 100).ToString() + "%");
+        s = s.Replace("{DMG_CURR}", (dmg * 100).ToString() + "%");
         if (DealsDamageOverTime)
         {
-            s = s.Replace("{TICK}", tick.ToString());
+            s = s.Replace("{TICK_CURR}", tick.ToString());
         }
 
         return s;
@@ -45,37 +45,33 @@ public class WeaponAbility : AbilitySO
         float tick = 0;
         if (DealsDamageOverTime)
         {
-            tick = TickRatePerLevel[currentLevel - 1];
+            tick = TICK_PerLevel[currentLevel - 1];
         }
 
-        s = s.Replace("{DMG}", damage.ToString());
+        s = s.Replace("{DMG_NEXT}", damage.ToString());
         if (DealsDamageOverTime)
         {
-            s = s.Replace("{TICK}", tick.ToString());
+            s = s.Replace("{TICK_NEXT}", tick.ToString());
         }
 
         return s;
     }
 
-    public override string GetUpgradeDescription(int currentLevel)
+    public override string GetNextLevelDescription(int currentLevel)
     {
-        if (currentLevel >= DamagePercentPerLevel.Length)
+        if (currentLevel >= DMG_PerLevel.Length)
             return "Max level reached.";
 
         string s = NextLevelDescription;
 
-        float curr = DamagePercentPerLevel[currentLevel - 1];
-        float next = DamagePercentPerLevel[currentLevel];
+        float next = DMG_PerLevel[currentLevel];
 
-        s = s.Replace("{DMG_CURR}", (curr * 100).ToString() + "%");
         s = s.Replace("{DMG_NEXT}", (next * 100).ToString() + "%");
 
         if (DealsDamageOverTime)
         {
-            curr = TickRatePerLevel[currentLevel - 1];
-            next = TickRatePerLevel[currentLevel];
+            next = TICK_PerLevel[currentLevel];
 
-            s = s.Replace("{TICK_CURR}", curr.ToString());
             s = s.Replace("{TICK_NEXT}", next.ToString());
         }
 

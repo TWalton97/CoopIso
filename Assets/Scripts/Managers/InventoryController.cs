@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
@@ -21,9 +22,14 @@ public class InventoryController : MonoBehaviour
     public ConfirmPanel ConfirmPanel;
 
     public GameObject[] inventoryPanelGameObjects;
+    public Image[] inventoryPanelTabs;
+    public Color SelectedTabColor, InactiveTabColor;
     private int currentIndex = 0;
 
     public InventoryMode InventoryMode = InventoryMode.Normal;
+
+    //The inventory controller gets called by UserInterfaceController
+    //Once the inventory is opened, this controller moves between the different panels
 
     public void Init(PlayerContext playerContext)
     {
@@ -101,6 +107,13 @@ public class InventoryController : MonoBehaviour
         OpenMenu(currentIndex);
     }
 
+    public void GoToMenuAtIndex(int index)
+    {
+        ControlsPanel.DisableAllControlPrompts();
+        currentIndex = index;
+        OpenMenu(currentIndex);
+    }
+
     private void CloseMenus()
     {
         for (int i = 0; i < 6; i++)
@@ -115,6 +128,18 @@ public class InventoryController : MonoBehaviour
     {
         CloseMenus();
         inventoryPanelGameObjects[index].SetActive(true);
+        DisableAllTabs();
+        inventoryPanelTabs[index].GetComponent<Button>().interactable = false;
+        inventoryPanelTabs[index].color = SelectedTabColor;
+    }
+
+    private void DisableAllTabs()
+    {
+        foreach (Image image in inventoryPanelTabs)
+        {
+            image.GetComponent<Button>().interactable = true;
+            image.color = InactiveTabColor;
+        }
     }
 
     private InventoryItemController FindCorrectInventory(ItemSO itemSO)

@@ -46,28 +46,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3544b92e3ee29034d82558f702440452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDropType: 2
   ItemStatus:
     GUID: 
     WorldPosition: {x: 0, y: 0, z: 0}
     WorldRotation: {x: 0, y: 0, z: 0, w: 0}
-  itemData:
-    itemID: 
-    itemName: 
-    quantity: 0
-    sprite: {fileID: 0}
-    itemValue: 0
-    itemWeight: 0
-    itemDescription: 
-    objectPrefab: {fileID: 0}
-    floorObjectPrefab: {fileID: 0}
-    vfxPrefab: {fileID: 0}
-    itemType: 0
-    weaponRangeType: 0
-    data: {fileID: 11400000, guid: 1d4cc7e1670bbb9429bf88c866b774e4, type: 2}
-    itemQuality: 1
+  ItemData:
+    ItemID: 
+    ItemSO: {fileID: 0}
+    ItemSO_ID: 
+    Quality: 0
+    EquipmentSlotType: 0
+    Quantity: 1
+    currentSockets: 0
+    socketedGems: []
+  ItemSO: {fileID: 0}
+  Quantity: 1
+  Quality: 0
   InteractionType: 0
-  GoldAmount: 0
+  GemToSocket: {fileID: 0}
 --- !u!135 &439720792542009694
 SphereCollider:
   m_ObjectHideFlags: 0

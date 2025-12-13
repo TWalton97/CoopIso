@@ -22,13 +22,18 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 3
-  AbilityDescription: Summons a skeletal warrior you assist you in combat.
-  LevelDescriptionTemplate: Summons up to {NUM_SUMMONS} skeletons to fight for you.
-    Skeleton warriors have {HEALTH} health and deal {DMG} damage.
-  UpgradeDescriptionTemplate: Increases damage from {DMG_CURR} to {DMG_NEXT}, health
-    from {HEALTH_CURR} to {HEALTH_NEXT} and max summons to {NUM_SUMMONS_NEXT}.
+  CurrentLevelDescription: 'Summons a skeleton warrior with {HEALTH_CURR} health
+    that deals {DMG_CURR} damage per hit.
+
+    Can have up to {NUM_SUMMONS_CURR}
+    active at a time.'
+  NextLevelDescription: 'Summons a skeleton warrior with {HEALTH_NEXT} health that
+    deals {DMG_NEXT} damage per hit.
+
+    Can have up to {NUM_SUMMONS_NEXT} active
+    at a time.'
   RequiredWeaponRangeType: 0
   abilityBehaviourPrefab: {fileID: 6284882083578312484, guid: ab56490afedb8c346aa65459a7ef8545, type: 3}
-  DamagePerLevel: 050000000600000007000000
-  HealthPerLevel: 180000001e00000024000000
-  MaximumSummonsPerLevel: 010000000100000002000000
+  DMG_PerLevel: 06000000080000000a000000
+  HEALTH_PerLevel: 2a000000320000003a000000
+  NUM_SUMMONS_PerLevel: 010000000100000002000000

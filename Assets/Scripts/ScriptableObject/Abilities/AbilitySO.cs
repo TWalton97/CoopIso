@@ -17,10 +17,10 @@ public abstract class AbilitySO : ScriptableObject
 
     public abstract RuntimeAbility CreateRuntimeAbility();
 
-    public abstract string GetLevelDescription(int currentLevel);
+    public abstract string GetCurrentLevelDescription(int currentLevel);
     public abstract string GetCalculatedLevelDescription(int currentLevel, int damage);
 
-    public abstract string GetUpgradeDescription(int currentLevel);
+    public abstract string GetNextLevelDescription(int currentLevel);
 
 }
 

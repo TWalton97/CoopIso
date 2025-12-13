@@ -22,15 +22,14 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 5
-  AbilityDescription: Shoots a fireball, dealing damage to the first enemy hit
-  LevelDescriptionTemplate: Shoots {NUM_PROJ} fireballs that deal {DAM} damage to
-    the first enemy hit, applying burn.
-  UpgradeDescriptionTemplate: Shoots {NUM_PROJ_NEXT} fireballs that deal {DAM_NEXT}
-    damage to the first enemy hit, applying burn.
+  CurrentLevelDescription: Fires {NUM_PROJ_CURR} fireball(s) that deal {DMG_CURR}
+    on hit and applying burn.
+  NextLevelDescription: Fires {NUM_PROJ_NEXT} fireball(s) that deal {DMG_NEXT} on
+    hit and applying burn.
   RequiredWeaponRangeType: 0
   abilityBehaviourPrefab: {fileID: 741917137808545308, guid: 058583b889911004f8b79585061ec4bc, type: 3}
   AppliedStatuses:
   - {fileID: 11400000, guid: 216ce27acdc885b4cb1a9a4da3a2fb4f, type: 2}
-  DamagePerLevel: 06000000080000000a0000000c0000000e000000
-  ProjectileSpeed: 0a0000000a0000000a0000000a0000000a000000
-  NumberOfProjectiles: 0100000002000000030000000400000005000000
+  DMG_PerLevel: 06000000080000000a0000000c0000000e000000
+  PROJ_SPEED_PerLevel: 1000000010000000100000001000000010000000
+  NUM_PROJ_PerLevel: 0100000002000000030000000400000005000000

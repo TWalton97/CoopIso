@@ -22,23 +22,22 @@ MonoBehaviour:
   CanRotateDuringCast: 0
   IsChannelingAbility: 0
   MaxLevel: 5
-  AbilityDescription: Increases the movement and attack speed of nearby allies.
-  LevelDescriptionTemplate: Increases movement and attack speed of nearby allies
-    by {VAL}% for {DUR}s.
-  UpgradeDescriptionTemplate: Increases movement and attack speed from {VAL_CURR}%
-    to {VAL_NEXT}% and duration from {DUR_CURR} to {DUR_NEXT}.
+  CurrentLevelDescription: Increases the movement and attack speed of all nearby
+    allies by {VAL_CURR}% for {DUR_CURR}s.
+  NextLevelDescription: Increases the movement and attack speed of all nearby allies
+    by {VAL_NEXT}% for {DUR_NEXT}s.
   RequiredWeaponRangeType: 0
   statusSO: {fileID: 11400000, guid: 722df6418edc71142ac55c2aa1049fc2, type: 2}
   buffBehaviourPrefab: {fileID: 1356468606317954617, guid: 28342dde8f1ca1a468bf012c3437dfd4, type: 3}
-  BuffValuePerLevel:
+  VAL_PerLevel:
   - 25
-  - 35
-  - 45
-  - 55
-  - 65
-  BuffDurationPerLevel:
-  - 10
+  - 31
+  - 37
+  - 43
+  - 49
+  DUR_PerLevel:
   - 12
-  - 14
   - 16
-  - 18
+  - 20
+  - 24
+  - 28

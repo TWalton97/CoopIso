@@ -6,8 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler
+public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public Image TabImage;
     public Button button;
     public RectTransform rectTransform;
     public TMP_Text FeatName;
@@ -20,6 +21,8 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
     public FeatSO feat;
     public Color DeactiveColor;
     public Color ActiveColor;
+
+    public Color NormalButtonColor, HoveredButtonColor;
 
     public int currentFeatLevel;
 
@@ -104,10 +107,12 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         IsSelected = true;
         playerFeatsPanelController.UpdateFeatPreviewWindow(currentFeatLevel, feat);
         playerFeatsPanelController.UpdateViewPosition(rectTransform);
+        ToggleHighlight(true);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
+        ToggleHighlight(false);
         IsSelected = false;
     }
 
@@ -116,6 +121,7 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         if (playerFeatsPanelController.PlayerContext.PlayerInput.currentControlScheme != playerFeatsPanelController.PlayerContext.PlayerController.KEYBOARD_SCHEME)
             return;
 
+        ToggleHighlight(true);
         IsSelected = true;
         playerFeatsPanelController.UpdateFeatPreviewWindow(currentFeatLevel, feat);
         playerFeatsPanelController.UpdateViewPosition(rectTransform);
@@ -126,6 +132,20 @@ public class FeatButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoin
         if (playerFeatsPanelController.PlayerContext.PlayerInput.currentControlScheme != playerFeatsPanelController.PlayerContext.PlayerController.KEYBOARD_SCHEME)
             return;
 
+        ToggleHighlight(false);
         IsSelected = false;
+    }
+
+    public virtual void ToggleHighlight(bool toggle)
+    {
+        IsSelected = toggle;
+        if (toggle)
+        {
+            TabImage.color = HoveredButtonColor;
+        }
+        else
+        {
+            TabImage.color = NormalButtonColor;
+        }
     }
 }
