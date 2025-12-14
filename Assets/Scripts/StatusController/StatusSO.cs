@@ -22,5 +22,11 @@ public abstract class StatusSO : ScriptableObject
 
     public virtual void OnExit(StatusInstance instance, StatusController target)
     {
+
+    }
+    
+    public virtual void OnReapply(StatusInstance instance, StatusController target)
+    {
+        
     }
 }

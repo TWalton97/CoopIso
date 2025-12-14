@@ -82,6 +82,25 @@ public class ArmorController : MonoBehaviour
             if (itemData.ItemSO is ArmorSO)
                 PlayerController.HealthController.UpdateArmorAmount(itemData.ArmorAmount);
             PlayerController.PlayerContext.PlayerPreviewManager.EquipArmorToPlayer(PlayerController.PlayerContext.PlayerIndex, ItemType.Body, itemData.ItemPrefab);
+
+            foreach (GemSocket gemSocket in itemData.socketedGems)
+            {
+                if (gemSocket.Gem != null)
+                {
+                    GemContext gemContext = new GemContext();
+                    gemContext.playerContext = PlayerController.PlayerContext;
+                    gemContext.itemData = itemData;
+                    gemContext.slotType = gemSocket.SlotType;
+
+                    foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
+                    {
+                        if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        {
+                            gemEffect.Apply(gemContext);
+                        }
+                    }
+                }
+            }
         }
         else
         {
@@ -97,10 +116,17 @@ public class ArmorController : MonoBehaviour
             if (instantiatedBodyArmor.itemData.ItemSO is ArmorSO)
                 PlayerController.HealthController.UpdateArmorAmount(-instantiatedBodyArmor.itemData.ArmorAmount);
             OnArmorUnequipped?.Invoke(instantiatedBodyArmor.itemData.ItemID);
+            foreach (GemSocket gemSocket in instantiatedBodyArmor.itemData.socketedGems)
+            {
+                foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
+                {
+                    if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        gemEffect.Deregister();
+                }
+            }
             Destroy(instantiatedBodyArmor.instantiatedObject);
             instantiatedBodyArmor = null;
             PlayerController.PlayerContext.PlayerPreviewManager.UnequipArmorFromPlayer(PlayerController.PlayerContext.PlayerIndex, ItemType.Body);
-
         }
     }
 
@@ -116,6 +142,24 @@ public class ArmorController : MonoBehaviour
             if (itemData.ItemSO is ArmorSO)
                 PlayerController.HealthController.UpdateArmorAmount(itemData.ArmorAmount);
             PlayerController.PlayerContext.PlayerPreviewManager.EquipArmorToPlayer(PlayerController.PlayerContext.PlayerIndex, ItemType.Head, itemData.ItemPrefab);
+            foreach (GemSocket gemSocket in itemData.socketedGems)
+            {
+                if (gemSocket.Gem != null)
+                {
+                    GemContext gemContext = new GemContext();
+                    gemContext.playerContext = PlayerController.PlayerContext;
+                    gemContext.itemData = itemData;
+                    gemContext.slotType = gemSocket.SlotType;
+
+                    foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
+                    {
+                        if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        {
+                            gemEffect.Apply(gemContext);
+                        }
+                    }
+                }
+            }
         }
         else
         {
@@ -131,6 +175,14 @@ public class ArmorController : MonoBehaviour
             if (instantiatedHelmet.itemData.ItemSO is ArmorSO)
                 PlayerController.HealthController.UpdateArmorAmount(-instantiatedHelmet.itemData.ArmorAmount);
             OnArmorUnequipped?.Invoke(instantiatedHelmet.itemData.ItemID);
+            foreach (GemSocket gemSocket in instantiatedHelmet.itemData.socketedGems)
+            {
+                foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
+                {
+                    if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        gemEffect.Deregister();
+                }
+            }
             Destroy(instantiatedHelmet.instantiatedObject);
             instantiatedHelmet = null;
             PlayerController.PlayerContext.PlayerPreviewManager.UnequipArmorFromPlayer(PlayerController.PlayerContext.PlayerIndex, ItemType.Head);
@@ -149,6 +201,25 @@ public class ArmorController : MonoBehaviour
             if (itemData.ItemSO is ArmorSO)
                 PlayerController.HealthController.UpdateArmorAmount(itemData.ArmorAmount);
             PlayerController.PlayerContext.PlayerPreviewManager.EquipArmorToPlayer(PlayerController.PlayerContext.PlayerIndex, ItemType.Legs, itemData.ItemPrefab);
+
+            foreach (GemSocket gemSocket in itemData.socketedGems)
+            {
+                if (gemSocket.Gem != null)
+                {
+                    GemContext gemContext = new GemContext();
+                    gemContext.playerContext = PlayerController.PlayerContext;
+                    gemContext.itemData = itemData;
+                    gemContext.slotType = gemSocket.SlotType;
+
+                    foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
+                    {
+                        if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        {
+                            gemEffect.Apply(gemContext);
+                        }
+                    }
+                }
+            }
         }
         else
         {
@@ -164,6 +235,14 @@ public class ArmorController : MonoBehaviour
             if (instantiatedLegs.itemData.ItemSO is ArmorSO)
                 PlayerController.HealthController.UpdateArmorAmount(-instantiatedLegs.itemData.ArmorAmount);
             OnArmorUnequipped?.Invoke(instantiatedLegs.itemData.ItemID);
+            foreach (GemSocket gemSocket in instantiatedLegs.itemData.socketedGems)
+            {
+                foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
+                {
+                    if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        gemEffect.Deregister();
+                }
+            }
             Destroy(instantiatedLegs.instantiatedObject);
             instantiatedLegs = null;
             PlayerController.PlayerContext.PlayerPreviewManager.UnequipArmorFromPlayer(PlayerController.PlayerContext.PlayerIndex, ItemType.Legs);
@@ -178,28 +257,19 @@ public class ArmorController : MonoBehaviour
 
         if (body != null)
         {
-            ItemData itemData = new ItemData();
-            itemData.ItemSO = body;
-            itemData.Quality = ItemQuality.Shoddy;
-            itemData.ItemID = PlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(itemData);
+            ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(body, ItemQuality.Shoddy);
             PlayerController.PlayerContext.InventoryController.AddItemToInventory(itemData, true);
         }
 
         if (helmet != null)
         {
-            ItemData itemData = new ItemData();
-            itemData.ItemSO = helmet;
-            itemData.Quality = ItemQuality.Shoddy;
-            itemData.ItemID = PlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(itemData);
+            ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(helmet, ItemQuality.Shoddy);
             PlayerController.PlayerContext.InventoryController.AddItemToInventory(itemData, true);
         }
 
         if (legs != null)
         {
-            ItemData itemData = new ItemData();
-            itemData.ItemSO = legs;
-            itemData.Quality = ItemQuality.Shoddy;
-            itemData.ItemID = PlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(itemData);
+            ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(legs, ItemQuality.Shoddy);
             PlayerController.PlayerContext.InventoryController.AddItemToInventory(itemData, true);
         }
     }

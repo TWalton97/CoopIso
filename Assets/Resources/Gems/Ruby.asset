@@ -14,15 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GemName: Ruby
   LootBudgetCost: 2
-  GemSprite: {fileID: 21300000, guid: 3c3a006bd25f76d41a12cd6b35a5d622, type: 3}
+  GemSprite: {fileID: 21300000, guid: a20ad592324eeca408ef226fc1ad3752, type: 3}
   GemColor: {r: 1, g: 0, b: 0, a: 1}
   effects:
   - {fileID: 11400000, guid: 81df8d8b91754ee46b5de047ec54d14e, type: 2}
   - {fileID: 11400000, guid: 05c756fd20a939a44985ef59ea5fcfbc, type: 2}
   - {fileID: 11400000, guid: 7187637c563484a4f914d08c52b8b3dc, type: 2}
+  - {fileID: 11400000, guid: c22aa5de7e6ab9e42a2db94e6ff58dbc, type: 2}
   GemDescriptions:
   - AppliesTo: 0
     description: Deals a burst of damage to the target on crit
     gemAffix:
       affixType: 1
+      affixText: of Combustion
+  - AppliesTo: 1
+    description: Chance to erupt into a burning aura when hit
+    gemAffix:
+      affixType: 1
       affixText: of the Inferno
+  - AppliesTo: 2
+    description: Increases the level of Fireball by 1
+    gemAffix:
+      affixType: 1
+      affixText: of the Pyromancer

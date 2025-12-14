@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WarriorClassPreset
   m_EditorClassIdentifier: 
   PresetName: Warrior
-  StartingMainHandWeapon: {fileID: 11400000, guid: b0213386ba8a05a42a44f791e823c848, type: 2}
+  StartingMainHandWeapon: {fileID: 11400000, guid: c847618d59e93d74faa7c72c499ed5e4, type: 2}
   StartingOffhandWeapon: {fileID: 0}
   StartingHelmet: {fileID: 11400000, guid: 27a5f6067f706eb4294e55801fe0f3b7, type: 2}
   StartingBodyArmor: {fileID: 11400000, guid: 4944988477f0f3349a02b9ed28db4b51, type: 2}

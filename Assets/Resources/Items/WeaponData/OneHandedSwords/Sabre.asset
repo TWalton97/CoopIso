@@ -25,6 +25,6 @@ MonoBehaviour:
   Weight: 3
   <WeaponMinDamage>k__BackingField: 3
   <WeaponMaxDamage>k__BackingField: 10
-  <AttacksPerSecond>k__BackingField: 1.4
-  <NumberOfAttacksInCombo>k__BackingField: 3
+  <NumberOfAttacksInCombo>k__BackingField: 2
+  WeaponAttackSpeed: 3
   WeaponRangeType: 1

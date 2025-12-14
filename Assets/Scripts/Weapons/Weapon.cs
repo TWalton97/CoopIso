@@ -57,23 +57,6 @@ public class Weapon : MonoBehaviour
 
     public virtual void Enter(Action endAction, int attackNum)
     {
-        // if (weaponAttackType == NewWeaponController.WeaponAttackTypes.OneHanded)
-        // {
-        //     PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
-        // }
-        // else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded && PlayerContext.PlayerController.WeaponController.instantiatedSecondaryWeapon != null)
-        // {
-        //     PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.OneHandedAttack);
-        // }
-        // else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.TwoHanded)
-        // {
-        //     PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.TwoHandedAttack);
-        // }
-        // else if (weaponAttackType == NewWeaponController.WeaponAttackTypes.Bow)
-        // {
-        //     PlayerContext.PlayerController.Animator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.PlayerStatsBlackboard.AttacksPerSecond * AnimatorClipLengths.BowAttack);
-        // }
-
         PlayerContext.PlayerController.AnimationStatusTracker.OnAttackCompleted += Exit;
         active = true;
         InvokeOnEnter();
@@ -98,12 +81,66 @@ public class Weapon : MonoBehaviour
         InvokeOnExit();
     }
 
-    public virtual void ActivateHitbox()
+    public virtual void ActivateHitbox(int comboNumber)
     {
         if (ItemData.ItemSO is WeaponSO weaponData)
         {
             int rolledDamage = UnityEngine.Random.Range(minDamage, maxDamage);
-            hitbox.ActivateHitbox(rolledDamage);
+            hitbox.ActivateHitbox((int)(rolledDamage * GetComboDamageMultiplier(comboNumber - 1)));
+        }
+    }
+
+    private float GetComboDamageMultiplier(int comboIndex)
+    {
+        switch (weaponAttackType)
+        {
+            case NewWeaponController.WeaponAttackTypes.OneHanded:
+                return GetOneHandedMultiplier(comboIndex);
+
+            case NewWeaponController.WeaponAttackTypes.TwoHanded:
+                return GetTwoHandedMultiplier(comboIndex);
+
+            case NewWeaponController.WeaponAttackTypes.DualWield:
+                return GetDualWieldMultiplier(comboIndex);
+
+            case NewWeaponController.WeaponAttackTypes.Bow:
+                return 1f;
+
+            default:
+                return 1f;
+        }
+    }
+
+    private float GetOneHandedMultiplier(int comboIndex)
+    {
+        switch (comboIndex)
+        {
+            case 0: return 1.0f;
+            case 1: return 1.0f;
+            case 2: return 1.1f;
+            default: return 1.1f;
+        }
+    }
+
+    private float GetTwoHandedMultiplier(int comboIndex)
+    {
+        switch (comboIndex)
+        {
+            case 0: return 0.9f;
+            case 1: return 1.4f;
+            case 2: return 1.8f;
+            default: return 1.35f;
+        }
+    }
+
+    private float GetDualWieldMultiplier(int comboIndex)
+    {
+        switch (comboIndex)
+        {
+            case 0: return 0.75f;
+            case 1: return 0.75f;
+            case 2: return 0.9f;
+            default: return 0.9f;
         }
     }
 }

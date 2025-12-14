@@ -6,6 +6,7 @@ public class ArmorBuffSO : StatusSO
 {
     public GameObject armorBuffVFX;
     public int armorIncrease = 10;
+    private int totalArmorIncrease;
 
     public override void OnEnter(StatusInstance instance, StatusController target)
     {
@@ -13,6 +14,8 @@ public class ArmorBuffSO : StatusSO
 
         if (target.TryGetComponent(out Entity controller))
         {
+            totalArmorIncrease = 0;
+            totalArmorIncrease += armorIncrease;
             controller.HealthController.UpdateArmorAmount(armorIncrease);
             if (armorBuffVFX != null)
             {
@@ -32,12 +35,21 @@ public class ArmorBuffSO : StatusSO
     {
         if (target.TryGetComponent(out Entity controller))
         {
-            controller.HealthController.UpdateArmorAmount(-armorIncrease);
+            controller.HealthController.UpdateArmorAmount(-totalArmorIncrease);
 
             if (instance.spawnedVFX != null)
             {
                 Destroy(instance.spawnedVFX.gameObject);
             }
+        }
+    }
+
+    public override void OnReapply(StatusInstance instance, StatusController target)
+    {
+        if (target.TryGetComponent(out Entity controller))
+        {
+            totalArmorIncrease += armorIncrease;
+            controller.HealthController.UpdateArmorAmount(armorIncrease);
         }
     }
 }

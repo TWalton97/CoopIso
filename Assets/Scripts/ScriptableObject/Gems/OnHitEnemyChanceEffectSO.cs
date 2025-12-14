@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Gems/Effects/Chance Effect")]
-public class ChanceEffectSO : GemEffectSO
+[CreateAssetMenu(menuName = "Gems/Effects/On Hit Chance Effect")]
+public class OnHitEnemyChanceEffectSO : GemEffectSO
 {
     private GemContext _context;
     [Range(0, 1f)] public float chance = 0.2f;

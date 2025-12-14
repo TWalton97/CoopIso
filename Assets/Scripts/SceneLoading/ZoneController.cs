@@ -21,6 +21,7 @@ public class ZoneController : MonoBehaviour
         Chests = FindObjectsOfType<Chest>();
         foreach (Chest chest in Chests)
         {
+            chest.Level = ZoneLevel;
             chest.minBudget *= ZoneLevel;
             chest.maxBudget *= ZoneLevel;
         }

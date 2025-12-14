@@ -38,7 +38,7 @@ public class ConsumableButton : ItemButton
 
     public override void UpdateUI()
     {
-        ItemName.text = inventoryItemView.ItemSO.ItemName;
+        ItemName.text = ItemData.GetModifiedItemName();
         ItemButtonImage.sprite = inventoryItemView.ItemSO.ItemSprite;
         ItemWeight.text = inventoryItemView.ItemSO.Weight.ToString("0.0");
 

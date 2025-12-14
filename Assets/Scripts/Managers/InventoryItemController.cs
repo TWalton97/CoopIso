@@ -411,6 +411,17 @@ public class InventoryItemView
         }
     }
 
+    public WeaponAttackSpeed DisplayWeaponAttackSpeed
+    {
+        get
+        {
+            if (HasItemData)
+                return ItemData.WeaponAttackSpeed;
+            else
+                return (ItemSO as WeaponSO)?.WeaponAttackSpeed != null ? (ItemSO as WeaponSO).WeaponAttackSpeed : WeaponAttackSpeed.Normal;
+        }
+    }
+
     public WeaponRangeType DisplayWeaponRangeType
     {
         get

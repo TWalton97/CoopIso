@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class PlayerHitbox : MonoBehaviour
 {
-    //Animation event calls function from this script when it wants to activate the hitbox
-    //This script tells the weapon controller which weapon to activate
-
-    //The weapon itself contains a hitbox and stores its own damage
     NewWeaponController WeaponController;
 
     void Awake()
@@ -16,13 +12,12 @@ public class PlayerHitbox : MonoBehaviour
     public void ActivatePrimaryWeaponHitbox()
     {
         if (WeaponController.instantiatedPrimaryWeapon != null)
-            WeaponController.instantiatedPrimaryWeapon.ActivateHitbox();
+            WeaponController.instantiatedPrimaryWeapon.ActivateHitbox(WeaponController.numAttacks);
     }
 
     public void ActivateSecondaryWeaponHitbox()
     {
         if (WeaponController.instantiatedSecondaryWeapon != null)
-            WeaponController.instantiatedSecondaryWeapon.ActivateHitbox();
+            WeaponController.instantiatedSecondaryWeapon.ActivateHitbox(WeaponController.numAttacks);
     }
-
 }

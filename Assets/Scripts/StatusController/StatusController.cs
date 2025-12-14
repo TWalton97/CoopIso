@@ -49,9 +49,11 @@ public class StatusController : MonoBehaviour
 
             existing.tickTimer = 0f;
 
+            statusData.OnReapply(existing, this);
+
             return;
         }
-        
+
         StatusInstance newInstance = new StatusInstance(statusData, source);
         activeStatuses.Add(newInstance);
 

@@ -23,8 +23,8 @@ MonoBehaviour:
   BaseLootWeight: 4
   GoldValue: 45
   Weight: 8
-  <WeaponMinDamage>k__BackingField: 16
-  <WeaponMaxDamage>k__BackingField: 17
-  <AttacksPerSecond>k__BackingField: 0.85
+  <WeaponMinDamage>k__BackingField: 8
+  <WeaponMaxDamage>k__BackingField: 16
   <NumberOfAttacksInCombo>k__BackingField: 3
+  WeaponAttackSpeed: 3
   WeaponRangeType: 1

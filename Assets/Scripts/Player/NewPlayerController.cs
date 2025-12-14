@@ -63,6 +63,7 @@ public class NewPlayerController : Entity, ISaveable
 
     public string AttackStateMachineState;
 
+
     #region MonoBehaviour
 
     public override void Awake()
@@ -237,7 +238,7 @@ public class NewPlayerController : Entity, ISaveable
         Animator.SetFloat("VelocityZ", localVelocity.z / EntityData.MovementSpeed);
 
         Animator.SetFloat("SpeedMultiplier", Mathf.Clamp(_movementSpeed / _maximumMovementSpeed, 0.5f, 1));
-        Animator.SetFloat("AttackSpeedMultiplier", AttackSpeedMultiplier);
+        Animator.SetFloat("AttackSpeedMultiplier", AttackSpeedMultiplier * WeaponController.CombinedWeaponAttackSpeed);
     }
     #endregion
 

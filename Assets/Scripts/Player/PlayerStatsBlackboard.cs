@@ -150,15 +150,11 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
         if (WeaponController.instantiatedPrimaryWeapon != null && WeaponController.instantiatedPrimaryWeapon.ItemData.ItemSO is WeaponSO)
         {
-            WeaponSO weaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedPrimaryWeapon.itemID).ItemSO as WeaponSO;
-            attacksPerSecond += weaponData.AttacksPerSecond;
             numWeapons++;
         }
 
         if (WeaponController.instantiatedSecondaryWeapon != null && WeaponController.instantiatedSecondaryWeapon.ItemData.ItemSO is WeaponSO)
         {
-            WeaponSO weaponData = SpawnedItemDataBase.Instance.GetSpawnedItemDataFromDataBase(WeaponController.instantiatedSecondaryWeapon.itemID).ItemSO as WeaponSO;
-            attacksPerSecond += weaponData.AttacksPerSecond;
             numWeapons++;
         }
 

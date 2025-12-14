@@ -12,7 +12,7 @@ public class Bow : Weapon
         BowAnimator.SetFloat("AttackSpeedMultiplier", PlayerContext.PlayerController.Animator.GetFloat("AttackSpeedMultiplier"));
         BowAnimator.SetTrigger("Fire");
     }
-    public override void ActivateHitbox()
+    public override void ActivateHitbox(int comboNumber)
     {
         if (ItemData.ItemSO is WeaponSO weaponData)
         {

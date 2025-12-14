@@ -19,7 +19,7 @@ public class NewWeaponController : MonoBehaviour
 
     private CountdownTimer comboCounter;    //We use this to determine when to reset our current attack combo
     private float comboPeriod = 3;
-    int numAttacks;
+    public int numAttacks;
 
     public bool canAttack = true;
     public bool HasShieldEquipped;
@@ -57,8 +57,11 @@ public class NewWeaponController : MonoBehaviour
     }
 
     public float CombinedWeaponDamage;
+    public float CombinedWeaponAttackSpeed;
 
     public Action<string> OnWeaponUnequipped;
+
+    public bool CanBlock => !(instantiatedPrimaryWeapon != null && instantiatedPrimaryWeapon.weaponAttackType == WeaponAttackTypes.Bow);
 
     protected void Awake()
     {
@@ -267,7 +270,8 @@ public class NewWeaponController : MonoBehaviour
             {
                 foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
                 {
-                    gemEffect.Deregister();
+                    if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        gemEffect.Deregister();
                 }
             }
             Destroy(instantiatedPrimaryWeapon.gameObject);
@@ -293,9 +297,7 @@ public class NewWeaponController : MonoBehaviour
                     foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
                     {
                         if (gemEffect.AppliesTo == gemSocket.SlotType)
-                        {
                             gemEffect.Apply(gemContext);
-                        }
                     }
                 }
             }
@@ -312,7 +314,8 @@ public class NewWeaponController : MonoBehaviour
             {
                 foreach (GemEffectSO gemEffect in gemSocket.Gem.effects)
                 {
-                    gemEffect.Deregister();
+                    if (gemEffect.AppliesTo == gemSocket.SlotType)
+                        gemEffect.Deregister();
                 }
             }
 
@@ -377,6 +380,7 @@ public class NewWeaponController : MonoBehaviour
         }
 
         CalculateWeaponDamage();
+        CalculateWeaponAttackSpeed();
         UpdateAnimator();
     }
 
@@ -387,25 +391,27 @@ public class NewWeaponController : MonoBehaviour
 
         if (mainHand != null)
         {
-            ItemData itemData = new ItemData();
-            itemData.ItemSO = mainHand;
-            itemData.Quality = ItemQuality.Shoddy;
-            itemData.ItemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(itemData);
+            ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(mainHand, ItemQuality.Shoddy);
             newPlayerController.PlayerContext.InventoryController.AddItemToInventory(itemData, true);
         }
 
         if (offHand != null)
         {
-            ItemData itemData = new ItemData();
-            itemData.ItemSO = offHand;
-            itemData.Quality = ItemQuality.Shoddy;
-            itemData.ItemID = newPlayerController.PlayerContext.SpawnedItemDatabase.RegisterItemToDatabase(itemData);
+            ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(offHand, ItemQuality.Shoddy);
             newPlayerController.PlayerContext.InventoryController.AddItemToInventory(itemData, true);
         }
     }
 
     public void Attack(Action OnActionCompleted, bool shootFromAiming = false)
     {
+        if (instantiatedPrimaryWeapon.ItemData.ItemSO is WeaponSO weaponData)
+        {
+            if (numAttacks >= weaponData.NumberOfAttacksInCombo)
+            {
+                numAttacks = 0;
+            }
+        }
+
         this.OnActionCompleted = OnActionCompleted;
 
         if (!canAttack)
@@ -447,13 +453,7 @@ public class NewWeaponController : MonoBehaviour
 
 
 
-        if (instantiatedPrimaryWeapon.ItemData.ItemSO is WeaponSO weaponData)
-        {
-            if (numAttacks >= weaponData.NumberOfAttacksInCombo)
-            {
-                numAttacks = 0;
-            }
-        }
+
     }
     private void ResetAttack()
     {
@@ -589,6 +589,7 @@ public class NewWeaponController : MonoBehaviour
                 break;
         }
         CalculateWeaponDamage();
+        CalculateWeaponAttackSpeed();
     }
 
     public void ApplyAttackProfile(AttackProfile attackProfile)
@@ -643,6 +644,46 @@ public class NewWeaponController : MonoBehaviour
         {
             CombinedWeaponDamage = (primaryWeaponDamage * 0.8f) + (secondaryWeaponDamage * 0.8f);
         }
+    }
+
+    private void CalculateWeaponAttackSpeed()
+    {
+        float? primarySpeed = GetWeaponSpeed(instantiatedPrimaryWeapon);
+        float? secondarySpeed = (HasShieldEquipped)
+            ? null
+            : GetWeaponSpeed(instantiatedSecondaryWeapon);
+
+        if (primarySpeed.HasValue && secondarySpeed.HasValue)
+        {
+            // Dual wield → slower weapon
+            CombinedWeaponAttackSpeed = Mathf.Min(primarySpeed.Value, secondarySpeed.Value);
+        }
+        else if (primarySpeed.HasValue)
+        {
+            // One-handed weapon
+            CombinedWeaponAttackSpeed = primarySpeed.Value;
+        }
+        else if (secondarySpeed.HasValue)
+        {
+            // Edge case, but safe
+            CombinedWeaponAttackSpeed = secondarySpeed.Value;
+        }
+        else
+        {
+            // No weapons
+            CombinedWeaponAttackSpeed = 1f;
+        }
+    }
+
+    private float? GetWeaponSpeed(Weapon weaponInstance)
+    {
+        if (weaponInstance == null)
+            return null;
+
+        if (weaponInstance.ItemData.ItemSO is WeaponSO weaponSO)
+            return weaponSO.GetAttackSpeedMultiplier();
+
+        return null;
     }
 
     public bool CanEquipOffhand(ItemSO itemSO)

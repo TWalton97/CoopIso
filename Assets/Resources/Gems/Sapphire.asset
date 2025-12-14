@@ -25,3 +25,13 @@ MonoBehaviour:
     gemAffix:
       affixType: 1
       affixText: of Frost
+  - AppliesTo: 1
+    description: Temporarily increases armor by 1 every time you take damage
+    gemAffix:
+      affixType: 0
+      affixText: of the Glacier
+  - AppliesTo: 2
+    description: Increases the level of Retaliate by 1
+    gemAffix:
+      affixType: 1
+      affixText: of Ice

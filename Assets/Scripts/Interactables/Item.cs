@@ -152,6 +152,7 @@ public class ItemData
 
     public int MinDamage => (ItemSO as WeaponSO)?.WeaponMinDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMinDamage * QualityTables.QualityStatMultiplier[Quality]) : 0;
     public int MaxDamage => (ItemSO as WeaponSO)?.WeaponMaxDamage != null ? Mathf.RoundToInt((ItemSO as WeaponSO).WeaponMaxDamage * QualityTables.QualityStatMultiplier[Quality]) : 0;
+    public WeaponAttackSpeed WeaponAttackSpeed => (ItemSO as WeaponSO)?.WeaponAttackSpeed != null ? (ItemSO as WeaponSO).WeaponAttackSpeed : WeaponAttackSpeed.Normal;
     public WeaponRangeType WeaponRangeType => (ItemSO as WeaponSO)?.WeaponRangeType != null ? (ItemSO as WeaponSO).WeaponRangeType : WeaponRangeType.None;
 
     public int ArmorAmount => (ItemSO as ArmorSO)?.ArmorAmount != null ? Mathf.FloorToInt((ItemSO as ArmorSO).ArmorAmount * QualityTables.QualityStatMultiplier[Quality]) : 0;
@@ -167,6 +168,9 @@ public class ItemData
         string baseName = ItemSO.ItemName;
         string prefix = "";
         string suffix = "";
+
+        if (ItemSO.ItemDropType is ItemDropType.Consumable)
+            return baseName;
 
         foreach (var socket in socketedGems)
         {

@@ -41,4 +41,21 @@ public static class QualityTables
         { ItemQuality.Imperial,    3.50f },
         { ItemQuality.Flawless,    4.00f }
     };
+
+    public static readonly Dictionary<int, float> EnemyStatMultiplier = new()
+    {
+        { 0, 1 },
+        { 1, 1 },
+        { 2, 1.2f },
+        { 3, 1.4f },
+        { 4, 1.6f },
+        { 5, 1.8f },
+        { 6, 2.00f },
+        { 7, 2.2f },
+        { 8, 2.4f },
+        { 9, 2.6f },
+        { 10, 2.8f },
+        { 11, 3.0f },
+
+    };
 }

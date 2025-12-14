@@ -71,7 +71,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 1.25
   m_Center: {x: 0, y: 1, z: 1}
 --- !u!114 &8081121990347814034
 MonoBehaviour:
@@ -86,11 +86,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 0
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _controller: {fileID: 0}
   DestroyHitboxOnHit: 0
   DamageTickDuration: 0.2
   DamageOnTriggerStay: 0
   statusesToApply: []
+  attackInstance:
+    Damage: 0
+    IsCritical: 0
 --- !u!1001 &4167153689373755628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -106,6 +112,18 @@ PrefabInstance:
     - target: {fileID: 1209375486372575963, guid: ac7c5b8a84dcd944293269d5c2bdc707, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350034135309904283, guid: ac7c5b8a84dcd944293269d5c2bdc707, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350034135309904283, guid: ac7c5b8a84dcd944293269d5c2bdc707, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350034135309904283, guid: ac7c5b8a84dcd944293269d5c2bdc707, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1350034135309904283, guid: ac7c5b8a84dcd944293269d5c2bdc707, type: 3}
       propertyPath: m_LocalPosition.x

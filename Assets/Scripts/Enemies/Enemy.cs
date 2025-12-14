@@ -116,9 +116,9 @@ public class Enemy : Entity
 
     public override void ApplyStats()
     {
-        HealthController.IncreaseMaximumHealth(EntityData.MaximumHealth * Level);
+        HealthController.IncreaseMaximumHealth((int)(EntityData.MaximumHealth * QualityTables.EnemyStatMultiplier[Level]));
         chaseSpeed = EntityData.MovementSpeed;
-        damage = enemyStats.AttackDamage * Level;
+        damage = (int)(enemyStats.AttackDamage * QualityTables.EnemyStatMultiplier[Level]);
         if (EntityData is EnemyStatsSO enemyData)
         {
             wanderSpeed = enemyData.WanderSpeed;

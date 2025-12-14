@@ -70,7 +70,7 @@ public class EquippableButton : ItemButton
 
         if (inventoryItemView.ItemSO is WeaponSO)
         {
-            StatValue.text = inventoryItemView.DisplayMinDamage + "-" + inventoryItemView.DisplayMaxDamage;
+            StatValue.text = inventoryItemView.DisplayMinDamage + "-" + inventoryItemView.DisplayMaxDamage + " (" + inventoryItemView.DisplayWeaponAttackSpeed + ")";
         }
         else if (inventoryItemView.ItemSO is ArmorSO)
         {
