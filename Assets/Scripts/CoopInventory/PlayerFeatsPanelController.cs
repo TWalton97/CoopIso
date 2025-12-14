@@ -105,6 +105,7 @@ public class PlayerFeatsPanelController : MonoBehaviour
         }
         UpdateViewPosition(featButtons[0].rectTransform);
         PlayerContext.UserInterfaceController.inventoryController.UpdateControlPanel(ControlData);
+        featButtons[0].ToggleHighlight(true);
     }
 
     void OnDisable()
@@ -113,6 +114,10 @@ public class PlayerFeatsPanelController : MonoBehaviour
         PlayerContext.UserInterfaceController.OnAltInfoReleased -= () => ToggleCurrentLevelDescription(false);
 
         ToggleCurrentLevelDescription(false);
+        foreach (FeatButton button in featButtons)
+        {
+            button.ToggleHighlight(false);
+        }
     }
 
     public void ToggleCurrentLevelDescription(bool toggle)

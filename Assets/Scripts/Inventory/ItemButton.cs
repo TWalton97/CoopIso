@@ -45,7 +45,7 @@ public abstract class ItemButton : MonoBehaviour, ISelectHandler, IDeselectHandl
         selectable = GetComponent<Button>();
     }
 
-    public abstract void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false, InventoryMode mode = InventoryMode.Normal);
+    public abstract void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false, InventoryMode mode = InventoryMode.Normal, bool equipToOffhand = false);
     public abstract void UpdateUI();
     public abstract void OnRightClick();
     public abstract void OnLeftClick();

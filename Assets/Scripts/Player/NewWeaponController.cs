@@ -398,7 +398,7 @@ public class NewWeaponController : MonoBehaviour
         if (offHand != null)
         {
             ItemData itemData = SpawnedItemDataBase.Instance.CreateItemData(offHand, ItemQuality.Shoddy);
-            newPlayerController.PlayerContext.InventoryController.AddItemToInventory(itemData, true);
+            newPlayerController.PlayerContext.InventoryController.AddItemToInventory(itemData, true, true);
         }
     }
 

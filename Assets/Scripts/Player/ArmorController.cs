@@ -105,7 +105,7 @@ public class ArmorController : MonoBehaviour
         else
         {
             UnequipBodyArmor();
-            EquipHelmet(itemData);
+            EquipBodyArmor(itemData);
         }
     }
 
@@ -224,7 +224,7 @@ public class ArmorController : MonoBehaviour
         else
         {
             UnequipLegs();
-            EquipHelmet(itemData);
+            EquipLegs(itemData);
         }
     }
 

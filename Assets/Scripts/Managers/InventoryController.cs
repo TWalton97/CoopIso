@@ -61,12 +61,12 @@ public class InventoryController : MonoBehaviour
         PlayerContext.InventoryManager.RequestUnpause();
     }
 
-    public void AddItemToInventory(ItemData itemData, bool isEquipped = false)
+    public void AddItemToInventory(ItemData itemData, bool isEquipped = false, bool equipToOffhand = false)
     {
         PlayerContext.PlayerController.PlayerStatsBlackboard.AddCurrentWeight(itemData.ItemSO.Weight);
         InventoryItemView inventoryItemView = new InventoryItemView(itemData.ItemSO, itemData, 1, itemData.Quality, false, itemData.ItemID);
         inventoryItemView.GoldValue = inventoryItemView.DisplayGoldValue;
-        FindCorrectInventory(itemData.ItemSO).CreateButtonForItem(inventoryItemView, isEquipped);
+        FindCorrectInventory(itemData.ItemSO).CreateButtonForItem(inventoryItemView, isEquipped, equipToOffhand);
     }
 
     public void AddConsumableToInventory(ItemSO itemSO, int quantity)

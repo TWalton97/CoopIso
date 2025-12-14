@@ -8,7 +8,7 @@ public class ConsumableButton : ItemButton
     public int Quantity = 0;
     public TMP_Text QuantityText;
 
-    public override void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false, InventoryMode mode = InventoryMode.Normal)
+    public override void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false, InventoryMode mode = InventoryMode.Normal, bool equipToOffhand = false)
     {
         InventoryItemController = inventoryItemController;
         PlayerContext = playerContext;

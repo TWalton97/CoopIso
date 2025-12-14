@@ -19,7 +19,7 @@ public class EquippableButton : ItemButton
 
     public GemEntry[] GemEntries;
 
-    public override void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false, InventoryMode mode = InventoryMode.Normal)
+    public override void InitializeItemButton(InventoryItemController inventoryItemController, PlayerContext playerContext, InventoryItemView inventoryItemView, bool isEquipped = false, InventoryMode mode = InventoryMode.Normal, bool equipToOffhand = false)
     {
         InventoryItemController = inventoryItemController;
         PlayerContext = playerContext;
@@ -41,7 +41,15 @@ public class EquippableButton : ItemButton
 
         if (isEquipped)
         {
-            OnLeftClick();
+            if (equipToOffhand && CanEquipOffhand())
+            {
+                CallbackContext context = new CallbackContext();
+                OnEquipOffhand(context);
+            }
+            else
+            {
+                OnLeftClick();
+            }
         }
         else
         {

@@ -116,7 +116,7 @@ public class InventoryItemController : MonoBehaviour
         }
     }
 
-    public void CreateButtonForItem(InventoryItemView inventoryItemView, bool isEquipped = false)
+    public void CreateButtonForItem(InventoryItemView inventoryItemView, bool isEquipped = false, bool equipToOffhand = false)
     {
         ItemButton itemButton = Instantiate(ItemButtonPrefab, ItemButtonParent);
         string id = "";
@@ -137,7 +137,7 @@ public class InventoryItemController : MonoBehaviour
         }
 
         inventoryItemView.SlotID = id;
-        itemButton.InitializeItemButton(this, PlayerContext, inventoryItemView, isEquipped);
+        itemButton.InitializeItemButton(this, PlayerContext, inventoryItemView, isEquipped, InventoryMode.Normal, equipToOffhand);
     }
 
     public void RemoveButtonAtID(string id)

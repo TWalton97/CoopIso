@@ -81,8 +81,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f202e1230a85c42b34890278ab2ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minBudget: 10
-  maxBudget: 20
+  minBudget: 20
+  maxBudget: 40
   ChestStatus:
     GUID: 
     IsOpened: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   - {fileID: 1060900815880863096, guid: c071088d36a89504db4669b19c753c83, type: 3}
   consumablesToSpawn: []
   InteractionType: 1
+  Level: 0
 --- !u!95 &2976881862001060602
 Animator:
   serializedVersion: 5
