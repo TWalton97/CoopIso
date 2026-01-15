@@ -72,6 +72,19 @@ public class StatIncreaseFeat : FeatSO
             case StatToIncrease.AttackSpeed:
                 controller.PlayerController.PlayerStatsBlackboard.AttackSpeedMultiplier += ValuePerLevel[safeIndex] * 0.01f;
                 break;
+            case StatToIncrease.OneHandedDamage:
+                controller.PlayerController.PlayerStatsBlackboard.IncreasedOneHandedDamage += (int)ValuePerLevel[safeIndex];
+                break;
+            case StatToIncrease.DualWieldDamage:
+                controller.PlayerController.PlayerStatsBlackboard.IncreasedDualWieldDamage += (int)ValuePerLevel[safeIndex];
+                break;
+            case StatToIncrease.TwoHandedDamage:
+                controller.PlayerController.PlayerStatsBlackboard.IncreasedTwoHandedDamage += (int)ValuePerLevel[safeIndex];
+                break;
+            case StatToIncrease.BowDamage:
+                controller.PlayerController.PlayerStatsBlackboard.IncreasedBowDamage += (int)ValuePerLevel[safeIndex];
+                break;
+
         }
     }
 
@@ -97,5 +110,9 @@ public enum StatToIncrease
     MaximumMana,
     ManaRegen,
     MaximumCarryWeight,
-    AttackSpeed
+    AttackSpeed,
+    OneHandedDamage,
+    DualWieldDamage,
+    TwoHandedDamage,
+    BowDamage,
 }

@@ -19,6 +19,7 @@ MonoBehaviour:
   effects:
   - {fileID: 11400000, guid: 10ca0bb61e85b3b40809f34022a9ca28, type: 2}
   - {fileID: 11400000, guid: b224821a8f4643a469b2b9edb708430d, type: 2}
+  - {fileID: 11400000, guid: 4862f993a56e1e84f8de484ac0266301, type: 2}
   GemDescriptions:
   - AppliesTo: 0
     description: Has a chance to chill enemies on hit
@@ -28,7 +29,7 @@ MonoBehaviour:
   - AppliesTo: 1
     description: Temporarily increases armor by 1 every time you take damage
     gemAffix:
-      affixType: 0
+      affixType: 1
       affixText: of the Glacier
   - AppliesTo: 2
     description: Increases the level of Retaliate by 1

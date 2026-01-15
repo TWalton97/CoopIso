@@ -9,12 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae3e092c8e57fd45a9ee039c29de0a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ead421b314637b47befea67ea679503, type: 3}
   m_Name: DualWieldMastery
   m_EditorClassIdentifier: 
   FeatName: Dual Wield Mastery
-  SkillPointCostPerLevel: 03000000
-  passiveUnlock: 3
-  FeatDescription: Improves your ability to fight using two weapons
-  FeatUpgradeDescriptionPerLevel:
-  - Improves your ability to fight using two weapons
+  SkillPointCostPerLevel: 0100000001000000020000000200000003000000
+  Stat: 10
+  ValuePerLevel:
+  - 1
+  - 1
+  - 2
+  - 2
+  - 3
+  FeatDescription: 
+  isPercentage: 0

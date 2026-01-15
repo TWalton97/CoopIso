@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a98f76dcd288464587a7fe4c18a6404, type: 3}
   m_Name: Sapphire_ApplyBuff
   m_EditorClassIdentifier: 
-  AppliesTo: 0
-  Status: {fileID: 0}
+  AppliesTo: 1
+  Status: {fileID: 11400000, guid: 93955a7bd78ef7d47a6f81abf5b76087, type: 2}

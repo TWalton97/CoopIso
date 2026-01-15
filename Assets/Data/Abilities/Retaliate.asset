@@ -22,14 +22,10 @@ MonoBehaviour:
   CanRotateDuringCast: 1
   IsChannelingAbility: 0
   MaxLevel: 3
-  CurrentLevelDescription: 'Deals {DMG_CURR} damage to enemies in front of you when
-    you block an attack within 1s.
-
-    Effect can only trigger once every 7s.'
-  NextLevelDescription: 'Deals {DMG_NEXT} damage to enemies in front of you when
-    you block an attack within 1s.
-
-    Effect can only trigger once every 7s.'
-  RequiredWeaponRangeType: 1
-  DMG_PerLevel: 04000000080000000c000000
+  CurrentLevelDescription: Deals {DMG_CURR}% of equipped shield's armor as damage
+    to enemies in front of you when you block an attack within 0.5s.
+  NextLevelDescription: Deals {DMG_NEXT}% of equipped shield's armor as damage to
+    enemies in front of you when you block an attack within 0.5s.
+  RequiredWeaponRangeType: 3
+  DMG_PerLevel: 64000000c80000002c010000
   abilityBehaviourPrefab: {fileID: 5874985748845391156, guid: aa283cb5434be754ba0937b85c75c35c, type: 3}

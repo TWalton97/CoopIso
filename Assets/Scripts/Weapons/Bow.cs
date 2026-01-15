@@ -16,7 +16,7 @@ public class Bow : Weapon
     {
         if (ItemData.ItemSO is WeaponSO weaponData)
         {
-            int rolledDamage = Random.Range(ItemData.MinDamage, ItemData.MaxDamage + 1);
+            int rolledDamage = Random.Range(ItemData.MinDamage, ItemData.MaxDamage + 1) + PlayerContext.PlayerController.PlayerStatsBlackboard.GetBonusDamage(weaponAttackType);
             SpawnProjectiles(1, rolledDamage);
         }
     }

@@ -26,6 +26,12 @@ public class PlayerStatsBlackboard : MonoBehaviour
     public float CriticalChance = 10;
     public float CriticalDamage = 50;
 
+    public int IncreasedBowDamage = 0;
+    public int IncreasedOneHandedDamage = 0;
+    public int IncreasedDualWieldDamage = 0;
+    public int IncreasedTwoHandedDamage = 0;
+
+
     [Header("Resources")]
     public ResourceController ResourceController;
     public PlayerResource.ResourceType ResourceType;
@@ -191,10 +197,8 @@ public class PlayerStatsBlackboard : MonoBehaviour
 
     public int CalculateCritical(int damage)
     {
-        // CriticalDamage represents bonus % (50 => +50% => 1.5x)
         float critBonusPercent = CriticalDamage;
 
-        // PreparationDamageIncrease is also a bonus % 
         float prepBonusPercent = 0;
         if (HasPreparationBuff)
         {
@@ -202,19 +206,30 @@ public class PlayerStatsBlackboard : MonoBehaviour
             HasPreparationBuff = false;
         }
 
-        // Combine them additively (50% + 100% = 150% total bonus)
         float totalBonusPercent = critBonusPercent + prepBonusPercent;
 
-        // Convert to multiplier: 150% bonus = 1 + 1.5 = 2.5x
         float multiplier = 1f + (totalBonusPercent / 100f);
 
-        // Calculate final
         float rawDamage = damage * multiplier;
 
-        // Round to nearest integer (best for player-friendly damage)
         int finalDamage = Mathf.RoundToInt(rawDamage);
 
-        // Make sure crit never drops below 1
         return Mathf.Max(1, finalDamage);
+    }
+
+    public int GetBonusDamage(NewWeaponController.WeaponAttackTypes weaponAttackType)
+    {
+        switch (weaponAttackType)
+        {
+            case NewWeaponController.WeaponAttackTypes.OneHanded:
+                return IncreasedOneHandedDamage;
+            case NewWeaponController.WeaponAttackTypes.DualWield:
+                return IncreasedDualWieldDamage;
+            case NewWeaponController.WeaponAttackTypes.TwoHanded:
+                return IncreasedTwoHandedDamage;
+            case NewWeaponController.WeaponAttackTypes.Bow:
+                return IncreasedBowDamage;
+        }
+        return 0;
     }
 }

@@ -85,7 +85,7 @@ public class Weapon : MonoBehaviour
     {
         if (ItemData.ItemSO is WeaponSO weaponData)
         {
-            int rolledDamage = UnityEngine.Random.Range(minDamage, maxDamage);
+            int rolledDamage = UnityEngine.Random.Range(minDamage, maxDamage) + PlayerContext.PlayerController.PlayerStatsBlackboard.GetBonusDamage(weaponAttackType);
             hitbox.ActivateHitbox((int)(rolledDamage * GetComboDamageMultiplier(comboNumber - 1)));
         }
     }

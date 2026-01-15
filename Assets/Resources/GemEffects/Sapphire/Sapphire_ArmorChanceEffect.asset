@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1194bd21e50c3946a2b777c79b3bf8e, type: 3}
   m_Name: Sapphire_ArmorChanceEffect
   m_EditorClassIdentifier: 
-  AppliesTo: 0
-  chance: 0.2
-  childEffects: []
+  AppliesTo: 1
+  chance: 1
+  childEffects:
+  - {fileID: 11400000, guid: a20ad3e285d35d346a62727ce2146d4a, type: 2}

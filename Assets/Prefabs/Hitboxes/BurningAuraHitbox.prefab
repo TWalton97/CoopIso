@@ -89,7 +89,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2003628781529242846, guid: 69a9eee9de3faa84fa671f25cd13e9fb, type: 3}
       propertyPath: stopAction
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2003628781529242846, guid: 69a9eee9de3faa84fa671f25cd13e9fb, type: 3}
       propertyPath: VelocityModule.y.scalar

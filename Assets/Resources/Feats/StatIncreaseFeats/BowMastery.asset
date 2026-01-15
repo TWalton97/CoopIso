@@ -9,12 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae3e092c8e57fd45a9ee039c29de0a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ead421b314637b47befea67ea679503, type: 3}
   m_Name: BowMastery
   m_EditorClassIdentifier: 
   FeatName: Bow Mastery
-  SkillPointCostPerLevel: 03000000
-  passiveUnlock: 4
-  FeatDescription: Improves your ability to use a bow
-  FeatUpgradeDescriptionPerLevel:
-  - Unlocks bow mastery
+  SkillPointCostPerLevel: 0100000001000000020000000200000003000000
+  Stat: 12
+  ValuePerLevel:
+  - 1
+  - 1
+  - 2
+  - 2
+  - 3
+  FeatDescription: Increases your damage with ranged weapons
+  isPercentage: 0
